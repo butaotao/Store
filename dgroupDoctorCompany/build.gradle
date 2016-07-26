@@ -101,7 +101,6 @@ dependencies {
     compile project(':actionSheetLibrary')
     compile 'com.jakewharton:butterknife:7.0.1'
     compile files('libs/MiPush_SDK_Client_3_0_3.jar')
-    compile files('libs/asmack.jar')
     compile project(':pullToRefreshViewsLibrary')
     compile project(':ImSdk')
     compile files('libs/ormlite-jdbc-4.49-SNAPSHOT.jar')
