@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../ImSdkProject/ImSdk/ImSdk.iml" filepath="$PROJECT_DIR$/../ImSdkProject/ImSdk/ImSdk.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../CommonLibraryProject/videoConferencingLibrary/ImVideo.iml" filepath="$PROJECT_DIR$/../CommonLibraryProject/videoConferencingLibrary/ImVideo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../CommonLibraryProject/ImVideo/ImVideo.iml" filepath="$PROJECT_DIR$/../CommonLibraryProject/ImVideo/ImVideo.iml" />
       <module fileurl="file://$PROJECT_DIR$/MedicineProject.iml" filepath="$PROJECT_DIR$/MedicineProject.iml" />
       <module fileurl="file://$PROJECT_DIR$/../CommonLibraryProject/actionSheetLibrary/actionSheetLibrary.iml" filepath="$PROJECT_DIR$/../CommonLibraryProject/actionSheetLibrary/actionSheetLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/../CommonLibraryProject/barcodeScannerCore/barcodeScannerCore.iml" filepath="$PROJECT_DIR$/../CommonLibraryProject/barcodeScannerCore/barcodeScannerCore.iml" />
@@ -20,7 +20,7 @@
       <module fileurl="file://$PROJECT_DIR$/../CommonLibraryProject/pullToRefreshViewsLibrary/pullToRefreshViewsLibrary.iml" filepath="$PROJECT_DIR$/../CommonLibraryProject/pullToRefreshViewsLibrary/pullToRefreshViewsLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/../CommonLibraryProject/rTRoutineLib/rTRoutineLib.iml" filepath="$PROJECT_DIR$/../CommonLibraryProject/rTRoutineLib/rTRoutineLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/../CommonLibraryProject/rtmpResourceLib/rtmpResourceLib.iml" filepath="$PROJECT_DIR$/../CommonLibraryProject/rtmpResourceLib/rtmpResourceLib.iml" />
-      <module fileurl="file://$PROJECT_DIR$/videoConferencingLibrary/videoConferencingLibrary.iml" filepath="$PROJECT_DIR$/videoConferencingLibrary/videoConferencingLibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../CommonLibraryProject/videoConferencingLibrary/videoConferencingLibrary.iml" filepath="$PROJECT_DIR$/../CommonLibraryProject/videoConferencingLibrary/videoConferencingLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/../CommonLibraryProject/vitamioLibrary/vitamioLibrary.iml" filepath="$PROJECT_DIR$/../CommonLibraryProject/vitamioLibrary/vitamioLibrary.iml" />
     </modules>
   </component>
