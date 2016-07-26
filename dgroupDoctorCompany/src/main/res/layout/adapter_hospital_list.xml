@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="45dp"
+    android:id="@+id/rl_item_addone">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/name"
+        android:layout_centerVertical="true"
+        android:paddingLeft="17dp"
+        android:paddingRight="17dp"
+        android:textSize="16sp"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:maxEms="13"
+        android:textColor="@color/color_666666"
+        android:text="@string/null_info"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_adds"
+        android:layout_centerVertical="true"
+        android:textSize="16sp"
+        android:paddingLeft="7dp"
+        android:paddingRight="7dp"
+        android:background="@drawable/bulk_3cbaff"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="17dp"
+        android:textColor="@color/color_3cbaff"
+        android:text="添加"/>
+
+</RelativeLayout>
+    <RelativeLayout android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:visibility="gone"
+        android:id="@+id/rl_item">
+        <RadioButton android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:id="@+id/radionbutton"
+            android:background="@drawable/selector_btn_radiochoicemedicine"
+            android:button="@null"
+            android:layout_marginLeft="15dp"
+            android:layout_alignParentLeft="true"
+            />
+        <TextView android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/color_333333"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:id="@+id/tv_name"
+            android:ellipsize="end"
+            android:layout_toRightOf="@+id/radionbutton"
+            android:text="@string/null_info"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="18dp"
+            android:singleLine="true"/>
+
+    </RelativeLayout>
+</LinearLayout>

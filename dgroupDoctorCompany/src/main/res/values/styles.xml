@@ -1,0 +1,145 @@
+<resources>
+
+    <style name="AppTheme" parent="android:Theme.Holo.Light.NoActionBar"/>
+
+    <style name="Width_Height_MAT">
+
+        <item name="android:layout_width">match_parent</item>
+
+        <item name="android:layout_height">match_parent</item>
+
+    </style>
+    <style name="IMLineEditPass" parent="@style/IMLineEditText">
+        <item name="android:password">true</item>
+        <item name="android:inputType">textPassword</item>
+    </style>
+    <style name="radioButtons">
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/radiobtn_selector</item>
+        <item name="android:button">@null</item>
+    </style>
+    <style name="IMLineEditText" parent="@style/IMEditText">
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+    <style name="Dialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+    <style name="DashboardButton">
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:width">100dp</item>
+        <item name="android:height">100dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:drawablePadding">2dp</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/accent_1</item>
+    </style>
+    <style name="IMEditText">
+        <item name="android:textSize">16.0dip</item>
+        <item name="android:textColorHint">@color/gray_bbbbbb</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">44dp</item>
+        <item name="android:background">@null</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:singleLine">true</item>
+    </style>
+    <style name="Umengstyle" parent="android:Animation">
+        <item name="@android:windowEnterAnimation">@anim/umeng_socialize_slide_in_from_bottom</item>
+        <!-- 进入时的动画 -->
+        <item name="@android:windowExitAnimation">@anim/umeng_socialize_slide_out_from_bottom</item>
+        <!-- 退出时的动画 -->
+    </style>
+    <style name="ActionBar_BackBtn">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/title_bar_back</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="IMButton.Green" parent="@style/IMButton">
+        <item name="android:background">@drawable/button_green_bg</item>
+    </style>
+    <style name="Width_MAT_Height_WAP">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="Width_Height_WAP">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="IMButton">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@null</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">42dp</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+    </style>
+    <style name="BackStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:text">"返回"</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/color_3cbaff</item>
+        <item name="android:drawableLeft">@drawable/icon_back</item>
+        <item name="android:background">@null</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingRight">10dp</item>
+    </style>
+    <style name="IMButton.Red" parent="@style/IMButton">
+        <item name="android:background">@drawable/button_red_bg</item>
+    </style>
+
+    <style name="archive_category_grid_item">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:drawablePadding">3dp</item>
+    </style>
+
+    <style name="InputDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@drawable/shape_white_corner_dialog_bg</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="MeetingEditText">
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:background">@null</item>
+        <item name="android:textColor">@color/gray_333333</item>
+        <item name="android:textSize">@dimen/text_size_16sp</item>
+        <item name="android:textColorHint">@color/gray_cccccc</item>
+    </style>
+</resources>

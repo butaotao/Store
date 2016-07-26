@@ -1,0 +1,41 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="divide_line_height">0.5dp</dimen>
+    <dimen name="NormalTextSize">16.0dip</dimen>
+    <dimen name="BigTextSize">17.0dip</dimen>
+    <dimen name="padding_10dp">10dp</dimen>
+    <dimen name="margin_20dp_40px">20dp</dimen>
+    <dimen name="listview_item_height">45dp</dimen>
+    <dimen name="listview_item_marginleft">20dp</dimen>
+    <dimen name="listview_item_marginright">20dp</dimen>
+    <dimen name="widht20dp">20dp</dimen>
+    <dimen name="widht40dp">40dp</dimen>
+    <dimen name="listview_choice_item_height">110dp</dimen>
+    <dimen name="body_padding_medium">10dp</dimen>
+	<dimen name="body_padding_large">10dp</dimen>
+	<dimen name="text_size_small">14sp</dimen>	
+	<dimen name="text_size_medium">18sp</dimen>	
+	<dimen name="text_size_large">18sp</dimen>	
+	<dimen name="text_size_xlarge">18sp</dimen>	
+	<dimen name="speaker_image_size">36dp</dimen>	
+	<dimen name="speaker_image_padding">8dp</dimen>	
+	<dimen name="vendor_image_size">100dp</dimen>	
+	<dimen name="actionbar_height">45dip</dimen>	
+	<dimen name="actionbar_item_height">45dip</dimen>	
+	<dimen name="actionbar_item_width">45dip</dimen>
+	<dimen name="item_height_45dp">45dp</dimen>
+	<dimen name="item_height_50dp">56dp</dimen>
+	<dimen name="margin_left_15dp">15dp</dimen>
+	<dimen name="text_size_myinfo_16">16dp</dimen>
+	<dimen name="dialog_title_height">40dp</dimen>
+	<dimen name="text_size_20sp">16sp</dimen>
+	  <dimen name="text_size_18sp">16sp</dimen>
+	  <dimen name="margin_25dp_50px">25dp</dimen>
+	<dimen name="madie_unit_width">50dp</dimen>
+	<dimen name="madie_unit_margin_right">20dp</dimen>
+	<dimen name="choicemedicimagenamewidth">130dp</dimen>
+	<dimen name="advicemedicimagenamewidth">150dp</dimen>
+</resources>

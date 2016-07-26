@@ -1,0 +1,13 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+	<dimen name="galleryheight">68dp</dimen>
+	<dimen name="galleryweight">80dp</dimen>
+    <dimen name="timeheight">250dp</dimen>
+    <dimen name="galleryimagewidth">30dp</dimen>
+    <dimen name="canchange">60dp</dimen>
+    <dimen name="imagesize">25dp</dimen>
+    <dimen name="imageMargin">70dp</dimen>
+</resources>

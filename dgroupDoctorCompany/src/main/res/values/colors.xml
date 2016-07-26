@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="fragementselectcolor">#3cbaff</color>
+    <color name="fragementnoselectcolor">#000000</color>
+    <color name="color_background">#eef0f0</color>
+    <color name="color_dividerline">#D6D6D6</color>
+    <color name="interval_bg_color">#E2E1E6</color>
+    <color name="grey">#ffa7a7a7</color>
+    <color name="text_line_color">#cccccc</color>
+    <color name="press">#e8e8e8</color>
+    <color name="color_1B9ADE">#1B9ADE</color>
+    <color name="blue_3cbaff">#3cbaff</color>
+    <color name="blue_36a7e5">#36a7e5</color>
+    <color name="red_f95442">#f95442</color>
+    <color name="red_88f95442">#88f95442</color>
+    <color name="title_bg_color">#eaecec</color>
+    <color name="orange_f07406">#f07406</color>
+    <color name="background">#eef0f0</color>
+    <color name="waitfriendarg">#35debd</color>
+</resources>

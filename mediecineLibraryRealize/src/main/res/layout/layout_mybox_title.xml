@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/bulk_green_rightangle3" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="用药建议"
+            android:textColor="@color/color_0b687b"
+            android:textSize="17dp" />
+
+        <Button
+            android:id="@+id/btn_recomend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/btn_green_white"
+            android:paddingBottom="8dp"
+            android:paddingLeft="7dp"
+            android:layout_marginLeft="15dp" 
+            android:paddingRight="7dp"
+            android:paddingTop="8dp"
+            android:text="推荐药店" 
+            android:textColor="@color/color_333333"
+            android:textSize="13dp" />
+
+        <Button
+            android:id="@+id/btn_open"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/btn_recomend"
+            android:layout_alignBottom="@+id/btn_recomend"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/btn_green_white"
+            android:paddingBottom="8dp"
+            android:paddingLeft="7dp"
+            android:paddingRight="7dp"
+            android:paddingTop="8dp"
+            android:text="全部展开"
+            android:textColor="@color/color_333333"
+            android:textSize="13dp" />
+
+    </RelativeLayout>
+
+</LinearLayout>

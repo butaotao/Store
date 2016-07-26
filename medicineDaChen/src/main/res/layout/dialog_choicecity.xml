@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+      xmlns:app="http://schemas.android.com/apk/res-auto" 
+    android:background="@color/translate_white" >
+ 
+        <LinearLayout android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/myInfoChangeBackNameSpace"
+            android:background="@color/white">
+<RelativeLayout android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp">
+    <TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnSelectBank" 
+        android:text="1111"
+        android:layout_alignParentLeft="true"/>
+      <TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+         android:id="@+id/btnCancelSelectBank"
+         android:text="2222" 
+        android:layout_alignParentRight="true"
+        />
+</RelativeLayout>
+<View android:layout_width="fill_parent"
+    android:layout_height="1dip"
+    android:background="@color/black"/>
+       <com.dachen.medicine.view.WheelViews
+	            android:id="@+id/wv_address_province"
+	            android:layout_width="400dp" 
+	            android:layout_height="200dp"
+	            android:layout_gravity="center_vertical"
+	            android:layout_alignParentBottom="true"
+	            />
+
+</LinearLayout>
+<LinearLayout
+        android:id="@+id/spaceforcancel"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/myInfoChangeBackNameSpace"
+        android:orientation="horizontal" >
+    </LinearLayout>
+</RelativeLayout>

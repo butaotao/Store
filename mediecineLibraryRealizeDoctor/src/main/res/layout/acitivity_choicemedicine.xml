@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+    <include
+        android:id="@+id/titlebar"
+        layout="@layout/titlebars_doctor"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_titledes"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:layout_below="@+id/titlebar"
+        android:background="@color/auto_tender_item_bg">
+
+        <LinearLayout
+            android:id="@+id/ll_choice"
+            android:layout_width="fill_parent"
+            android:layout_height="45dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="20dp">
+
+            <TextView
+                android:id="@+id/tv_patient"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/null_info"/>
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/rl_titledes"
+        android:background="@color/auto_tender_item_bg">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <ListView
+                android:id="@+id/listview_medicine_parents"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:divider="@null"
+                android:scrollbars="none">
+            </ListView>
+
+
+            <ListView
+                android:id="@+id/listview_medicine_children"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="45.5dp"
+                android:divider="@null"
+                android:scrollbars="none">
+
+            </ListView>
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <include layout="@layout/layout_choicelist"/>
+</RelativeLayout>

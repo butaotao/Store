@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:id="@+id/ll_layout"
+    android:background="@color/translate">
+   <RelativeLayout
+    android:id="@+id/ll_horizontal_list"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+ 
+<RelativeLayout  
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" 
+     > 
+
+</RelativeLayout>
+<RelativeLayout  
+    android:layout_width="fill_parent"
+     android:layout_height="wrap_content" 
+      android:id="@+id/rl_list"
+      android:visibility="gone"   >
+ <Button android:layout_width="fill_parent"
+     android:layout_height="fill_parent"
+     android:id="@+id/btn_tra"
+     android:background="@drawable/tra"  />
+ <LinearLayout android:layout_width="fill_parent"
+     android:layout_height="45dp"
+     android:orientation="horizontal"
+     android:layout_alignParentBottom="true"
+     android:id="@+id/ll_botom">
+     
+ </LinearLayout> 
+ 
+  <LinearLayout android:layout_width="fill_parent"
+     android:layout_height="wrap_content"
+     android:orientation="vertical"
+     android:id="@+id/ll_above"
+      android:layout_above="@id/ll_botom"  >
+    
+ <LinearLayout android:layout_width="fill_parent"
+    android:layout_height="250dp" 
+    android:orientation="vertical">
+    
+</LinearLayout>
+ <include layout="@layout/layout_listtitlebar"/>
+        <ListView
+            android:id="@+id/horizontal_list"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" 
+            android:background="@color/white" 
+            android:scrollbars="none"    
+            android:divider="@color/color_grayline1dp"
+            android:dividerHeight="0.5dp"
+
+             />  
+              </LinearLayout> 
+	</RelativeLayout>
+
+
+<RelativeLayout   android:layout_width="fill_parent"
+     android:layout_height="56dp" 
+     android:layout_alignParentBottom="true"
+    android:background="@drawable/translate" >
+    <View android:layout_width="fill_parent"
+    android:layout_height="45dp"
+    android:layout_alignParentBottom="true"
+    android:background="@color/color_cententbackground"
+    android:id="@+id/view_1"/>
+<View android:layout_width="fill_parent"
+    android:layout_height="0.5dp"
+    android:layout_above="@id/view_1"
+    android:background="@color/color_grayline1dp"/>
+
+	<RelativeLayout
+	    android:layout_width="fill_parent"
+	    android:layout_height="56dp"
+	    android:layout_alignParentBottom="true"
+	    android:layout_alignParentLeft="true" >
+	<RelativeLayout
+	    android:layout_width="fill_parent"
+	    android:layout_height="56dp"
+	    android:id="@+id/rl_ivnum"
+	    android:layout_alignParentBottom="true"
+	    android:layout_alignParentLeft="true" >
+	  
+ 
+
+	    <ImageView
+	        android:id="@+id/ivbuycar"
+	        android:layout_width="45dp"
+	        android:layout_height="45dp"
+	        android:layout_alignParentLeft="true"
+	        android:layout_alignParentTop="true"
+	        android:layout_marginLeft="19dp"
+	        android:background="@drawable/buycar_nobuy" />
+	    <Button
+	        android:id="@+id/iv_num"
+	        android:layout_width="wrap_content"
+	        android:layout_height="20dp"
+	        android:minHeight="20dp"
+	        android:layout_marginLeft="48dp"
+	        android:minWidth="20dp"
+	        android:layout_alignParentTop="true" 
+	         android:textColor="@color/white"
+	        android:background="@drawable/circlered" />
+	     <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@id/iv_num"
+	        android:layout_marginLeft="16dp"
+	        android:layout_toRightOf="@+id/iv_num"
+	        android:text="@string/null_info"
+	        android:id="@+id/tv_alertnullnum"
+	        android:textColor="@color/color_666666"
+	        android:textSize="14dp" /> 
+</RelativeLayout>
+
+	     <Button
+	         android:id="@+id/btn_confirm"
+	         android:layout_width="80dp"
+	         android:layout_height="37dp" 
+	         android:textSize="16dp"
+	         android:textColor="@color/white"
+	         android:layout_marginRight="10dp"
+	         android:layout_alignParentBottom="true"
+	         android:layout_alignParentRight="true"
+	         android:background="@drawable/btn_green_all2"
+	         android:layout_marginBottom="3dp"
+	         android:text="选好了" />
+
+</RelativeLayout>
+</RelativeLayout>
+</RelativeLayout>  
+
+</LinearLayout> 

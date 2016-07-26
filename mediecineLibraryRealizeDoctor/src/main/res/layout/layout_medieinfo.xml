@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/listview_choice_item_height"
+            android:id="@+id/ll_childern"
+            android:gravity="center_vertical" >
+
+            <ImageView
+                android:layout_width="87dp"
+                android:layout_height="87dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:id="@+id/img_listview"
+                android:src="@drawable/image_nodownload" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignTop="@+id/img_listview"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
+                android:layout_toRightOf="@id/img_listview"
+                android:gravity="center_vertical" >
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:id="@+id/rl_medicinename"
+                    >
+
+                    <LinearLayout android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/ll_medicinename">
+                        <TextView android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/null_info"
+                            android:textSize="16dp"
+                            android:singleLine="true"
+                            android:ellipsize="end"
+                            android:maxLength="10"
+                            android:id="@+id/tv_medicine_name"
+                            android:textColor="@color/color_333333"
+                            />
+                        <TextView android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/null_info"
+                            android:id="@+id/tv_medicine_height"
+                            android:layout_marginLeft="5dp"
+                            android:textSize="13dp"
+                            android:singleLine="true"
+                            android:maxLength="10"
+                            android:textColor="@color/color_aaaaaa"
+                            />
+                    </LinearLayout>
+                    <TextView android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/ll_medicinename"
+                        android:textColor="@color/color_aaaaaa"
+                        android:id="@+id/tv_company"
+                        android:textSize="14dp"
+                        android:maxLines="1"
+                        android:layout_marginTop="7dp"
+                        android:text="@string/null_info"/>
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

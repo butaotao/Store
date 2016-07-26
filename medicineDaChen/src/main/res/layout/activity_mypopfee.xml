@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/content_color" >
+    <include layout="@layout/titlebar"
+        android:id="@+id/titlebar"/>
+<LinearLayout android:layout_width="fill_parent"
+    android:layout_height="60dp"
+    android:background="@color/white"
+    android:layout_below="@id/titlebar"
+    android:orientation="horizontal"
+    android:id="@+id/ll_canout"
+    android:visibility="gone"
+    android:layout_gravity="center_vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:text="已审核推广费:"
+         android:layout_marginLeft="18dp"
+        android:gravity="center_vertical"
+        android:textColor="@color/color_333333"
+        android:textSize="17sp" />
+
+    <TextView android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:text="@string/null_info"
+         android:gravity="center_vertical"
+        android:id="@+id/tv_totalmoney"
+         android:layout_marginLeft="5dp"
+        android:textSize="27sp"
+        android:textColor="@color/color_ff9d6a"/>
+</LinearLayout>
+
+<View android:layout_width="fill_parent"
+    android:layout_height="0.5dp"
+    android:layout_below="@id/ll_canout"
+    android:layout_marginLeft="18dp"
+    android:layout_marginRight="18dp"
+    android:id="@+id/lineone"
+    android:visibility="gone"
+    android:background="@color/color_grayline1dp"/>
+
+
+<RelativeLayout android:layout_width="fill_parent"
+    android:layout_height="60dp"
+    android:background="@color/white" 
+    android:orientation="horizontal"
+    android:id="@+id/ll_verify"
+    android:visibility="gone"
+    android:layout_below="@id/lineone"
+    android:layout_gravity="center_vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:text="待审核推广费:"
+         android:layout_marginLeft="18dp"
+        android:gravity="center_vertical"
+        android:id="@+id/tv_needverify_des"
+        android:textColor="@color/color_333333"
+        android:textSize="17sp" />
+
+    <TextView android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:text="@string/null_info"
+         android:gravity="center_vertical"
+        android:id="@+id/tv_needverify"
+        android:maxLength="7"
+         android:layout_marginLeft="5dp"
+        android:textSize="27sp"
+        android:layout_toRightOf="@id/tv_needverify_des"
+        android:textColor="@color/color_333333"/>
+
+    <TextView
+        android:id="@+id/tv_records"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_alignBaseline="@+id/tv_needverify_des"
+        android:layout_alignBottom="@+id/tv_needverify_des"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="18dp"
+        android:gravity="center_vertical"
+        android:text="打款记录"
+        android:textColor="@color/color_aaaaaa"
+        android:textSize="16sp" />
+
+</RelativeLayout>
+<View android:layout_width="fill_parent"
+    android:layout_height="0.5dp"
+    android:layout_below="@id/ll_verify"
+    android:id="@+id/linetwo"
+    android:visibility="gone"
+    android:background="@color/color_grayline1dp"/>
+<ListView android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/listview"
+    android:layout_below="@id/titlebar"
+    android:scrollbars="none"
+    android:layout_marginTop="10dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp" 
+    android:divider="@color/translate"
+    android:dividerHeight="10dp">
+    
+</ListView>
+<RelativeLayout android:layout_width="fill_parent"
+    android:layout_height="50dp" 
+    android:layout_alignParentBottom="true"
+    android:visibility="gone"
+    android:background="@color/white">
+    <View android:layout_width="fill_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/color_grayline1dp"/>
+    <Button android:layout_width="fill_parent"
+        android:layout_height="44dp" 
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="3dp"
+        android:text="提现"
+        
+        android:id="@+id/btn_out"
+        android:textColor="@color/white"
+        android:background="@drawable/btn_green_all2"/>
+</RelativeLayout>
+</RelativeLayout>

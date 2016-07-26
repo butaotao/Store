@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list 
+    xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:oneshot="false">
+    <item android:drawable="@drawable/round1" android:duration="100"></item>
+    <item android:drawable="@drawable/round2" android:duration="100"></item>
+    <item android:drawable="@drawable/round3" android:duration="100"></item>
+    <item android:drawable="@drawable/round4" android:duration="100"></item>
+    <item android:drawable="@drawable/round5" android:duration="100"></item>
+    <item android:drawable="@drawable/round6" android:duration="100"></item>
+    <item android:drawable="@drawable/round7" android:duration="100"></item>
+    <item android:drawable="@drawable/round8" android:duration="100"></item>
+    <item android:drawable="@drawable/round9" android:duration="100"></item>
+    <item android:drawable="@drawable/round10" android:duration="100"></item>
+    <item android:drawable="@drawable/round11" android:duration="100"></item>
+    <item android:drawable="@drawable/round12" android:duration="100"></item>
+</animation-list>

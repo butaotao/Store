@@ -1,0 +1,62 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_f4f7f7" >
+
+    <include
+        android:id="@+id/titlebar"
+        layout="@layout/titlebars_patient" />
+
+    <RelativeLayout
+        android:id="@+id/rl_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/titlebar" >
+
+        <ListView
+            android:id="@+id/listview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:cacheColorHint="#00000000"
+            android:divider="@color/translate"
+            android:dividerHeight="0.5dp"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:listSelector="#00000000"
+            android:paddingTop="10dp"
+            android:scrollbarSize="0dp" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@id/listview"
+            android:background="@color/color_grayline1dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_nullinfo"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/titlebar"
+        android:background="@color/color_f4f7f7" >
+
+        <TextView
+            android:id="@+id/tv_alert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="您的药箱还是空的哦"
+            android:textColor="@color/color_666666"
+            android:textSize="16dp" />
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="70dp"
+            android:layout_above="@id/tv_alert"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/myempbox" />
+    </RelativeLayout>
+
+</RelativeLayout>

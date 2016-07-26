@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/color_background"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include
+            android:id="@+id/layout_titlebar"
+            layout="@layout/layout_parent_titlebar_groupcompany"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tvSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:text="确定"
+            android:textColor="@color/color_3cbaff"
+            android:textSize="17sp"/>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:gravity="left|center"
+        android:paddingLeft="15dp"
+        android:text="从以下组织中选择"
+        android:textColor="@color/gray_333333"
+        android:textSize="16sp"
+        android:background="@color/background"/>
+
+    <ListView
+        android:id="@+id/lvOrg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:divider="@color/color_dividerline"
+        android:dividerHeight="0.5dp"
+        android:scrollbars="none"/>
+
+</LinearLayout>

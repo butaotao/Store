@@ -1,0 +1,57 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/normal_bg"
+    android:orientation="vertical" >
+    <RelativeLayout
+        style="@style/ActionBar_Container" 
+        android:id="@+id/sort_top"
+        android:focusable="true"  
+   		android:focusableInTouchMode="true">
+
+        <Button
+            android:id="@+id/back_step_btn"
+            style="@style/ActionBar_BackBtn"/>    
+            
+        <TextView
+            android:id="@+id/reset_top_txt"
+            style="@style/ActionBar_Title"
+            android:text="" />
+        
+    </RelativeLayout> 
+
+    <com.dachen.medicine.view.ClearEditText
+        android:id="@+id/password_edit"
+        style="@style/IMLineEditPass"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/inputbox"
+          android:cursorVisible="true"
+                android:textCursorDrawable="@null" 
+        android:hint="@string/please_input_password_register" />
+
+    <com.dachen.medicine.view.ClearEditText
+        android:id="@+id/confirm_password_edit"
+        style="@style/IMLineEditPass"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginTop="9dp"
+        android:background="@drawable/inputbox"
+          android:cursorVisible="true"
+                android:textCursorDrawable="@null" 
+        android:hint="请再次输入密码" />
+
+    <Button
+        android:id="@+id/sure_btn"
+        style="@style/IMButton.Green"
+              android:background="@drawable/btn_green_all"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="50dp"
+        android:text="完成"
+        android:textSize="18sp"/>
+
+</LinearLayout>

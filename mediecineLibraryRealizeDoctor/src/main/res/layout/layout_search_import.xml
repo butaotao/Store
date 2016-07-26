@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="54dp"
+    android:background="@color/translate"
+    android:orientation="vertical" >
+
+   
+    
+ 
+ <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" 
+                    android:id="@+id/ll_search" 
+                         android:layout_marginTop="7dp"
+                       android:background="@drawable/btn_all_32ffffff"
+                    >
+                    <com.dachen.medicine.view.ClearEditText
+                       android:id="@+id/et_search"
+                       
+                       android:layout_toRightOf="@id/iv_search"
+                        android:layout_width="fill_parent"
+                        android:layout_height="match_parent" 
+                        android:gravity="center_vertical"
+                     android:background="@color/translate"
+                          android:hint="输入药品名、拼音首字母查询"
+                        android:singleLine="true"
+                           android:cursorVisible="true"
+               		 android:textCursorDrawable="@null" 
+                	android:paddingLeft="5dp"
+                	android:imeOptions="actionSearch"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/color_88ffffff"
+                       
+                        android:textSize="16dp" >
+ 				<requestFocus />
+                    </com.dachen.medicine.view.ClearEditText>
+
+                    <ImageView
+                        android:id="@+id/iv_search"
+                        android:layout_width="23dp" 
+                        android:layout_height="23dp"  
+                        android:layout_marginTop="7dp"
+                        android:layout_alignParentLeft="true" 
+                        android:contentDescription="@null"  
+                        android:src="@drawable/search" />
+
+                </RelativeLayout>
+                <!-- 分割线 -->
+           <!--      <View
+                      android:layout_marginLeft="30dp"
+                    android:layout_width="match_parent" 
+                    android:layout_height="0.5dp"   
+                    android:layout_marginTop="46dp"
+                    android:background="@color/white" />   -->  
+    
+    
+</RelativeLayout>

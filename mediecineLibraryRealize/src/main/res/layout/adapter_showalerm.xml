@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="55dp"
+    android:orientation="horizontal">
+
+
+    <ImageView
+        android:id="@+id/tv_right_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="18dp"
+        android:background="@drawable/ic_right_arrow" />
+
+    <ImageView
+        android:id="@+id/iv_alarm"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="5dp"
+        android:layout_toLeftOf="@id/tv_right_arrow"
+        android:background="@drawable/closealarm" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="5dp"
+        android:layout_toLeftOf="@id/iv_alarm"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_name"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLength="13"
+                android:singleLine="true"
+                android:text="@string/null_info"
+                android:textColor="@color/color_333333"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/tv_lastnum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLength="6"
+                android:singleLine="true"
+                android:text="@string/null_info"
+                android:textColor="@color/color_333333"
+                android:textSize="17dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ll_name"
+            android:singleLine="true"
+            android:text="@string/null_info"
+            android:textColor="@color/color_3CB2CC"
+            android:textSize="16dp" />
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/color_background">
+
+    <include
+        android:id="@+id/layout_titlebar"
+        layout="@layout/layout_parent_titlebar_groupcompany"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <RelativeLayout
+        android:id="@+id/rl_history"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/layout_titlebar"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingLeft="15dp"
+            android:paddingTop="20dp"
+            android:text="搜索历史"
+            android:textColor="@color/color_666666" />
+
+        <Button
+            android:id="@+id/btn_clear"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/btn_bulk_gray2"
+            android:gravity="center"
+            android:text="清空"
+            android:textColor="@color/color_666666"
+            android:textSize="13dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/divide_line_color"></View>
+    </RelativeLayout>
+    <!--<com.dachen.medicine.view.NoScrollerListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+       >-->
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/rl_history"
+        android:divider="@color/color_grayline1dp"
+        android:dividerHeight="0.5dp"
+        android:scrollbars="none" />
+
+    <RelativeLayout
+        android:id="@+id/rl_sure"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:visibility="gone">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/divide_line_color"></View>
+
+        <Button
+            android:id="@+id/btnsure"
+            android:layout_width="77dp"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/btn_blue_all_3cbaff"
+            android:text="确定 (0)"
+            android:textColor="@color/white" />
+
+    </RelativeLayout>
+
+    <!--</com.dachen.medicine.view.NoScrollerListView>-->
+    <RelativeLayout
+        android:id="@+id/rl_nofound"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/layout_titlebar"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_alert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="抱歉!该药品未能在品种库中找到。"
+            android:textColor="@color/color_aaaaaa"
+            android:textSize="18dp" />
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_above="@+id/tv_alert"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/search" />
+    </RelativeLayout>
+
+    <include
+        layout="@layout/layout_nosearchresult"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/layout_titlebar"></include>
+</RelativeLayout>

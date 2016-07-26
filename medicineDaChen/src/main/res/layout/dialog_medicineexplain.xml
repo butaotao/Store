@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   
+   
+    android:background="@drawable/translate_window"
+     >
+    <LinearLayout android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" 
+        android:layout_marginBottom="50dp">
+<LinearLayout android:layout_width="fill_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1">
+    
+</LinearLayout>
+<LinearLayout android:layout_width="fill_parent"
+    android:layout_height="50dp"
+    android:gravity="center_vertical"
+    android:background="@color/white">
+<TextView android:textColor="@color/color_333333"
+          android:textSize="18sp"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="18dp"
+         android:id="@+id/tv_name" 
+          android:text="@string/null_info"/>
+</LinearLayout>
+
+<LinearLayout android:layout_width="fill_parent"
+    android:layout_height="50dp"
+    android:gravity="center_vertical"
+    android:background="@color/white">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:layout_marginLeft="50dp"
+        android:text="规格："
+        android:textColor="@color/color_333333"
+        android:textSize="16sp" />
+
+<TextView android:textColor="@color/color_aaaaaa"
+          android:textSize="16sp"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="18dp"
+         android:id="@+id/tv_special" 
+          android:text="@string/null_info"/>
+
+</LinearLayout>
+<LinearLayout android:layout_width="fill_parent"
+    android:layout_height="50dp"
+    android:gravity="center_vertical"
+    android:background="@color/white">
+<TextView android:textColor="@color/color_333333"
+          android:textSize="16sp"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="18dp"
+        
+          android:text="包装规格："/>
+
+<TextView android:textColor="@color/color_aaaaaa"
+          android:textSize="16sp"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="18dp"
+         android:id="@+id/tv_pack_special" 
+          android:text="@string/null_info"/>
+
+</LinearLayout>
+
+<LinearLayout android:layout_width="fill_parent"
+    android:layout_height="50dp"
+    android:gravity="center_vertical"
+    android:background="@color/white">
+<TextView android:textColor="@color/color_333333"
+          android:textSize="16sp"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="18dp"
+        
+          android:text="生产厂家："/>
+
+<TextView android:textColor="@color/color_aaaaaa"
+          android:textSize="16sp"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="18dp"
+         android:id="@+id/tv_prucuctname" 
+          android:text="@string/null_info"/>
+
+</LinearLayout>
+
+<LinearLayout android:layout_width="fill_parent"
+    android:layout_height="50dp"
+    android:gravity="center_vertical"
+    android:id="@+id/ll_zeng"
+    android:background="@color/white">
+<TextView android:textColor="@color/color_333333"
+          android:textSize="16sp"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="18dp"
+        
+          android:text="赠药信息："/>
+
+<TextView android:textColor="@color/color_5bc7b9"
+          android:textSize="16sp"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="18dp"
+         android:id="@+id/tv_gavemedieva" 
+          android:text="@string/null_info"/>
+
+</LinearLayout>
+
+<View android:layout_width="fill_parent"
+    android:layout_height="0.5dp"
+    android:background="@color/color_grayline1dp"/>
+    
+   
+   </LinearLayout>
+   <Button android:layout_width="fill_parent"
+       android:layout_height="50dp"
+       android:background="@color/white"
+       android:textColor="@color/color_333333"
+       android:layout_alignParentBottom="true"
+       android:id="@+id/btn_cancel"
+       
+       android:text="收起"/>
+   <View android:layout_width="fill_parent"
+       android:layout_height="0.5dp"
+       
+       android:background="@color/color_grayline1dp"
+       android:layout_above="@id/btn_cancel"/>
+</RelativeLayout>

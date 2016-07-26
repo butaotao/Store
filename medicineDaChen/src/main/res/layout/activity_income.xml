@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/content_color"
+              android:orientation="vertical">
+
+    <include
+        layout="@layout/titlebar"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp">
+    </include>
+
+    <com.handmark.pulltorefresh.library.PullToRefreshScrollView
+        android:id="@+id/refreshScrollView"
+        xmlns:pull="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        pull:ptrAnimationStyle="flip">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:id="@+id/ll_waitgive"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:background="@color/color_5bc7b9"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/rl_waitgivemoney"
+                    android:layout_width="0dp"
+                    android:layout_height="65dp"
+                    android:layout_weight="1"
+                    >
+
+                    <TextView
+                        android:id="@+id/tv_waitgivemoney"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="18dp"
+                        android:layout_marginTop="10dp"
+                        android:text="账户余额(元)"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/tv_waitgive"
+                        android:layout_marginLeft="9dp"
+                        android:layout_marginStart="9dp"
+                        android:layout_toEndOf="@+id/tv_waitgivemoney"
+                        android:layout_toRightOf="@+id/tv_waitgivemoney"
+                        android:background="@drawable/ic_right_arrow"/>
+
+                    <TextView
+                        android:id="@+id/tv_waitgive"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/tv_waitgivemoney"
+                        android:layout_alignStart="@+id/tv_waitgivemoney"
+                        android:layout_below="@id/tv_waitgivemoney"
+                        android:layout_marginTop="5dp"
+                        android:text=""
+                        android:textColor="@color/white"
+                        android:textSize="18sp"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_allhavemoney"
+                    android:layout_width="0dp"
+                    android:layout_height="65dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/tv_allhavemoneys"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="18dp"
+                        android:layout_marginTop="10dp"
+                        android:text="总收入(元)"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@id/tv_allhavemoneys"
+                        android:layout_marginLeft="11dp"
+                        android:layout_marginStart="11dp"
+                        android:layout_toEndOf="@id/tv_allhavemoneys"
+                        android:layout_toRightOf="@id/tv_allhavemoneys"
+                        android:background="@drawable/ic_right_arrow"/>
+
+                    <TextView
+                        android:id="@+id/tv_allhavemoney"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/tv_allhavemoneys"
+                        android:layout_alignStart="@+id/tv_allhavemoneys"
+                        android:layout_below="@id/tv_allhavemoneys"
+                        android:layout_marginTop="5dp"
+                        android:text=""
+                        android:textColor="@color/white"
+                        android:textSize="18sp"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_waitaudit"
+                android:layout_width="fill_parent"
+                android:layout_height="80dp"
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginTop="10dp"
+                    android:text="待审核金额(元)"
+                    android:textColor="@color/color_aaaaaa"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/tv_waitaudit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/textView3"
+                    android:layout_alignStart="@+id/textView3"
+                    android:layout_below="@+id/textView3"
+                    android:layout_marginTop="5dp"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="18sp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="13dp"
+                    android:layout_marginRight="18dp"
+                    android:background="@drawable/ic_right_arrow"/>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+
+                <RelativeLayout
+                    android:id="@+id/rl_rule"
+                    android:layout_width="fill_parent"
+                    android:layout_height="45dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="18dp"
+                        android:text="收入规则"
+                        android:textColor="@color/color_aaaaaa"
+                        android:textSize="16sp"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="18dp"
+                        android:background="@drawable/ic_right_arrow"/>
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+    </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
+</LinearLayout>

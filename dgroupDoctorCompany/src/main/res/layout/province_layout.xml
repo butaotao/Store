@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color"
+    android:orientation="vertical" >
+
+    <include layout="@layout/layout_parent_titlebar_groupcompany"
+        android:id="@+id/layout_titlebar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
+
+    <com.handmark.pulltorefresh.library.PullToRefreshScrollView
+        xmlns:pull="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        pull:ptrAnimationStyle="flip" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/layout_city"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#F2F2F2"
+                    android:paddingBottom="10dip"
+                    android:paddingLeft="15dip"
+                    android:paddingTop="10dip"
+                    android:text="热门城市" />
+
+                <TextView
+                    android:id="@+id/tv_beijing"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/selector_btn_press"
+                    android:padding="15dip"
+                    android:text="北京市" />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:background="@color/text_line_color" />
+
+                <TextView
+                    android:id="@+id/tv_shanghai"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/selector_btn_press"
+                    android:padding="15dip"
+                    android:text="上海市" />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:background="@color/text_line_color" />
+
+                <TextView
+                    android:id="@+id/tv_guangzhou"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/selector_btn_press"
+                    android:padding="15dip"
+                    android:text="广州市" />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:background="@color/text_line_color" />
+
+                <TextView
+                    android:id="@+id/tv_shenzhen"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/selector_btn_press"
+                    android:padding="15dip"
+                    android:text="深圳市" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#F2F2F2"
+                    android:paddingBottom="10dip"
+                    android:paddingLeft="15dip"
+                    android:paddingTop="10dip"
+                    android:text="按省份选择城市" />
+            </LinearLayout>
+
+            <com.dachen.dgroupdoctorcompany.views.NoScrollerListView
+                xmlns:pull="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/refreshlistview"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:cacheColorHint="#00000000"
+                android:divider="@null"
+                android:dividerHeight="0px"
+                android:fadingEdge="none"
+                android:fastScrollEnabled="false"
+                android:footerDividersEnabled="false"
+                android:headerDividersEnabled="false"
+                android:listSelector="#00000000"
+                android:paddingBottom="10dip"
+                android:scrollbars="none"
+                android:smoothScrollbar="true" />
+        </LinearLayout>
+    </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
+
+</LinearLayout>

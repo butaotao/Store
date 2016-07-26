@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="@color/content_color">
+   <include layout="@layout/titlebars_patient"
+       android:id="@+id/id_titlebar"/>
+   <RelativeLayout android:layout_width="fill_parent"
+       android:layout_height="90dp"
+       android:id="@+id/rl_des"
+       android:layout_below="@id/id_titlebar"
+       android:background="@color/white">
+       <RelativeLayout android:layout_width="fill_parent"
+           android:layout_height="wrap_content"
+           android:layout_centerInParent="true">
+
+           <TextView
+               android:id="@+id/tv_data"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_alignParentTop="true"
+               android:layout_centerHorizontal="true"
+               android:text="@string/null_info"
+               android:textColor="@color/color_333333"
+               android:textSize="18sp" />
+
+           <TextView
+               android:id="@+id/tv_time"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_below="@id/tv_data"
+               android:text="@string/null_info"
+                 android:layout_centerHorizontal="true"
+               android:textColor="@color/color_333333"
+               android:textSize="18sp" />
+
+       </RelativeLayout>
+   </RelativeLayout>
+   <View android:layout_width="fill_parent"
+       android:layout_height="0.5dp"
+       android:layout_below="@id/rl_des"
+       android:id="@+id/line1"
+       android:background="@color/color_grayline1dp"/>
+<ListView android:layout_width="fill_parent"
+    android:layout_below="@id/line1"
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    android:divider="@null"
+
+    android:id="@+id/listview"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_below="@id/line1"
+        android:visibility="gone"
+        android:id="@+id/rl_nocontent"
+        android:layout_height="match_parent">
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true"
+    android:textColor="@color/color_aaaaaa"
+    android:textSize="16sp"
+    android:text="该时间段没有用药计划"/>
+    </RelativeLayout>
+</RelativeLayout>

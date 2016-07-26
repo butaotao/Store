@@ -1,0 +1,26 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/auto_tender_item_bg"  >
+<include layout="@layout/titlebars_doctor"
+    android:id="@+id/titlebar"/>
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/titlebar"
+        android:divider="@color/translate"  
+android:layout_marginBottom="45dp"
+android:scrollbars="none"
+        android:dividerHeight="0.5dp"
+        android:scrollbarSize="0dp" />
+
+<View android:layout_width="fill_parent"
+    android:layout_height="0.5dp"
+    android:layout_below="@id/listview"
+    android:layout_marginBottom="45dp"
+    android:background="@color/color_grayline1dp"/>
+<include layout="@layout/layout_choicelist"/>
+</RelativeLayout>

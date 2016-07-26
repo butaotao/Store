@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+ 
+
+<string name="intro"> The webview before show js call Umeng Analytics APIs</string>
+    <string name="panels_app_name">Test Panels</string>
+    <string name="switcher_app_name">Test Switcher</string>
+    <string name="common__confirm">确认</string>
+    <string name="common__cancel">取消</string>
+    <string name="smoothbutton_app_name">Test SmoothButton</string>
+    <string name="interpolators_app_name">Test Interpolators</string>
+    <string name="theme_app_name">Test Theme</string>
+    <string name="virtual_keyboard_app_name">Test Virtual Keyboard</string>
+    <string name="custom_title_app_name">Test Custom Title</string>
+   	<string name="b0"><b>press me</b> - left animation - 750 msec</string>
+	<string name="b1"><b>press me</b> - right animation - 1500 msec</string>
+    <string name="app_name">药店圈</string>
+     <string name="xlistview_header_hint_normal">下拉刷新</string>
+    <string name="xlistview_header_hint_ready">松开刷新数据</string>
+    <string name="xlistview_header_hint_loading">正在加载...</string>
+    <string name="xlistview_header_last_time">上次更新时间：</string>
+    <string name="xlistview_footer_hint_normal">查看更多</string>
+    <string name="xlistview_footer_hint_ready">松开载入更多</string>
+	<string name="pull_to_refresh_footer_refreshing_label">加载中\u2026</string>
+	 <string name="pull_to_refresh_footer_pull_label">加载更多</string>
+	<string name="pull_to_refresh_pull_label">刷新</string>
+	<string name="pull_to_refresh_release_label">松开后刷新</string>
+	<string name="pull_to_refresh_footer_release_label">松开后加载</string>
+	<string name="pull_to_refresh_refreshing_label">刷新\u2026</string>
+    <!-- LoginActivity -->
+    <string name="user_telphone_login">使用手机号登录</string>
+    <string name="register_account">注册用户</string>
+    <string name="forget_password">忘记密码?</string>
+    <string name="login_failed">登陆失败</string>
+<string name="toast_network_exception">当前没有连接到网络哦!</string>
+    <!-- LoginHistoryActivity -->
+    <string name="switch_account">切换账号</string>
+       <string name="login">登录</string>
+    <string name="register">注册</string>
+      <string name="please_input_phone_number">请输入手机号</string>
+    <string name="please_input_auth_code">请输入验证码</string>
+    <string name="please_input_password">请输入密码</string>
+    <string name="please_confirm_password">请确认密码</string>
+    <string name="please_input_name">请输入姓名</string>
+    <string name="please_input_hospital">请输入所属医院</string>
+    <string name="please_input_department">请输入科室</string>
+    <string name="please_input_title">请输入职称</string>
+    <string name="please_input_new_password">请输入新密码</string>
+    <string name="please_confirm_new_password">请确认新密码</string>
+    <string name="please_input_keyword">请输入关键字</string>
+    <string name="please_input_register_phone_number">请输入注册手机号</string>
+      <string name="toast_verify_phone_null">手机号码不能为空！</string>
+    <string name="toast_verify_phone_length">手机号码有误，请输入11位手机号码！</string>
+    <string name="toast_verify_password_null">密码不能为空！</string>
+    <string name="toast_verify_sms_code_null">验证码不能为空！</string>
+    <string name="toast_phone_no_register">您输入的账号不存在，请先注册!</string>
+    <string name="toast_login_success">登录成功!</string>
+    <string name="login_dialog_msg">正在登录</string>
+    <string name="home">首页</string>
+    <string name="home_tab_settings">设置</string>
+     <string name="sellrecord">销售记录</string>
+    <string name="null_info">--</string>
+    <string name="choicemedicineforlist">加\n入\n选\n单</string>
+      <string name="sure">确定</string>
+    <string name="cancel">取消</string>
+    <string name="complete">完成</string>
+    <string name="yes">是</string>
+    <string name="no">否</string>
+    <string name="save">保存</string>
+    <string name="saveing">保存中</string>
+    <string name="save_success">保存成功</string>
+    <string name="save_failed">保存失败</string>
+    <string name="delete">删除</string>
+    <string name="add">新增</string>
+    <string name="search">搜索</string>
+    <string name="next_step">下一步</string>
+    <string name="data_exception">数据异常，请稍后重试</string>
+    <string name="net_exception">网络异常，请稍后重试</string>
+    <string name="please_wait">请稍等&#8230;</string>
+    <string name="load_failed_click_again">加载失败，点击重新加载</string>
+    <string name="request_failed">请求失败</string>
+    <string name="prompt_title">提示</string>
+    <string name="refresh">刷新</string>
+    <string name="refreshed">已刷新</string>
+    <!-- 对话框 -->
+    <string name="dialog_confirm">是</string>
+    <string name="dialog_cancel">否</string>
+    <!-- MainActivity -->
+    <string name="me">我</string>
+    <string name="patient">患者</string>
+    <string name="circle">圈子</string>
+    <string name="scane_now">请扫描药品上的/r/n中国药品电子监管码</string>
+
+    <!-- DataDownloadActivity -->
+    <string name="data_update">数据更新</string>
+    <string name="data_not_update_exit">用户数据尚未更新完毕，退出将放弃登陆，您是否要退出？</string>
+    <string name="data_user_err">用户数据异常</string>
+    <!-- RegisterActivity -->
+    <string name="get_auth_code">验证码失效</string>
+    <string name="phone_number_format_error">手机号码格式错误</string>
+    <string name="telphone_already_rigister">手机号已经被注册</string>
+    <string name="get_auth_code_failed">获取验证码失败，请重新发送</string>
+    <string name="auth_code_input">请输入验证码</string>
+    <string name="auth_code_right">验证码正确</string>
+    <string name="auth_code_error">验证码错误</string>
+    <string name="auth_code_overdue">验证码失效</string>
+    <string name="register_remind_two">密码位数为6-18位字母，数字和字符的组合</string>
+    <string name="password_empty_error">请输入6-18位的密码</string>
+    <string name="confirm_password_empty_error">确认密码不允许为空，且长度大于6位小于18位</string>
+    <string name="password_confirm_password_not_match">两次输入密码不一致</string>
+    <string name="cancel_register_prompt">是否退出该次注册？</string>
+    <string name="congratulation_register">恭喜您，已注册</string>
+    <string name="your_doctor_number">您的医师号：</string>
+    <string name="doctor_number_detail">医生号是您的唯一标识，也可用于登录。</string>
+    <string name="register_two_min_auth">您还需要2分钟时间做职业认证</string>
+    <string name="input_profession_update_certificate">填写职业信息和上传资格证</string>
+    <string name="can_income_calculate">我们才能与您进行收入结算。</string>
+    <string name="now_input_profession">现在填写职业信息</string>
+
+    <!-- RegisterUserBasicInfoActivity -->
+    <string name="name_empty_error">姓名不允许为空</string>
+    <string name="institution_empty_error">医疗机构不允许为空</string>
+    <string name="department_empty_error">科室不允许为空</string>
+    <string name="title_empty_error">职称不允许为空</string>
+    <string name="input_step_one">1/2填写职业信息</string>
+    <string name="input_step_two">2/2上传证书</string>
+    <string name="register_error">注册出错，请重试</string>
+    <string name="register_success">注册成功</string>
+    <string name="register_baseinfo_error">填写资料出错，请重试</string>
+    <string name="register_baseinfo_success">填写资料成功</string>
+    <string name="register_complete">完成注册</string>
+    <string name="basic_info">基本资料</string>
+    <string name="name">姓名</string>
+    <string name="medical_institution">医疗机构</string>
+    <string name="choose_institution">选择机构</string>
+    <string name="department_align">科室</string>
+    <string name="choose_department">选择科室</string>
+    <string name="title_align">职称</string>
+    <string name="choose_title">选择职称</string>
+    <string name="text_lengh100_must">文本，长度100，必填</string>
+    <string name="text_lengh50_must">文本，长度50，必填</string>
+    <string name="title_align_must">职称数据表，必填</string>
+    <string name="only_auth">上传资料仅用于认证，任何第三方不可见。</string>
+    <string name="please_update">请上传执业证和资格证的第一，二两页</string>
+    <string name="submit_auth">提交认证</string>
+    <string name="submitted">已提交</string>
+    <string name="submitted_txt_one">您的信息和证书已在等待审核</string>
+    <string name="submitted_txt_two">我们会尽快联系您核实信息</string>
+    <string name="submitted_txt_three">请留意客服电话400-800-888</string>
+    <string name="into_main">进入产品</string>
+    <string name="upload_cert_success">上传证书成功</string>
+    <string name="del_cert_success">删除成功</string>
+    <string name="upload_cert_failed">上传证书失败，请稍后重试</string>
+
+    <!-- 聊天模块 -->
+    <string name="welcome_user_software">欢迎使用面试系统</string>
+    <string name="msg_picture">[图片]</string>
+    <string name="msg_voice">[语音]</string>
+    <string name="msg_location">[位置]</string>
+    <string name="msg_animation">[动画]</string>
+    <string name="msg_video">[视频]</string>
+    <string name="msg_file">[文件]</string>
+    <string name="msg_online">消息(在线)</string>
+    <string name="msg_offline">消息(离线)</string>
+    <string name="msg_connect">消息(连接中)</string>
+    <string name="msg_be_add_attention">有人关注了你</string>
+    <string name="msg_be_say_hello">有人给你打招呼</string>
+    <string name="msg_be_passed">你通过了好友验证</string>
+    <string name="msg_has_new_friend">你有新朋友了</string>
+    <string name="msg_has_new_recommend_friend">你有新的推荐朋友</string>
+    <string name="chat_poto">照片</string>
+    <string name="chat_camera">拍摄</string>
+    <string name="chat_video">录像</string>
+    <string name="chat_audio">语音通话</string>
+    <string name="chat_loc">位置</string>
+    <string name="chat_file">文件</string>
+    <string name="chat_card">名片</string>
+    <string name="chat_quick_reply">快捷回复</string>
+    <string name="chat_my_product">我的产品</string>
+    <string name="chat_outpatient_time">门诊时间</string>
+    <string name="chat_case_history">病历</string>
+    <string name="chat_revise_time">修改预约时间</string>
+    <string name="send">发送</string>
+    <string name="getcode">获取验证码</string>
+    <string name="again">再次获取</string>
+    <string name="motalk_voice_chat_tip_1">按住说话</string>
+    <string name="motalk_voice_chat_tip_2">松开发送</string>
+    <string name="motalk_voice_chat_tip_3">上滑取消发送</string>
+    <string name="motalk_voice_chat_tip_4">松开取消发送</string>
+    <string name="motalk_voice_chat_tip_5">重新录制</string>
+    <string name="motalk_voice_chat_tip_6">松开结束</string>
+    <string name="motalk_voice_chat_tip_7">按下录音</string>
+
+    <!-- 时间显示 -->
+    <string name="to_this_day">至今</string>
+    <string name="friendly_time_just_now">刚刚</string>
+    <string name="friendly_time_before_seconds">秒前</string>
+    <string name="friendly_time_before_minute">分钟前</string>
+    <string name="friendly_time_yesterday">昨天</string>
+    <string name="friendly_time_before_yesterday">前天</string>
+
+    <!-- PatientSortActivity -->
+    <string name="patient_sort_groups">群组</string>
+    <string name="patient_sort">患者通讯录</string>
+    <string name="label_members">标签及成员</string>
+    <string name="validate_request">验证请求</string>
+    <string name="label">标签</string>
+    <string name="label_manage">标签管理</string>
+    <string name="label_name">标签名字</string>
+    <string name="members">成员</string>
+    <string name="add_members">添加成员</string>
+    <string name="select_all">全选</string>
+    <string name="patient_sort_refreshed">患者通讯录已刷新</string>
+    <string name="group_sort_refreshed">圈子通讯录已刷新</string>
+
+    <!-- PatientPersonalDataActivity -->
+    <string name="personal_data">个人资料</string>
+    <string name="doctor_info">医生详情</string>
+    <string name="doctor_introduce">医生介绍</string>
+    <string name="personal_data_set">资料设置</string>
+    <string name="area">所在地区</string>
+    <string name="collection">收藏</string>
+    <string name="send_message">发消息</string>
+    <string name="add_doctor_friend">添加到同行好友</string>
+    <string name="free_call">免费通话</string>
+
+    <!-- PatientPersonalDataSetActivity -->
+    <string name="patient_block_message">屏蔽患者消息</string>
+    <string name="no_disturb">免打扰</string>
+    <string name="clear_message_history">清空聊天记录</string>
+    <string name="recommend_to">推荐给别人</string>
+    <string name="join_the_blacklist">加入黑名单</string>
+    <string name="sure_friend_delet">确认删除好友？</string>
+    <string name="sure_save_set">保存设置？</string>
+    <string name="save_set_success">保存设置成功</string>
+    <string name="friend_deleted">好友已删除</string>
+
+    <!-- 通讯录黑名单 -->
+    <string name="black_list">黑名单</string>
+    <string name="sort_black_list">通讯录黑名单</string>
+    <string name="black_list_refreshed">黑名单已刷新</string>
+
+    <!-- 通知 -->
+    <string name="patient_report">患者报到</string>
+    <string name="all_report">所有报到</string>
+    <string name="notification">通知</string>
+    <string name="group_notification">集团通知</string>
+    <string name="company_notification">公司通知</string>
+    <string name="remark">留言</string>
+    <string name="medical_record">病历信息</string>
+    <string name="image_data">影像资料</string>
+    <string name="pay_money">付款金额</string>
+    <string name="pay_detail">套餐详情</string>
+    <string name="pay_way">支付方式</string>
+    <string name="pay_no">交易单号</string>
+
+    <!-- 添加好友 -->
+    <string name="add_to_data">添加到通讯录</string>
+    <string name="add_friend">添加好友</string>
+    <string name="verify_friend">好友验证</string>
+    <string name="add_friend_title">您需要发送验证申请，等待对方通过</string>
+    <string name="add_doctor_title">为保证医生隐私，目前只提供医生号搜索加好友</string>
+    <string name="my_QRcode">我的二维码名片</string>
+    <string name="add_friend_end">您添加的好友需要身份验证</string>
+    <string name="sendInviteMsg">是否发送短信邀请</string>
+    <string name="sended_add_friend">好友申请已发送</string>
+
+    <!-- 聊天详情 -->
+    <string name="chat_detail">聊天详情</string>
+    <string name="invite_other">邀请其他人加入</string>
+    <string name="top_chat">置顶聊天</string>
+    <string name="message_disturb">消息免打扰</string>
+
+    <!--
+          (1, "正常"),
+        (2, "未审核"),
+        (3, "审核未通过"),
+        (4, "暂时禁用"),
+        (5, "永久禁用");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    -->
+    <string-array name="my_certification_status">
+        <item>已认证</item>
+        <item>认证中</item>
+        <item>认证未通过</item>
+        <item>暂时禁用</item>
+        <item>永久禁用</item>
+    </string-array>
+    <string-array name="sex">
+        <item>男</item>
+        <item>女</item>
+        <item>保密</item>
+    </string-array>
+
+    <string name="upload_avatar_success">上传头像成功</string>
+    <string name="upload_avatar_failed">上传头像失败，请稍后重试</string>
+
+    <!-- 城市选择 -->
+    <string name="locationing">正在定位</string>
+    <string name="current_location">当前位置</string>
+    <string name="hot_city">热门城市</string>
+    <string name="select_city_by_province">按省份选择城市</string>
+    <string name="location_failed">定位失败</string>
+    <string name="location_city">所在城市</string>
+    <string name="select">选择</string>
+    <string name="country">国家</string>
+    <string name="province">省份</string>
+    <string name="city">城市</string>
+    <string name="county">县区</string>
+
+    <!-- LocalVideoActivity -->
+    <string name="local_video">本地视频</string>
+    <string name="size">大小</string>
+    <string name="time_len">时长</string>
+    <string name="create_time">创建时间</string>
+    <string name="des">描述</string>
+    <string name="hour">小时</string>
+    <string name="minute">分</string>
+    <string name="second">秒</string>
+    <string name="video_file_not_exist">视频文件不存在</string>
+    <string name="delete_failed">删除失败</string>
+    <string name="select_failed">选取失败</string>
+
+    <!-- VideoRecordActivity -->
+    <string name="start_failed">启动失败</string>
+    <string name="record_failed">录制失败</string>
+    <string name="record_succ">录制成功</string>
+    <string name="failed_to_open_camera_1">打开相机失败</string>
+    <string name="failed_to_open_camera_2">相机可能正在被</string>
+    <string name="failed_to_open_camera_3">其他应用占用?</string>
+    <string name="pull_to_refresh_nomore_label">没有更多数据了</string>
+    <string name="network_not_connected">网络连接失败</string>
+    <!-- http -->
+    <string name="error_response">解析问题</string>
+    <string name="http_timeout">访问超时</string>
+    <string name="error_other">服务器内部错误</string>
+    <string name="param_error">参数错误</string>
+    <!-- SingleChatActivityPL -->
+    <string name="disable_send_message">您不是该组成员，不能发送消息</string>
+    <string name="common_confirm">确认</string>
+    <string name="common_cancel">取消</string>
+
+    <!-- popwindow -->
+    <string name="treatment_record">咨询记录</string>
+    <string name="illness_info">病情资料</string>
+    <string name="patient_info">患者资料</string>
+    <string name="group">分组</string>
+    <string name="setting">设置</string>
+
+    <!-- treatment record -->
+    <string name="write_treatment_record">填写咨询记录</string>
+    <string name="consult_suggestion">咨询结果:</string>
+    <string name="treatment_suggestion">治疗建议:</string>
+    <string name="medicine_suggestion">用药建议:</string>
+    <string name="attention">检查建议:</string>
+    <string name="content_description">暂无图片</string>
+    <string name="no_treatment_record">您当前还没有咨询记录</string>
+    <string name="order_item_format" formatted="false"><Data><![CDATA[<font color="#333333">%1$s</font><font color="#FD8950">￥%2$s</font><font color="#AAAAAA">/%3$s分钟</font>]]></Data></string>
+
+    <!-- 我的日程 -->
+    <string name="my_schedule">我的日程</string>
+    <string name="no_schedule">您当前还没有日程安排</string>
+
+    <string-array name="orderArray">
+        <item>待预约</item>
+        <item>待支付</item>
+        <item>已支付</item>
+        <item>已完成</item>
+        <item>已取消</item>
+    </string-array>
+
+    <!-- 值班台 -->
+    <string name="duty_room_title">值班台</string>
+    <string name="duty_room_search_history">查看历史</string>
+    <string name="duty_room_order_start">开始接单</string>
+    <string name="duty_room_order_stop">停止接单</string>
+    <string name="duty_his_title">历史值班订单</string>
+
+    <!-- consultServiceActivity -->
+    <string name="text_consult">图文咨询</string>
+    <string name="phone_book_consult">电话咨询</string>
+    <string name="free_consult">免费咨询</string>
+    <string name="text_price">￥ %1$s</string>
+    <string name="text_time">/%1$s分钟</string>
+    
+    
+    <!-- 患教中心 -->
+    <string name="education_hot">热点</string>
+    <string name="education_center">玄关患教中心</string>
+    <string name="education_collect">我的收藏</string>
+    
+    <string-array name="educationArray">
+        <item>热点</item>
+        <item>玄关患教中心</item>
+        <item>我的收藏</item>
+    </string-array>
+        <string name="menu_settings">Settings</string>
+    
+    <string name="scan_text">将二维码放入框内, 即可自动扫描</string> 
+    <string name="reset_password">重设密码</string>
+    <string name="please_input_password_register">请输入6-18位密码</string>
+    <string name="modefypassword">修改密码</string>
+    <string name="accountsafe">账号安全</string>
+    <string name="about">关于</string>
+    <string name="policygeneralize">推广政策</string>
+    <string name="mypopularfee">我的收入</string>
+    <string name="showfirstmedicinename">药品优先显示通用名</string>
+       <string name="logout">退出登录</string>
+       <string name="confirmpassword">确认密码</string>
+       <string name="back">返回</string>
+       <string name="scan_sell">扫码销售</string>
+       <string name="show_list">显示购药清单</string>
+    <string name="medie_list">药品清单</string>
+        <string name="show_scan_line1">请扫描药品上的</string>
+        <string name="show_scan_line2">中国电子药品监管码</string>
+         <string name="show_scan_line3">请扫描 顾客 出示的</string>
+         <string name="show_scan_line4">药方二维码</string>
+        <string name="over_scan">结束扫描</string>
+        <string name="confirm_num">药品数量不一致，请确认</string>
+        <string name="not_found_this_code">未找到该药监码对应的品种</string>
+        <string name="not_found_this_list">未找到该购药清单</string>
+        <string name="connect_error">连接异常</string>
+        <string name="net_notlinke">网络不可用，请稍后重试</string>
+        <string name="tryagain">重试</string>
+        <string name="short_medie">缺货</string>
+        <string name="less_medie">少</string>
+        <string name="more_medie">多</string>
+        <string name="have_scan_medie">已扫描</string>
+        <string name="toast_submit_success">提交成功!</string>
+        <string name="toast_submit_fail">提交失败！</string>
+        <string name="dialog_content_sumbitlist">是否提交已扫描的购药清单？</string>
+        <string name="no_effect_code">无效药监码,请确认是否扫描成普通商品条码</string> 
+        
+            <string name="c_take_picture">拍照</string>
+    <string name="c_take_picture_failed">拍照失败</string>
+    <string name="c_photo_album">相册</string>
+    <string name="c_photo_album_failed">选择失败</string>
+    <string name="c_crop_failed">裁减失败</string>
+</resources>

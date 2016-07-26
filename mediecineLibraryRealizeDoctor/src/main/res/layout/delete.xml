@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="130dip"
+    android:layout_height="70dip"
+    android:background="#ff0000"
+    android:id="@+id/tv_delete"
+    android:clickable="true"
+    android:gravity="center"
+    android:text="删除"
+    android:textColor="#ffffff"
+    android:textSize="20sp" >
+
+</TextView>

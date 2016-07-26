@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+android:layout_width="fill_parent"
+android:layout_height="fill_parent"
+android:background="@drawable/translate_window"
+    android:gravity="center"
+ >
+<!-- 这里如果使用android:layout_width="5000dip"设置一个极大的值 系统就会 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
+        android:background="@drawable/btn_bulk_gray"
+        android:padding="10dip" >
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" 
+        android:gravity="center_horizontal"
+        android:text="剩余数量"
+        android:id="@+id/tv_title"
+        android:layout_marginBottom="20dp"
+        android:textColor="@color/black"
+        android:textSize="20dip" />
+ 
+<TextView 
+android:id="@+id/textview" 
+android:layout_width="wrap_content" 
+android:layout_height="wrap_content" /> 
+<EditText 
+android:id="@+id/editText1" 
+android:layout_width="match_parent" 
+android:layout_height="wrap_content" 
+   android:background="@drawable/inputbox"
+   android:digits="0123456789./"
+   android:phoneNumber="true"
+android:ems="4" > 
+</EditText>
+<LinearLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:orientation="horizontal">
+<Button
+    android:id="@+id/button2"
+    android:layout_width="0dp"
+    android:layout_weight="1"
+    android:layout_height="wrap_content"
+    android:layout_gravity="left|top" 
+    android:layout_marginRight="10dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:background="@drawable/btn_bulk_gray"
+    android:text="忽略数量" />
+ 
+<Button 
+android:id="@+id/button1" 
+  android:layout_width="0dp"
+    android:layout_weight="1"
+    android:layout_marginLeft="10dp"
+     android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+android:layout_height="wrap_content" 
+android:background="@drawable/btn_bulk_gray"
+android:layout_gravity="right|top" 
+android:text="确定" />
+</LinearLayout>
+    </LinearLayout>
+</LinearLayout> 

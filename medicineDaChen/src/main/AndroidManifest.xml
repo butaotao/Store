@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.dachen.medicine"
+    android:versionCode="62"
+    android:versionName="1.071401.62" >
+<!--       android:versionCode="59"
+    android:versionName="1.070401.59-->
+    <uses-sdk
+        android:minSdkVersion="13"
+        android:targetSdkVersion="18" />
+
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RUN_INSTRUMENTATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- 极光推送权限 -->
+    <uses-permission android:name="cn.touna.touna.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />
+    <uses-permission android:name="android.permission.DISABLE_STATUS_BAR" />
+
+    <!-- Optional for location -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.GET_TOP_ACTIVITY_INFO" />
+    <uses-permission android:name="android.permission.REORDER_TASKS" />
+
+    <uses-feature android:name="android.hardware.camera"  />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-feature android:name="android.hardware.microphone" />
+    <uses-feature
+        android:name="android.hardware.camera.front"
+        />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+          />
+    <uses-feature
+        android:name="android.hardware.camera.flash"
+        />
+    <uses-feature android:name="android.hardware.screen.landscape" />
+    <uses-feature
+        android:name="android.hardware.wifi"
+         />
+    <uses-feature
+        android:name="android.hardware.touchscreen"
+         />
+
+    <!-- 二维码 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" >
+    </uses-permission>
+
+
+    <permission
+        android:name="com.dachen.medicine.permission.MIPUSH_RECEIVE"
+        android:protectionLevel="signature"
+        />
+    <!-- 这里com.xiaomi.mipushdemo改成app的包名 -->
+    <uses-permission android:name="com.dachen.medicine.permission.MIPUSH_RECEIVE" />
+    <!-- 这里com.xiaomi.mipushdemo改成app的包名 -->
+
+    <application
+        android:name=".app.MedicineApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/launcher"
+        android:label="@string/app_name" >
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="56cfbe4467e58e8b820006fb" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="${UMENG_CHANNEL_VALUE}" />
+
+        <provider
+            android:name=".db.MedicineProvider"
+            android:authorities="com.dachen.medicine" >
+        </provider>
+
+        <activity
+            android:name=".activity.SplashAcivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
+
+            <!--
+                      <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+ 				<action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="dachenappmedicine" android:pathPrefix="/medicine/openwith" />
+                
+                
+            </intent-filter>
+            -->
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:pathPrefix="/medicine/openwith"
+                    android:scheme="dachenappmedicine" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.MainActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.MypopFeeActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.WebActivitys"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" >WebActivitys
+        </activity>
+        <activity
+            android:name=".activity.EditListActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.NotFoundListActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.NotNetActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.SalesRecordActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.MipcaActivityCapture"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.MipcaActivityCaptures"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.AboutActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+        <activity
+            android:name=".activity.ModifyPasswordActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+        <activity
+            android:name=".activity.MedieNumInconformityActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+        <activity
+            android:name=".activity.LoginActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.ResetPasswdActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.GuideActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.PreResetPasswdActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.SalesClerkActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity android:name="com.dachen.medicine.activity.AccountSafeActivity" >
+        </activity>
+
+        <service
+            android:name="com.umeng.update.net.DownloadingService"
+            android:process=":DownloadingService" >
+        </service>
+
+        <activity
+            android:name="com.umeng.update.UpdateDialogActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
+        <!-- 设置密码界面 -->
+        <activity android:name="com.dachen.medicine.activity.SetLockActivity" >
+        </activity>
+        <!-- 修改手势密码界面 -->
+        <activity android:name="com.dachen.medicine.activity.UpdataLockActivity" >
+        </activity>
+        <!-- 关闭手势密码界面 -->
+        <activity android:name="com.dachen.medicine.activity.CloseLockActivity" >
+        </activity>
+        <!-- 手势密码解锁界面 -->
+        <activity
+            android:name="com.dachen.medicine.activity.UnlockActivity"
+            android:launchMode="singleTask" >
+        </activity>
+        <activity
+            android:name="com.dachen.medicine.activity.PolicyGeneralizeActivity"
+            android:launchMode="singleTask" >
+        </activity>
+        <activity
+            android:name="com.dachen.medicine.activity.MypopFeesMonthDetailsActivity"
+            android:launchMode="singleTask" >
+        </activity>
+        <activity
+            android:name="com.dachen.medicine.activity.ChoiceGiveMedieNumActivity"
+            android:launchMode="singleTask" >
+        </activity>
+        <activity
+            android:name="com.dachen.medicine.activity.MypopFeeRecordActivity"
+            android:launchMode="singleTask" >
+        </activity>
+        <activity
+            android:name="com.dachen.medicine.activity.MypopFeeRoolerActivity"
+            android:launchMode="singleTask" >
+        </activity>
+        <activity
+            android:name="com.dachen.medicine.activity.MypopFeeRecordDetailActivity"
+            android:launchMode="singleTask" >
+        </activity>
+        <activity
+            android:name="com.dachen.medicine.activity.MyIncomeActivity"
+            android:launchMode="singleTask" >
+        </activity>
+
+        <activity android:name=".activity.income.IncomeActivity"
+            android:launchMode="singleTask"/>
+
+        <activity android:name=".activity.income.IncomeSortByDrugActivity"
+                  android:launchMode="singleTask"/>
+
+        <activity android:name=".activity.income.IncomeMonthDetailActivity"
+                  android:launchMode="singleTask"/>
+        <activity android:name=".activity.WebActivity"
+                  android:launchMode="singleTask"/>
+
+        <service
+            android:name="com.xiaomi.push.service.XMPushService"
+            android:enabled="true"
+            android:process=":pushservice" />
+        <service
+            android:name="com.xiaomi.mipush.sdk.PushMessageHandler"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name="com.xiaomi.mipush.sdk.MessageHandleService"
+            android:enabled="true" />
+        <!-- 注：此service必须在2.2.5版本以后（包括2.2.5版本）加入 -->
+        <receiver
+            android:name="com.xiaomi.push.service.receivers.NetworkStatusReceiver"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.dachen.medicine.receiver.DemoMessageReceiver"
+            android:exported="true" >
+
+            <!-- 这里com.xiaomi.mipushdemo.DemoMessageRreceiver改成app中定义的完整类名 -->
+            <intent-filter>
+                <action android:name="com.xiaomi.mipush.RECEIVE_MESSAGE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.xiaomi.mipush.MESSAGE_ARRIVED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.xiaomi.mipush.ERROR" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.xiaomi.push.service.receivers.PingReceiver"
+            android:exported="false"
+            android:process=":pushservice" >
+            <intent-filter>
+                <action android:name="com.xiaomi.push.PING_TIMER" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".service.VersionUpdateService"/>
+    </application>
+
+</manifest>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="54dp"
+    android:orientation="vertical" 
+ 
+    android:id="@+id/rl_titledoctor"
+      android:background="@color/color_3764ba">
+      <RelativeLayout  
+        android:id="@+id/rl_titlebars"
+    android:layout_width="match_parent"
+       android:paddingLeft="10dp"
+    android:paddingRight="20dp"
+    android:layout_height="match_parent" >
+<TextView android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/null_info"
+    android:layout_centerInParent="true" 
+    android:textSize="17dp"
+    android:singleLine="true"
+    android:gravity="center_horizontal"
+    android:layout_toRightOf="@+id/rl_back"
+    android:paddingLeft="2dp"
+    android:paddingRight="20dp"
+    android:layout_marginRight="18dp"
+    android:textColor="@color/white"
+    android:id="@+id/tv_title"
+    />
+
+<ImageView android:layout_width="30dp"
+    android:layout_height="40dp"
+    android:id="@+id/iv_custom" 
+    android:visibility="gone"
+    />
+<RelativeLayout android:layout_width="wrap_content"
+    android:layout_height="fill_parent"
+      android:layout_alignParentLeft="true"
+      android:id="@+id/rl_back"
+      android:gravity="left"
+    >
+
+
+<ImageView
+    android:id="@+id/iv_back"
+    android:layout_width="26dp"
+    android:layout_height="26dp"
+    android:layout_alignParentLeft="true"
+    android:layout_centerVertical="true"
+    android:src="@drawable/icon_back_p" />
+<TextView android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/tv_back"
+    android:textColor="@color/white"
+    android:layout_centerVertical="true"
+
+    android:layout_toRightOf="@id/iv_back" 
+    android:text="@string/back"/>
+
+
+</RelativeLayout>
+<RelativeLayout android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+      android:layout_alignParentRight="true"
+      android:id="@+id/ll_sub"   
+      android:layout_toRightOf="@+id/rl_back"
+      android:layout_marginLeft="10dp"
+      android:layout_centerVertical="true">
+<ViewStub android:layout_width="fill_parent"
+    android:background="@color/black"
+    android:layout_height="fill_parent" 
+      android:layout_centerVertical="true"
+  android:layout_alignParentRight="true"
+    android:id="@+id/vstub_title"/>
+</RelativeLayout>
+</RelativeLayout>
+</RelativeLayout>

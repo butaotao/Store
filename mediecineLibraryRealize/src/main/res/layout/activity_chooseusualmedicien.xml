@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Width_Height_MAT"
+    android:background="@color/bg_color"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/titlebar"
+        layout="@layout/titlebars_patient" />
+
+    <FrameLayout
+        android:id="@+id/layout_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/titlebar"
+        android:background="#D6D6D6"
+        android:padding="10dip" >
+ 
+  
+        
+        
+        <EditText android:layout_width="fill_parent"
+    android:layout_height="40dp"
+    android:background="@drawable/btn_white" 
+    android:textSize="12sp"
+    android:textColor="#969794"
+    android:gravity="center" 
+    android:id="@+id/et_search"
+    android:cursorVisible="false" 
+    android:drawableStart="@drawable/ic_search"
+    android:hint="添加常备药"/>
+        
+        
+        
+        
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tv_usualmedicien_title"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/layout_search"
+        android:layout_marginLeft="10dp" 
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical"
+        android:visibility="gone"
+        android:text="自选常备药" />
+
+    <ListView
+        android:id="@+id/lv_showusualmedicien"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tv_usualmedicien_title"
+        android:background="@color/white"
+        android:scrollbars="none"
+        android:divider="@color/color_grayline1dp"
+        android:dividerHeight="0.5dp" >
+    </ListView>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/rl_nocontent"
+    android:visibility="gone"
+    android:layout_centerInParent="true">
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="您还未添加常备药"
+    android:textSize="16sp"
+    android:textColor="@color/color_aaaaaa"
+    android:gravity="center_horizontal"/>
+</RelativeLayout>
+</RelativeLayout>

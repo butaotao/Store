@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+ <View android:layout_width="fill_parent"
+     android:layout_height="0.5dp"
+     android:background="@color/color_grayline1dp"/>   
+     <LinearLayout android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:orientation="horizontal">
+ <ImageView android:layout_width="17dp"
+     android:layout_height="27dp"
+     android:layout_marginLeft="18dp"
+       android:layout_marginTop="15dp"
+     android:id="@+id/iv_baidushownum"
+     android:background="@drawable/icon_gcoding"/>
+ <LinearLayout android:layout_width="fill_parent"
+     android:layout_height="wrap_content"
+     android:orientation="vertical"
+     android:layout_marginLeft="10dp"
+     android:layout_marginTop="15dp"
+     android:layout_marginRight="18dp">
+
+     <RelativeLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content" >
+
+  
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_alignParentRight="true"
+    android:id="@+id/ll_tab">
+     <TextView android:layout_width="wrap_content"
+         android:layout_height="wrap_content" 
+         android:layout_centerVertical="true"
+         android:textSize="12dp"
+         android:id="@+id/tv_gavemedie"
+         android:text="送药" 
+         android:gravity="center"
+
+         android:layout_marginRight="1dp"
+         android:textColor="@color/color_6e8fcf"
+         android:background="@drawable/btn_bulk_6e8fcf"/>
+
+         <TextView  android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginRight="1dp"
+             android:layout_centerVertical="true"
+             android:textSize="12dp"
+             android:layout_marginLeft="2dp"
+             android:id="@+id/tv_ischarge"
+             android:text="兑换"
+
+             android:textColor="#FF6600"
+             android:gravity="center"
+
+             android:background="@drawable/btn_blue_all"/>
+         <TextView  android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_centerVertical="true"
+             android:textSize="12dp"
+             android:layout_marginLeft="2dp"
+             android:id="@+id/tv_welfare"
+             android:text="医保"
+
+             android:gravity="center"
+
+
+             android:textColor="@color/color_background"
+             android:background="@drawable/btn_bulk_30b2cc"/>
+</LinearLayout>
+        <TextView android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:id="@+id/tv_storename"
+         android:textSize="16dp"
+         android:layout_marginRight="5dp"
+         android:layout_centerVertical="true"
+         android:layout_alignParentLeft="true"
+         android:layout_toLeftOf="@id/ll_tab"
+         android:singleLine="true"
+         android:textColor="@color/color_333333"
+         android:text="@string/null_info"/>
+     </RelativeLayout>
+
+     <RelativeLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="10dp" >
+
+         
+         
+         
+         <ImageView   android:layout_width="12dp"
+    android:layout_height="20dp"
+     android:layout_alignParentRight="true" 
+    android:layout_centerVertical="true"
+    android:background="@drawable/irr" 
+    android:id="@+id/iv_irr"
+    /><TextView android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:id="@+id/tv_location"
+             android:textSize="14dp"
+             android:singleLine="true"
+             android:layout_toLeftOf="@id/iv_irr"
+             android:layout_marginRight="5dp"
+             android:text="@string/null_info"
+             android:layout_alignParentLeft="true"
+             android:layout_centerVertical="true"
+             android:textColor="@color/color_aaaaaa"/>
+     </RelativeLayout>
+     
+      <RelativeLayout android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="6dp">
+         <TextView android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:id="@+id/tv_timephone"
+             android:textSize="14dp"
+             android:text="@string/null_info"
+             android:layout_centerVertical="true"
+             android:textColor="@color/color_aaaaaa"/>
+          </RelativeLayout>
+ </LinearLayout>
+ </LinearLayout>
+ <View android:layout_width="fill_parent"
+     android:layout_height="0.5dp"
+     android:layout_marginLeft="18dp"
+     android:layout_marginTop="10dp"
+     android:background="@color/color_grayline1dp"/>   
+ <RelativeLayout android:layout_width="fill_parent"
+     android:layout_height="wrap_content"
+     android:layout_marginTop="20dp">
+	     <ImageView android:layout_width="4dp"
+	         android:layout_height="4dp"
+	         android:layout_marginLeft="18dp"
+	         android:id="@+id/circle_gray"
+	         android:layout_centerVertical="true"
+	         android:background="@drawable/circle_gray"
+	         />
+	        
+       
+          
+           <TextView 
+	             android:layout_width="wrap_content"
+	             android:layout_height="wrap_content"
+	             android:id="@+id/tv_longdis"
+	             android:layout_centerVertical="true"
+	             android:textSize="14dp" 
+	             android:layout_marginLeft="3dp"
+	             android:singleLine="true" 
+	             android:layout_toRightOf="@id/circle_gray"
+	             android:text="@string/null_info" 
+	             android:textColor="@color/color_aaaaaa"/>
+           
+              <TextView  android:layout_width="wrap_content"
+         android:layout_height="wrap_content" 
+         android:layout_toRightOf="@id/tv_longdis"
+         android:layout_centerVertical="true"
+         android:textSize="12dp"
+         android:layout_marginLeft="6dp"
+         android:id="@+id/tv_recognase"
+         android:text="厂家认证" 
+         android:textColor="@color/color_39cf78"
+         android:gravity="center" />
+
+
+ </RelativeLayout>
+ <RelativeLayout android:layout_width="fill_parent"
+     android:layout_height="wrap_content"
+     android:layout_marginRight="18dp"
+     android:layout_marginTop="6dp">
+          
+      <ImageView android:layout_width="4dp"
+	         android:layout_height="4dp"
+	         android:layout_marginLeft="18dp"
+	         android:id="@+id/circle_gray2"
+	         android:layout_centerVertical="true"
+	         android:background="@drawable/circle_gray"
+	         />
+	         
+          <TextView android:layout_width="wrap_content"
+         android:layout_height="18dp"  
+         android:layout_centerVertical="true"
+         android:textSize="12dp"
+         android:layout_marginLeft="2dp"
+         android:id="@+id/tv_bai"
+         android:text="%" 
+         android:gravity="center" 
+         android:textColor="@color/color_aaaaaa"
+         android:layout_alignParentRight="true"/>
+     
+      <TextView android:layout_width="wrap_content"
+         android:layout_height="wrap_content"  
+         android:layout_centerVertical="true"
+         android:textSize="25dp"
+         android:layout_marginLeft="6dp"
+         android:id="@+id/tv_bainum"
+         android:text="0" 
+         android:textColor="@color/color_ff8948"
+         android:gravity="center"  
+         android:layout_toLeftOf="@id/tv_bai"/>
+       <TextView android:layout_width="wrap_content"
+         android:layout_height="18dp"  
+         android:layout_centerVertical="true"
+         android:textSize="12dp"
+         android:layout_marginLeft="2dp"
+         android:id="@+id/tv_baidestext"
+         android:text="匹配度" 
+         android:textColor="@color/color_aaaaaa" 
+          android:layout_toLeftOf="@id/tv_bainum"
+         android:gravity="center"  />
+       
+       <TextView 
+	             android:layout_width="wrap_content"
+	             android:layout_height="wrap_content"
+	             android:id="@+id/tv_far"
+	             android:layout_centerVertical="true"
+	             android:textSize="14dp" 
+	             android:layout_marginLeft="3dp"
+	             android:layout_toRightOf="@id/circle_gray2"
+	             android:text="@string/null_info" 
+	             android:singleLine="true"
+	             android:layout_toLeftOf="@id/tv_baidestext"
+	             android:layout_marginRight="5dp"
+	             android:textColor="@color/color_aaaaaa"/>
+        </RelativeLayout>  
+  <View android:layout_width="fill_parent"
+     android:layout_height="0.5dp"
+     android:layout_marginTop="20dp"
+     android:background="@color/color_grayline1dp"/>   
+</LinearLayout>

@@ -1,0 +1,112 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/sort_top"
+        style="@style/ActionBar_Container"
+        android:focusable="true"
+        android:focusableInTouchMode="true" >
+
+        <Button
+            android:id="@+id/back_step_btn"
+            style="@style/BackStyle" />
+
+        <TextView
+            android:id="@+id/reset_top_txt"
+            style="@style/ActionBar_Title"
+            android:text="我的二维码" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="45dp"
+        android:background="@color/white"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            style="@style/Width_MAT_Height_WAP"
+            android:padding="2dp">
+
+            <ImageView
+                android:id="@+id/qr_avatar"
+                android:layout_width="85.0dip"
+                android:layout_height="85.0dip"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="15dip"
+                android:scaleType="fitCenter"
+                android:src="@drawable/head_icon" />
+
+            <LinearLayout
+                android:id="@+id/qr_basic_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/qr_avatar"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/qr_name"
+                    style="@style/Width_Height_WAP"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:layout_marginRight="15dp"
+                    android:text=""
+
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+
+            </LinearLayout>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="15dip"
+            android:layout_marginRight="15dp"
+            android:background="@color/interval_bg_color" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <!--           <TextView
+                           style="@style/Width_Height_WAP"
+                           android:layout_marginTop="25dp"
+                           android:gravity="center"
+                           android:text="让患者或好友"
+                           android:textColor="@color/color_aaaaaa"
+                           android:textSize="13sp" />
+           -->
+
+
+            <ImageView
+                android:id="@+id/qr_QR_code"
+                android:layout_width="240dp"
+                android:layout_height="240dp"
+                android:contentDescription="@string/app_name"
+                android:scaleType="fitXY" />
+            <TextView
+                android:id="@+id/qr_QR_code_txt2"
+                style="@style/Width_Height_WAP"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:text="扫一扫加我"
+                android:layout_marginBottom="15dp"
+                android:textColor="@color/color_333333"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

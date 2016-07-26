@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_cententbackground"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_cententbackground"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/ll_btn"
+            android:layout_width="fill_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:background="#f8f8f8"
+            android:gravity="center"
+            android:weightSum="1" >
+
+            <Button
+                android:id="@+id/btn_goonscane"
+                android:layout_width="wrap_content"
+                android:layout_height="44dp"
+                android:background="@drawable/btn_green"
+                android:paddingLeft="40dp"
+                android:paddingRight="40dp"
+                android:text="完成"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/ll_toplist"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/ll_btn"
+            android:orientation="vertical" >
+
+            <include
+                android:id="@+id/title_bar"
+                layout="@layout/titlebar" />
+
+            <RelativeLayout
+                android:id="@+id/title_des"
+                android:layout_width="fill_parent"
+                android:layout_height="72dp"
+                android:layout_below="@id/title_bar"
+                android:background="@color/color_5bc7b9"
+                android:orientation="vertical" >
+
+               <com.dachen.medicine.view.CircleImageView
+                    android:id="@+id/head_icon"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="27dp"
+                    android:src="@drawable/head_icon" />
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toRightOf="@id/head_icon"
+                    android:text="@string/null_info"
+                    android:textColor="@color/white"
+                    android:textSize="18dp" />
+
+                <ImageView
+                    android:id="@+id/scan_title"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="27dp"
+                    android:background="@drawable/sale_scan" />
+                <ImageView
+                    android:layout_width="7dp"
+                    android:layout_height="7dp"
+                    android:layout_marginRight="25dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/redcircleescan"
+                    android:background="@drawable/circlered"/>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/rl_resources"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/title_des"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="vertical" >
+
+                <ListView
+                    android:id="@+id/lv_medicine_records"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent" 
+                   android:divider="@null"
+                    android:scrollbars="none" >
+                </ListView>
+
+                <!-- </ListView> -->
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_nosell"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/title_des"
+                android:layout_centerVertical="true"
+                android:background="@color/color_cententbackground" >
+
+                <ImageView
+                    android:id="@+id/iv_iv"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/not_net" />
+
+                <TextView
+                    android:id="@+id/tv_notsell_des"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/iv_iv"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="19dp"
+                    android:text="网络不可用，请稍后重试。"
+                    android:textColor="#B0BDBC"
+                    android:textSize="15dp" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

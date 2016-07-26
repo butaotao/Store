@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" 
+    android:orientation="vertical"  >
+     <LinearLayout  
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" 
+    android:orientation="vertical" 
+    android:layout_marginTop="10dip"
+     android:background="@drawable/bulk_green_rightangle2">
+    <RelativeLayout 
+	    android:layout_width="fill_parent"
+	    android:layout_height="47dp"
+	    android:orientation="horizontal"
+	  
+	    android:background="@color/color_B3EBE4">
+	    <ImageView android:layout_width="36dp"
+	        android:layout_height="36dp"
+	        android:layout_marginLeft="10dp"
+	        android:layout_gravity="center"
+	        android:layout_alignParentLeft="true"
+	        android:layout_centerVertical="true"
+	        android:id="@+id/edit_title"
+	        android:background="@drawable/edit_title"/>
+		<ImageView
+			android:layout_width="7dp"
+			android:layout_height="7dp"
+			android:layout_marginLeft="32dp"
+			android:layout_marginTop="11dp"
+			android:id="@+id/redcircleedit"
+			android:background="@drawable/circlered"/>
+	    <TextView android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:text="购药清单"
+	        android:textSize="17dp"
+			android:id="@+id/tv_listtitle"
+			android:textColor="@color/color_0b687b"
+	        android:gravity="center"
+			android:layout_alignParentTop="true"
+			android:layout_alignParentLeft="true"
+			android:layout_alignParentStart="true" />
+	</RelativeLayout> 
+	</LinearLayout>
+</LinearLayout>

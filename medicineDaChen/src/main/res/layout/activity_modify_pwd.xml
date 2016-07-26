@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:background="@color/normal_bg">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        style="@style/ActionBar_Container"
+        android:layout_alignParentTop="true" >
+
+        <Button
+            android:id="@+id/modifyPwdActivity_back_btn"
+            style="@style/ActionBar_BackBtn"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true" />
+
+        <TextView
+            style="@style/ActionBar_Title"
+            android:layout_centerInParent="true"
+            android:text="修改密码" />
+
+       
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:orientation="vertical" >
+        
+<com.dachen.medicine.view.ClearEditText
+     android:id="@+id/modifyPwdActivity_oldPwd" 
+                style="@style/IMLineEditText"
+                  android:layout_marginLeft="9dp"
+        	android:layout_marginRight="9dp"
+                android:background="@drawable/inputbox"
+                   android:inputType="textPassword"
+                     android:cursorVisible="true"
+                android:textCursorDrawable="@null" 
+                   android:textSize="15sp"
+                     android:layout_marginTop="8dp"
+                android:hint="请输入原密码"   />
+ 
+<com.dachen.medicine.view.ClearEditText
+     android:id="@+id/modifyPwdActivity_newPwd"
+      android:layout_below="@id/modifyPwdActivity_oldPwd" 
+                style="@style/IMLineEditText"
+                  android:layout_marginLeft="9dp"
+        	android:layout_marginRight="9dp"
+        	  android:layout_marginTop="8dp"
+                android:background="@drawable/inputbox"
+                   android:inputType="textPassword"
+                     android:cursorVisible="true"
+                android:textCursorDrawable="@null" 
+                   android:textSize="15sp"
+               android:hint="请输入新密码"    />
+
+<com.dachen.medicine.view.ClearEditText
+     android:id="@+id/modifyPwdActivity_confirmPwd"
+      android:layout_below="@id/modifyPwdActivity_newPwd" 
+                style="@style/IMLineEditText"
+                 android:layout_marginLeft="9dp"
+        	android:layout_marginRight="9dp"
+        	  android:layout_marginTop="8dp"
+                android:background="@drawable/inputbox"
+                   android:inputType="textPassword"
+                   android:textSize="15sp"
+                     android:cursorVisible="true"
+                android:textCursorDrawable="@null" 
+                android:hint="@string/confirmpassword"  />
+     
+
+        <Button
+	        android:id="@+id/modifyPwdActivity_submit"
+	         android:background="@drawable/btn_green_all"
+	           android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="9dp"
+	        android:layout_below="@id/modifyPwdActivity_confirmPwd" 
+	        android:text="确定" />
+     
+    </RelativeLayout>
+
+</RelativeLayout>

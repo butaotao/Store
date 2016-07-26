@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+<include layout="@layout/titlebars_patient"
+    android:id="@+id/titlebar"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:id="@+id/ll_baidu"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:visibility="gone"
+        android:layout_below="@id/titlebar">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="!当前定位服务被禁用,请先启用"
+            android:textColor="@color/color_ff8948"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="如何启用?"
+            android:id="@+id/tv_openbaidudes"
+            android:textColor="@color/color_3BC1F3"
+            android:layout_marginLeft="10dp"/>
+    </LinearLayout>
+<LinearLayout android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:layout_below="@id/ll_baidu">
+   <!--  <com.baidu.mapapi.map.MapView
+        android:id="@+id/bmapView" 
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:clickable="true" /> -->
+    <LinearLayout   android:id="@+id/llbmapView" 
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:clickable="true" ></LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3">
+<ListView android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:scrollbars="none"
+    android:focusable="false" 
+    android:focusableInTouchMode="false"
+   android:cacheColorHint="#00000000" 
+   android:listSelector="#00000000"
+    android:divider="@color/color_f4f7f7"
+    android:dividerHeight="10dp"
+    android:background="@color/translate"
+    android:id="@+id/listview">
+</ListView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="暂无推荐药店"
+            android:id="@+id/tv_nullinfo"
+            android:layout_centerInParent="true"
+            android:textColor="@color/color_cccccc"/>
+    </RelativeLayout>
+   </LinearLayout>
+
+</RelativeLayout>

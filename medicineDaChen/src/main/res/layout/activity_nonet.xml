@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+<include layout="@layout/titlebar"/>
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" >
+
+      
+
+        <ImageView
+            android:id="@+id/iv_notnet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/not_net" />
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/iv_notnet"
+            android:layout_marginTop="20dp"
+            android:text="@string/net_notlinke"
+            android:textColor="@color/color_b0bdbc"
+            android:textSize="16dp" />
+    </RelativeLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativeLayout1"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/btn_tryagain"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/btn_green"
+        android:paddingLeft="25dp"
+        android:textSize="18dp"
+        android:paddingRight="25dp"
+        android:text="@string/tryagain"
+        android:textColor="@color/white" />
+
+</RelativeLayout>

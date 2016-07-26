@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/content_color"
+              android:orientation="vertical">
+
+    <include
+        layout="@layout/titlebar"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp">
+    </include>
+
+    <com.handmark.pulltorefresh.library.PullToRefreshPinHeaderExpandableListView
+        android:id="@+id/refreshlistview"
+        xmlns:pull="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/content_color"
+        android:cacheColorHint="#00000000"
+        android:childDivider="@color/text_line_color"
+        android:divider="@color/text_line_color"
+        android:dividerHeight="0.5px"
+        android:groupIndicator="@null"
+        android:listSelector="#00000000"
+        android:scrollbars="none"
+        pull:ptrAnimationStyle="flip"
+        />
+
+</LinearLayout>

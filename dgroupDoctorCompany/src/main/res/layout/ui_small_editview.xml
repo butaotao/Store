@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+                    style="@style/ActionBar_Container" >
+        <Button
+            android:id="@+id/back_btn"
+            style="@style/BackStyle"
+            android:layout_alignParentLeft="true"
+            />
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/ActionBar_Title"
+            android:textColor="@color/black"
+            android:text="编辑文字" />
+
+    </RelativeLayout>
+    
+
+    <EditText
+        android:id="@+id/ui_my_introduce_editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="9dp"
+        android:layout_marginRight="9dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="填写内容" 
+        android:background="@drawable/inputbox"
+        android:gravity="top" />
+
+    <Button
+        android:id="@+id/ui_my_introduce_button_ok"
+        style="@style/IMButton.Green"
+        android:layout_marginLeft="9dp"
+        android:layout_marginRight="9dp"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:text="@string/sure"/>
+
+</LinearLayout>

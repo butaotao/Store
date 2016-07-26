@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/color_eff3f3">
+
+    <include layout="@layout/titlebar" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        android:background="@color/white" >
+
+        <com.dachen.medicine.view.CircleImageView
+            android:id="@+id/head_icon"
+            android:layout_width="66dp"
+            android:layout_height="66dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="22dp"
+            android:src="@drawable/head_icon" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/head_icon"
+            android:gravity="center_vertical"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tv_username"
+                android:layout_width="fill_parent"
+                android:layout_height="33dp"
+                android:gravity="center_vertical"
+                android:text="@string/null_info"
+                android:textColor="@color/color_333333"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/tv_telephone"
+                android:layout_width="fill_parent"
+                android:layout_height="33dp"
+                android:gravity="center_vertical"
+                android:text="@string/null_info"
+                android:textColor="@color/color_888888"
+                android:textSize="14dp" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_myInfoInvestRecord"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height_45dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:id="@+id/ll_modifypassword"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height_45dp"
+            android:layout_marginLeft="@dimen/margin_left_15dp"
+            android:background="@color/white"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/img_myinvest"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:contentDescription="@null"
+                android:src="@drawable/modifypassword" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/margin_left_15dp"
+                android:layout_toRightOf="@id/img_myinvest"
+                android:gravity="center_vertical"
+                android:text="@string/accountsafe"
+                android:textColor="@color/bindcard_gray"
+                android:textSize="@dimen/text_size_myinfo_16" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="@dimen/margin_left_15dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_right_arrow" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_medicine_showname_first"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height_45dp"
+        android:background="@color/white"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height_45dp"
+            android:layout_marginLeft="@dimen/margin_left_15dp"
+            android:background="@color/white"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/img_medecinefirst"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:contentDescription="@null"
+                android:src="@drawable/medicinename" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dip"
+                android:layout_marginLeft="@dimen/margin_left_15dp"
+                android:layout_toRightOf="@id/img_medecinefirst"
+                android:background="@color/color_e1e1e1" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@id/img_medecinefirst"
+                android:background="@color/translate" >
+
+                <TextView
+                    android:id="@+id/tv_showfirst"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/margin_left_15dp"
+                    android:gravity="center_vertical"
+                    android:text="药品优先显示商品名"
+                    android:textColor="@color/bindcard_gray"
+                    android:textSize="@dimen/text_size_myinfo_16" />
+
+                <com.dachen.medicine.view.UISwitchButton
+                    android:id="@+id/iv_select"
+                    android:layout_width="60dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="@dimen/margin_left_15dp"
+                    android:contentDescription="@null"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    
+    
+    
+    
+      <LinearLayout
+        android:id="@+id/ll_popularize"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height_45dp"
+        android:background="@color/white"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height_45dp"
+            android:layout_marginLeft="@dimen/margin_left_15dp"
+            android:background="@color/white"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/img_popularize"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:contentDescription="@null"
+                android:src="@drawable/my_popular" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dip"
+                android:layout_marginLeft="@dimen/margin_left_15dp"
+                android:layout_toRightOf="@id/img_popularize"
+                android:background="@color/color_e1e1e1" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@id/img_popularize"
+                android:background="@color/translate" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/margin_left_15dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/mypopularfee"
+                    android:textColor="@color/bindcard_gray"
+                    android:textSize="@dimen/text_size_myinfo_16" />
+
+                <ImageView
+                    android:id="@+id/iv_ic_right_arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="@dimen/margin_left_15dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_right_arrow" />
+ 
+            </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
+    
+    
+    
+    
+    
+    
+    
+    <LinearLayout
+        android:id="@+id/ll_policygeneralize"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height_45dp"
+        android:background="@color/white"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height_45dp"
+            android:layout_marginLeft="@dimen/margin_left_15dp"
+            android:background="@color/white"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/img_mytender"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:contentDescription="@null"
+                android:src="@drawable/policygener" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dip"
+                android:layout_marginLeft="@dimen/margin_left_15dp"
+                android:layout_toRightOf="@id/img_mytender"
+                android:background="@color/color_e1e1e1" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@id/img_mytender"
+                android:background="@color/translate" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/margin_left_15dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/policygeneralize"
+                    android:textColor="@color/bindcard_gray"
+                    android:textSize="@dimen/text_size_myinfo_16" />
+
+                <ImageView
+                    android:id="@+id/iv_ic_right_arrow4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="@dimen/margin_left_15dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_right_arrow" />
+
+              
+            </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_about"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height_45dp"
+        android:background="@color/white"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height_45dp"
+            android:layout_marginLeft="@dimen/margin_left_15dp"
+            android:background="@color/white"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/img_mytender2"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:contentDescription="@null"
+                android:src="@drawable/about" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dip"
+                android:layout_marginLeft="@dimen/margin_left_15dp"
+                android:layout_toRightOf="@id/img_mytender2"
+                android:background="@color/color_e1e1e1" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@id/img_mytender2"
+                android:background="@color/translate" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/margin_left_15dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/about"
+                    android:textColor="@color/bindcard_gray"
+                    android:textSize="@dimen/text_size_myinfo_16" />
+
+                <ImageView
+                    android:id="@+id/iv_ic_right_arrow3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="@dimen/margin_left_15dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_right_arrow" />
+
+                <TextView
+                    android:id="@+id/tv_version"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="3dp"
+                    android:layout_toLeftOf="@id/iv_ic_right_arrow3" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/ll_logout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height_45dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_vertical"
+            android:text="@string/logout"
+            android:textColor="@color/color_f74e5b"
+            android:textSize="@dimen/text_size_myinfo_16" />
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" 
+    android:background="@color/translate">  
+        <RelativeLayout
+	    android:layout_width="fill_parent"
+	    android:layout_height="56dp"
+	    android:id="@+id/rl" 
+	    android:background="@color/translate"  >
+		      <RelativeLayout
+		    android:layout_width="fill_parent"
+		    android:layout_height="40dp"
+		    android:layout_alignParentBottom="true"
+		    android:background="@color/white"  >
+	
+		          <TextView
+		              android:id="@+id/btn_clean"
+		              android:layout_width="80dp"
+		              android:layout_height="fill_parent"
+		              android:gravity="center_vertical"
+		              android:layout_alignParentRight="true"
+		              android:layout_centerVertical="true" 
+		              android:text="全部清除" />
+		    
+			</RelativeLayout>
+
+ 			<ImageView
+	        android:id="@+id/ivbuycar_listtitle"
+	        android:layout_width="45dp"
+	        android:layout_height="45dp"
+	        android:layout_alignParentLeft="true"
+	        android:layout_alignParentTop="true"
+	        android:layout_marginLeft="19dp"
+	        android:background="@drawable/buycar_nobuy" />
+
+	    <Button
+	        android:id="@+id/iv_num_listtitle"
+	         android:layout_width="wrap_content"
+	        android:layout_height="20dp"
+	        android:minHeight="20dp"
+	        android:layout_marginLeft="48dp"
+	        android:minWidth="20dp"
+	        android:textColor="@color/white"
+	        android:layout_alignParentTop="true" 
+	        android:background="@drawable/circlered"/>
+ 
+	</RelativeLayout>
+<View android:layout_width="fill_parent"
+    android:layout_height="0.5dp"
+    android:layout_below="@id/rl"
+    android:background="@color/color_grayline1dp"/>
+</RelativeLayout>

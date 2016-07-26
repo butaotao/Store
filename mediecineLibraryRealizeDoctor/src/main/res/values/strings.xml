@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MediecineLibraryRealize</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+	<string name="er1">在推荐药店内购药时</string>
+	<string name="er2">请向店员出示此二维码</string>
+	<string name="er3">有可能获得</string>
+	<string name="er4">在药品生产厂商提供的优惠哦!</string>
+	<string name="havecollection">已收藏到药品库</string>
+	<string name="cancelcollection">已取消收藏</string>
+</resources>

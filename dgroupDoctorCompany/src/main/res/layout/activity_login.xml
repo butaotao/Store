@@ -1,0 +1,147 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/normal_bg"
+              android:orientation="vertical">
+
+    <include
+        android:id="@+id/layout_titlebar"
+        layout="@layout/layout_parent_titlebar_groupcompany"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/avatar_img"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="40dp"
+                android:contentDescription="@string/app_name"
+                android:paddingBottom="5.0dip"
+                android:paddingLeft="4.0dip"
+                android:paddingRight="6.0dip"
+                android:paddingTop="5.0dip"
+                android:src="@drawable/yishengduan_logo"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_horizontal"
+                android:text="健康伽   — 医生"
+                android:textSize="20sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="105dp"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+
+                android:background="@drawable/ic_launcher_icon"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <com.dachen.medicine.view.ClearEditText
+                android:id="@+id/phone_numer_edit"
+                style="@style/IMLineEditText"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
+                android:background="@drawable/inputbox"
+                android:cursorVisible="true"
+                android:hint="@string/please_input_phone_number"
+                android:inputType="phone"
+                android:textCursorDrawable="@null"/>
+
+            <com.dachen.medicine.view.ClearEditText
+                android:id="@+id/password_edit"
+                style="@style/IMLineEditPass"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/inputbox"
+                android:cursorVisible="true"
+                android:focusable="true"
+                android:hint="@string/please_input_password"
+                android:textCursorDrawable="@null"/>
+
+            <Button
+                android:id="@+id/login_btn"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="9dp"
+                android:background="@drawable/btn_blue_all_3cbaff"
+                android:text="@string/login"
+                android:textColor="@color/white"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+
+                <Button
+                    android:id="@+id/forget_password_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@color/translate"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="9dp"
+                    android:paddingRight="18dp"
+                    android:text="@string/forget_password"
+                    android:textColor="@color/gray"
+                    android:textSize="14dp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                 >
+
+                <Button
+                    android:id="@+id/register_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@color/translate"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="9dp"
+                    android:paddingRight="18dp"
+                    android:text="如何注册账号?"
+                    android:textColor="@color/color_3cbaff"
+                    android:textSize="14dp"/>
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

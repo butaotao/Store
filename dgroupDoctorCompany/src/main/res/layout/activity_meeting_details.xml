@@ -1,0 +1,551 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include
+            layout="@layout/layout_parent_titlebar_groupcompany"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:text="@string/edit"
+            android:textColor="@color/color_3cbaff"
+            android:textSize="17sp"
+            android:visibility="gone"
+            tools:visibility="visible" />
+    </RelativeLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/color_background"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingBottom="7.5dp"
+                android:paddingLeft="7.5dp"
+                android:paddingTop="7.5dp">
+
+                <TextView
+                    android:id="@+id/meeting_title_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/meeting_title_label"
+                    android:textColor="@color/gray_888888"
+                    android:textSize="@dimen/text_size_16sp" />
+
+                <TextView
+                    android:id="@+id/meeting_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/meeting_title_label"
+                    android:text="@string/meeting_title_hint"
+                    android:textColor="@color/gray_333333"
+                    android:textSize="@dimen/text_size_16sp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/color_grayline1dp" />
+
+            <RelativeLayout
+                android:id="@+id/select_date_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingBottom="7.5dp"
+                android:paddingLeft="7.5dp"
+                android:paddingTop="7.5dp">
+
+                <TextView
+                    android:id="@+id/meeting_date_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/meeting_date"
+                    android:textColor="@color/gray_888888"
+                    android:textSize="@dimen/text_size_16sp" />
+
+                <TextView
+                    android:id="@+id/meeting_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/meeting_date_label"
+                    android:text="@string/please_select"
+                    android:textColor="@color/gray_333333"
+                    android:textSize="@dimen/text_size_16sp" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/color_grayline1dp" />
+
+            <RelativeLayout
+                android:id="@+id/select_start_time_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingBottom="7.5dp"
+                android:paddingLeft="7.5dp"
+                android:paddingTop="7.5dp">
+
+                <TextView
+                    android:id="@+id/meeting_time_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/meeting_time"
+                    android:textColor="@color/gray_888888"
+                    android:textSize="@dimen/text_size_16sp" />
+
+                <TextView
+                    android:id="@+id/meeting_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/meeting_time_label"
+                    android:textColor="@color/gray_333333"
+                    android:textSize="@dimen/text_size_16sp"
+                    tools:text="@string/please_select" />
+
+            </RelativeLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/color_grayline1dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingBottom="7.5dp"
+                android:paddingLeft="7.5dp"
+                android:paddingTop="7.5dp">
+
+                <TextView
+                    android:id="@+id/meeting_count_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/meeting_count"
+                    android:textColor="@color/gray_888888"
+                    android:textSize="@dimen/text_size_16sp" />
+
+                <TextView
+                    android:id="@+id/meeting_count"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/meeting_count_label"
+                    android:textColor="@color/gray_333333"
+                    android:textSize="@dimen/text_size_16sp"
+                    tools:text="@string/please_input_wathc_count_hint" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/color_grayline1dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingBottom="7.5dp"
+                android:paddingLeft="7.5dp"
+                android:paddingTop="7.5dp">
+
+                <TextView
+                    android:id="@+id/meeting_expenses_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/meeting_expenses"
+                    android:textColor="@color/gray_888888"
+                    android:textSize="@dimen/text_size_16sp" />
+
+                <TextView
+                    android:id="@+id/meeting_expenses_real"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/meeting_expenses_label"
+                    android:textColor="@color/orange_f07406"
+                    android:textSize="@dimen/text_size_16sp"
+                    tools:text="¥0元" />
+
+                <TextView
+                    android:id="@+id/meeting_expenses"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/meeting_expenses_real"
+                    android:textColor="@color/gray_888888"
+                    android:textSize="@dimen/text_size_16sp"
+                    tools:text="¥200元" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/color_grayline1dp" />
+
+            <LinearLayout
+                android:id="@+id/password_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="vertical"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:text="手机端使用"
+                    android:textColor="@color/gray_888888"
+                    android:textSize="@dimen/text_size_16sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/color_grayline1dp" />
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:paddingBottom="7.5dp"
+                    android:paddingLeft="7.5dp"
+                    android:paddingTop="7.5dp">
+
+                    <TextView
+                        android:id="@+id/watch_password_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/watch_password"
+                        android:textColor="@color/gray_888888"
+                        android:textSize="@dimen/text_size_16sp" />
+
+                    <TextView
+                        android:id="@+id/watch_password"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/watch_password_label"
+                        android:textColor="@color/gray_333333"
+                        android:textSize="@dimen/text_size_16sp"
+                        tools:text="@string/set_watch_password_hint" />
+                    <RelativeLayout
+                        android:layout_width="40dp"
+                        android:layout_toRightOf="@id/watch_password"
+                        android:layout_centerVertical="true"
+                        android:id="@+id/rl_open_watch"
+
+                        android:layout_height="20dp">
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="12dp"
+                            android:id="@+id/iv_watch"
+                            android:layout_centerInParent="true"
+                            android:background="@drawable/eyeopen"/>
+                    </RelativeLayout>
+                    <TextView
+                        android:id="@+id/copy_watch_password"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:text="@string/copy"
+                        android:textColor="@color/blue_3cbaff"
+                        android:textSize="@dimen/text_size_16sp" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="15dp"
+                    android:text="PC端使用"
+                    android:textColor="@color/gray_888888"
+                    android:textSize="@dimen/text_size_16sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/color_grayline1dp" />
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:paddingBottom="7.5dp"
+                    android:paddingLeft="7.5dp"
+                    android:paddingTop="7.5dp">
+
+                    <TextView
+                        android:id="@+id/guest_password_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/guest_password"
+                        android:textColor="@color/gray_888888"
+                        android:textSize="@dimen/text_size_16sp" />
+
+                    <TextView
+                        android:id="@+id/guest_password"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/guest_password_label"
+                        android:textColor="@color/gray_333333"
+                        android:textSize="@dimen/text_size_16sp"
+                        tools:text="@string/set_guest_password_hint" />
+                    <RelativeLayout
+                        android:layout_width="40dp"
+                        android:layout_toRightOf="@id/guest_password"
+                        android:layout_centerVertical="true"
+                        android:id="@+id/rl_open_guest"
+
+                        android:layout_height="20dp">
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="12dp"
+                            android:id="@+id/iv_guest"
+                            android:layout_centerInParent="true"
+                            android:background="@drawable/eyeopen"/>
+                    </RelativeLayout>
+                    <TextView
+                        android:id="@+id/copy_guest_password"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:text="@string/copy"
+                        android:textColor="@color/blue_3cbaff"
+                        android:textSize="@dimen/text_size_16sp" />
+
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/color_grayline1dp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:paddingBottom="7.5dp"
+                    android:paddingLeft="7.5dp"
+                    android:paddingTop="7.5dp">
+
+                    <TextView
+                        android:id="@+id/organization_password_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_centerVertical="true"
+                        android:text="@string/organization_password"
+                        android:textColor="@color/gray_888888"
+                        android:textSize="@dimen/text_size_16sp" />
+
+                    <TextView
+                        android:id="@+id/organization_password"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/organization_password_label"
+                        android:textColor="@color/gray_333333"
+                        android:textSize="@dimen/text_size_16sp"
+                        tools:text="@string/set_organization_password_hint" />
+
+                    <TextView
+                        android:id="@+id/copy_organization_password"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:text="@string/copy"
+                        android:visibility="gone"
+                        android:textColor="@color/blue_3cbaff"
+                        android:textSize="@dimen/text_size_16sp" />
+                    <RelativeLayout
+                        android:layout_width="40dp"
+                        android:layout_toRightOf="@id/organization_password"
+                        android:layout_centerVertical="true"
+                        android:id="@+id/rl_open_organization"
+                        android:layout_height="20dp">
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="12dp"
+                            android:layout_centerInParent="true"
+                            android:id="@+id/iv_organization"
+                            android:background="@drawable/eyeopen"/>
+                    </RelativeLayout>
+                </RelativeLayout>
+
+
+
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/color_grayline1dp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:paddingBottom="7.5dp"
+                    android:paddingLeft="7.5dp"
+                    android:paddingTop="7.5dp">
+
+                    <TextView
+                        android:id="@+id/link_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/add_link"
+                        android:textColor="@color/gray_888888"
+                        android:textSize="@dimen/text_size_16sp" />
+
+                    <TextView
+                        android:id="@+id/link"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_toRightOf="@id/link_label"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:textColor="@color/gray_333333"
+                        android:textSize="@dimen/text_size_16sp"
+                        tools:text="@string/set_watch_password_hint" />
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_toRightOf="@id/link"
+                        android:layout_centerVertical="true"
+                        android:id="@+id/rl_open_link"
+                        android:layout_height="match_parent">
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="12dp"
+                            android:id="@+id/iv_link"
+                            android:visibility="gone"
+                            android:background="@drawable/eyeclose"/>
+                    </RelativeLayout>
+                    <TextView
+                        android:id="@+id/copy_link"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:text="@string/copy"
+                        android:textColor="@color/blue_3cbaff"
+                        android:textSize="@dimen/text_size_16sp" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/color_grayline1dp" />
+
+                <TextView
+                    android:id="@+id/tips"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:text="不知道下一步该如何操作?"
+                    android:textColor="@color/blue_3cbaff"
+                    android:textSize="@dimen/text_size_14sp" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/color_grayline1dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp">
+
+        <Button
+            android:id="@+id/enter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="7.5dp"
+            android:layout_marginRight="7.5dp"
+            android:background="@drawable/selector_white_button_bg"
+            android:text="@string/enter_meeting_room"
+            android:textColor="@color/blue_3cbaff"
+            android:textSize="@dimen/text_size_18sp" />
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ff000000"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/group_personal_data_top"
+        style="@style/ActionBar_Container"
+        android:visibility="gone">
+
+        <!--<Button-->
+            <!--android:id="@+id/btn_back"-->
+            <!--style="@style/ActionBar_BackBtn"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:onClick="onLeftClick" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/tv_title"-->
+            <!--style="@style/ActionBar_Title"/>-->
+        <RelativeLayout
+            android:onClick="onLeftClick"
+            android:id="@+id/back_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/icon_back" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/iv_back"
+                android:text="返回"
+                android:textColor="@color/color_3cbaff"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/ActionBar_Title"
+            android:textColor="@color/black" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_height="0.5dp"
+            android:background="@color/divide_line_color"/>
+    </RelativeLayout>
+
+    <WebView
+        android:id="@+id/webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

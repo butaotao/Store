@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Width_Height_MAT"
+    android:background="@color/bg_color"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/titlebar"
+        layout="@layout/titlebars_patient" />
+
+    <RelativeLayout
+        android:id="@+id/search_edit_layout"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@id/titlebar"
+        android:background="@drawable/search_bg"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="5dp" >
+
+        <com.dachen.medicine.view.ClearEditText
+            android:id="@+id/search_edit"
+            android:layout_width="match_parent"
+            android:layout_height="45dip"
+            android:background="@drawable/im_input_bg"
+            android:drawableLeft="@drawable/ic_search"
+            android:drawablePadding="5dip"
+            android:gravity="left"
+            android:hint="添加常备药"
+            android:imeOptions="actionSearch"
+            android:padding="10dip"
+            android:singleLine="true"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tv_showseachermedicien"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/search_edit_layout"
+        android:background="#d6d6d6"
+        android:gravity="center"
+        android:paddingLeft="10dp"
+        android:text="未发现该药品" >
+    </TextView>
+
+    <ListView 
+        android:id="@+id/lv_showseachermedicien"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/search_edit_layout"
+        android:background="#D6D6D6"
+        android:divider="@color/color_grayline1dp"
+        android:dividerHeight="0.5dp"
+        android:cacheColorHint="@android:color/transparent">
+    </ListView>
+
+</RelativeLayout>

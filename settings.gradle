@@ -1,0 +1,35 @@
+include ':meidecineLibrary'
+include ':mediecineLibraryRealizeDoctor'
+include ':mediecineLibraryRealize'
+include ':medicineDaChen'
+include ':actionSheetLibrary'
+include ':barcodeScannerCore'
+include ':incomeLibrary'
+include ':pullToRefreshViewsLibrary'
+include ':numberPickerLibrary'
+include ':pickerView_Library'
+include ':dgroupDoctorCompany'
+include ':dCommonLibrary'
+include ':ImSdk'
+include ':vitamioLibrary'
+include ':rTRoutineLib'
+include ':cmsLiveLibrary'
+include ':rtmpResourceLib'
+include ':vitamioLibrary'
+include ':ImVideo'
+include ':videoConferencingLibrary'
+
+project(':actionSheetLibrary').projectDir = new File(rootDir, "../CommonLibraryProject/actionSheetLibrary")
+project(':barcodeScannerCore').projectDir = new File(rootDir, "../CommonLibraryProject/barcodeScannerCore")
+project(':incomeLibrary').projectDir = new File(rootDir, "../CommonLibraryProject/incomeLibrary")
+project(':pullToRefreshViewsLibrary').projectDir = new File(rootDir, "../CommonLibraryProject/pullToRefreshViewsLibrary")
+project(':numberPickerLibrary').projectDir = new File(rootDir, "../CommonLibraryProject/numberPickerLibrary")
+project(':pickerView_Library').projectDir = new File(rootDir, "../CommonLibraryProject/pickerView_Library")
+project(':ImSdk').projectDir = new File(rootDir, "../ImSdkProject/ImSdk")
+project(':dCommonLibrary').projectDir = new File(rootDir, "../CommonLibraryProject/dCommonLibrary")
+project(':rTRoutineLib').projectDir = new File(rootDir, "../CommonLibraryProject/rTRoutineLib")
+project(':cmsLiveLibrary').projectDir = new File(rootDir, "../CommonLibraryProject/cmsLiveLibrary")
+project(':rtmpResourceLib').projectDir = new File(rootDir, "../CommonLibraryProject/rtmpResourceLib")
+project(':vitamioLibrary').projectDir = new File(rootDir, "../CommonLibraryProject/vitamioLibrary")
+project(':ImVideo').projectDir = new File(rootDir, "../CommonLibraryProject/ImVideo")
+project(':videoConferencingLibrary').projectDir = new File(rootDir, "../CommonLibraryProject/videoConferencingLibrary")

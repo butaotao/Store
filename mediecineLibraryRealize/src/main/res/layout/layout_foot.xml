@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height_45dp"
+        android:id="@+id/rl_des"
+        android:layout_marginTop="6dp"
+        android:layout_alignParentBottom="true">
+        <TextView
+            android:layout_width="match_parent"
+            android:textSize="14sp"
+            android:gravity="center_vertical"
+            android:textColor="@color/color_aaaaaa"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:text="温馨提示:药品的使用提醒已进入您的药箱，您可以通过”我的药箱“进行相关设置"/>
+    </RelativeLayout>
+</LinearLayout>

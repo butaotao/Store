@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/color_background"
+                android:orientation="vertical">
+
+    <include
+        android:id="@+id/layout_titlebar"
+        layout="@layout/layout_parent_titlebar_groupcompany"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
+
+
+    <com.handmark.pulltorefresh.library.PullToRefreshScrollView
+        android:id="@+id/refresh_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/layout_titlebar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/selectall"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:visibility="gone">
+
+                <RadioButton
+                    android:id="@+id/btn_radio_addall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="17dp"
+                    android:button="@drawable/selector_btn_radio"
+                    android:clickable="false"
+                    android:focusable="false"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@id/btn_radio_addall"
+                    android:text="全选"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/divide_line_color"></View>
+            </RelativeLayout>
+
+
+            <com.dachen.dgroupdoctorcompany.views.NoScrollerListView
+                android:id="@+id/listview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="55dp"
+                android:layout_marginTop="10dp"
+                android:divider="@color/color_dividerline"
+                android:dividerHeight="0.5dp"
+                android:scrollbars="none"/>
+        </LinearLayout>
+
+
+    </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
+
+    <LinearLayout
+        android:id="@+id/empty_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_bar"
+        android:layout_below="@id/layout_titlebar"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_no_contract"/>
+
+        <TextView
+            android:id="@+id/tv_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="该部门没有成员"
+            android:textColor="#999"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/bottom_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="56dip"
+        android:layout_alignParentBottom="true"
+        android:background="#F8F8F8"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/divide_line_color"/>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="55dip"
+            android:background="#F8F8F8"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.dachen.dgroupdoctorcompany.views.HorizontalListView
+                android:id="@+id/addlistview"
+                android:layout_width="0dip"
+                android:layout_height="55dip"
+                android:layout_marginLeft="10dip"
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/btn_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dip"
+                android:background="@drawable/selector_btn_start"
+                android:minWidth="70dip"
+                android:paddingBottom="8dp"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:paddingTop="8dp"
+                android:text="开始"
+                android:textColor="@color/white"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>

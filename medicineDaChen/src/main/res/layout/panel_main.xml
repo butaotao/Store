@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+	
+	xmlns:panel="http://schemas.android.com/apk/src/org.panel"
+    android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:background="#767c9b"
+>
+	<LinearLayout
+	    android:orientation="vertical"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:paddingLeft="37dip"
+		android:paddingRight="37dip"
+	> 
+		<!--<org.miscwidgets.widget.Panel
+		    android:layout_width="fill_parent" 
+		    android:layout_height="wrap_content" 
+		    android:id="@+id/topPanel" 
+		    android:paddingBottom="4dip"
+		    panel:handle="@+id/panelHandle"
+		    panel:content="@+id/panelContent"
+		    panel:position="top"
+		    panel:animationDuration="1000"
+		    panel:linearFlying="true"
+		    panel:openedHandle="@drawable/launcher"
+		    panel:closedHandle="@drawable/launcher"
+		    
+		>
+			<Button
+				android:id="@+id/panelHandle" 
+			    android:layout_width="fill_parent" 
+			    android:layout_height="33dip" 
+			/>
+			<LinearLayout
+				android:id="@+id/panelContent" 
+			    android:orientation="vertical"
+	    		android:layout_width="fill_parent"
+	    		android:layout_height="wrap_content"
+			>
+				<CheckBox
+				    android:layout_width="fill_parent" 
+				    android:layout_height="60dip" 
+				    android:gravity="center"
+				    android:text="top check box"
+				    android:background="#688"
+				/>
+				<TextView
+				    android:layout_width="fill_parent" 
+				    android:layout_height="wrap_content" 
+				    android:gravity="center"
+				    android:text="Bounce\nInterpolator"
+				    android:textSize="16dip"
+				    android:padding="4dip"
+				    android:textColor="#eee"
+				    android:textStyle="bold"
+				    android:background="#323299"
+				/>
+			</LinearLayout>
+		</org.miscwidgets.widget.Panel> -->
+	 
+	</LinearLayout> 
+</FrameLayout>

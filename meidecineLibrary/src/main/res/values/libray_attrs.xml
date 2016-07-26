@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!--	 <declare-styleable name="CustomIndicator">
+	     <attr name="width" format="dimension" />
+	     <attr name="height" format="dimension" />
+	     <attr name="margin" format="dimension" />
+	     <attr name="normal_icon" format="reference" />
+	     <attr name="selected_icon" format="reference" />
+	 </declare-styleable>-->
+	 
+	   <declare-styleable name="SwitchButtons">
+        <attr name="bmWidths" format="dimension"></attr>
+        <attr name="bmHeights" format="dimension"></attr>
+    </declare-styleable>
+	 <!-- 手势密码 -->
+	  <declare-styleable name="LockPatternView">
+        <!-- Aspect to use when drawing LockPatternView. Choices are "square"(default), "lock_width"
+             or "lock_height" -->
+        <attr name="aspect" format="string" />
+    </declare-styleable>
+	<declare-styleable name="nc">
+		<attr name="roundRadius" format="dimension"/>
+		<attr name="maxLength" format="integer"/>
+		<attr name="centerAlign" format="string"/>
+		<attr name="inputType" format="string"/>
+		<attr name="scaleType" format="string"/>
+		<attr name="drawableLeft" format="reference"/>
+		<attr name="drawableEmpty" format="reference"/>
+		<attr name="segement_tv1" format="string"/>
+		<attr name="segement_tv2" format="string"/>
+	</declare-styleable>
+	<!--键盘-->
+	<declare-styleable name="keyboard">
+		<attr name="xml" format="reference" />
+		<attr name="randomKeys" format="reference|boolean"></attr>
+		<attr name="isMobileNumber" format="reference|boolean" />
+	</declare-styleable>
+
+	<!--刷新-->
+	<declare-styleable name="refresh">
+		<attr name="xmls" format="reference" />
+		<attr name="isRefreshWhiteColor" format="reference|boolean" />
+	</declare-styleable>
+
+	<declare-styleable name="PercentLayout_Layout">
+		<attr name="layout_widthPercent" format="string"/>
+		<attr name="layout_heightPercent" format="string"/>
+		<attr name="layout_marginPercent" format="string"/>
+		<attr name="layout_marginLeftPercent" format="string"/>
+		<attr name="layout_marginTopPercent" format="string"/>
+		<attr name="layout_marginRightPercent" format="string"/>
+		<attr name="layout_marginBottomPercent" format="string"/>
+		<attr name="layout_marginStartPercent" format="string"/>
+		<attr name="layout_marginEndPercent" format="string"/>
+		<attr name="layout_textSizePercent" format="string"/>
+	</declare-styleable>
+
+	<declare-styleable name="TasksCompletedView">
+		<attr name="radius" format="dimension"/>
+		<attr name="strokeWidth" format="dimension"/>
+		<attr name="circleColor" format="color"/>
+		<attr name="ringColors" format="color"/>
+	</declare-styleable>
+	<!--圆环进度-->
+	<declare-styleable name="RingProgressBar">
+		<attr name="ringColor" format="color"/>
+		<attr name="ringProgressColor" format="color"/>
+		<attr name="ringWidth" format="dimension"></attr>
+		<attr name="textColor" format="color" />
+		<attr name="textSize" format="dimension" />
+		<attr name="max" format="integer"></attr>
+		<attr name="progress" format="integer"></attr>
+		<attr name="textIsDisplayable" format="boolean"></attr>
+		<attr name="style">
+			<enum name="STROKE" value="0"></enum>
+			<enum name="FILL" value="1"></enum>
+		</attr>
+	</declare-styleable>
+
+	<!--下拉放大-->
+	<declare-styleable name="PullToZoomView">
+		<attr name="headerView" format="reference" />
+		<attr name="contentView" format="reference" />
+		<attr name="zoomView" format="reference" />
+		<attr name="isHeaderParallax" format="boolean" />
+	</declare-styleable>
+	
+	 <!--<declare-styleable name="ActionBar">
+
+<attr name="title" localization="suggested" format="string"/>
+
+</declare-styleable>-->
+</resources>

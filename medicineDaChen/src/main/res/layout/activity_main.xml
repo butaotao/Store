@@ -1,0 +1,184 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:id="@+id/mainActivity_bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#F2F2F2"
+        android:orientation="horizontal" >
+
+
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/ll_tab"
+            android:layout_alignParentTop="true" >
+        </FrameLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_above="@id/ll_tab"
+            android:id="@+id/line2"
+            android:background="@color/color_grayline1dp"/>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="3dp" >
+
+            <FrameLayout
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true" >
+                <ImageView
+                    android:layout_width="86dp"
+                    android:layout_height="84dp"
+                    android:layout_gravity="bottom|center"
+                    android:src="@drawable/circlewhite"/>
+
+            </FrameLayout>
+        </RelativeLayout>
+        <LinearLayout
+            android:id="@+id/ll_tab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white"
+            android:orientation="horizontal" >
+
+            <RelativeLayout
+                android:id="@+id/mainActivity_home_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingBottom="3dp" >
+
+                <!--
+                 <View
+			    android:layout_width="match_parent"
+			    android:layout_height="1px"
+			    android:layout_alignParentTop="true"
+			    android:background="@color/divide_line_color" />
+                -->
+
+                <FrameLayout
+                    android:id="@+id/home_btn_area"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true" >
+
+                    <ImageView
+                        android:id="@+id/mainActivity_home_btn"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_gravity="bottom|center"
+                        android:background="@drawable/home_gray" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/mainActivity_home_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/home_btn_area"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/sellrecord"
+                    android:textColor="@color/gray"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingBottom="3dp" >
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/mainActivity_settingsfragment_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingBottom="3dp" >
+
+                <!--
+                 <View
+			    android:layout_width="match_parent"
+			    android:layout_height="1px"
+			    android:layout_alignParentTop="true"
+			    android:background="@color/divide_line_color" />
+                -->
+
+                <FrameLayout
+                    android:id="@+id/settingsfragment_btn_area"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true" >
+
+                    <ImageView
+                        android:id="@+id/mainActivity_settingsfragment_btn"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_gravity="bottom|center"
+                        android:background="@drawable/settingsfragment_btn" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/mainActivity_settingsfragment_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/settingsfragment_btn_area"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/home_tab_settings"
+                    android:textColor="@color/gray"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+        </LinearLayout>
+
+
+
+        <RelativeLayout
+            android:id="@+id/mainActivity_qrfragment_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="3dp" >
+
+            <FrameLayout
+                android:id="@+id/qrfragment_btn_area"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true" >
+                <ImageView
+                    android:id="@+id/mainActivity_qrfragment_btn"
+                    android:layout_width="72dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="bottom|center"
+                    android:src="@drawable/ercodefragment_tab_btn" />
+            </FrameLayout>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

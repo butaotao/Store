@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+     >
+    
+<include layout="@layout/titlebar"
+    android:id="@+id/titlebar"/>
+<LinearLayout android:layout_width="fill_parent"
+    android:layout_height="72dp"
+    android:layout_below="@id/titlebar"
+    android:gravity="center_vertical"
+    android:id="@+id/ll_des"
+    android:background="@color/color_99000000">
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="32dp" 
+        android:background="@drawable/notfounlistalert" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_marginLeft="15dp"
+        android:text="@string/not_found_this_list"
+        android:textColor="@color/color_36bfad"
+        android:textSize="18dp" 
+        android:gravity="center_vertical"/>
+
+</LinearLayout>
+<RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_below="@id/ll_des"
+    android:background="@drawable/found_listbackground"  >
+
+   
+</RelativeLayout>
+<RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"   >
+    
+     <ImageView 
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_centerInParent="true"
+        android:id="@+id/iv_scan_again"
+        android:src="@drawable/white_circle" />
+
+    <ImageView
+        android:id="@+id/iv_scan"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/scan" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_scan"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="18dp"
+        android:text="重新扫描"
+        android:textColor="@color/color_36bfad"
+        android:textSize="18dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="45dp" 
+        android:id="@+id/btn_quitscan"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/btn_white"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:text="退出扫描"
+        android:textColor="@color/color_36bfad" />
+    
+    
+    
+   </RelativeLayout>
+
+
+</RelativeLayout>

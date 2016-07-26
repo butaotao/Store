@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_background"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="174dp"
+        android:id="@+id/rl_titlebars"
+        android:background="@drawable/myinfo_background">
+    <include layout="@layout/layout_parent_titlebar_groupcompany"
+        android:id="@+id/layout_titlebar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:orientation="vertical"
+
+        android:layout_below="@id/layout_titlebar"
+        android:id="@+id/title_icon">
+     <ImageView
+            android:id="@+id/head_icon"
+            android:layout_width="66dp"
+            android:layout_height="66dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/head_icon" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_name"
+            android:layout_marginTop="5dp"
+            android:layout_centerHorizontal="true"
+            android:text="@string/null_info"
+            android:textColor="@color/white"
+            android:layout_below="@id/head_icon"/>
+    </RelativeLayout>
+    </RelativeLayout>
+    <ScrollView
+        android:layout_below="@id/rl_titlebars"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scollview">
+        <LinearLayout
+            android:layout_width="match_parent"
+
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/ll_sex"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+
+                android:orientation="vertical" >
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/color_dividerline"></View>
+                <RelativeLayout
+                    android:id="@+id/rl_sex"
+                    android:layout_width="match_parent"
+                    android:layout_height="51dp"
+                    android:layout_marginLeft="@dimen/margin_left_15dp"
+                    android:background="@color/white"
+                    android:orientation="vertical" >
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/margin_left_15dp"
+
+                        android:gravity="center_vertical"
+                        android:text="性别:"
+                        android:id="@+id/tv_sexdes"
+                        android:textColor="@color/bindcard_gray"
+                        android:textSize="@dimen/text_size_myinfo_16" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="16dp"
+                        android:layout_toRightOf="@id/tv_sexdes"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="@dimen/margin_left_15dp"
+                        android:contentDescription="@null"
+                        android:singleLine="true"
+                        android:maxEms="12"
+                        android:layout_marginLeft="5dp"
+                        android:ellipsize="end"
+                        android:id="@+id/tv_sex"
+                        android:text="@string/null_info"/>
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_num"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:visibility="gone"
+                android:orientation="vertical" >
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/color_dividerline"></View>
+                <RelativeLayout
+                    android:id="@+id/rl_num"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/item_height_45dp"
+                    android:layout_marginLeft="@dimen/margin_left_15dp"
+                    android:background="@color/white"
+                    android:orientation="vertical" >
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/margin_left_15dp"
+
+                        android:gravity="center_vertical"
+                        android:text="工号:"
+                        android:id="@+id/tv_numdes"
+                        android:textColor="@color/bindcard_gray"
+                        android:textSize="@dimen/text_size_myinfo_16" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="16dp"
+                        android:layout_toRightOf="@id/tv_numdes"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="@dimen/margin_left_15dp"
+                        android:contentDescription="@null"
+                        android:singleLine="true"
+                        android:maxEms="12"
+                        android:layout_marginLeft="5dp"
+                        android:ellipsize="end"
+                        android:id="@+id/tv_num"
+                        android:text="@string/null_info"/>
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_depart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+
+                android:orientation="vertical" >
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/color_dividerline"></View>
+                <RelativeLayout
+                    android:id="@+id/rl_depart"
+                    android:layout_width="match_parent"
+                    android:layout_height="51dp"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/margin_left_15dp"
+                    android:background="@color/white"
+                    android:orientation="vertical" >
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_cccccc"
+                        android:textSize="13sp"
+                        android:gravity="center_vertical"
+                        android:text="部门"
+                        android:id="@+id/tv_departdes"  />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv_departdes"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:contentDescription="@null"
+                        android:singleLine="true"
+                        android:textSize="16sp"
+                        android:layout_marginTop="1dp"
+                        android:textColor="@color/color_333333"
+                        android:gravity="center_vertical"
+                        android:maxEms="12"
+                        android:ellipsize="end"
+                        android:id="@+id/tv_depart"
+                        android:text="@string/null_info"/>
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_position"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical" >
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/color_dividerline"></View>
+                <RelativeLayout
+                    android:id="@+id/rl_position"
+                    android:layout_width="match_parent"
+                    android:layout_height="51dp"
+                    android:layout_marginLeft="@dimen/margin_left_15dp"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical" >
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:gravity="center_vertical"
+                        android:text="职位"
+                        android:id="@+id/tv_positiondes"
+                        android:textColor="@color/color_cccccc"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv_positiondes"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:contentDescription="@null"
+                        android:singleLine="true"
+                        android:maxEms="12"
+                        android:textSize="16sp"
+                        android:layout_marginTop="1dp"
+                        android:textColor="@color/color_333333"
+                        android:ellipsize="end"
+                        android:id="@+id/tv_position"
+                        android:text="@string/null_info"/>
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+
+                android:orientation="vertical" >
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/color_dividerline"></View>
+                <RelativeLayout
+                    android:id="@+id/rl_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="51dp"
+                    android:layout_marginLeft="@dimen/margin_left_15dp"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical" >
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:gravity="center_vertical"
+                        android:text="手机"
+                        android:id="@+id/tv_phonedes"
+                        android:textColor="@color/color_cccccc"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv_phonedes"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:contentDescription="@null"
+                        android:singleLine="true"
+                        android:maxEms="12"
+                        android:textSize="16sp"
+                        android:textColor="@color/color_333333"
+                        android:ellipsize="end"
+                        android:layout_marginTop="1dp"
+                        android:id="@+id/tv_phone"
+                        android:text="@string/null_info"/>
+                    <ImageView
+                        android:layout_width="21dp"
+                        android:layout_height="21dp"
+                        android:layout_marginTop="7dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="17dp"
+                        android:id="@+id/iv_messagesend"
+                        android:background="@drawable/messagesend"/>
+                    <ImageView
+                        android:layout_width="21dp"
+                        android:layout_height="21dp"
+                        android:layout_marginRight="7dp"
+                        android:id="@+id/iv_phonecall"
+                        android:layout_marginTop="7dp"
+                        android:layout_toLeftOf="@+id/iv_messagesend"
+                        android:background="@drawable/phonecall"/>
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_mail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:visibility="gone"
+                android:orientation="vertical" >
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/color_dividerline"></View>
+                <RelativeLayout
+                    android:id="@+id/rl_mail"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/item_height_45dp"
+                    android:layout_marginLeft="@dimen/margin_left_15dp"
+                    android:background="@color/white"
+                    android:orientation="vertical" >
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/margin_left_15dp"
+
+                        android:gravity="center_vertical"
+                        android:text="邮箱:"
+                        android:id="@+id/tv_maildes"
+                        android:textColor="@color/bindcard_gray"
+                        android:textSize="@dimen/text_size_myinfo_16" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="16dp"
+                        android:layout_toRightOf="@id/tv_maildes"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="@dimen/margin_left_15dp"
+                        android:contentDescription="@null"
+                        android:singleLine="true"
+                        android:maxEms="12"
+                        android:layout_marginLeft="5dp"
+                        android:ellipsize="end"
+                        android:id="@+id/tv_mail"
+                        android:text="@string/null_info"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/rl_btns"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+
+        android:id="@+id/ll_btns"
+        android:background="@color/white"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="发消息"
+            android:gravity="center"
+            android:textColor="@color/fragementselectcolor"
+            android:id="@+id/btn_sendinfo"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/fragementselectcolor"
+            android:text="设为常用联系人"
+            android:visibility="gone"
+            android:id="@+id/btn_oftencontact"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:id="@+id/line3"
+        android:background="@color/divide_line_color"
+        android:layout_above="@id/ll_btns"></View>
+    <View
+        android:layout_width="0.5dp"
+        android:layout_height="50dp"
+        android:visibility="gone"
+        android:layout_centerHorizontal="true"
+        android:background="@color/divide_line_color"
+        android:layout_below="@id/line3"></View>
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:layout_marginTop="12dp"
+    android:background="@drawable/bulk_green">
+    <RelativeLayout android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp">
+         
+
+           <TextView
+               android:id="@+id/tv_weight"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_centerVertical="true"
+               android:layout_toRightOf="@+id/tv_name"
+               android:text="@string/null_info"
+               android:layout_marginLeft="3dp"
+               android:textColor="@color/gray"
+                android:singleLine="true"
+               android:maxLength="10"
+               android:textSize="12dp" />
+
+           <TextView
+               android:id="@+id/tv_name"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_alignParentLeft="true"
+               android:layout_centerVertical="true"
+               android:text="@string/null_info"
+               android:textColor="@color/black"
+               android:singleLine="true"
+               android:maxLength="10"
+               android:textSize="15dp" />
+		 
+
+		  <TextView
+		      android:id="@+id/tv_unit"
+		      android:layout_width="wrap_content"
+		      android:layout_height="wrap_content"
+		      android:layout_alignBaseline="@+id/tv_num"
+		      android:layout_marginLeft="3dp"
+		      android:paddingBottom="3dp"
+		      android:layout_alignBottom="@+id/tv_num"
+		      android:layout_alignParentRight="true"
+		      android:text="@string/null_info"
+		      android:textColor="@color/gray"
+		       android:singleLine="true"
+               android:maxLength="4"
+		      android:textSize="12dp" />
+ <TextView android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textSize="20dp"
+               android:textColor="@color/black"
+                 android:text="@string/null_info"
+               android:layout_toLeftOf="@id/tv_unit"
+                android:singleLine="true"
+               android:maxLength="4"
+               android:id="@+id/tv_num"/>
+    </RelativeLayout>
+	<View android:layout_width="fill_parent"
+	    android:layout_height="0.5dp"
+	    android:layout_marginLeft="15dp"
+	    android:layout_marginRight="15dp"
+	    android:background="@color/color_grayline1dp"
+	    />
+	<RelativeLayout android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginLeft="15dp"
+	    android:layout_marginTop="15dp"
+	    android:layout_marginRight="15dp">
+	   <TextView android:layout_width="wrap_content"
+	       android:layout_height="wrap_content"
+	       android:textSize="14dp"
+	       android:textColor="@color/gray"
+	       android:text="@string/null_info"
+		   android:maxLength="12"
+		   android:singleLine="true"
+	       android:id="@+id/tv_company"/>
+	   <TextView android:layout_width="wrap_content"
+	       android:layout_height="wrap_content"
+	       android:textSize="14dp"
+	       android:text="@string/null_info"
+		   android:maxLength="5"
+	       android:layout_alignParentRight="true"
+	       android:textColor="@color/color_ff8948"
+	       android:id="@+id/tv_nummore"/>
+
+	   <ImageView
+	       android:layout_width="5dp"
+	       android:layout_height="5dp"
+	       android:layout_centerVertical="true"
+	       android:layout_marginRight="5dp"
+	       android:id="@+id/iv_point_orange"
+	       android:layout_toLeftOf="@+id/tv_nummore"
+	       android:background="@drawable/point_orange" />
+
+	</RelativeLayout>
+	
+	<LinearLayout android:layout_width="fill_parent"
+	    android:layout_height="40dp"
+	    android:id="@+id/ll_buy_des"
+	     android:layout_marginTop="20dp"
+	    android:orientation="horizontal"
+	    android:layout_marginLeft="5dp"
+	    android:layout_marginRight="5dp"
+	    
+	     android:layout_marginBottom="20dp">
+	    <LinearLayout android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:gravity="center_horizontal"
+	        android:paddingLeft="6dp"
+	        android:paddingRight="6dp"
+	          android:id="@+id/ll_not_nomber"
+	        android:layout_weight="1"><!-- //    android:left="15dp"
+        android:top="5dp"
+        android:right="15dp"
+        android:bottom="5dp" -->
+	        <Button android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:text="无药监码"
+	            android:background="@drawable/btn_bulk_gray"
+	            android:paddingLeft="15dp"
+	            android:paddingRight="15dp"
+	            android:paddingTop="5dp"
+	            android:paddingBottom="5dp"
+	            android:textColor="@color/color_333333"
+	            android:id="@+id/tv_notcode"
+	            
+	            android:textSize="16dp" />
+	    </LinearLayout>
+	     <LinearLayout android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	           android:gravity="center_horizontal"
+	            android:paddingLeft="6dp"
+	        android:paddingRight="6dp"
+	        android:layout_weight="1">
+	        <Button android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:text="顾客减量"
+	            android:id="@+id/tv_reduce"
+	                android:left="15dp"
+        android:top="5dp"
+        android:right="15dp"
+        android:bottom="5dp"
+	            android:background="@drawable/btn_bulk_gray"
+	            android:textColor="@color/color_333333"
+	            android:textSize="16dp" />
+	    </LinearLayout>
+	     <LinearLayout android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	           android:gravity="center_horizontal"
+	            android:paddingLeft="6dp"
+	        android:paddingRight="6dp"
+	        android:id="@+id/ll_short"
+	        android:layout_weight="1">
+	        <Button android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:text="缺货" 
+	                android:left="15dp"
+        android:top="5dp"
+        android:right="15dp"
+        android:bottom="5dp"
+	            android:id="@+id/tv_short" 
+	            android:background="@drawable/btn_bulk_gray"
+	            android:textColor="@color/color_333333"
+	            android:textSize="16dp" />
+	    </LinearLayout>
+	</LinearLayout>
+	
+	 
+	
+	
+	
+	
+		<LinearLayout android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:id="@+id/ll_buy_des2"
+	     android:layout_marginTop="20dp"
+	      android:gravity="center_horizontal"
+	    android:orientation="vertical">
+
+			<Button
+			    android:layout_width="fill_parent"
+			    android:layout_height="40dp"
+			    android:layout_marginLeft="11dp"
+			    android:layout_marginRight="11dp"
+			    android:background="@drawable/btn_bulk_gray" 
+			   android:id="@+id/tv_plus" 
+			   android:textSize="16dp"
+			   android:textColor="@color/color_333333"
+			    android:text="顾客加量" />
+
+	     <RelativeLayout android:layout_width="fill_parent"
+	         android:layout_height="wrap_content"
+	               android:gravity="center_horizontal"
+	               android:id="@+id/rl_list_des"
+	               android:layout_marginBottom="20dp"
+	         android:layout_marginTop="20dp">
+
+	         <ImageView
+	             android:layout_width="20dp"
+	             android:layout_height="20dp"
+	             android:layout_marginLeft="5dp"
+	             android:layout_centerVertical="true"
+	             android:id="@+id/iv_open_list"
+	             android:layout_toRightOf="@+id/tv_listdes"
+	             android:background="@drawable/list_open" />
+
+			<View
+			    android:layout_width="match_parent"
+			    android:layout_height="0.5dp"
+			    android:layout_alignParentRight="true"
+			    android:layout_centerVertical="true"
+			    android:layout_marginLeft="15dp"
+			    android:layout_marginRight="15dp" 
+			    android:layout_toRightOf="@+id/iv_open_list"
+			    android:background="@color/color_grayline1dp" />
+
+			<TextView
+			    android:id="@+id/tv_listdes"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content" 
+			    android:layout_centerHorizontal="true"
+			    android:text="药监码列表"
+			    android:textColor="@color/color_aaaaaa"
+			    android:textSize="14dp" />
+
+			<View
+			    android:layout_width="match_parent"
+			    android:layout_height="0.5dp" 
+			    android:layout_centerVertical="true"
+			     android:layout_marginLeft="15dp"
+			    android:layout_marginRight="15dp" 
+			    android:layout_toLeftOf="@+id/tv_listdes"
+			    android:background="@color/color_grayline1dp" />
+			
+	     </RelativeLayout>
+	     
+	     <ListView android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:layout_below="@id/rl_list_des"
+			    android:visibility="gone"
+			    android:scrollbars="none"
+			    android:id="@+id/lv_list"></ListView>
+	     </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+ >
+    
+<RelativeLayout android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_f4f7f7"
+        android:id="@+id/rl_des">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true" 
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="18dp"
+            android:text="根据您的用药建议,向您推荐以下药店:"
+            android:textColor="@color/color_aaaaaa"
+            android:textSize="14dp" /> 
+    </RelativeLayout>
+</LinearLayout>

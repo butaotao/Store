@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/listview_choice_item_height"
+        android:gravity="center_vertical" >
+
+        <Button
+            android:id="@+id/btn_choice_medicine"
+            android:layout_width="@dimen/widht40dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="#30B2CC"
+            android:text="@string/choicemedicineforlist" />
+
+        <ImageView
+            android:id="@+id/img_listview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/image_nodownload" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@id/btn_choice_medicine"
+            android:layout_toRightOf="@id/img_listview"
+            android:gravity="center_vertical" >
+
+            <LinearLayout
+                android:id="@+id/ll_medicinename"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/tv_medicine_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/null_info"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tv_medicine_height"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="@string/null_info"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_company"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ll_medicinename"
+                android:text="@string/null_info"
+                android:textColor="@color/gray" />
+
+            <LinearLayout
+                android:id="@+id/ll_numshow"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_company"
+                android:orientation="vertical" >
+
+                <com.dachen.medicine.view.AddAndSubView
+                    android:id="@+id/subview_add"
+                    android:layout_width="160dp"
+                    android:layout_height="100dp" >
+                </com.dachen.medicine.view.AddAndSubView>
+            </LinearLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>

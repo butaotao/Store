@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent" 
+    android:background="@color/auto_tender_item_bg" >
+
+    <include
+        android:id="@+id/layout_titlebar"
+        layout="@layout/titlebars_doctor" />
+
+   
+ 
+
+     <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rl_history"
+        android:layout_below="@id/layout_titlebar" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingLeft="15dp"
+            android:paddingTop="20dp"
+            android:text="历史查询"
+            android:textColor="@color/color_666666" />
+
+        <Button
+            android:id="@+id/btn_clear"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/btn_bulk_gray2"
+            android:gravity="center"
+            android:text="清空"
+            android:textColor="@color/color_666666"
+            android:textSize="13dp" />
+    </RelativeLayout>
+
+    <ListView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="45dp"
+        android:background="@color/white"
+        android:layout_below="@id/rl_history"
+        android:id="@+id/listview"
+        android:divider="@color/color_grayline1dp"
+        android:dividerHeight="0.5dp" >
+    </ListView>
+ <include
+        android:layout_below="@+id/layout_titlebar"
+        layout="@layout/layout_choicelist"
+        android:layout_marginTop="100dp" />  
+  <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/rl_nofound"
+        android:visibility="gone"
+        android:layout_below="@id/layout_titlebar" >
+   <TextView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_centerHorizontal="true"
+       android:layout_centerVertical="true"
+       android:text="抱歉!该药品未能在品种库中找到。"
+       android:id="@+id/tv_alert"
+       android:textColor="@color/color_aaaaaa"
+       android:textSize="18dp" />
+
+   <ImageView
+       android:layout_width="60dp"
+       android:layout_height="60dp"
+       android:layout_above="@+id/tv_alert"
+       android:layout_marginBottom="10dp"
+       android:layout_centerHorizontal="true"
+       android:background="@drawable/search" />
+  </RelativeLayout>
+</RelativeLayout>

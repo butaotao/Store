@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="96dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:background="@color/white" >
+
+    <TextView
+        android:id="@+id/tv_medicinename"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
+        android:text="布拉史酵母菌散"
+        android:textColor="@color/black"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/tv_everynum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tv_medicinename"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/tv_medicinename"
+        android:text="每盒20片"
+        android:textColor="@color/color_aaaaaa"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tv_company"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tv_medicinename"
+        android:layout_below="@+id/tv_medicinename"
+        android:layout_marginTop="10dp"
+        android:text="康哲制药有限公司"
+        android:textColor="@color/color_aaaaaa"
+        android:textSize="14sp" />
+
+    <LinearLayout
+        android:id="@+id/ll_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tv_company"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="14dp" >
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0.5"
+            android:textColor="@color/color_ff9d6a"
+            android:textSize="25dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="元"
+            android:textColor="@color/color_333333"
+            android:textSize="14dp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_usefultime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignRight="@+id/ll_price"
+        android:layout_marginBottom="13dp"
+        android:layout_marginRight="14dp"
+        android:text="2015-11-01至2015-11-31"
+        android:textColor="@color/color_aaaaaa"
+        android:textSize="13sp" />
+
+</RelativeLayout>

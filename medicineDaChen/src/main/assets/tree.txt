@@ -1,0 +1,227 @@
+[
+{
+  "id": "/",
+  "title": "分类",
+  "children": [
+    {
+      "id": "EB",
+      "title": "耳鼻喉科",
+      "children": [
+        {
+          "id": "EB05",
+          "title": "耳科学",
+          "parent": "EB"
+        },
+        {
+          "id": "EB04",
+          "title": "气管食管科学",
+          "parent": "EB"
+        },
+        {
+          "id": "EB03",
+          "title": "喉科学",
+          "parent": "EB"
+        },
+        {
+          "id": "EB01",
+          "title": "鼻科学",
+          "parent": "EB"
+        },
+        {
+          "id": "EB02",
+          "title": "咽科学",
+          "parent": "EB",
+	"children": [
+        {
+          "id": "EB05",
+          "title": "耳科学",
+          "parent": "EB"
+        },
+        {
+          "id": "EB04",
+          "title": "气管食管科学",
+          "parent": "EB"
+        },
+        {
+          "id": "EB03",
+          "title": "喉科学",
+          "parent": "EB"
+        },
+        {
+          "id": "EB01",
+          "title": "鼻科学",
+          "parent": "EB"
+        },
+        {
+          "id": "EB02",
+          "title": "咽科学",
+          "parent": "EB",
+	
+        }
+      ]
+        }
+      ],
+      "parent": "/"
+    },
+    {
+      "id": "FC",
+      "title": "妇产科",
+      "children": [
+        {
+          "id": "FC23",
+          "title": "生殖内分泌疾病",
+          "parent": "FC"
+        },
+        {
+          "id": "FC22",
+          "title": "妊娠滋养细胞疾病",
+          "parent": "FC"
+        },
+        {
+          "id": "FC21",
+          "title": "卵巢肿瘤与输卵管肿瘤",
+          "parent": "FC"
+        },
+        {
+          "id": "FC20",
+          "title": "子宫肿瘤",
+          "parent": "FC"
+        },
+        {
+          "id": "FC18",
+          "title": "外阴肿瘤",
+          "parent": "FC"
+        },
+        {
+          "id": "FC19",
+          "title": "子宫颈肿瘤",
+          "parent": "FC"
+        },
+        {
+          "id": "FC17",
+          "title": "盆底功能障碍性及生殖器官损伤疾病",
+          "parent": "FC"
+        },
+        {
+          "id": "FC14",
+          "title": "盆腔炎性疾病及生殖器结核",
+          "parent": "FC"
+        },
+        {
+          "id": "FC15",
+          "title": "子宫内膜异位症与子宫腺肌病",
+          "parent": "FC"
+        },
+        {
+          "id": "FC11",
+          "title": "外阴上皮非瘤样病变",
+          "parent": "FC"
+        },
+        {
+          "id": "FC10",
+          "title": "产褥期并发症",
+          "parent": "FC"
+        },
+        {
+          "id": "FC13",
+          "title": "子宫颈炎症",
+          "parent": "FC"
+        },
+        {
+          "id": "FC12",
+          "title": "外阴及阴道炎症",
+          "parent": "FC"
+        },
+        {
+          "id": "FC07",
+          "title": "羊水量与脐带异常",
+          "parent": "FC"
+        },
+        {
+          "id": "FC08",
+          "title": "异常分娩",
+          "parent": "FC"
+        },
+        {
+          "id": "FC09",
+          "title": "分娩期并发症",
+          "parent": "FC"
+        },
+        {
+          "id": "FC03",
+          "title": "妊娠合并内外科疾病",
+          "parent": "FC"
+        },
+        {
+          "id": "FC04",
+          "title": "妊娠合并感染性疾病",
+          "parent": "FC"
+        },
+        {
+          "id": "FC05",
+          "title": "胎儿异常与多胎妊娠",
+          "parent": "FC"
+        },
+        {
+          "id": "FC06",
+          "title": "胎盘与胎膜异常",
+          "parent": "FC"
+        },
+        {
+          "id": "FC01",
+          "title": "异常妊娠",
+          "parent": "FC"
+        },
+        {
+          "id": "FC02",
+          "title": "妊娠特有疾病",
+          "parent": "FC"
+        }
+      ],
+      "parent": "/"
+    },
+    {
+      "id": "NK",
+      "title": "内科",
+      "children": [
+        {
+          "id": "NK01",
+          "title": "呼吸系统疾病",
+          "parent": "NK"
+        },
+        {
+          "id": "NK02",
+          "title": "循环系统疾病",
+          "parent": "NK"
+        },
+        {
+          "id": "NK05",
+          "title": "血液系统疾病",
+          "parent": "NK"
+        },
+        {
+          "id": "NK06",
+          "title": "内分泌系统和营养代谢疾病",
+          "parent": "NK"
+        },
+        {
+          "id": "NK03",
+          "title": "消化系统疾病",
+          "parent": "NK"
+        },
+        {
+          "id": "NK04",
+          "title": "泌尿系统疾病",
+          "parent": "NK"
+        },
+        {
+          "id": "NK08",
+          "title": "理化因素所致的疾病",
+          "parent": "NK"
+        }
+      ],
+      "parent": "/"
+    }
+    ]
+}
+]

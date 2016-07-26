@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/xlistview_header_content"
+    android:layout_width="fill_parent"
+    android:layout_height="60dp" >
+    <LinearLayout
+        android:id="@+id/xlistview_header_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical" >
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/whitefresh"
+            android:visibility="gone" 
+            android:contentDescription="@null"/>
+        <TextView
+            android:id="@+id/pull_to_refresh_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#88ffffff"
+            android:text="@string/xlistview_header_hint_normal" />
+        
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp" >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#88ffffff"
+                android:text="@string/xlistview_header_last_time"
+                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/pull_to_refresh_updated_at"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#88ffffff"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/pull_to_refresh_image"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_alignLeft="@id/xlistview_header_text"
+        android:layout_marginLeft="-35dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/whitefresh"
+        android:contentDescription="@null" />
+    <ImageView
+        android:id="@+id/pull_to_refresh_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/xlistview_header_text"
+        android:layout_marginLeft="-40dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/whitenetload_01"
+        android:visibility="invisible" 
+        android:contentDescription="@null"/>
+</RelativeLayout>

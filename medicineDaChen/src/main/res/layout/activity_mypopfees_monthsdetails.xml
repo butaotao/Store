@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="@color/content_color">
+ <include layout="@layout/titlebar" 
+     android:id="@+id/titlebar"/>   
+<RelativeLayout android:layout_width="fill_parent"
+    android:layout_height="47dp"
+    android:layout_below="@id/titlebar"
+    android:id="@+id/rl_des"
+    android:visibility="gone"
+    android:background="@color/white">
+    <TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:id="@+id/tv_des"
+        android:layout_centerInParent="true"
+        android:textColor="@color/color_36bfad"
+        android:text="@string/null_info"/>
+</RelativeLayout>
+<View android:layout_width="fill_parent"
+    android:layout_height="0.5dp"
+    android:layout_below="@id/rl_des"
+    android:id="@+id/line1"
+    android:background="@color/color_grayline1dp"/>
+<ListView android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/listview"
+    android:layout_below="@id/line1"
+    android:divider="@color/color_grayline1dp"
+    android:scrollbars="none" 
+    android:dividerHeight="0.5dp"></ListView>
+
+<RelativeLayout android:layout_width="fill_parent"
+    android:layout_height="50dp" 
+    android:visibility="gone"
+    android:layout_alignParentBottom="true"
+    android:background="@color/white">
+    <View android:layout_width="fill_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/color_grayline1dp"/>
+    <Button android:layout_width="fill_parent"
+        android:layout_height="44dp" 
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="3dp"
+        android:text="提现"
+        android:id="@+id/btn_out"
+        android:textColor="@color/white"
+        android:background="@drawable/btn_green_all2"/>
+</RelativeLayout>
+</RelativeLayout>

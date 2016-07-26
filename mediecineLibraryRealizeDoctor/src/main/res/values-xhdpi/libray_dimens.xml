@@ -1,0 +1,7 @@
+<resources>
+
+    <dimen name="choicemedicimagewidth">87dp</dimen>
+    <dimen name="choicemedicimagenamesize">10sp</dimen>
+    <dimen name="choicemedicimagenamewidth">155dp</dimen>
+    <dimen name="advicemedicimagenamewidth">180dp</dimen>
+</resources>

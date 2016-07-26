@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="@color/background">
+    <include layout="@layout/titlebars_patient"/>
+ <RelativeLayout android:layout_width="fill_parent"
+     android:layout_height="40dp">
+     <ImageView android:layout_width="6dp"
+         android:layout_height="6dp"
+         android:layout_marginLeft="18dp"
+         android:layout_centerVertical="true"
+         android:id="@+id/iv_circle"
+         android:background="@drawable/circle_ff9d6a"/>
+     <TextView android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="如何获得积分?"
+         android:textSize="16sp"
+         android:textColor="@color/color_333333"
+         android:layout_toRightOf="@id/iv_circle"
+         android:layout_marginLeft="6dp"
+            android:id="@+id/tv_howcast_des"
+            android:singleLine="true"
+         android:layout_centerVertical="true"/>
+
+ </RelativeLayout>   
+      <TextView android:layout_width="wrap_content"
+         android:layout_height="wrap_content" 
+         android:layout_marginLeft="26dp"
+         android:id="@+id/tv_howcast"
+         android:text="您可以通过到我们推荐的药店买药，我们会帮您累积每种药各自所获得的积分值，以便您兑换使用。"
+         android:textSize="14sp"
+         android:layout_marginRight="20dp"
+         android:textColor="@color/color_aaaaaa"/>
+ <RelativeLayout android:layout_width="fill_parent"
+     android:layout_height="40dp">
+     <ImageView android:layout_width="6dp"
+         android:layout_height="6dp"
+         android:layout_marginLeft="18dp"
+         android:layout_centerVertical="true"
+         android:id="@+id/iv_circle2"
+         android:background="@drawable/circle_ff9d6a"/>
+     <TextView android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="如何消费积分?"
+         android:textSize="16sp"
+          android:singleLine="true"
+         android:textColor="@color/color_333333"
+         android:layout_toRightOf="@id/iv_circle2"
+         android:layout_marginLeft="6dp"
+         android:id="@+id/tv_howget_des"
+         android:layout_centerVertical="true"/>
+ </RelativeLayout>  
+ 
+       <TextView android:layout_width="wrap_content"
+         android:layout_height="wrap_content" 
+         android:layout_marginLeft="26dp"
+         android:id="@+id/tv_howget"
+          android:layout_marginRight="20dp"
+         android:text="在购药的过程，您可以告诉店员使用您的积分直接兑换相应的药品。"
+         android:textSize="14sp"
+         android:textColor="@color/color_aaaaaa"/>
+</LinearLayout>

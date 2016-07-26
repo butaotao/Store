@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<style name="GreenTheme" parent="android:Theme">
+	    <item name="android:textViewStyle">@style/Widget.TextView</item> 
+		<item name="android:windowBackground">@color/background</item>
+        <item name="android:colorBackground">@color/background</item>
+         
+        <item name="android:listPreferredItemHeight">48px</item>
+        <item name="android:listDivider">@android:color/transparent</item>
+        
+        <item name="android:scrollbarSize">10dip</item> 
+          
+	</style>
+ 
+</resources>

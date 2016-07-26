@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+     android:id="@+id/rl_nosell"
+   
+    android:orientation="vertical" >
+
+    <RelativeLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true" >
+
+        <ImageView
+            android:id="@+id/iv_iv"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/notsell" />
+
+        <TextView
+            android:id="@+id/tv_notsell_des"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_iv"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="19dp"
+            android:text="您还未售出任何药品，要加把劲了哦！"
+            android:textColor="#B0BDBC"
+            android:textSize="15dp" />
+    </RelativeLayout>
+
+</RelativeLayout>

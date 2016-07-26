@@ -1,0 +1,45 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/normal_bg"
+    android:orientation="vertical" >
+    <include layout="@layout/layout_parent_titlebar_groupcompany"
+        android:id="@+id/layout_titlebar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
+
+    <com.dachen.medicine.view.ClearEditText
+        android:id="@+id/password_edit"
+        style="@style/IMLineEditPass"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/inputbox"
+        android:cursorVisible="true"
+        android:textCursorDrawable="@null"
+        android:hint="@string/please_input_password_register" />
+
+    <com.dachen.medicine.view.ClearEditText
+        android:id="@+id/confirm_password_edit"
+        style="@style/IMLineEditPass"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginTop="9dp"
+        android:background="@drawable/inputbox"
+        android:cursorVisible="true"
+        android:textCursorDrawable="@null"
+        android:hint="请再次输入密码" />
+
+    <Button
+        android:id="@+id/sure_btn"
+        style="@style/IMButton.Green"
+        android:background="@drawable/btn_blue_all_3cbaff"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="50dp"
+        android:text="完成"
+        android:textSize="18sp"/>
+
+</LinearLayout>

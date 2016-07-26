@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@color/color_background" >
+
+    <include
+        android:id="@+id/layout_titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/layout_parent_titlebar_groupcompany" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_below="@+id/layout_titlebar"
+        android:id="@+id/ll_1"
+        android:orientation="horizontal" >
+
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:id="@+id/rl_history"
+        android:visibility="gone"
+        android:background="@color/white"
+        android:layout_below="@id/ll_1" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingLeft="15dp"
+            android:paddingTop="20dp"
+            android:text="搜索历史"
+            android:textColor="@color/color_666666" />
+
+        <Button
+            android:id="@+id/btn_clear"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/btn_bulk_gray2"
+            android:gravity="center"
+            android:text="清空"
+            android:textColor="@color/color_666666"
+            android:textSize="13dp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/divide_line_color"
+            android:layout_alignParentBottom="true"
+            ></View>
+    </RelativeLayout>
+
+
+<ListView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/rl_history"
+
+    android:id="@+id/listview"
+    android:background="@color/white"
+    android:dividerHeight="0.5dp"
+    android:divider="@color/divide_line_color"></ListView>
+    <include android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/layout_titlebar"
+
+        layout="@layout/layout_nosearchresult"></include>
+</RelativeLayout>

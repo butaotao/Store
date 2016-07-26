@@ -1,0 +1,120 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion "23.0.2"
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+    //配置keystore签名
+    signingConfigs {
+        release {
+            storeFile file("dgroupdoctorcompany.jks")
+            storePassword "dachen@123456"
+            keyAlias "大辰企业端"
+            keyPassword "dachen@123456"
+        }
+
+    }
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.release
+        }
+        release {
+            signingConfig signingConfigs.release
+        }
+    }
+
+    packagingOptions {
+        exclude 'assets/lineDashTexture.png'
+    }
+
+    defaultConfig {
+        applicationId "com.dachen.dgroupdoctorcompany"
+        minSdkVersion 14
+        targetSdkVersion 18
+        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    dexOptions {
+        incremental true
+        javaMaxHeapSize "4g"
+    }
+//gradle assembleRelease
+    productFlavors {
+
+      yingyongbao {
+         manifestPlaceholders = [UMENG_CHANNEL_VALUE:"YINGYONGBAO_DOCTORCOMPANY"]
+     }
+     wandoujia {
+         manifestPlaceholders = [UMENG_CHANNEL_VALUE:"WANDOUJIA_DOCTORCOMPANY" ]
+     }
+     anzhi {
+         manifestPlaceholders = [UMENG_CHANNEL_VALUE:"ANZHI_DOCTORCOMPANY" ]
+     }
+     c_360 {
+         manifestPlaceholders = [UMENG_CHANNEL_VALUE:"360_DOCTORCOMPANY" ]
+     }
+     androidplay {
+         manifestPlaceholders = [UMENG_CHANNEL_VALUE:"ANDROID_DOCTORCOMPANY" ]
+     }
+     dachen {
+         manifestPlaceholders = [UMENG_CHANNEL_VALUE:"DACHEN_DOCTORCOMPANY" ]
+     }
+     baidu {
+         manifestPlaceholders = [UMENG_CHANNEL_VALUE:"BAIDU_DOCTORCOMPANY" ]
+     }
+     mi {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE:"MI_DOCTORCOMPANY" ]
+     }
+     mz {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE:"MZ_DOCTORCOMPANY" ]
+     }
+     hw {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE:"HW_DOCTORCOMPANY" ]
+     }
+        hiapk{
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE:"ANZHUO_DOCTORCOMPANY" ]
+        }
+}
+}
+android {
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+}
+dependencies {
+    compile 'com.android.support:multidex:1.0.1'
+    /*  compile fileTree(dir: 'libs', include: ['*.jar'])
+                                                                    testCompile 'junit:junit:4.12'
+                                                                    compile 'com.android.support:appcompat-v7:23.1.1'*/
+    compile project(':meidecineLibrary')
+    compile project(':actionSheetLibrary')
+    compile 'com.jakewharton:butterknife:7.0.1'
+    compile files('libs/MiPush_SDK_Client_3_0_3.jar')
+    compile files('libs/asmack.jar')
+    compile project(':pullToRefreshViewsLibrary')
+    compile project(':ImSdk')
+    compile files('libs/ormlite-jdbc-4.49-SNAPSHOT.jar')
+    compile project(':cmsLiveLibrary')
+    compile project(':vitamioLibrary')
+    compile 'cn.qqtheme.framework:WheelPicker:1.1.3'
+    compile files('libs/AMap_Location_V2.4.0_20160308.jar')
+    compile files('libs/AMap_Search_V3.2.1_20160308.jar')
+    compile files('libs/Android_Map_V2.7.20151124.jar')
+    compile files('libs/HwPush_SDK_V2705_no_map.jar')
+    compile project(path: ':ImVideo')
+    compile project(':ImVideo')
+}
+
+apply plugin: 'eclipse'

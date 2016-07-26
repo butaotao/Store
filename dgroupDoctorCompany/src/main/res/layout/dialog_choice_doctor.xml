@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/btn_white"
+    android:layout_marginLeft="50dp"
+    android:layout_marginRight="50dp"
+    android:layout_marginTop="120dp"
+    android:id="@+id/rl_getserach"
+   >
+<ImageView
+    android:layout_width="100dp"
+    android:layout_height="100dp"
+    android:background="@drawable/keywordfinddoctor"
+    android:layout_centerHorizontal="true"
+    android:id="@+id/iv_keywordfinddoctor"
+    android:layout_marginTop="10dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/iv_keywordfinddoctor"
+        android:text="关键字"
+        android:id="@+id/tv_keywordfinddoctor"
+        android:layout_marginTop="5dp"/>
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/keywordfinddoctor"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/iv_provincefinddoctor"
+        android:layout_below="@+id/tv_keywordfinddoctor"
+        android:layout_marginTop="10dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+
+        android:layout_below="@id/iv_provincefinddoctor"
+        android:text="按省市"
+        android:layout_marginTop="5dp"/>
+</RelativeLayout>
+    <ImageView android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="20dp"
+
+        android:id="@+id/iv_cancel"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/rl_getserach"
+        android:background="@drawable/searchdialogcancel"
+
+        />
+</RelativeLayout>

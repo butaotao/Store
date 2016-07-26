@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="36dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical" >
+
+    <TextView 
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="药品类别:"
+        android:gravity="right"
+        android:layout_weight="0.35"
+        android:textColor="@color/color_aaaaaa"
+        android:textSize="16dp" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.66"  
+        android:text="@string/null_info"
+        android:layout_marginLeft="4dp"
+        android:maxLines="1"
+        android:maxLength="15"
+        android:id="@+id/tv_classes"
+        android:textColor="@color/color_333333"
+        android:textSize="16dp" />
+</LinearLayout>
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="36dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical" >
+
+    <TextView 
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="产品剂型:"
+         android:maxLines="1"
+          android:gravity="right"
+        android:layout_weight="0.35"
+        android:textColor="@color/color_aaaaaa"
+        android:textSize="16dp" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.66"  
+        android:text="@string/null_info"
+        android:layout_marginLeft="4dp"
+        android:maxLines="1"
+        android:maxLength="15"
+        android:id="@+id/tv_sellclass"
+        android:textColor="@color/color_333333"
+        android:textSize="16dp" />
+</LinearLayout>
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="36dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical" >
+
+    <TextView 
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="规格:"
+         android:maxLines="1"
+          android:gravity="right"
+        android:layout_weight="0.35"
+        android:textColor="@color/color_aaaaaa"
+        android:textSize="16dp" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.66"  
+        android:text="@string/null_info"
+        android:layout_marginLeft="4dp"
+        android:maxLines="1"
+        android:maxLength="15"
+        android:id="@+id/tv_specification"
+        android:textColor="@color/color_333333"
+        android:textSize="16dp" />
+</LinearLayout>
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="36dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical" >
+
+    <TextView 
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="包装规格:"
+         android:maxLines="1"
+          android:gravity="right"
+        android:layout_weight="0.35"
+        android:textColor="@color/color_aaaaaa"
+        android:textSize="16dp" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.66"  
+        android:text="@string/null_info"
+        android:layout_marginLeft="4dp"
+        android:maxLines="1"
+        android:maxLength="15"
+         android:id="@+id/tv_packaging"
+        android:textColor="@color/color_333333"
+        android:textSize="16dp" />
+</LinearLayout>
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="36dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical" >
+
+    <TextView 
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="批准文号:"
+         android:maxLines="1"
+          android:gravity="right"
+        android:layout_weight="0.35"
+        android:textColor="@color/color_aaaaaa"
+        android:textSize="16dp" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.66"  
+        android:text="@string/null_info"
+        android:layout_marginLeft="4dp"
+        android:maxLines="1"
+        android:maxLength="15"
+        android:id="@+id/tv_num"
+        android:textColor="@color/color_333333"
+        android:textSize="16dp" />
+</LinearLayout>
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="36dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical" >
+
+    <TextView 
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="通用名:"
+         android:maxLines="1"
+          android:gravity="right"
+        android:layout_weight="0.35"
+        android:textColor="@color/color_aaaaaa"
+        android:textSize="16dp" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.66"  
+        android:text="@string/null_info"
+        android:layout_marginLeft="4dp"
+        android:maxLines="1"
+        android:maxLength="15"
+        android:id="@+id/tv_generalname"
+        android:textColor="@color/color_333333"
+        android:textSize="16dp" />
+</LinearLayout>
+</LinearLayout>

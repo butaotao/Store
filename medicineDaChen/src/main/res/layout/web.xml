@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/group_personal_data_top"
+        style="@style/ActionBar_Container" >
+
+        <Button
+            android:id="@+id/back_step_btn"
+            style="@style/BackStyleIncome"
+            android:layout_centerVertical="true"
+            android:onClick="onLeftClick" />
+
+        <Button
+            android:id="@+id/btn_close"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/back_step_btn"
+            android:background="@drawable/selector_btn_press2"
+            android:padding="7dip"
+            android:text="关闭"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/webTitle"
+            style="@style/ActionBar_Title"
+            android:paddingLeft="15dp"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/new_create"
+            style="@style/ActionBar_RightText"
+            android:text="新建"
+            android:visibility="gone"
+            />
+
+        <ImageView
+            android:id="@+id/more_img"
+            style="@style/ActionBar_RightText"
+            android:src="@drawable/ic_more"
+            android:visibility="gone"
+            />
+
+    </RelativeLayout>
+
+    <WebView
+        android:id="@+id/mWeb"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" 
+    android:background="@color/background"
+    android:layout_height="match_parent"> 
+
+<LinearLayout  
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" 
+    android:id="@+id/ll_content"
+    android:background="@color/background" >
+<include layout="@layout/titlebars_doctor"/>     
+
+<RelativeLayout android:layout_width="fill_parent"
+    android:layout_height="60dp" 
+    >
+<EditText android:layout_width="fill_parent"
+    android:layout_height="40dp"
+    android:background="@drawable/btn_white"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="18dp"
+    android:layout_marginRight="18dp"
+    android:textSize="12sp"
+    android:textColor="#969794"
+    android:gravity="center"
+    android:id="@+id/et_search"
+    android:cursorVisible="false" 
+    
+    android:hint="输入药品名、拼音字母等信息查询"/>
+<ImageView android:layout_width="18dp"
+    android:layout_height="18dp"
+    android:layout_marginLeft="40dp"
+    android:layout_centerVertical="true"
+    android:background="@drawable/search_black"/>
+</RelativeLayout>
+<LinearLayout android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white"
+   >
+    <View android:layout_width="fill_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/color_grayline1dp"/>
+    <RelativeLayout android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:paddingLeft="18dp"
+        android:id="@+id/rl_classes"
+        android:paddingRight="18dp">
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="病种分类选药"
+            android:layout_centerVertical="true"
+            android:textColor="@color/color_333333"/>
+        <ImageView android:layout_width="12dp"
+            android:layout_height="18dp"
+            android:background="@drawable/arrow_right"
+               android:layout_centerVertical="true"
+               android:layout_alignParentRight="true"
+            />
+    </RelativeLayout>
+     <View android:layout_width="fill_parent"
+         android:layout_marginLeft="18dp"
+         android:layout_marginRight="18dp"
+        android:layout_height="0.5dp"
+        android:background="@color/color_grayline1dp"/>
+      <RelativeLayout android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:paddingLeft="18dp"
+        android:id="@+id/rl_near"
+        android:paddingRight="18dp">
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="我最近的选药"
+            android:layout_centerVertical="true"
+            android:textColor="@color/color_333333"/>
+        <ImageView android:layout_width="12dp"
+            android:layout_height="18dp"
+            android:background="@drawable/arrow_right"
+               android:layout_centerVertical="true"
+               android:layout_alignParentRight="true"
+            />
+    </RelativeLayout>
+    <View android:layout_width="fill_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/color_grayline1dp"/>
+</LinearLayout>
+<RelativeLayout android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp">
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="我的常备药"
+            android:id="@+id/tv_mymedie"
+            android:layout_centerVertical="true"
+            android:textColor="@color/color_333333"/>
+       
+    </RelativeLayout>
+    <ListView android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/listview"
+        android:divider="@color/color_grayline1dp"
+        android:scrollbars="none"
+        android:layout_marginBottom="45dp"
+        android:background="@color/white">
+
+    </ListView>
+    
+</LinearLayout>
+
+<include layout="@layout/layout_choicelist"
+    android:layout_below="@id/ll_content"
+    android:layout_marginTop="45dp"/>
+
+</RelativeLayout>
+

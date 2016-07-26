@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="45dp"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:layout_marginLeft="15dp" >
+   <TextView android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:textSize="14dp"
+       android:layout_centerVertical="true" 
+       android:id="@+id/tv_wrongnum"
+       android:layout_marginLeft="15dp"
+       android:textColor="@color/color_aaaaaa"
+       android:text="@string/null_info"/> 
+<ImageView android:layout_width="20dp"
+       android:layout_height="20dp" 
+       android:layout_centerVertical="true"
+       android:layout_marginRight="15dp"
+       android:background="@drawable/delete"
+       android:layout_alignParentRight="true" 
+       android:id="@+id/iv_delete" /> 
+</RelativeLayout>

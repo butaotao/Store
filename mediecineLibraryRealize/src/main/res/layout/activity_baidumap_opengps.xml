@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/color_f4f7f7">
+<include layout="@layout/titlebars_patient">
+
+</include>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="17dp"
+        android:paddingRight="17dp"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+
+            android:text="一、进入[设置]--[定位服务]"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:paddingLeft="32dp"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/color_333333"
+            android:text="将定位服务开关打开"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="17dp"
+        android:paddingRight="17dp"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+
+            android:text="二、进入[定位权限]"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:paddingLeft="32dp"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/color_333333"
+            android:text="找到[玄关健康]应用,选择[允许]访问定位服务"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:paddingLeft="32dp"
+            android:layout_marginTop="6dp"
+            android:textColor="@color/color_666666"
+            android:text="提示:一些手机若找不到[定位权限]项,可找到系统应用中[安全中心]APP,在APP中的权限管中做上一步操作。"/>
+    </LinearLayout>
+
+</LinearLayout>

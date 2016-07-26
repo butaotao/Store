@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+    <include layout="@layout/layout_parent_titlebar_groupcompany"
+        android:layout_width="match_parent"
+        android:id="@+id/layout_parent_titlebar_groupcompany"
+        android:layout_height="wrap_content"></include>
+    <ExpandableListView
+        android:id="@+id/list"
+        android:layout_below="@id/layout_parent_titlebar_groupcompany"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#ffffff"
+        android:cacheColorHint="#00000000"
+        android:listSelector="#00000000"
+        android:dividerHeight="0dp"
+        android:divider="@color/translate"
+        android:scrollbars="none"
+
+        >
+    </ExpandableListView>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/rl_notcontent"
+        android:layout_below="@id/layout_parent_titlebar_groupcompany"
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/hospital"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="100dp"
+            android:id="@+id/iv_nocontent"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_nocontent"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/color_aaaaaa"
+            android:text="您还未新建分管关系，赶紧点击右上角“新建”按钮，建立分管关系"/>
+    </RelativeLayout>
+</RelativeLayout>
