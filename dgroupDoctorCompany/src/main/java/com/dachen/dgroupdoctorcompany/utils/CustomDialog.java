@@ -62,8 +62,7 @@ public class CustomDialog {
  
 
 	public final void showDialog(String title,String msg, OnClickListener confirmListener, OnClickListener cancelListener){
-        ;
-        if(TextUtils.isEmpty(title)){
+		if(TextUtils.isEmpty(title)){
 			mTitleDivide.setVisibility(View.GONE);
 			mTvTitle.setVisibility(View.GONE);
 		}else{

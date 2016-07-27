@@ -3,13 +3,14 @@ package com.dachen.dgroupdoctorcompany.adapter;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.RadioButton;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.entity.MedieEntity;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Burt on 2016/5/19.
@@ -63,11 +64,7 @@ public class SelfPartHospitalChoiceMedieAdapter extends android.widget.BaseAdapt
                     MedieEntity.Medie medie = mes.new Medie();
                     medie = data.get(i);
 
-                    if (i == position) {
-                        medie.select = true;
-                    } else {
-                        medie.select = false;
-                    }
+                    medie.select = i == position;
                     data.set(i, medie);
                 }
 
@@ -81,11 +78,7 @@ public class SelfPartHospitalChoiceMedieAdapter extends android.widget.BaseAdapt
                 for (int i=0;i<data.size();i++){
                     MedieEntity.Medie medie = data.get(i);
 
-                    if (i==position){
-                        medie.select = true;
-                    }else {
-                        medie.select = false;
-                    }
+                    medie.select = i == position;
                     data.set(i, medie);
                 }
 

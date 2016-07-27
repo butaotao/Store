@@ -115,7 +115,8 @@ public class DoctorDetailActivity extends BaseActivity implements HttpManager.On
 
         startActivity(intent);
 
-    };
+    }
+
     @Nullable
     @OnClick(R.id.iv_messagesend)
     void sendMessage(){

@@ -5,7 +5,6 @@ import android.text.TextUtils;
 
 import com.dachen.dgroupdoctorcompany.db.SQLiteHelper;
 import com.dachen.dgroupdoctorcompany.db.dbentity.Doctor;
-import com.dachen.dgroupdoctorcompany.entity.CompanyContactListEntity;
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
@@ -19,8 +18,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
-import io.vov.vitamio.utils.Log;
 
 /**
  * Created by Burt on 2016/3/1.
@@ -111,7 +108,7 @@ public class DoctorDao {
         String  loginid=SharedPreferenceUtil.getString(context, "id", "");
         try {
             Where<Doctor, Integer> where = builder.where();
-            where.eq("userloginid", loginid).and().eq("hospitalId", depid);;
+            where.eq("userloginid", loginid).and().eq("hospitalId", depid);
             return builder.query();
         } catch (SQLException e) {
             // TODO Auto-generated catch block

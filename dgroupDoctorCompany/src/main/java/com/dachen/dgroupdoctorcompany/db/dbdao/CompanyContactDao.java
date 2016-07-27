@@ -212,7 +212,6 @@ public class CompanyContactDao {
         try {
             Where<CompanyContactListEntity, Integer> where = builder.where();
             builder.where().eq("userloginid", loginid).and().eq("id", depid);
-            ;
             return builder.query();
         } catch (SQLException e) {
             // TODO Auto-generated catch block

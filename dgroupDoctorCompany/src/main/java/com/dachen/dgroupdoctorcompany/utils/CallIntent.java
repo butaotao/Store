@@ -9,7 +9,6 @@ import com.dachen.dgroupdoctorcompany.activity.ChoiceDoctorForVisitActivity;
 import com.dachen.dgroupdoctorcompany.activity.SelectPeopleActivity;
 import com.dachen.dgroupdoctorcompany.entity.BaseSearch;
 import com.dachen.dgroupdoctorcompany.entity.CompanyContactListEntity;
-import com.dachen.dgroupdoctorcompany.js.MyJsInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +20,7 @@ public class CallIntent {
     public static List<CompanyContactListEntity> listss;
     public static SelectPeopleDataInterface getSelectData;
     public interface SelectPeopleDataInterface{
-        public void getData(List<BaseSearch> listentitys);
+        void getData(List<BaseSearch> listentitys);
     }
 
     /**

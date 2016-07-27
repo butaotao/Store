@@ -164,11 +164,7 @@ public class ImEventUtils {
     private static boolean isValidEvent(EventPL event) {
         //当前服务器时间
         long currentServerTime = System.currentTimeMillis() + ImPolling.getServerTimeDiff();
-        if (currentServerTime - event.ts < 30 * 1000) {
-            return true;
-        } else {
-            return false;
-        }
+        return currentServerTime - event.ts < 30 * 1000;
     }
 
     public static void handleVChatReject(EventPL event) {

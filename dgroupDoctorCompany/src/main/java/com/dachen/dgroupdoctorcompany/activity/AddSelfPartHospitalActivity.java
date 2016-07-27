@@ -111,7 +111,7 @@ public class AddSelfPartHospitalActivity extends BaseActivity implements HttpMan
                 refreshdata(size);
             }
         }, groupId, this);
-        refreshdata(this.data.size());
+        refreshdata(data.size());
         listview.setAdapter(adapter);
         listview.setEmptyView(findViewById(R.id.rl_notcontent));
     }
@@ -129,7 +129,7 @@ public class AddSelfPartHospitalActivity extends BaseActivity implements HttpMan
                         refreshdata(size);
                     }
                 }, groupId, this);
-                refreshdata(this.data.size());
+                refreshdata(data.size());
                 listview.setAdapter(adapter);
                 listview.setEmptyView(findViewById(R.id.rl_notcontent));
             }
@@ -147,7 +147,7 @@ public class AddSelfPartHospitalActivity extends BaseActivity implements HttpMan
     }
 
     public interface RefreshData {
-        public void Refreshdata(int size);
+        void Refreshdata(int size);
     }
 
     @Override
@@ -192,8 +192,8 @@ public class AddSelfPartHospitalActivity extends BaseActivity implements HttpMan
     @Override
     protected void onResume() {
         super.onResume();
-        refreshdata(this.data.size());
-        adapter = new AddSelfPartHospitaAdapter(AddSelfPartHospitalActivity.this,issure, this.data, new RefreshData() {
+        refreshdata(data.size());
+        adapter = new AddSelfPartHospitaAdapter(AddSelfPartHospitalActivity.this,issure, data, new RefreshData() {
             @Override
             public void Refreshdata(int size) {
                 refreshdata(size);

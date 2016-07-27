@@ -96,7 +96,6 @@ public class SearchActivity extends BaseActivity implements OnClickListener, OnH
         rl_history = (RelativeLayout) this.findViewById(R.id.rl_history);
         vstub_title = (ViewStub) findViewById(R.id.vstub_title);
         view = View.inflate(SearchActivity.this, R.layout.layout_searchfooter, null);
-        ;
         RelativeLayout rl = (RelativeLayout) this.findViewById(R.id.ll_sub);
         View view = vstub_title.inflate(this, R.layout.layout_search_import, rl);
         view.findViewById(R.id.tv_search).setOnClickListener(this);
@@ -163,7 +162,7 @@ public class SearchActivity extends BaseActivity implements OnClickListener, OnH
     }
 
     public interface RefreshData {
-        public void refreshData(List<BaseSearch> recordses);
+        void refreshData(List<BaseSearch> recordses);
     }
 
     @Override

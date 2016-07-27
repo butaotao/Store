@@ -40,7 +40,6 @@ import com.dachen.imsdk.entity.event.NewMsgEvent;
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
 import com.dachen.medicine.common.utils.ToastUtils;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -226,7 +225,7 @@ public class AddressList extends BaseFragment implements View.OnClickListener{
 							Doctor doctor = (Doctor) search;
 							intent = new Intent(mActivity, DoctorDetailActivity.class);
 							Bundle bundle = new Bundle();
-							bundle.putSerializable("doctordetail", (Serializable) doctor);
+							bundle.putSerializable("doctordetail", doctor);
 							intent.putExtra("doctordetail", bundle);
 							startActivity(intent);
 						} else if (search instanceof CompanyContactListEntity) {

@@ -3,12 +3,6 @@ package com.dachen.dgroupdoctorcompany.activity;
 /**
  * Created by Burt on 2016/2/23.
  */
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,7 +15,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dachen.dgroupdoctorcompany.R;
@@ -31,7 +24,6 @@ import com.dachen.dgroupdoctorcompany.entity.Area;
 import com.dachen.dgroupdoctorcompany.entity.AreaModel;
 import com.dachen.dgroupdoctorcompany.entity.City;
 import com.dachen.dgroupdoctorcompany.utils.JsonMananger;
-import com.dachen.medicine.common.utils.ToastUtils;
 import com.dachen.medicine.entity.Result;
 import com.dachen.medicine.net.HttpManager;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -40,6 +32,12 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.PauseOnScrollListener;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * [地区页面]

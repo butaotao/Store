@@ -393,7 +393,6 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
         maps.put("access_token", UserInfo.getInstance(this).getSesstion());
         maps.put("drugCompanyId", SharedPreferenceUtil.getString(this, "enterpriseId", ""));
         maps.put("id", idDep);
-        ;
         //"org/enterprise/dept/getDepartmentsByParentIdAndEId"
         new HttpManager().get(this, Constants.DEPSTRUCT, CompanyDepment.class,
                 maps, this,

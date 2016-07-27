@@ -174,7 +174,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
         startActivity(intent);*/
         Intent intent = new Intent(this,HowRegisterActivity.class);
         startActivity(intent);
-    };
+    }
+
     @Nullable
     @OnClick(R.id.rl_titlebar)
     void onLoginTitleClicked() {

@@ -90,7 +90,7 @@ public class RepresentGroupChatActivity extends AppBaseChatActivity{
     @Override
     protected void onRightMenuClick(View v) {
         if(groupPo==null)
-            return;;
+            return;
         GroupChatSetingUI.openUIForResult(this, mGroupId, makeGroupInfo(), getClass().getSimpleName(), true, REQUEST_CODE_GROUP_SETTING);
     }
 

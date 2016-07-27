@@ -2,11 +2,7 @@ package com.dachen.dgroupdoctorcompany.entity;
 
 import android.text.TextUtils;
 
-import com.dachen.dgroupdoctorcompany.db.dbentity.SearchRecords;
 import com.dachen.medicine.entity.Result;
-import com.dachen.medicine.volley.custom.ArrayResult;
-
-import org.w3c.dom.Text;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -31,10 +27,7 @@ public class HospitalList extends Result{
         public boolean equals(Object o) {
             if ( o instanceof HospitalDes){
                 HospitalDes l = (HospitalDes)o;
-                if(!TextUtils.isEmpty(this.id)&&!TextUtils.isEmpty(l.id)&&this.id.equals(l.id)){
-                    return true;
-                }
-                return false;
+                return !TextUtils.isEmpty(this.id) && !TextUtils.isEmpty(l.id) && this.id.equals(l.id);
 
             }
             return  false;

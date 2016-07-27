@@ -1,24 +1,5 @@
 package com.dachen.dgroupdoctorcompany.activity;
 
-import com.dachen.dgroupdoctorcompany.R;
-import com.dachen.dgroupdoctorcompany.adapter.HospitalManagerChildrenAdapter;
-import com.dachen.dgroupdoctorcompany.app.Constants;
-import com.dachen.dgroupdoctorcompany.base.BaseActivity;
-import com.dachen.dgroupdoctorcompany.entity.AddSelfPartHospital;
-import com.dachen.dgroupdoctorcompany.entity.HospitalDes;
-import com.dachen.dgroupdoctorcompany.entity.HospitalManager;
-import com.dachen.dgroupdoctorcompany.entity.HospitalManagers;
-import com.dachen.dgroupdoctorcompany.entity.HospitalMangerData;
-import com.dachen.dgroupdoctorcompany.entity.MedicineManager;
-import com.dachen.medicine.common.utils.SharedPreferenceUtil;
-import com.dachen.medicine.common.utils.ToastUtils;
-import com.dachen.medicine.config.UserInfo;
-import com.dachen.medicine.entity.Result;
-import com.dachen.medicine.net.HttpManager;
-
-/**
- * Created by Burt on 2016/5/18.
- */
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -28,10 +9,25 @@ import android.widget.ExpandableListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.dachen.dgroupdoctorcompany.R;
+import com.dachen.dgroupdoctorcompany.adapter.HospitalManagerChildrenAdapter;
+import com.dachen.dgroupdoctorcompany.app.Constants;
+import com.dachen.dgroupdoctorcompany.base.BaseActivity;
+import com.dachen.dgroupdoctorcompany.entity.HospitalManager;
+import com.dachen.dgroupdoctorcompany.entity.HospitalMangerData;
+import com.dachen.dgroupdoctorcompany.entity.MedicineManager;
+import com.dachen.medicine.common.utils.SharedPreferenceUtil;
+import com.dachen.medicine.config.UserInfo;
+import com.dachen.medicine.entity.Result;
+import com.dachen.medicine.net.HttpManager;
+
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+
+/**
+ * Created by Burt on 2016/5/18.
+ */
 
 public class HospitalManagerActivity extends BaseActivity implements HttpManager.OnHttpListener {
     ExpandableListView expandableListView;

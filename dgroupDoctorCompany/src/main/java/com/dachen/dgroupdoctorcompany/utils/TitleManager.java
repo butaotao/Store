@@ -1,7 +1,6 @@
 package com.dachen.dgroupdoctorcompany.utils;
 
 import android.app.Activity;
-import android.content.Context;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.RelativeLayout;

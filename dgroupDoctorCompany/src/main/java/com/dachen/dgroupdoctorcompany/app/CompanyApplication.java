@@ -163,7 +163,8 @@ public class CompanyApplication extends MultiDexApplication{
     }
     public static  Application getInstance(){
         return  context;
-    };
+    }
+
     private void initAppDir() {
         File file = getExternalFilesDir(null);
         if (file == null) {

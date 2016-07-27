@@ -13,12 +13,9 @@ import android.widget.RelativeLayout;
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.adapter.TabPagerAdapter;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
-import com.dachen.dgroupdoctorcompany.fragment.AddressList;
-import com.dachen.dgroupdoctorcompany.fragment.CompanyCenterFragment;
 import com.dachen.dgroupdoctorcompany.fragment.DoctorFriend;
 import com.dachen.dgroupdoctorcompany.fragment.WaitVerify;
 import com.dachen.medicine.view.NoScrollerViewPager;
-import com.dachen.medicine.view.ScrollTabView;
 import com.dachen.medicine.view.SegementView;
 
 import java.util.ArrayList;
@@ -26,7 +23,6 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Created by Burt on 2016/2/24.

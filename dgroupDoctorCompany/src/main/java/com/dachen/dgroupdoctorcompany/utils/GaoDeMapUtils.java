@@ -82,7 +82,7 @@ public class GaoDeMapUtils  {
     }
 
     public interface LocationListener{
-        public abstract void onLocation(Object object);
+        void onLocation(Object object);
     }
 
     public void onDestory(){

@@ -61,11 +61,7 @@ public class CompanyContactListEntity extends BaseSearch implements Serializable
         if (o instanceof  CompanyContactListEntity){
             CompanyContactListEntity  other = (CompanyContactListEntity)o;
             if (!TextUtils.isEmpty(this.userId)&&!TextUtils.isEmpty(other.userId)){
-                if (other.userId.equals(this.userId)){
-                    flag = true;
-                }else {
-                    flag = false;
-                }
+                flag = other.userId.equals(this.userId);
             }else {
                 flag=  false;
             }

@@ -3,12 +3,6 @@ package com.dachen.dgroupdoctorcompany.activity;
 /**
  * Created by Burt on 2016/2/23.
  */
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,11 +16,17 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.dachen.dgroupdoctorcompany.R;
-import com.dachen.dgroupdoctorcompany.views.NoScrollerListView;
 import com.dachen.dgroupdoctorcompany.adapter.ProvinceAdapter;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.dgroupdoctorcompany.entity.Province;
 import com.dachen.dgroupdoctorcompany.utils.JsonMananger;
+import com.dachen.dgroupdoctorcompany.views.NoScrollerListView;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * [地区页面]

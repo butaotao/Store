@@ -1,14 +1,9 @@
 package com.dachen.dgroupdoctorcompany.activity;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.InputType;
-import android.text.SpannableString;
-import android.text.Spanned;
 import android.text.TextUtils;
-import android.text.style.StyleSpan;
-import android.text.style.URLSpan;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewStub;
@@ -24,12 +19,10 @@ import android.widget.TextView;
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.adapter.DoctorFriendAdapter;
 import com.dachen.dgroupdoctorcompany.adapter.HospitalAdapter;
-import com.dachen.dgroupdoctorcompany.adapter.HospitalManagerChildrenAdapter;
 import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.dgroupdoctorcompany.db.dbdao.DoctorDao;
 import com.dachen.dgroupdoctorcompany.db.dbentity.Doctor;
-import com.dachen.dgroupdoctorcompany.db.dbentity.SearchRecords;
 import com.dachen.dgroupdoctorcompany.entity.BaseSearch;
 import com.dachen.dgroupdoctorcompany.entity.DoctorsList;
 import com.dachen.dgroupdoctorcompany.entity.Hospital;
@@ -41,8 +34,6 @@ import com.dachen.medicine.entity.Result;
 import com.dachen.medicine.net.HttpManager;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;

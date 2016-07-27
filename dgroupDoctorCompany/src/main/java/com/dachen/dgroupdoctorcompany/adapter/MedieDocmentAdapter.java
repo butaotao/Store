@@ -89,11 +89,7 @@ public abstract class MedieDocmentAdapter extends android.widget.BaseAdapter {
             holder.checkBox.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(item.isSelected){
-                        item.isSelected = false;
-                    }else{
-                        item.isSelected = true;
-                    }
+                    item.isSelected = !item.isSelected;
                     onClickSelected(item.isSelected);
                 }
             });
@@ -117,11 +113,7 @@ public abstract class MedieDocmentAdapter extends android.widget.BaseAdapter {
             @Override
             public void onClick(View v) {
                 if(MedieManagementActivity.MODE_ADD_FRIEND == mMode){
-                    if(item.isSelected){
-                        item.isSelected = false;
-                    }else{
-                        item.isSelected = true;
-                    }
+                    item.isSelected = !item.isSelected;
                     notifyDataSetChanged();
                     return;
                 }

@@ -35,8 +35,7 @@ public class UserInfo {
 		return SharedPreferenceUtil.getString(context,"id","");
 	}
 	public  String getUserType(){
-		;
-		return sp.getString(KEY_USERTYPE, ""); 
+		return sp.getString(KEY_USERTYPE, "");
 	}
 	public String getUserName(){
 		return SharedPreferenceUtil.getString(context,"username","");
@@ -49,10 +48,7 @@ public class UserInfo {
 		return SharedPreferenceUtil.getString(context,"nickname","");
 	}
 	public boolean isMediePresent(){
-		if (SharedPreferenceUtil.getString(context,ROLE,"").equals("医药代表")){
-			return  true;
-		}
-		return  false;
+		return SharedPreferenceUtil.getString(context, ROLE, "").equals("医药代表");
 	}
 	public String getHeadUrl(){
 

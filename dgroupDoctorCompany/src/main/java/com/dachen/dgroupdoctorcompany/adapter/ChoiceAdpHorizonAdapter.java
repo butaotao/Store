@@ -3,15 +3,11 @@ package com.dachen.dgroupdoctorcompany.adapter;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.db.dbentity.DepAdminsList;
-import com.dachen.dgroupdoctorcompany.entity.ChoiceDep;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

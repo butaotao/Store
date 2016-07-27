@@ -117,7 +117,7 @@ public class CompanySelectPeopleListAdapter extends BaseCustomAdapter<BaseSearch
         @Bind(R.id.rl_people)
         RelativeLayout rl_people;
         @Bind(R.id.btn_radio)
-        RadioButton btn_radio;;
+        RadioButton btn_radio;
         @Bind(R.id.view_add1)
         RelativeLayout view_add1;
         @Bind(R.id.leader_depart)

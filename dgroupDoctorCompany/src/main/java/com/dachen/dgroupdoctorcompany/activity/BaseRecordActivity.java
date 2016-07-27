@@ -211,18 +211,18 @@ public class BaseRecordActivity extends BaseActivity implements View.OnClickList
 
     //请求网络数据
     public interface GetRecord {
-        public void initConfig();
-        public void getRecord(String text);
+        void initConfig();
+        void getRecord(String text);
     }
 
     //得到到底是哪个anctivity
     public interface GetState {
-        public int getState();
+        int getState();
     }
 
     //筛选数据
     public interface RefreshData {
-        public int refresh(int state);
+        int refresh(int state);
     }
 
     private void getDep() {
@@ -397,7 +397,6 @@ public class BaseRecordActivity extends BaseActivity implements View.OnClickList
                     intent.putExtra("id", data.id);
                     startActivity(intent);
                 }
-                ;
 
                 return false;
             }
@@ -462,7 +461,6 @@ public class BaseRecordActivity extends BaseActivity implements View.OnClickList
                     intent.putExtra("remark", data.remark);
                     startActivity(intent);
                 }
-                ;
 
                 return false;
             }
@@ -553,7 +551,6 @@ public class BaseRecordActivity extends BaseActivity implements View.OnClickList
                 String day = picker.getSelectedDay();
                 selectday = year + "-" + month + "-" + day;
                 String daydes = year + "/" + month + "/" + day;
-                ;
                 int intday = getGapCount(year, month, day);
                 textstate.setTextColor(getResources().getColor(R.color.color_333333));
 

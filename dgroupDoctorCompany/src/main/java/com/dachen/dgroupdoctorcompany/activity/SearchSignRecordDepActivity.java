@@ -44,7 +44,7 @@ public class SearchSignRecordDepActivity extends BaseActivity implements HttpMan
     SearchSignRecordDepAdatper adatper;
     ArrayList<UserInfos> infos;
     RelativeLayout rl_back;
-    public String type;;
+    public String type;
     RelativeLayout rl_notcontent;
     TextView tv_empty;
     private int pageIndex = 0;

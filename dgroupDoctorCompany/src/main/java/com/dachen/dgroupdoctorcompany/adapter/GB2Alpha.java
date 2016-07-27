@@ -11,15 +11,6 @@ package com.dachen.dgroupdoctorcompany.adapter;
 import android.text.TextUtils;
 
 import com.dachen.common.utils.Logger;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-
-
-import android.text.TextUtils;
-
-import com.dachen.common.utils.Logger;
 import com.dachen.dgroupdoctorcompany.common.PinyinHelper;
 
 import java.util.regex.Matcher;
@@ -64,19 +55,13 @@ public class GB2Alpha {
     public boolean isNumeric(String str) {
         Pattern pattern = Pattern.compile("[0-9]*");
         Matcher isNum = pattern.matcher(str);
-        if (!isNum.matches()) {
-            return false;
-        }
-        return true;
+        return isNum.matches();
     }
 
     public boolean isLetter(String letter) {
         Pattern pattern = Pattern.compile("[a-zA-Z]");
         Matcher isLetter = pattern.matcher(letter);
-        if (isLetter.matches()) {
-            return true;
-        }
-        return false;
+        return isLetter.matches();
     }
 
 }

@@ -36,10 +36,7 @@ public class DepAdminsList  extends BaseSearch {
             if (orgId==null||that.orgId == null){
                 return  false;
             }
-        if (orgId.equals(that.orgId)){
-            return true;
-        }
-        return false;
+        return orgId.equals(that.orgId);
 
     }
 

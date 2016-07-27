@@ -23,8 +23,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dachen.dgroupdoctorcompany.R;
-import com.dachen.dgroupdoctorcompany.adapter.HospitalListAdapter;
-import com.dachen.dgroupdoctorcompany.adapter.SearchAdapter;
 import com.dachen.dgroupdoctorcompany.adapter.SearchContactAdapter;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.dgroupdoctorcompany.db.dbdao.CompanyContactDao;
@@ -34,27 +32,17 @@ import com.dachen.dgroupdoctorcompany.db.dbentity.Doctor;
 import com.dachen.dgroupdoctorcompany.db.dbentity.SearchRecords;
 import com.dachen.dgroupdoctorcompany.entity.BaseSearch;
 import com.dachen.dgroupdoctorcompany.entity.CompanyContactListEntity;
-import com.dachen.dgroupdoctorcompany.entity.HospitalList;
-import com.dachen.medicine.common.utils.LogUtils;
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
-import com.dachen.medicine.common.utils.ToastUtils;
-import com.dachen.medicine.config.UserInfo;
 import com.dachen.medicine.entity.Result;
-import com.dachen.medicine.net.HttpManager;
 import com.dachen.medicine.net.HttpManager.OnHttpListener;
 import com.dachen.medicine.view.ClearEditText;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
-import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public class SearchContactActivity extends BaseActivity implements OnClickListener,OnHttpListener {
     int totalNum;
@@ -382,7 +370,7 @@ public class SearchContactActivity extends BaseActivity implements OnClickListen
             msg.obj = keyword;
             mHandler.sendMessage(msg);
         }
-    };
+    }
 
     private MyThread myThread;
     private boolean isLoadMore = true;
@@ -475,6 +463,6 @@ public class SearchContactActivity extends BaseActivity implements OnClickListen
         super.onActivityResult(requestCode, resultCode, data);
     }
     public interface RefreshDataInterface{
-        public void refreshData();
+        void refreshData();
     }
 }

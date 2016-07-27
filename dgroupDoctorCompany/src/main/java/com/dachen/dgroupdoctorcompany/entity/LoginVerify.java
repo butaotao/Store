@@ -1,7 +1,6 @@
 package com.dachen.dgroupdoctorcompany.entity;
 
 import com.dachen.medicine.entity.Result;
-import com.dachen.medicine.volley.custom.ArrayResult;
 
 import java.util.ArrayList;
 
@@ -16,6 +15,6 @@ public class LoginVerify extends Result{
             public String title;
             public String value;
         }
-    };
+    }
 
 }

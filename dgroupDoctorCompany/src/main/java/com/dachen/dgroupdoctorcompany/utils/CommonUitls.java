@@ -130,10 +130,7 @@ public class CommonUitls {
     public static boolean isFastDoubleClick(long lastClickTime){
         long time = System.currentTimeMillis();
         long timeD= time-lastClickTime;
-        if(0 < timeD && timeD < 800){
-            return true;
-        }
-        return false;
+        return 0 < timeD && timeD < 800;
     }
 
     /**

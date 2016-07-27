@@ -26,16 +26,13 @@ import com.dachen.dgroupdoctorcompany.db.dbdao.SearchRecordsDao;
 import com.dachen.dgroupdoctorcompany.db.dbentity.SearchRecords;
 import com.dachen.dgroupdoctorcompany.entity.BaseSearch;
 import com.dachen.dgroupdoctorcompany.entity.HospitalList;
-import com.dachen.medicine.common.utils.LogUtils;
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
-import com.dachen.medicine.common.utils.ToastUtils;
 import com.dachen.medicine.config.UserInfo;
 import com.dachen.medicine.entity.Result;
 import com.dachen.medicine.net.HttpManager;
 import com.dachen.medicine.net.HttpManager.OnHttpListener;
 import com.dachen.medicine.view.ClearEditText;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;

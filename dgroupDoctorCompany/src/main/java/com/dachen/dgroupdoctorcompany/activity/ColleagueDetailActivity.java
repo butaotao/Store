@@ -23,7 +23,6 @@ import com.dachen.imsdk.entity.GroupInfo2Bean.Data;
 import com.dachen.imsdk.net.SessionGroup;
 import com.dachen.imsdk.net.SessionGroup.SessionGroupCallback;
 import com.dachen.medicine.net.CustomImagerLoader;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -158,7 +157,8 @@ public class ColleagueDetailActivity extends BaseActivity implements View.OnClic
 
         startActivity(intent);
 
-    };
+    }
+
     @Nullable
     @OnClick(R.id.iv_messagesend)
     void sendMessage(){

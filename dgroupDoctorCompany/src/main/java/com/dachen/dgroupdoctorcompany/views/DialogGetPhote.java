@@ -16,9 +16,9 @@ import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.HashMap;
-
 import com.dachen.dgroupdoctorcompany.R;
+
+import java.util.HashMap;
 
 
 public class DialogGetPhote extends Dialog implements View.OnClickListener {
@@ -106,9 +106,9 @@ public class DialogGetPhote extends Dialog implements View.OnClickListener {
     }
 
     public interface OnClickListener {
-        public void btnCameraClick(View v);//
+        void btnCameraClick(View v);//
 
-        public void btnPhotoClick(View v);//
+        void btnPhotoClick(View v);//
     }
 
 

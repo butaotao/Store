@@ -74,10 +74,7 @@ public class Doctor extends BaseSearch{
     public boolean equals(Object o) {
         if (o instanceof Doctor){
             Doctor d = (Doctor) o;
-            if (!TextUtils.isEmpty(d.userId)&&d.userId.equals(this.userId)&&!TextUtils.isEmpty(this.userId)){
-                return  true;
-            }
-            return false;
+         return !TextUtils.isEmpty(d.userId) && d.userId.equals(this.userId) && !TextUtils.isEmpty(this.userId);
         }
          return  false;
     }

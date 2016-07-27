@@ -5,18 +5,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.dachen.common.utils.ToastUtil;
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.adapter.ChoiceDoctorForChatAdapter;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.dgroupdoctorcompany.db.dbdao.DoctorDao;
 import com.dachen.dgroupdoctorcompany.db.dbentity.Doctor;
-import com.dachen.dgroupdoctorcompany.im.activity.Represent2RepresentChatActivity;
 import com.dachen.dgroupdoctorcompany.js.MyJsInterface;
-import com.dachen.imsdk.db.dao.ChatGroupDao;
-import com.dachen.imsdk.entity.GroupInfo2Bean.Data;
 import com.dachen.imsdk.net.SessionGroup;
-import com.dachen.imsdk.net.SessionGroup.SessionGroupCallback;
 
 import java.util.ArrayList;
 import java.util.List;

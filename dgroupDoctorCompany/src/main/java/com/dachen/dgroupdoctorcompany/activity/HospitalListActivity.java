@@ -10,18 +10,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dachen.dgroupdoctorcompany.R;
-import com.dachen.dgroupdoctorcompany.adapter.HospitalAdapter;
 import com.dachen.dgroupdoctorcompany.adapter.HospitalListAdapter;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.dgroupdoctorcompany.entity.BaseSearch;
-import com.dachen.dgroupdoctorcompany.entity.CompanyDepment;
 import com.dachen.dgroupdoctorcompany.entity.HospitalList;
 import com.dachen.medicine.common.utils.ListViewUtils;
-import com.dachen.medicine.common.utils.SharedPreferenceUtil;
 import com.dachen.medicine.config.UserInfo;
 import com.dachen.medicine.entity.Result;
 import com.dachen.medicine.net.HttpManager;
-import com.dachen.medicine.net.Params;
 
 import java.util.ArrayList;
 import java.util.Collection;

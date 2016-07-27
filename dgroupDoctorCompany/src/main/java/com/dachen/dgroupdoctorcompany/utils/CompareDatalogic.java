@@ -25,9 +25,6 @@ public class CompareDatalogic {
         return name;
     }
     public static boolean isInitContact(){
-        if (CompanyApplication.getInitContactList() == 2){
-            return false;
-        }
-        return true;
+        return CompanyApplication.getInitContactList() != 2;
     }
 }
