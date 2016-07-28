@@ -35,6 +35,14 @@ public class SettingActivity extends BaseActivity implements HttpManager.OnHttpL
     @Nullable
     @Bind(R.id.tv_version)
     TextView tv_version;
+
+    @Nullable
+    @OnClick(R.id.ll_edittelphone)
+    void startActivityEditTel() {
+        Intent intent = new Intent(this,EditTelActivity.class);
+        startActivity(intent);
+    }
+
     @Nullable
     @OnClick(R.id.ll_conrectpassword)
     void startActivityConrectPassword() {

@@ -265,6 +265,11 @@
             android:name=".activity.ModifyPasswordActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.EditTelActivity"/>
+        <activity
+            android:name=".activity.AddTelActivity"/>
         <activity
             android:name=".activity.SettingActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"

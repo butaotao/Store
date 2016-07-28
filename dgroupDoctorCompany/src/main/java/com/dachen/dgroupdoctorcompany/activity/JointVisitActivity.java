@@ -442,6 +442,7 @@ public class JointVisitActivity extends BaseActivity implements View.OnClickList
     public void onFailure(Exception e, String errorMsg, int s) {
         closeLoadingDialog();
         tv_title_save.setEnabled(true);
+        tv_title_save.setClickable(true);
     }
 
     private class FileUpListener implements UploadEngine7Niu.UploadObserver7Niu {

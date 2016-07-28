@@ -53,7 +53,7 @@
             android:paddingBottom="15dp"
             android:paddingTop="15dp"
             android:text="确定支付"
-            android:textColor="#30B2CC"
+            android:textColor="@color/color_3cbaff"
             android:textSize="18sp"
             android:visibility="gone" />
         
@@ -71,7 +71,7 @@
             android:paddingBottom="15dp"
             android:paddingTop="15dp"
             android:text="取消订单"
-            android:textColor="#30B2CC"
+            android:textColor="@color/color_3cbaff"
             android:textSize="18sp"
             android:visibility="gone" />
 

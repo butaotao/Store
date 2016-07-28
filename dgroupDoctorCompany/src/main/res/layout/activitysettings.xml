@@ -23,19 +23,45 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="@color/color_dividerline" />
-
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/ll_edittelphone"
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_height_45dp"
+        android:paddingLeft="@dimen/margin_left_15dp"
         android:background="@color/white"
         android:orientation="vertical">
 
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/img_erweima"
+            android:gravity="center_vertical"
+            android:text="修改手机号"
+            android:textColor="@color/bindcard_gray"
+            android:textSize="@dimen/text_size_myinfo_16" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="@dimen/margin_left_15dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_right_arrow" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/color_dividerline" />
 
         <RelativeLayout
             android:id="@+id/ll_conrectpassword"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height_45dp"
-            android:layout_marginLeft="@dimen/margin_left_15dp"
+            android:paddingLeft="@dimen/margin_left_15dp"
             android:background="@color/white"
             android:orientation="vertical">
 
@@ -59,13 +85,6 @@
                 android:contentDescription="@null"
                 android:src="@drawable/ic_right_arrow" />
         </RelativeLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="vertical">
 
         <View
             android:layout_width="match_parent"
@@ -77,7 +96,7 @@
             android:id="@+id/ll_erweima"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height_45dp"
-            android:layout_marginLeft="@dimen/margin_left_15dp"
+            android:paddingLeft="@dimen/margin_left_15dp"
             android:background="@color/white"
             android:orientation="vertical">
 
@@ -113,8 +132,6 @@
                 android:textColor="@color/bindcard_gray"
                 android:textSize="@dimen/text_size_myinfo_16" />
         </RelativeLayout>
-
-    </LinearLayout>
 
     <View
         android:layout_width="match_parent"

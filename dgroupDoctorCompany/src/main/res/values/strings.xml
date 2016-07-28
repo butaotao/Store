@@ -39,4 +39,5 @@
     <string name="select_address">选择地点</string>
     <string name="visit_group_yes">是</string>
     <string name="visit_group_no">否</string>
+    <string name="link_serv"><u>联系客服</u></string>
 </resources>
