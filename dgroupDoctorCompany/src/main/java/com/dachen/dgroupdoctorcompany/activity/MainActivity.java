@@ -380,7 +380,6 @@ public class MainActivity extends BaseActivity implements OnHttpListener,
         } else {
             return mDao.getUnreadCountForId(new String[]{mGroupInfo.group.gid});
         }
-
     }
 
     private void showUnreadCount(Integer unreadCount) {

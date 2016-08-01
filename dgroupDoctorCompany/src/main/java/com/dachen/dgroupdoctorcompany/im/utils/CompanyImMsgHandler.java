@@ -58,4 +58,11 @@ public class CompanyImMsgHandler extends ImMsgHandler{
     public boolean menuHasRetract() {
         return true;
     }
+
+    @Override
+    public boolean onForwardMessage(String msgId) {
+        // TODO: 2016/8/1
+
+        return true;
+    }
 }
