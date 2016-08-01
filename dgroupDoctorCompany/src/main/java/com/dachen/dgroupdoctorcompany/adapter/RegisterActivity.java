@@ -17,6 +17,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.dachen.common.utils.Md5Util;
+import com.dachen.dgroupdoctorcompany.R;
+import com.dachen.dgroupdoctorcompany.activity.MainActivity;
+import com.dachen.dgroupdoctorcompany.app.Constants;
+import com.dachen.dgroupdoctorcompany.base.BaseActivity;
+import com.dachen.dgroupdoctorcompany.entity.LoginRegisterResult;
+import com.dachen.dgroupdoctorcompany.entity.TelePhoneVerifyData;
+import com.dachen.dgroupdoctorcompany.entity.Void;
+import com.dachen.medicine.common.utils.SharedPreferenceUtil;
+import com.dachen.medicine.common.utils.SystemUtils;
+import com.dachen.medicine.common.utils.ToastUtils;
+import com.dachen.medicine.entity.Result;
+import com.dachen.medicine.net.HttpManager;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,19 +38,6 @@ import java.util.Map;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-
-import com.dachen.dgroupdoctorcompany.R;
-import com.dachen.dgroupdoctorcompany.activity.MainActivity;
-import com.dachen.dgroupdoctorcompany.app.Constants;
-import com.dachen.dgroupdoctorcompany.base.BaseActivity;
-import com.dachen.dgroupdoctorcompany.entity.*;
-import com.dachen.dgroupdoctorcompany.entity.Void;
-import com.dachen.medicine.common.utils.SharedPreferenceUtil;
-import com.dachen.medicine.common.utils.SystemUtils;
-import com.dachen.medicine.common.utils.ToastUtils;
-import com.dachen.medicine.entity.Result;
-import com.dachen.medicine.net.HttpManager;
 
 /**
  * 注册验证手机号页面
@@ -411,6 +412,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                                     logins.data.getAccess_token());
                             SharedPreferenceUtil.putString(RegisterActivity.this,"id", logins.data.getUser().getUserId());
                             SharedPreferenceUtil.putString(RegisterActivity.this,"telephone", logins.data.getUser().getTelephone());
+                            SharedPreferenceUtil.putString(RegisterActivity.this,"password", Md5Util.toMD5(password));
                             SharedPreferenceUtil.putString(RegisterActivity.this,"username", logins.data.getUser().getName());
                             SharedPreferenceUtil.putString(RegisterActivity.this,"usertype",Constants.USER_TYPE);
                             long expires_in = logins.data.getExpires_in() * 1000L + System.currentTimeMillis();

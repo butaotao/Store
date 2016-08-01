@@ -4,11 +4,13 @@ package com.dachen.dgroupdoctorcompany.activity;
  * Created by Burt on 2016/3/3.
  */
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.ScrollView;
@@ -30,6 +32,7 @@ import com.dachen.dgroupdoctorcompany.im.activity.RepresentGroupChatActivity;
 import com.dachen.dgroupdoctorcompany.im.events.AddGroupUserEvent;
 import com.dachen.dgroupdoctorcompany.im.utils.ChatActivityUtilsV2;
 import com.dachen.dgroupdoctorcompany.utils.CommonUitls;
+import com.dachen.dgroupdoctorcompany.utils.CompareDatalogic;
 import com.dachen.dgroupdoctorcompany.utils.GetAllDoctor;
 import com.dachen.dgroupdoctorcompany.views.HorizontalListView;
 import com.dachen.imsdk.consts.SessionType;
@@ -38,6 +41,7 @@ import com.dachen.imsdk.entity.GroupInfo2Bean.Data;
 import com.dachen.imsdk.net.SessionGroup;
 import com.dachen.imsdk.net.SessionGroup.SessionGroupCallback;
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
+import com.dachen.medicine.common.utils.ToastUtils;
 import com.dachen.medicine.config.UserInfo;
 import com.dachen.medicine.entity.Result;
 import com.dachen.medicine.net.HttpManager;
@@ -60,6 +64,7 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
     public static final String INTENT_EXTRA_GROUP_USERS = "groupUsers";
     public static final String INTENT_EXTRA_GROUP_TYPE = "groupType";
     public static final String INTENT_EXTRA_GROUP_ID = "groupId";
+    public static final int REQUEST_SEARCH = 1001;
     CompanySelectPeopleListAdapter adapter;//R.layout.adapter_companycontactlist
     ListView listview;
     ArrayList<BaseSearch> list;
@@ -87,6 +92,8 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
     private int mPullIndex;
     private int mPageSize = 50;
     private TextView mNoContactsTips;
+    private TextView mSearch;
+    LinearLayout layout_search;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,8 +103,12 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
         mPullToRefreshScrollView = (PullToRefreshScrollView) findViewById(R.id.refresh_scroll_view);
         mPullToRefreshScrollView.setMode(PullToRefreshBase.Mode.DISABLED);
 
+        layout_search = getViewById(R.id.layout_search);
+        mSearch = getViewById(R.id.et_search);
         btn_add = (Button) findViewById(R.id.btn_add);
         btn_add.setOnClickListener(this);
+        mSearch.setOnClickListener(this);
+        layout_search.setOnClickListener(this);
         groupTool = new SessionGroup(this);
         listsTitle = new HashMap<>();
         groupTool.setCallback(callback);
@@ -360,6 +371,16 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
             case R.id.iv_back:
                 backtofront();
                 break;
+            case R.id.layout_search:
+            case R.id.et_search:
+                if (CompareDatalogic.isInitContact()) {
+                    Intent intent = new Intent(this, SearchContactActivity.class);
+                    intent.putExtra("selectMode", 1);    //搜索选择返回多选页
+                    startActivityForResult(intent,REQUEST_SEARCH);
+                } else {
+                    ToastUtils.showToast(this, "通讯录初始化中...");
+                }
+                break;
         }
     }
 
@@ -607,6 +628,40 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
                 adapter.notifyDataSetChanged();
             }
 
+        }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case REQUEST_SEARCH:
+
+                    CompanyContactListEntity c2 = (CompanyContactListEntity) intent.getSerializableExtra("data");
+                        if (c2.select) {
+                        } else {
+                            c2.select = true;
+                            if (!groupUsers.contains(c2) && !c2.userId.equals(SharedPreferenceUtil.getString(SelectPeopleActivity.this, "id", ""))) {
+                                CommonUitls.addCompanyContactListEntity(c2);
+                            }
+                        }
+                        addAdapter.notifyDataSetChanged();
+                    for (int i = 0; i < list.size(); i++) {
+                        BaseSearch search = list.get(i);
+                        if (search instanceof CompanyContactListEntity) {
+                            CompanyContactListEntity entity = (CompanyContactListEntity) list.get(i);
+                            if (entity.userId.equals(c2.userId)) {
+                                list.set(i, c2);
+                            }
+                        }
+                    }
+
+//            list.set(position, c2);
+                        adapter.notifyDataSetChanged();
+                        btn_add.setText("开始(" + listsHorizon.size() + ")");
+                    break;
+                default:
+                    break;
+            }
         }
     }
 

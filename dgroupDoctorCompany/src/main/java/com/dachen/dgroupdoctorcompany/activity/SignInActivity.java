@@ -20,7 +20,6 @@ import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.dgroupdoctorcompany.entity.SignInBaseData;
 import com.dachen.dgroupdoctorcompany.utils.UserInfo;
-import com.dachen.medicine.common.utils.MActivityManager;
 import com.dachen.medicine.entity.Result;
 import com.dachen.medicine.net.HttpManager;
 import com.dachen.medicine.net.Params;
@@ -39,6 +38,7 @@ public class SignInActivity extends BaseActivity implements HttpManager.OnHttpLi
     private LinearLayout vSignin;
     private LinearLayout vVisit;
     private LinearLayout vTogetherVisit;
+    private LinearLayout signin_remind;
 
     private AMapLocationClient locationClient = null;
     private AMapLocationClientOption locationOption = null;
@@ -68,10 +68,12 @@ public class SignInActivity extends BaseActivity implements HttpManager.OnHttpLi
         vSignin = (LinearLayout) findViewById(R.id.vSignin);
         vVisit = (LinearLayout) findViewById(R.id.vVisit);
         vTogetherVisit = (LinearLayout) findViewById(R.id.vTogetherVisit);
+        signin_remind = getViewById(R.id.signin_remind);
         mTvSignAll.setOnClickListener(this);
         vSignin.setOnClickListener(this);
         vVisit.setOnClickListener(this);
         vTogetherVisit.setOnClickListener(this);
+        signin_remind.setOnClickListener(this);
     }
 
     private void initData(){
@@ -147,6 +149,11 @@ public class SignInActivity extends BaseActivity implements HttpManager.OnHttpLi
                 intent3.putExtra("longitude",longitude);
                 intent3.putExtra("city",city);
                 startActivity(intent3);
+                break;
+            case R.id.signin_remind:
+                Intent intent4 = new Intent(SignInActivity.this,SigninRemindActivity.class);
+
+                startActivity(intent4);
                 break;
         }
     }

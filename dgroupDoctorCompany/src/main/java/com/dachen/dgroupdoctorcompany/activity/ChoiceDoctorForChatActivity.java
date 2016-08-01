@@ -54,6 +54,9 @@ public class ChoiceDoctorForChatActivity extends BaseActivity {
     private LinearLayout vBottom;
     private LinearLayout vInfo;
     private TextView tv_empty;
+    private TextView mSearch;
+    LinearLayout layout_search;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,6 +109,12 @@ public class ChoiceDoctorForChatActivity extends BaseActivity {
                 createChatGroup(doctor.userId);
             }
         });
+
+        layout_search = getViewById(R.id.layout_search);
+        mSearch = getViewById(R.id.et_search);
+        mSearch.setOnClickListener(this);
+        layout_search.setOnClickListener(this);
+
         btSubmit = (Button) findViewById(R.id.btSubmit);
         vAddress = (LinearLayout) findViewById(R.id.vAddress);
         tvAddress = (TextView) findViewById(R.id.tvAddress);
@@ -267,4 +276,22 @@ public class ChoiceDoctorForChatActivity extends BaseActivity {
             tvAddress.setText(mStrAddress);
         }
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+
+            case R.id.layout_search:
+            case R.id.et_search:
+                Intent intent = new Intent(this, SearchContactActivity.class);
+                intent.putExtra("seachdoctor","doctor");
+                intent.putExtra("selectMode", 2);    //搜索选择不返回（非1）
+                startActivity(intent);
+                break;
+            case R.id.rl_back:
+               finish();
+                break;
+        }
+    }
+
 }

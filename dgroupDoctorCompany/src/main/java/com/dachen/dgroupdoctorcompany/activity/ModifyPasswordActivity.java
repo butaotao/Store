@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.widget.EditText;
 
+import com.dachen.common.utils.Md5Util;
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.dgroupdoctorcompany.entity.Void;
@@ -104,6 +105,7 @@ public class ModifyPasswordActivity extends BaseActivity {
                             Void v = (Void) result;
                             if (v.resultCode == 1) {
                                 ToastUtils.showToast(ModifyPasswordActivity.this,"修改密码成功");
+                                SharedPreferenceUtil.putString(ModifyPasswordActivity.this,"password", Md5Util.toMD5(newPwd));
                                 finish();
                             } else if (v.resultCode == 0) {
                                 ToastUtils.showToast(ModifyPasswordActivity.this,"旧密码输入错误");

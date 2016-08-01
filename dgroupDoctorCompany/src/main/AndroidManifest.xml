@@ -266,10 +266,11 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait" />
 
-        <activity
-            android:name=".activity.EditTelActivity"/>
-        <activity
-            android:name=".activity.AddTelActivity"/>
+        <activity android:name=".activity.EditTelActivity"/>
+        <activity android:name=".activity.AddTelActivity"/>
+        <activity android:name=".activity.SigninRemindActivity"/>
+        <activity android:name=".activity.AddSigninRemindActivity"/>
+
         <activity
             android:name=".activity.SettingActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -326,8 +327,8 @@
         <activity
             android:name=".activity.SearchContactActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
+        <!--android:launchMode="singleTask"-->
         <activity
             android:name=".activity.AddDoctorActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"

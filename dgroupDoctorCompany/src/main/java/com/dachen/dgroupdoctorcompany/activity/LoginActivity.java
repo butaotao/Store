@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.baoyz.actionsheet.ActionSheet;
 import com.baoyz.actionsheet.ActionSheet.ActionSheetListener;
+import com.dachen.common.utils.Md5Util;
 import com.dachen.common.utils.QiNiuUtils;
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.app.CompanyApplication;
@@ -316,6 +317,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
                 LoginRegisterResult logins = (LoginRegisterResult) entity;
                 UserLoginc.setUserInfo(logins, LoginActivity.this);
                 UserUtils.logingetUserType(LoginActivity.this);
+                SharedPreferenceUtil.putString(LoginActivity.this,"password", Md5Util.toMD5(password));
             }
         }
         @Override
