@@ -3,16 +3,35 @@ package com.dachen.dgroupdoctorcompany.activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.SparseArray;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationListener;
+import com.amap.api.maps.AMap;
+import com.amap.api.maps.CameraUpdateFactory;
+import com.amap.api.maps.LocationSource;
+import com.amap.api.maps.MapView;
+import com.amap.api.maps.UiSettings;
+import com.amap.api.maps.model.CameraPosition;
+import com.amap.api.maps.model.CircleOptions;
+import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.Marker;
+import com.amap.api.maps.model.MarkerOptions;
+import com.amap.api.maps.model.MyTrafficStyle;
+import com.amap.api.services.core.PoiItem;
+import com.amap.api.services.poisearch.PoiResult;
+import com.amap.api.services.poisearch.PoiSearch;
 import com.dachen.common.utils.ToastUtil;
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.app.CompanyApplication;
@@ -30,6 +49,7 @@ import com.dachen.medicine.entity.Result;
 import com.dachen.medicine.net.HttpManager;
 import com.dachen.medicine.net.Params;
 import com.dachen.medicine.view.CustomDialog;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
@@ -41,7 +61,10 @@ import java.util.Set;
 /**
  * Created by weiwei on 2016/6/22.
  */
-public class SelectVisitPeople extends BaseActivity implements HttpManager.OnHttpListener{
+public class SelectVisitPeople extends BaseActivity implements HttpManager.OnHttpListener, LocationSource,
+        AMapLocationListener, AMap.OnInfoWindowClickListener,
+        AMap.InfoWindowAdapter, AMap
+        .OnCameraChangeListener, AMap.OnMapTouchListener{
     public final static int MODE_ADD = 1;
     public final static int MODE_JOIN = 2;
     private int mMode;
@@ -62,13 +85,14 @@ public class SelectVisitPeople extends BaseActivity implements HttpManager.OnHtt
     private String initatorName;
     private String headPic;
     private String id;
+    private AMap mAMap;
     private List<VisitPeople>mVisitPeopleList = new ArrayList<>();
     private SparseArray<VisitPeople>mVisitPeopleSparseArray = new SparseArray<>();
     public int from;
     private boolean isPressCancel = true;//用来区分点击的是取消还是返回按钮
     private static SelectVisitPeople instance;
     private int nCount = 1;//记录人数
-
+    private int cancelVistitTogetter;
     private TextView mTvAddress;
     private TextView mTvName;
     private TextView tvMediea;
@@ -76,6 +100,62 @@ public class SelectVisitPeople extends BaseActivity implements HttpManager.OnHtt
     private TextView tvSure;
     private int time;
     private MyHandler mMyHandler;
+    private Button btn_choiceposition;
+    private MapView mMapView;
+    private int level = 17;
+    double mlatitude = 0;
+    private String                      city;//定位所在的城市
+    double mlongitude = 0;
+    private MyTrafficStyle mMyTrafficStyle;
+    private Marker locationMarker; // 选择的点
+    @Override
+    public void onLocationChanged(AMapLocation aMapLocation) {
+
+    }
+
+    @Override
+    public View getInfoWindow(Marker marker) {
+        return null;
+    }
+
+    @Override
+    public View getInfoContents(Marker marker) {
+        return null;
+    }
+
+    @Override
+    public void activate(OnLocationChangedListener onLocationChangedListener) {
+
+    }
+
+    @Override
+    public void deactivate() {
+
+    }
+
+    @Override
+    public void onCameraChange(CameraPosition cameraPosition) {
+
+    }
+
+    @Override
+    public void onCameraChangeFinish(CameraPosition cameraPosition) {
+
+    }
+
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+
+    }
+
+
+    @Override
+    public void onTouch(MotionEvent motionEvent) {
+
+    }
+
+
+
     public class MyHandler extends Handler{
         @Override
         public void handleMessage(Message msg) {
@@ -98,32 +178,7 @@ public class SelectVisitPeople extends BaseActivity implements HttpManager.OnHtt
                                         finish();
                                     }
                                 }, null);
-                        /*
-                        if(MODE_ADD == mMode){
-                            final CustomDialog dialog = new CustomDialog(SelectVisitPeople.this);
-                            dialog.showDialog("提示", "寻找拜访人员已到时限，是否取消该协同拜访?", R.string.visit_group_no, R.string.visit_group_yes, new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    dialog.dimissDialog();
-                                    createVisitGroup();
-                                }
-                            }, new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    dialog.dimissDialog();
-                                    onExit();
-                                    if(MODE_ADD == mMode){
-                                        finish();
-                                        MActivityManager.getInstance().finishActivity(ChoiceMedieaActivity.class);
-                                        MActivityManager.getInstance().finishActivity(ChoiceDoctorForChatActivity.class);
-                                    }else if(MODE_JOIN == mMode){
-                                        finish();
-                                    }
-                                }
-                            });
-                        }else if(MODE_JOIN == mMode){
 
-                        }*/
 
                     }
                     break;
@@ -133,12 +188,54 @@ public class SelectVisitPeople extends BaseActivity implements HttpManager.OnHtt
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_select_visit_people);
+        mMapView = (MapView) findViewById(R.id.map);
+        mMapView.onCreate(savedInstanceState);// 此方法必须重写
         instance = this;
         initView();
         initData();
+        if(null == mAMap){
+            mAMap = mMapView.getMap();
+            setUpMap();
+        }
     }
+    private void setUpMap(){
+        mMyTrafficStyle = new MyTrafficStyle();
+        mMyTrafficStyle.setSeriousCongestedColor(0xff92000a);
+        mMyTrafficStyle.setCongestedColor(0xffea0312);
+        mMyTrafficStyle.setSlowColor(0xffff7508);
+        mMyTrafficStyle.setSmoothColor(0xff00a209);
+        mAMap.setMyTrafficStyle(mMyTrafficStyle);
+        mAMap.setMyTrafficStyle(mMyTrafficStyle);
+        if(null == city ){//如果没有定位数据则再次定位
+            mAMap.setLocationSource(this);// 设置定位监听
+        }
+        mAMap.getUiSettings().setMyLocationButtonEnabled(true);// 设置默认定位按钮是否显示
+//        mAMap.getUiSettings().setScrollGesturesEnabled(false);//禁止滑动地图
+        mAMap.setMyLocationEnabled(true);// 设置为true表示显示定位层并可触发定位，false表示隐藏定位层并不可触发定位，默认是false
+        mAMap.setMapType(AMap.LOCATION_TYPE_LOCATE);// 设置定位的类型为定位模式，参见类AMap。
 
+        mAMap.setOnInfoWindowClickListener(this);
+        mAMap.setInfoWindowAdapter(this);
+        mAMap.setOnCameraChangeListener(this);// 对amap添加移动地图事件监听器
+        mAMap.setOnMapTouchListener(this);
+        mAMap.moveCamera(CameraUpdateFactory.zoomTo(level));
+        mAMap.showMapText(false);
+        UiSettings uiSettings = mAMap.getUiSettings();
+        uiSettings.setScaleControlsEnabled(false);
+        uiSettings.setZoomControlsEnabled(false);
+        setAMap();
+    }
+    private void setAMap(){
+        mAMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), level));
+
+       /* locationMarker = mAMap.addMarker(new MarkerOptions()
+                .anchor(0.5f, 0.5f)
+                .position(new LatLng(latitude, longitude)));
+
+        locationMarker.showInfoWindow();*/
+    }
     public static SelectVisitPeople getInstance(){
         return instance;
     }
@@ -156,6 +253,7 @@ public class SelectVisitPeople extends BaseActivity implements HttpManager.OnHtt
         tvMediea = (TextView) this.findViewById(R.id.tvMediea);
         tvTimeCount = (TextView) this.findViewById(R.id.tvTimeCount);
         tvSure = (TextView) this.findViewById(R.id.tvSure);
+        this.findViewById(R.id.btn_choiceposition).setOnClickListener(this);
         this.findViewById(R.id.tvCancel).setOnClickListener(this);
     }
 
@@ -285,6 +383,10 @@ public class SelectVisitPeople extends BaseActivity implements HttpManager.OnHtt
             case R.id.rl_back:
                 onBackPressed();
                 break;
+            case R.id.btn_choiceposition:
+                cancelVistitTogetter = 1;
+                deleteVisitGroup();
+                break;
             case R.id.tvCancel:
                 isPressCancel = true;
                 if(MODE_ADD == mMode){
@@ -332,7 +434,7 @@ public class SelectVisitPeople extends BaseActivity implements HttpManager.OnHtt
     private void deleteVisitGroup(){
         showLoadingDialog();
         new HttpManager().get(this, Constants.DELETE_VISIT_GROUP, Result.class,
-                Params.deleteVisitGroup(SelectVisitPeople.this,id),
+                Params.deleteVisitGroup(SelectVisitPeople.this, id),
                 this,false,4);
     }
 
@@ -356,10 +458,15 @@ public class SelectVisitPeople extends BaseActivity implements HttpManager.OnHtt
                     tvTimeCount.setText(120+"");
                     mMyHandler.sendEmptyMessageDelayed(MSG_UPDATE_TIME,1000);
                 }else {
-                    ToastUtil.showToast(this,"取消协同拜访成功");
-                    if(isPressCancel){
-                        onExit();
+                    if (cancelVistitTogetter!=1){
+                        ToastUtil.showToast(this,"取消协同拜访成功");
+                        if(isPressCancel){
+                            onExit();
+                        }
+                    }else {
+                        choicePlace();
                     }
+
                 }
             }else{
                 String msg = response.getResultMsg();
@@ -369,7 +476,13 @@ public class SelectVisitPeople extends BaseActivity implements HttpManager.OnHtt
             ToastUtil.showErrorData(this);
         }
     }
-
+    public void choicePlace(){
+        Intent intent = new Intent(this,SelectAddressActivity.class);
+        intent.putExtra("type","selectVisitPeopleposition");
+        intent.putExtra("mode",AddSignInActivity.MODE_VISIT);
+        startActivity(intent);
+        finish();
+    }
     @Override
     public void onSuccess(ArrayList response) {
 
@@ -504,5 +617,11 @@ public class SelectVisitPeople extends BaseActivity implements HttpManager.OnHtt
                 Params.addVisitGroup(SelectVisitPeople.this,orginId,userName,String.valueOf(latitude),String.valueOf(longitude),
                         docterId,docterName,mStrAddressName,mStrAddress,jsonMediea),
                 this,false,4);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        cancelVistitTogetter = 0;
     }
 }

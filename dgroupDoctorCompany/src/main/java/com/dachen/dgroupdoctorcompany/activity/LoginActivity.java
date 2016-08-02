@@ -82,7 +82,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
         setContentView(R.layout.activity_login);
         setBackInVisiable();
         ButterKnife.bind(this);
-
+        setTheme(R.style.ActionSheetStyleiOS7);
         initViews();
         setTitle("登录");
         mPhoneNumberEdit.addTextChangedListener(watcherPhoneNum);

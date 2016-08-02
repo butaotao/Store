@@ -361,6 +361,7 @@ public class SearchContactActivity extends BaseActivity implements OnClickListen
 
         @Override
         public void run() {
+
             List<CompanyContactListEntity> tempCompany = dao.querySearchPage(keyword, pageNo);
             if(pageNo == 1){
                 company = tempCompany;

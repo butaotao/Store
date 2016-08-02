@@ -102,7 +102,7 @@ public class SelectAddressActivity extends BaseActivity implements LocationSourc
     String type;
     private int mSelectType;
     private String address_name;
-
+    private String fromActivity;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -126,6 +126,9 @@ public class SelectAddressActivity extends BaseActivity implements LocationSourc
         mSelectType = this.getIntent().getIntExtra("select_type",0);
         if(getIntent().hasExtra("address_name")){
             address_name = getIntent().getStringExtra("address_name");
+        }
+        if (getIntent().hasExtra("fromActivity")){
+            fromActivity = getIntent().getStringExtra("fromActivity");
         }
     }
 
@@ -208,6 +211,8 @@ public class SelectAddressActivity extends BaseActivity implements LocationSourc
 //                           intent.putExtra("mode",TogetherVisitActivity.MODE_FROM_SIGN);
 //                           intent.putExtra("city",city);
 //                           startActivity(intent);
+                           }else if ("selectVisitPeopleposition".equals(type)){
+                               startVisitGroup(latitude, longitude, (city + address + snippet), name);
                            }
 
                        } else {

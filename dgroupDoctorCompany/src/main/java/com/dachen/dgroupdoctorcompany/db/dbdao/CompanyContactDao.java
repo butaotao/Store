@@ -1,6 +1,7 @@
 package com.dachen.dgroupdoctorcompany.db.dbdao;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.dachen.dgroupdoctorcompany.db.SQLiteHelper;
 import com.dachen.dgroupdoctorcompany.entity.CompanyContactListEntity;
@@ -226,8 +227,16 @@ public class CompanyContactDao {
         try {
             builder.limit(50l).offset((pageNo - 1) * 50l);
             Where<CompanyContactListEntity, Integer> where = builder.where();
-            where.or(where.and(where.eq("userloginid", loginid), where.like("name", "%" + name + "%")),
-                    where.and(where.eq("userloginid", loginid), where.like("telephone", "%" + name + "%")));
+            if (name.equals("1")){
+                 where.and(where.eq("userloginid", loginid), where.like("name", "%" + name + "%"));
+            }else {
+                where.or(where.and(where.eq("userloginid", loginid), where.like("name", "%" + name + "%")),
+                        where.and(where.eq("userloginid", loginid), where.like("telephone", "%" + name + "%")));
+            }/*else {
+                where.or(where.and(where.eq("userloginid", loginid), where.like("name", "%" + name + "%")),
+                        where.and(where.eq("userloginid", loginid), where.like("telephone", "%" + name + "%")));
+            }*/
+
 
             List<CompanyContactListEntity> entities = new ArrayList<>();
             if (null != where.query()) {
@@ -272,13 +281,16 @@ public class CompanyContactDao {
 
     class PinyinComparator implements Comparator<CompanyContactListEntity> {
         public int compare(CompanyContactListEntity o1, CompanyContactListEntity o2) {
-            if (o1.name.equals("@") || o2.name.equals("#")) {
-                return -1;
-            } else if (o1.name.equals("#") || o2.name.equals("@")) {
-                return 1;
-            } else {
-                return o1.name.compareTo(o2.name);
+            if (!TextUtils.isEmpty(o1.name)&&!TextUtils.isEmpty(o2.name)){
+                if (o1.name.equals("@") || o2.name.equals("#")) {
+                    return -1;
+                } else if (o1.name.equals("#") || o2.name.equals("@")) {
+                    return 1;
+                } else {
+                    return o1.name.compareTo(o2.name);
+                }
             }
+            return 1;
         }
     }
 

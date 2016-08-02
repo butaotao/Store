@@ -123,8 +123,18 @@ public class DoctorDao {
         try {
             builder.limit(50l).offset((pageNo-1)*50l);
             Where<Doctor, Integer> where = builder.where();
-            where.or(where.and (where.like("name", "%" + name + "%"), where.eq("userloginid", loginid)),
-                    where.and(where.like("telephone", "%" + name + "%"), where.eq("userloginid", loginid)));
+            if (name.equals("1")){
+                where.and (where.like("name", "%" + name + "%"), where.eq("userloginid", loginid));
+            }else {
+                where.or(where.and(where.like("telephone", "%" + name + "%"), where.eq("userloginid", loginid)),
+                        where.and (where.like("name", "%" + name + "%"), where.eq("userloginid", loginid))
+                        );
+            }/*else {
+                where.or(where.and(where.like("telephone", "%" + name + "%"), where.eq("userloginid", loginid)),
+                        where.and (where.like("name", "%" + name + "%"), where.eq("userloginid", loginid))
+                );
+            }*/
+
 
             List<Doctor> doctors= builder.distinct().query();
             if (doctors==null){
@@ -143,7 +153,7 @@ public class DoctorDao {
     public List<Doctor> querySearch(String name) {
         QueryBuilder<Doctor, Integer> builder = articleDao.queryBuilder();
 
-        String  loginid=SharedPreferenceUtil.getString(context, "id", "");
+        String  loginid = SharedPreferenceUtil.getString(context, "id", "");
         List<Doctor> doctorss = new ArrayList<>();
         try {
             Where<Doctor, Integer> where = builder.where();
