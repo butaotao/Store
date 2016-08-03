@@ -29,6 +29,8 @@ dependencies {
 //    compile files('libs/ormlite-core-4.49-SNAPSHOT.jar')
 //    compile files('libs/universal-image-loader-1.9.3.jar')
 //    compile files('libs/volley.jar')
+
+//    compile 'com.dachen.library:dCommonLibrary:1.0.1'
     compile project(':dCommonLibrary')
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
 }

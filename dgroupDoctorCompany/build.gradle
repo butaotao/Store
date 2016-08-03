@@ -93,6 +93,11 @@ android {
         abortOnError false
     }
 }
+repositories {
+    maven {
+        url  "https://dl.bintray.com/mcp98252302/maven"
+    }
+}
 dependencies {
     compile 'com.android.support:multidex:1.0.1'
     /*  compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -101,8 +106,10 @@ dependencies {
     compile project(':actionSheetLibrary')
     compile 'com.jakewharton:butterknife:7.0.1'
     compile files('libs/MiPush_SDK_Client_3_0_3.jar')
-    compile project(':pullToRefreshViewsLibrary')
+
     compile project(':ImSdk')
+//    compile 'com.dachen.library:ImSdk:1.0.0'
+
     compile files('libs/ormlite-jdbc-4.49-SNAPSHOT.jar')
     compile project(':cmsLiveLibrary')
     compile project(':vitamioLibrary')
