@@ -1,8 +1,5 @@
 package com.dachen.dgroupdoctorcompany.activity;
 
-/**
- * Created by Burt on 2016/3/3.
- */
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -94,11 +91,14 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
     private TextView mNoContactsTips;
     private TextView mSearch;
     LinearLayout layout_search;
+    boolean mShare;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selectpeople);
+
+        mShare = getIntent().getBooleanExtra("share", false);
 
         mPullToRefreshScrollView = (PullToRefreshScrollView) findViewById(R.id.refresh_scroll_view);
         mPullToRefreshScrollView.setMode(PullToRefreshBase.Mode.DISABLED);
@@ -359,14 +359,19 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
 //                CallIntent.getSelectData.getData(listsHorizon);
                 int groupType = getIntent().getIntExtra(INTENT_EXTRA_GROUP_TYPE, 0);
                 showLoadingDialog();
-                if (groupUsers.size() == 0)
-                    groupTool.createGroup(getIdsList(false), "10");
-                else {
-                    if (groupType == SessionType.session_double) {
-                        groupTool.createGroup(getIdsList(true), "10");
-                    } else
-                        groupTool.addGroupUser(getIdsList(false), getIntent().getStringExtra(INTENT_EXTRA_GROUP_ID));
+                if (mShare) {
+                    //转发信息
+                } else {
+                    if (groupUsers.size() == 0)
+                        groupTool.createGroup(getIdsList(false), "10");
+                    else {
+                        if (groupType == SessionType.session_double) {
+                            groupTool.createGroup(getIdsList(true), "10");
+                        } else
+                            groupTool.addGroupUser(getIdsList(false), getIntent().getStringExtra(INTENT_EXTRA_GROUP_ID));
+                    }
                 }
+
                 break;
             case R.id.iv_back:
                 backtofront();

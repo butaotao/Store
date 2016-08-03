@@ -82,6 +82,7 @@ public class SearchContactActivity extends BaseActivity implements OnClickListen
     private int pageNo = 1;
     private int selectMode;
     private String mDoctorId;
+    private boolean mShare;
 
 
     @Override
@@ -89,8 +90,11 @@ public class SearchContactActivity extends BaseActivity implements OnClickListen
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_allcontact);
+
+        mShare = getIntent().getBooleanExtra("share", false);
         seachdoctor = getIntent().getStringExtra("seachdoctor");
         selectMode  = getIntent().getIntExtra("selectMode", 0);
+
         findViewById(R.id.rl_sure).setVisibility(View.GONE);
         if (TextUtils.isEmpty(seachdoctor)){
             et_search.setHint("搜索姓名/手机号");
@@ -211,6 +215,8 @@ public class SearchContactActivity extends BaseActivity implements OnClickListen
                         intent.putExtra("data", adapter.getItem(arg2));
                         setResult(RESULT_OK,intent);
                         finish();
+                    } else if (mShare) {
+                        //转发文件
                     } else {
                         Intent intent = new Intent(SearchContactActivity.this,ColleagueDetailActivity.class);
                         Bundle bundle = new Bundle();

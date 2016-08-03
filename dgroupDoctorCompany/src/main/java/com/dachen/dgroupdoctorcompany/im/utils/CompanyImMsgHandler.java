@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.alibaba.fastjson.JSON;
+import com.dachen.dgroupdoctorcompany.activity.ChatShareMsgActivity;
 import com.dachen.dgroupdoctorcompany.activity.WebActivityForCompany;
 import com.dachen.dgroupdoctorcompany.db.dbdao.CompanyContactDao;
 import com.dachen.dgroupdoctorcompany.db.dbdao.DoctorDao;
@@ -62,7 +63,8 @@ public class CompanyImMsgHandler extends ImMsgHandler{
     @Override
     public boolean onForwardMessage(String msgId) {
         // TODO: 2016/8/1
-
+        Intent intent = new Intent(mContext, ChatShareMsgActivity.class);
+        mContext.startActivity(intent);
         return true;
     }
 }

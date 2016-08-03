@@ -569,10 +569,9 @@
         <activity
             android:name="com.dachen.imsdk.vchat.activity.VChatMemberActivity"
             />
-        <activity
-            android:name="com.dachen.imsdk.activities.AtChatMemberActivity"
+        <activity android:name="com.dachen.imsdk.activities.AtChatMemberActivity" />
 
-            />
+        <activity android:name=".activity.ChatShareMsgActivity" />
 
         <activity android:name=".activity.VisitMemberActivity" android:screenOrientation="portrait"/>
         <activity android:name=".activity.JointVisitActivity" android:screenOrientation="portrait"

@@ -56,6 +56,7 @@ public class ChoiceDoctorForChatActivity extends BaseActivity {
     private TextView tv_empty;
     private TextView mSearch;
     LinearLayout layout_search;
+    private boolean mShare;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +66,8 @@ public class ChoiceDoctorForChatActivity extends BaseActivity {
         where = this.getIntent().getStringExtra("where");
         type = this.getIntent().getStringExtra("type");
         from = this.getIntent().getIntExtra("from",TogetherVisitActivity.MODE_FROM_VIST_LIST);
+        mShare = getIntent().getBooleanExtra("share", false);
+
         if(null != where && "AddSignInActivity".equals(where)){
             setTitle("选择客户");
         }
@@ -81,32 +84,38 @@ public class ChoiceDoctorForChatActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Doctor doctor = doctorForChatAdapter.getItem(position);
 //                ToastUtil.showToast(ChoiceDoctorForChatActivity.this, doctor.userId);
-                if(null != where && "AddSignInActivity".equals(where)){
-                    if(null != type && "selectAddress".equals(type)){
-                        Intent intent1 = new Intent(ChoiceDoctorForChatActivity.this,ChoiceMedieaActivity.class);
-                        intent1.putExtra("mode",ChoiceMedieaActivity.MODE_MULTI_VISIT);
-                        intent1.putExtra("doctorid",doctor.userId);
-                        intent1.putExtra("doctorname",doctor.name);
-                        intent1.putExtra("latitude",latitude);
-                        intent1.putExtra("longitude",longitude);
-                        intent1.putExtra("city",city);
-                        intent1.putExtra("address",mStrAddress);
-                        intent1.putExtra("addressName",mStrAddressName);
-                        intent1.putExtra("from",from);
-                        startActivity(intent1);
-                    }else{
-                        Intent intent = new Intent();
-                        intent.putExtra("doctorid",doctor.userId);
-                        intent.putExtra("doctorname",doctor.name);
-                        setResult(RESULT_OK,intent);
-                        finish();
+                if (mShare){
+                    //转发文件
+                } else {
+                    if(null != where && "AddSignInActivity".equals(where)){
+                        if(null != type && "selectAddress".equals(type)){
+                            Intent intent1 = new Intent(ChoiceDoctorForChatActivity.this,ChoiceMedieaActivity.class);
+                            intent1.putExtra("mode",ChoiceMedieaActivity.MODE_MULTI_VISIT);
+                            intent1.putExtra("doctorid",doctor.userId);
+                            intent1.putExtra("doctorname",doctor.name);
+                            intent1.putExtra("latitude",latitude);
+                            intent1.putExtra("longitude",longitude);
+                            intent1.putExtra("city",city);
+                            intent1.putExtra("address",mStrAddress);
+                            intent1.putExtra("addressName",mStrAddressName);
+                            intent1.putExtra("from",from);
+                            startActivity(intent1);
+                        }else{
+                            Intent intent = new Intent();
+                            intent.putExtra("doctorid",doctor.userId);
+                            intent.putExtra("doctorname",doctor.name);
+                            setResult(RESULT_OK,intent);
+                            finish();
+                        }
+                        return;
                     }
-                    return;
+
+                    groupTool = new SessionGroup(mThis);
+                    groupTool.setCallback(new CallBack(doctor.userId));
+                    createChatGroup(doctor.userId);
                 }
 
-                groupTool = new SessionGroup(mThis);
-                groupTool.setCallback(new CallBack(doctor.userId));
-                createChatGroup(doctor.userId);
+
             }
         });
 
@@ -286,6 +295,7 @@ public class ChoiceDoctorForChatActivity extends BaseActivity {
                 Intent intent = new Intent(this, SearchContactActivity.class);
                 intent.putExtra("seachdoctor","doctor");
                 intent.putExtra("selectMode", 2);    //搜索选择不返回（非1）
+                intent.putExtra("share", mShare);
                 startActivity(intent);
                 break;
             case R.id.rl_back:
