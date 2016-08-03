@@ -13,6 +13,7 @@ import android.widget.RadioButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.dachen.common.async.SimpleResultListener;
 import com.dachen.common.utils.ToastUtil;
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.adapter.CircleCreateGroupAdapter;
@@ -30,13 +31,16 @@ import com.dachen.dgroupdoctorcompany.im.events.AddGroupUserEvent;
 import com.dachen.dgroupdoctorcompany.im.utils.ChatActivityUtilsV2;
 import com.dachen.dgroupdoctorcompany.utils.CommonUitls;
 import com.dachen.dgroupdoctorcompany.utils.CompareDatalogic;
+import com.dachen.dgroupdoctorcompany.utils.ExitActivity;
 import com.dachen.dgroupdoctorcompany.utils.GetAllDoctor;
 import com.dachen.dgroupdoctorcompany.views.HorizontalListView;
+import com.dachen.imsdk.adapter.MsgMenuAdapter;
 import com.dachen.imsdk.consts.SessionType;
 import com.dachen.imsdk.db.dao.ChatGroupDao;
 import com.dachen.imsdk.entity.GroupInfo2Bean.Data;
 import com.dachen.imsdk.net.SessionGroup;
 import com.dachen.imsdk.net.SessionGroup.SessionGroupCallback;
+import com.dachen.imsdk.service.ImRequestManager;
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
 import com.dachen.medicine.common.utils.ToastUtils;
 import com.dachen.medicine.config.UserInfo;
@@ -90,15 +94,18 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
     private int mPageSize = 50;
     private TextView mNoContactsTips;
     private TextView mSearch;
-    LinearLayout layout_search;
-    boolean mShare;
+    private LinearLayout layout_search;
+    private boolean mShare;
+    private String msgId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selectpeople);
 
+
         mShare = getIntent().getBooleanExtra("share", false);
+        msgId = getIntent().getStringExtra(MsgMenuAdapter.INTENT_EXTRA_MSG_ID);
 
         mPullToRefreshScrollView = (PullToRefreshScrollView) findViewById(R.id.refresh_scroll_view);
         mPullToRefreshScrollView.setMode(PullToRefreshBase.Mode.DISABLED);
@@ -359,17 +366,14 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
 //                CallIntent.getSelectData.getData(listsHorizon);
                 int groupType = getIntent().getIntExtra(INTENT_EXTRA_GROUP_TYPE, 0);
                 showLoadingDialog();
-                if (mShare) {
-                    //转发信息
-                } else {
-                    if (groupUsers.size() == 0)
-                        groupTool.createGroup(getIdsList(false), "10");
-                    else {
-                        if (groupType == SessionType.session_double) {
-                            groupTool.createGroup(getIdsList(true), "10");
-                        } else
-                            groupTool.addGroupUser(getIdsList(false), getIntent().getStringExtra(INTENT_EXTRA_GROUP_ID));
-                    }
+
+                if (groupUsers.size() == 0)
+                    groupTool.createGroup(getIdsList(false), "10");
+                else {
+                    if (groupType == SessionType.session_double) {
+                        groupTool.createGroup(getIdsList(true), "10");
+                    } else
+                        groupTool.addGroupUser(getIdsList(false), getIntent().getStringExtra(INTENT_EXTRA_GROUP_ID));
                 }
 
                 break;
@@ -576,14 +580,24 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
 //                }
                 EventBus.getDefault().post(new AddGroupUserEvent(groupId));
 //                RepresentGroupChatActivity.openUI(mThis, gname, gid, uids);
-                ChatActivityUtilsV2.openUI(mThis, gid, "10");
+                if (mShare) {
+                    //转发信息
+                    ImRequestManager.forwardMsg(msgId,data.gid, 0, new ShareResultListener());
+                } else {
+                    ChatActivityUtilsV2.openUI(mThis, gid, "10");
+                }
                 setResult(RESULT_OK);
                 finish();
             } else {
                 ArrayList<Data.UserInfo> users = null;
                 if (data.userList != null)
                     users = new ArrayList<>(Arrays.asList(data.userList));
-                RepresentGroupChatActivity.openUI(mThis, data.gname, data.gid, users);
+                if (mShare) {
+                    //转发信息
+                    ImRequestManager.forwardMsg(msgId,data.gid, 0, new ShareResultListener());
+                } else {
+                    RepresentGroupChatActivity.openUI(mThis, data.gname, data.gid, users);
+                }
                 EventBus.getDefault().post(new AddGroupUserEvent(groupId));
                 setResult(RESULT_OK);
                 finish();
@@ -597,6 +611,21 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
             ToastUtil.showToast(mThis, msg);
         }
     };
+
+    private class ShareResultListener implements SimpleResultListener {
+
+        @Override
+        public void onSuccess() {
+            ToastUtil.showToast(mThis,"转发成功");
+            finish();
+            ExitActivity.getInstance().exit();
+        }
+
+        @Override
+        public void onError(String msg) {
+            ToastUtil.showToast(mThis, msg);
+        }
+    }
 
     class LoadContactsTask extends AsyncTask<List<Integer>, Void, List<CompanyContactListEntity>> {
         private boolean haveDep;

@@ -18,6 +18,7 @@ import com.dachen.common.utils.ToastUtil;
 import com.dachen.common.utils.VolleyUtil;
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.utils.CompareDatalogic;
+import com.dachen.dgroupdoctorcompany.utils.ExitActivity;
 import com.dachen.dgroupdoctorcompany.utils.UserInfo;
 import com.dachen.dgroupdoctorcompany.views.CustomDialog;
 import com.dachen.imsdk.activities.ImBaseActivity;
@@ -50,6 +51,7 @@ public class ChatShareMsgActivity extends ImBaseActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vchat_menber_activity);
+        ExitActivity.getInstance().addActivity(this);
 
         msgId = getIntent().getStringExtra(MsgMenuAdapter.INTENT_EXTRA_MSG_ID);
 
@@ -87,7 +89,7 @@ public class ChatShareMsgActivity extends ImBaseActivity implements View.OnClick
                 finish();
                 break;
             case R.id.rl_colleague:
-                ToastUtil.showToast(this,"新建同事会话");
+//                ToastUtil.showToast(this,"新建同事会话");
                 if (!CompareDatalogic.isInitContact()) {
                     ToastUtil.showToast(this,"通讯录初始化中...");
                     return;
@@ -95,14 +97,16 @@ public class ChatShareMsgActivity extends ImBaseActivity implements View.OnClick
                 Intent intent = new Intent(this, SelectPeopleActivity.class);
                 intent.putExtra(SelectPeopleActivity.INTENT_EXTRA_GROUP_TYPE,-1);
                 intent.putExtra("share", true);
+                intent.putExtra(MsgMenuAdapter.INTENT_EXTRA_MSG_ID,msgId);
                 startActivity(intent);
 //                CallIntent.SelectPeopleActivity(this, null, -1);
                 break;
             case R.id.rl_doctor:
-                ToastUtil.showToast(this,"新建医生会话");
+//                ToastUtil.showToast(this,"新建医生会话");
 //                CallIntent.selectDoctor(this);
                 Intent intent2 = new Intent(this, ChoiceDoctorForChatActivity.class);
                 intent2.putExtra("share", true);
+                intent2.putExtra(MsgMenuAdapter.INTENT_EXTRA_MSG_ID,msgId);
                 startActivity(intent2);
                 break;
         }

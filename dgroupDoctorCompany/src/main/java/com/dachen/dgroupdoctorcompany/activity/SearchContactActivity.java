@@ -22,6 +22,8 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.dachen.common.async.SimpleResultListener;
+import com.dachen.common.utils.ToastUtil;
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.adapter.SearchContactAdapter;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
@@ -33,9 +35,12 @@ import com.dachen.dgroupdoctorcompany.db.dbentity.SearchRecords;
 import com.dachen.dgroupdoctorcompany.entity.BaseSearch;
 import com.dachen.dgroupdoctorcompany.entity.CompanyContactListEntity;
 import com.dachen.dgroupdoctorcompany.im.activity.Represent2DoctorChatActivity;
+import com.dachen.dgroupdoctorcompany.utils.ExitActivity;
+import com.dachen.imsdk.adapter.MsgMenuAdapter;
 import com.dachen.imsdk.db.dao.ChatGroupDao;
 import com.dachen.imsdk.entity.GroupInfo2Bean;
 import com.dachen.imsdk.net.SessionGroup;
+import com.dachen.imsdk.service.ImRequestManager;
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
 import com.dachen.medicine.entity.Result;
 import com.dachen.medicine.net.HttpManager.OnHttpListener;
@@ -83,6 +88,7 @@ public class SearchContactActivity extends BaseActivity implements OnClickListen
     private int selectMode;
     private String mDoctorId;
     private boolean mShare;
+    private String msgId;
 
 
     @Override
@@ -94,6 +100,7 @@ public class SearchContactActivity extends BaseActivity implements OnClickListen
         mShare = getIntent().getBooleanExtra("share", false);
         seachdoctor = getIntent().getStringExtra("seachdoctor");
         selectMode  = getIntent().getIntExtra("selectMode", 0);
+        msgId = getIntent().getStringExtra(MsgMenuAdapter.INTENT_EXTRA_MSG_ID);
 
         findViewById(R.id.rl_sure).setVisibility(View.GONE);
         if (TextUtils.isEmpty(seachdoctor)){
@@ -215,8 +222,6 @@ public class SearchContactActivity extends BaseActivity implements OnClickListen
                         intent.putExtra("data", adapter.getItem(arg2));
                         setResult(RESULT_OK,intent);
                         finish();
-                    } else if (mShare) {
-                        //转发文件
                     } else {
                         Intent intent = new Intent(SearchContactActivity.this,ColleagueDetailActivity.class);
                         Bundle bundle = new Bundle();
@@ -278,7 +283,26 @@ public class SearchContactActivity extends BaseActivity implements OnClickListen
     public void onGroupInfo(GroupInfo2Bean.Data data, int what) {
         ChatGroupDao dao=new ChatGroupDao();
         dao.saveOldGroupInfo(data);
-        Represent2DoctorChatActivity.openUI(this, data.gname, data.gid, mDoctorId);
+        if (mShare) {
+            ImRequestManager.forwardMsg(msgId,data.gid, 0, new ShareResultListener());
+        } else {
+            Represent2DoctorChatActivity.openUI(this, data.gname, data.gid, mDoctorId);
+        }
+    }
+
+    private class ShareResultListener implements SimpleResultListener {
+
+        @Override
+        public void onSuccess() {
+            ToastUtil.showToast(mThis,"转发成功");
+            finish();
+            ExitActivity.getInstance().exit();
+        }
+
+        @Override
+        public void onError(String msg) {
+            ToastUtil.showToast(mThis, msg);
+        }
     }
 
     @Override

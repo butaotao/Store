@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.dachen.common.async.SimpleResultListener;
 import com.dachen.common.utils.ToastUtil;
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.adapter.ChoiceDoctorForChatAdapter;
@@ -19,11 +20,14 @@ import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.dgroupdoctorcompany.db.dbdao.DoctorDao;
 import com.dachen.dgroupdoctorcompany.db.dbentity.Doctor;
 import com.dachen.dgroupdoctorcompany.im.activity.Represent2DoctorChatActivity;
+import com.dachen.dgroupdoctorcompany.utils.ExitActivity;
 import com.dachen.dgroupdoctorcompany.views.InputDialog;
+import com.dachen.imsdk.adapter.MsgMenuAdapter;
 import com.dachen.imsdk.db.dao.ChatGroupDao;
 import com.dachen.imsdk.entity.GroupInfo2Bean.Data;
 import com.dachen.imsdk.net.SessionGroup;
 import com.dachen.imsdk.net.SessionGroup.SessionGroupCallback;
+import com.dachen.imsdk.service.ImRequestManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,16 +61,19 @@ public class ChoiceDoctorForChatActivity extends BaseActivity {
     private TextView mSearch;
     LinearLayout layout_search;
     private boolean mShare;
+    private String msgId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activitychoicedoctor);
+        ExitActivity.getInstance().addActivity(this);
         setTitle("选择联系人");
         where = this.getIntent().getStringExtra("where");
         type = this.getIntent().getStringExtra("type");
         from = this.getIntent().getIntExtra("from",TogetherVisitActivity.MODE_FROM_VIST_LIST);
         mShare = getIntent().getBooleanExtra("share", false);
+        msgId = getIntent().getStringExtra(MsgMenuAdapter.INTENT_EXTRA_MSG_ID);
 
         if(null != where && "AddSignInActivity".equals(where)){
             setTitle("选择客户");
@@ -84,38 +91,33 @@ public class ChoiceDoctorForChatActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Doctor doctor = doctorForChatAdapter.getItem(position);
 //                ToastUtil.showToast(ChoiceDoctorForChatActivity.this, doctor.userId);
-                if (mShare){
-                    //转发文件
-                } else {
-                    if(null != where && "AddSignInActivity".equals(where)){
-                        if(null != type && "selectAddress".equals(type)){
-                            Intent intent1 = new Intent(ChoiceDoctorForChatActivity.this,ChoiceMedieaActivity.class);
-                            intent1.putExtra("mode",ChoiceMedieaActivity.MODE_MULTI_VISIT);
-                            intent1.putExtra("doctorid",doctor.userId);
-                            intent1.putExtra("doctorname",doctor.name);
-                            intent1.putExtra("latitude",latitude);
-                            intent1.putExtra("longitude",longitude);
-                            intent1.putExtra("city",city);
-                            intent1.putExtra("address",mStrAddress);
-                            intent1.putExtra("addressName",mStrAddressName);
-                            intent1.putExtra("from",from);
-                            startActivity(intent1);
-                        }else{
-                            Intent intent = new Intent();
-                            intent.putExtra("doctorid",doctor.userId);
-                            intent.putExtra("doctorname",doctor.name);
-                            setResult(RESULT_OK,intent);
-                            finish();
-                        }
-                        return;
-                    }
 
-                    groupTool = new SessionGroup(mThis);
-                    groupTool.setCallback(new CallBack(doctor.userId));
-                    createChatGroup(doctor.userId);
+                if(null != where && "AddSignInActivity".equals(where)){
+                    if(null != type && "selectAddress".equals(type)){
+                        Intent intent1 = new Intent(ChoiceDoctorForChatActivity.this,ChoiceMedieaActivity.class);
+                        intent1.putExtra("mode",ChoiceMedieaActivity.MODE_MULTI_VISIT);
+                        intent1.putExtra("doctorid",doctor.userId);
+                        intent1.putExtra("doctorname",doctor.name);
+                        intent1.putExtra("latitude",latitude);
+                        intent1.putExtra("longitude",longitude);
+                        intent1.putExtra("city",city);
+                        intent1.putExtra("address",mStrAddress);
+                        intent1.putExtra("addressName",mStrAddressName);
+                        intent1.putExtra("from",from);
+                        startActivity(intent1);
+                    }else{
+                        Intent intent = new Intent();
+                        intent.putExtra("doctorid",doctor.userId);
+                        intent.putExtra("doctorname",doctor.name);
+                        setResult(RESULT_OK,intent);
+                        finish();
+                    }
+                    return;
                 }
 
-
+                groupTool = new SessionGroup(mThis);
+                groupTool.setCallback(new CallBack(doctor.userId));
+                createChatGroup(doctor.userId);
             }
         });
 
@@ -264,13 +266,32 @@ public class ChoiceDoctorForChatActivity extends BaseActivity {
         public void onGroupInfo(Data data, int what) {
             ChatGroupDao dao=new ChatGroupDao();
             dao.saveOldGroupInfo(data);
-            Represent2DoctorChatActivity.openUI(mThis, data.gname, data.gid, userId);
-            finish();
+            if (mShare) {
+                ImRequestManager.forwardMsg(msgId,data.gid, 0, new ShareResultListener());
+            } else {
+                Represent2DoctorChatActivity.openUI(mThis, data.gname, data.gid, userId);
+                finish();
+            }
         }
 
         @Override
         public void onGroupInfoFailed(String msg) {
             ToastUtil.showToast(mThis, "创建会话失败");
+        }
+    }
+
+    private class ShareResultListener implements SimpleResultListener {
+
+        @Override
+        public void onSuccess() {
+            ToastUtil.showToast(mThis,"转发成功");
+            finish();
+            ExitActivity.getInstance().exit();
+        }
+
+        @Override
+        public void onError(String msg) {
+            ToastUtil.showToast(mThis, msg);
         }
     }
 
@@ -296,6 +317,7 @@ public class ChoiceDoctorForChatActivity extends BaseActivity {
                 intent.putExtra("seachdoctor","doctor");
                 intent.putExtra("selectMode", 2);    //搜索选择不返回（非1）
                 intent.putExtra("share", mShare);
+                intent.putExtra(MsgMenuAdapter.INTENT_EXTRA_MSG_ID, msgId);
                 startActivity(intent);
                 break;
             case R.id.rl_back:
