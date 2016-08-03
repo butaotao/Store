@@ -184,7 +184,7 @@ public class SearchSignRecordDepActivity extends BaseActivity implements HttpMan
                 }
             }
         }else {
-            ToastUtil.showToast(this,response);
+            ToastUtil.showToast(this,response.getResultMsg());
         }
 
     }

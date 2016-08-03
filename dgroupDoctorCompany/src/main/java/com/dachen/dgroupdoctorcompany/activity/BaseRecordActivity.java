@@ -315,7 +315,7 @@ public class BaseRecordActivity extends BaseActivity implements View.OnClickList
             }
 
         } else {
-            ToastUtil.showToast(this, response);
+            ToastUtil.showToast(this, response.getResultMsg());
         }
     }
 

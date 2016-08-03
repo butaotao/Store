@@ -177,7 +177,7 @@ public class VisitDetailActivity extends BaseActivity implements HttpManager.OnH
                 }
             }
         }else {
-            ToastUtil.showToast(this,response);
+            ToastUtil.showToast(this,response.getResultMsg());
         }
 
     }

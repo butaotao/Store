@@ -189,7 +189,7 @@ public class SearchActivity extends BaseActivity implements OnClickListener, OnH
     public void onSuccess(Result response) {
         closeLoadingDialog();
         if (null == response || response.getResultCode() != 1) {
-            ToastUtil.showToast(this, response);
+            ToastUtil.showToast(this, response.getResultMsg());
             return;
         }
         if (response instanceof HospitalList) {
