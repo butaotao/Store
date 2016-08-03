@@ -117,7 +117,7 @@ public class MyQRActivity extends BaseActivity implements View.OnClickListener {
        /* Map<String, String> interfaces = new HashMap<String, String>();
         interfaces.put("interface1",)*/
         new HttpManager().post(this, "health/qr/createQRImage",
-                com.dachen.dgroupdoctorcompany.entity.ErData.class, params, new HttpManager.OnHttpListener<Result>() {
+                ErData.class, params, new HttpManager.OnHttpListener<Result>() {
                     @Override
                     public void onSuccess(Result result) {
                         if (result instanceof ErData){

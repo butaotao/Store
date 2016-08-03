@@ -13,6 +13,7 @@ import android.os.Environment;
 import android.support.multidex.MultiDexApplication;
 
 import com.dachen.common.DCommonSdk;
+import com.dachen.common.media.SoundPlayer;
 import com.dachen.common.utils.QiNiuUtils;
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.common.PinyinResource;
@@ -66,6 +67,7 @@ public class CompanyApplication extends MultiDexApplication{
     public static Map<String, String> MUTIL_PINYIN_TABLE;
     public static Map<String, String> CHINESE_MAP;
     public static int initContactList = 1;
+    public static SoundPlayer player;
     @Override
     public void onCreate() {
         // TODO Auto-generated method stub
@@ -80,6 +82,7 @@ public class CompanyApplication extends MultiDexApplication{
         mAppConfig.setEnvironmentType(ContextConfig.EnvironmentType.INNER);
         mSharedPreferences = getSharedPreferences(SharedPreferenceConst.LOCK,
                 Context.MODE_PRIVATE);
+        initData();
         if(shouldInit()){
             if(BuildUtils.isHuaweiSystem()){
                 PushManager.requestToken(this);
@@ -145,7 +148,16 @@ public class CompanyApplication extends MultiDexApplication{
         unregisterReceiver(mImNetworkReceiver);
         super.onTerminate();
     }
+    private void initData() {
+        player = new SoundPlayer(this);
 
+    }
+
+    public static SoundPlayer getMediaPlayer() {
+        if (player != null) {
+            return player;
+        } else return new SoundPlayer(context);
+    }
     private boolean shouldInit() {
         ActivityManager am = ((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE));
         List<ActivityManager.RunningAppProcessInfo> processInfos = am.getRunningAppProcesses();

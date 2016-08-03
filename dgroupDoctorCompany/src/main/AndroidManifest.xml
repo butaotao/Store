@@ -88,7 +88,19 @@
         <service
             android:name="com.umeng.update.net.DownloadingService"
             android:process=":DownloadingService" />
+        <receiver android:name="com.dachen.dgroupdoctorcompany.receiver.AlarmReceivers">
 
+
+        <intent-filter>
+
+        <action android:name="com.dachen.dgrouppatient.receiver.AlarmReceivers"/>
+
+        <!-- <action android:name="android.intent.action.BOOT_COMPLETED" /> <action android:name="android.intent.action.TIME_SET" /> <action android:name="android.intent.action.TIMEZONE_CHANGED" /> <action android:name="android.intent.action.LOCALE_CHANGED" />-->
+
+
+    </intent-filter>
+
+    </receiver>
         <activity
             android:name="com.umeng.update.UpdateDialogActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />

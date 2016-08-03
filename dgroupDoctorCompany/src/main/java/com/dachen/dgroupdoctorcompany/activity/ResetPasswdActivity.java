@@ -199,7 +199,7 @@ public class ResetPasswdActivity extends BaseActivity implements
 
 		interfaces.put("interface1", Constants.USER_LORGIN_AUTO);
 		new HttpManager().post(this, interfaces,
-				LoginRegisterResult.class, params, new HttpManager.OnHttpListener<Result>() {
+				LoginRegisterResult.class, params, new OnHttpListener<Result>() {
 					@Override
 					public void onSuccess(Result result) {
 						if (result == null) {

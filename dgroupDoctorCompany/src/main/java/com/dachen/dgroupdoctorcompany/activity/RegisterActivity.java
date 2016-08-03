@@ -257,7 +257,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,Ht
 		HashMap<String, String> interfaces = new HashMap<String, String>();
 		interfaces.put("interface1", Constants.SEND_AUTH_CODE);
 		new HttpManager().post(this, interfaces,
-				com.dachen.dgroupdoctorcompany.entity.Void.class, params, new HttpManager.OnHttpListener<Result>() {
+				Void.class, params, new HttpManager.OnHttpListener<Result>() {
 					@Override
 					public void onSuccess(Result result) {
 						if (result != null && result.getResultCode() == 1) {// 发送成功
@@ -622,7 +622,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,Ht
 		interfaces.put("interface1", Constants.VERIFY_CODE);
 
 		new HttpManager().post(this, interfaces,
-				com.dachen.dgroupdoctorcompany.entity.Void.class, params, new HttpManager.OnHttpListener<Result>() {
+				Void.class, params, new HttpManager.OnHttpListener<Result>() {
 					@Override
 					public void onSuccess(Result result) {
 						if (result != null && result.getResultCode() == 1) {// 发送成功

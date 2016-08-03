@@ -225,6 +225,11 @@ public class SelectVisitPeople extends BaseActivity implements HttpManager.OnHtt
         UiSettings uiSettings = mAMap.getUiSettings();
         uiSettings.setScaleControlsEnabled(false);
         uiSettings.setZoomControlsEnabled(false);
+        uiSettings.setAllGesturesEnabled(false);
+        uiSettings.setZoomGesturesEnabled(false);
+        uiSettings.setMyLocationButtonEnabled(false);
+        uiSettings.setCompassEnabled(false);
+
         setAMap();
     }
     private void setAMap(){

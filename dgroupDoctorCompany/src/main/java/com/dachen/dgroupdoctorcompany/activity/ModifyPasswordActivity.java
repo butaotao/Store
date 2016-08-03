@@ -97,7 +97,7 @@ public class ModifyPasswordActivity extends BaseActivity {
         params.put("newPassword", newPwd);
         params.put("access_token", session);
         new HttpManager().post(this, "health/user/updatePassword",
-                com.dachen.dgroupdoctorcompany.entity.Void.class, params, new HttpManager.OnHttpListener<Result>() {
+                Void.class, params, new HttpManager.OnHttpListener<Result>() {
                     @Override
                     public void onSuccess(Result result) {
                         closeLoadingDialog();

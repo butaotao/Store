@@ -24,7 +24,7 @@ public class VisitRecordActivity extends BaseRecordActivity implements PullToRef
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        record = new BaseRecordActivity.GetRecord() {
+        record = new GetRecord() {
             @Override
             public void initConfig() {
                 pageIndex = 0;

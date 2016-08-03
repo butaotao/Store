@@ -16,7 +16,7 @@ public class ItemContainer extends LinearLayout {
     private int childMarginTop = (int)CommonUitls.dpToPixel(8f,getContext());//子控件相对顶部控件的距离
     private int childWidth;//子控件宽
     private int childHeight;//子控件高
-
+    private int itemNum = 4;
     public ItemContainer(Context context) {
         super(context);
     }
@@ -24,16 +24,18 @@ public class ItemContainer extends LinearLayout {
     public ItemContainer(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
-
+    public void setItemNum(int itemNum){
+        this.itemNum = itemNum;
+    }
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         childCount = getChildCount();//得到子控件数量
         if(childCount>0) {
-            childWidth = (width - childMarginLeft * 5) / 4;
+            childWidth = (width - childMarginLeft * itemNum+1) / itemNum;
             childHeight = (int)CommonUitls.dpToPixel(30f,getContext());//给子控件的高度一个定值
             //根据子控件的高和子控件数目得到自身的高
-            height = childHeight * ((childCount-1)/ 4+1) + childMarginHorizonTal * 2 + childMarginTop*((childCount-1)/4);
+            height = childHeight * ((childCount-1)/ itemNum+1) + childMarginHorizonTal * 2 + childMarginTop*((childCount-1)/itemNum);
 //            Log.d(childHeight,childHeight+);
         }else {
             //如果木有子控件，自身高度为0，即不显示
@@ -55,10 +57,10 @@ public class ItemContainer extends LinearLayout {
          */
         for (int i = 0; i < childCount; i++) {
             View childView = getChildAt(i);//得到当前子控件
-            childView.layout((i%4) * childWidth + (i%4+1)*childMarginLeft
-                    , (i / 4)*childHeight + childMarginHorizonTal + (i / 4)*childMarginTop
-                    , (i%4+1) * childWidth + (i%4+1)*childMarginLeft
-                    , (i / 4+1)*childHeight + childMarginHorizonTal + (i / 4)*childMarginTop);
+            childView.layout((i%itemNum) * childWidth + (i%itemNum+1)*childMarginLeft
+                    , (i / itemNum)*childHeight + childMarginHorizonTal + (i / itemNum)*childMarginTop
+                    , (i%itemNum+1) * childWidth + (i%itemNum+1)*childMarginLeft
+                    , (i / itemNum+1)*childHeight + childMarginHorizonTal + (i / itemNum)*childMarginTop);
         }
     }
 

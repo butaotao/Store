@@ -4,9 +4,12 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.dachen.common.utils.Logger;
+import com.dachen.dgroupdoctorcompany.db.dbdao.RemindDao;
 import com.dachen.dgroupdoctorcompany.db.dbentity.DepAdminsList;
 import com.dachen.dgroupdoctorcompany.db.dbentity.Doctor;
+import com.dachen.dgroupdoctorcompany.db.dbentity.Reminder;
 import com.dachen.dgroupdoctorcompany.db.dbentity.SearchRecords;
+import com.dachen.dgroupdoctorcompany.db.dbentity.WeekSinger;
 import com.dachen.dgroupdoctorcompany.entity.CompanyContactListEntity;
 import com.dachen.dgroupdoctorcompany.entity.Role;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
@@ -54,6 +57,8 @@ public class SQLiteHelper  extends OrmLiteSqliteOpenHelper {
             TableUtils.createTableIfNotExists(connSource,SearchRecords.class);
             TableUtils.createTableIfNotExists(connSource,Doctor.class);
             TableUtils.createTableIfNotExists(connSource,DepAdminsList.class);
+            TableUtils.createTableIfNotExists(connSource,Reminder.class);
+            TableUtils.createTableIfNotExists(connSource,WeekSinger.class);
         } catch (SQLException e) {
             e.printStackTrace();
         }

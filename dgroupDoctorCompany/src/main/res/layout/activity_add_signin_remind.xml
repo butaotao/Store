@@ -20,23 +20,46 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="@color/gray_d6d6d6"/>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+
+
+        <com.dachen.dgroupdoctorcompany.views.wheel.TimePicker
+            android:id="@+id/minute_pv"
+            android:layout_width="80dp"
+            android:layout_height="160dp" />
+    </LinearLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:layout_marginTop="20dp"
         android:background="@color/gray_d6d6d6"/>
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="20dp"
+        android:layout_marginTop="10dp"
         android:text="重复"
         android:textSize="16sp"
         android:textColor="@color/gray_333333"/>
-
     <com.dachen.dgroupdoctorcompany.views.ItemContainer
         android:id="@+id/vLableContainer"
         android:layout_width="match_parent"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:layout_height="wrap_content"/>
-
+    </LinearLayout>
 </LinearLayout>

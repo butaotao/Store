@@ -510,13 +510,13 @@ public class MainActivity extends BaseActivity implements OnHttpListener,
                                         @Override
                                         public void run() {
                                             final MessageDialog messageDialog = new MessageDialog(MainActivity.this, "取消", "马上更新", versionInfo.data.info);
-                                            messageDialog.setBtn1ClickListener(new View.OnClickListener() {
+                                            messageDialog.setBtn1ClickListener(new OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
                                                     messageDialog.dismiss();
                                                 }
                                             });
-                                            messageDialog.setBtn2ClickListener(new View.OnClickListener() {
+                                            messageDialog.setBtn2ClickListener(new OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
                                                     messageDialog.dismiss();

@@ -218,7 +218,6 @@ public class AddSignInActivity extends BaseActivity implements HttpManager.OnHtt
             textView.setBackgroundResource(R.drawable.biaoqian);
             textView.setTextColor(getResources().getColor(R.color.white));
         }
-
         vLableContainer.addView(textView);
     }
 

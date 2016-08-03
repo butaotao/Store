@@ -3,6 +3,7 @@ package com.dachen.dgroupdoctorcompany.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -282,6 +283,7 @@ public class SelectAddressActivity extends BaseActivity implements LocationSourc
         mAMap.setOnCameraChangeListener(this);// 对amap添加移动地图事件监听器
         mAMap.setOnMapTouchListener(this);
         mAMap.moveCamera(CameraUpdateFactory.zoomTo(level));
+
     }
 
     @Override
@@ -523,10 +525,10 @@ public class SelectAddressActivity extends BaseActivity implements LocationSourc
         mAMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lp.getLatitude(), lp.getLongitude()), level));
 
         locationMarker = mAMap.addMarker(new MarkerOptions()
-        .anchor(0.5f, 0.5f)
-        .position(new LatLng(lp.getLatitude(),lp.getLongitude())));
+                .anchor(0.5f, 0.5f)
+                .position(new LatLng(lp.getLatitude(), lp.getLongitude())));
         circle = mAMap.addCircle(new CircleOptions()
-                .center(new LatLng(lp.getLatitude(),lp.getLongitude())).radius(distance)
+                .center(new LatLng(lp.getLatitude(), lp.getLongitude())).radius(distance)
                 .strokeColor(Color.argb(30, 1, 1, 1))
                 .fillColor(Color.argb(20, 1, 1, 1))
                 .strokeWidth(2));
