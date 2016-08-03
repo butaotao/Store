@@ -96,8 +96,8 @@ android {
 dependencies {
     compile 'com.android.support:multidex:1.0.1'
     /*  compile fileTree(dir: 'libs', include: ['*.jar'])
-                                                                    testCompile 'junit:junit:4.12'
-                                                                    compile 'com.android.support:appcompat-v7:23.1.1'*/
+                                                                        testCompile 'junit:junit:4.12'
+                                                                        compile 'com.android.support:appcompat-v7:23.1.1'*/
     compile project(':actionSheetLibrary')
     compile 'com.jakewharton:butterknife:7.0.1'
     compile files('libs/MiPush_SDK_Client_3_0_3.jar')
@@ -113,6 +113,7 @@ dependencies {
     compile files('libs/HwPush_SDK_V2705_no_map.jar')
     compile project(path: ':ImVideo')
     compile project(':ImVideo')
+    compile project(':meidecineLibrary')
 }
 
 apply plugin: 'eclipse'
