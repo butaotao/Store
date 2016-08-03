@@ -11,10 +11,13 @@ import com.dachen.imsdk.activities.ChatActivityV2;
 import com.dachen.imsdk.archive.entity.ArchiveItem;
 import com.dachen.imsdk.db.po.ChatGroupPo;
 import com.dachen.imsdk.db.po.ChatMessagePo;
+import com.dachen.imsdk.entity.ChatMessageV2;
 import com.dachen.imsdk.entity.GroupInfo2Bean;
 import com.dachen.imsdk.entity.GroupInfo2Bean.Data;
 import com.dachen.imsdk.entity.GroupInfo2Bean.Data.UserInfo;
 import com.dachen.imsdk.out.ImMsgHandler;
+
+import java.util.HashMap;
 
 /**
  * Created by Mcp on 2016/3/5.
@@ -62,5 +65,28 @@ public abstract class AppBaseChatActivity extends ChatActivityV2 {
     @Override
     protected ImMsgHandler makeMsgHandler() {
         return new CompanyImMsgHandler(this);
+    }
+
+    public void receivedMessage(ChatMessageV2 receivedMessage) {
+        super.receivedMessage(receivedMessage);
+        // 没有新消息了
+        if (!receivedMessage.more) {
+            if (mIsFirstPoll == true) {
+                mIsFirstPoll = false;
+                share();
+            }
+        }
+    }
+
+    private void share() {
+
+        HashMap<String, Object> params = (HashMap<String, Object>) getIntent().getSerializableExtra(INTENT_EXTRA_SHARE_PARAM);
+        if (params != null) {//有数据要分享
+            if (params.get("share_files") != null) {//文件分享
+                ArchiveItem item = (ArchiveItem) params.get("share_files");
+                sendArchive(item);
+                return;
+            }
+        }
     }
 }

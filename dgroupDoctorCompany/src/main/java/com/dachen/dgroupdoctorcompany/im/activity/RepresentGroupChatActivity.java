@@ -23,6 +23,7 @@ import com.dachen.imsdk.out.ImMsgHandler;
 import com.dachen.imsdk.vchat.activity.VChatMemberActivity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -80,12 +81,19 @@ public class RepresentGroupChatActivity extends AppBaseChatActivity{
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(INTENT_EXTRA_GROUP_NAME, groupName);
         intent.putExtra(INTENT_EXTRA_GROUP_ID, groudId);
-        // intent.putParcelableArrayListExtra(INTENT_EXTRA_GROUP_USER_LIST,
-        // userList);
         intent.putExtra(INTENT_EXTRA_GROUP_USER_LIST, userList);
         context.startActivity(intent);
     }
 
+    public static void openUI(Context context, String groupName, String groudId, ArrayList<UserInfo> userList,HashMap<String, Object> params) {
+        Intent intent = new Intent(context, Represent2DoctorChatActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra(INTENT_EXTRA_GROUP_NAME, groupName);
+        intent.putExtra(INTENT_EXTRA_GROUP_ID, groudId);
+        intent.putExtra(INTENT_EXTRA_GROUP_USER_LIST, userList);
+        intent.putExtra(INTENT_EXTRA_SHARE_PARAM, params);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onRightMenuClick(View v) {

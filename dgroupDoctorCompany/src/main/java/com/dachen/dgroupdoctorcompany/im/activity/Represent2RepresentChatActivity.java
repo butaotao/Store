@@ -24,6 +24,7 @@ import com.dachen.imsdk.entity.MoreItem;
 import com.dachen.imsdk.out.ImMsgHandler;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -87,6 +88,16 @@ public class Represent2RepresentChatActivity extends AppBaseChatActivity{
         intent.putExtra(INTENT_EXTRA_GROUP_NAME, groupName);
         intent.putExtra(INTENT_EXTRA_GROUP_ID, groudId);
         intent.putExtra(INTENT_EXTRA_USER_ID, userId);
+        context.startActivity(intent);
+    }
+
+    public static void openUI(Context context, String groupName, String groudId, String userId,HashMap<String, Object> params) {
+        Intent intent = new Intent(context, Represent2DoctorChatActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra(INTENT_EXTRA_GROUP_NAME, groupName);
+        intent.putExtra(INTENT_EXTRA_GROUP_ID, groudId);
+        intent.putExtra(INTENT_EXTRA_USER_ID, userId);
+        intent.putExtra(INTENT_EXTRA_SHARE_PARAM, params);
         context.startActivity(intent);
     }
 
