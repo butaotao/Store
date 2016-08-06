@@ -17,6 +17,7 @@
 
         <TextView
             android:id="@+id/tvSignAll"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -78,6 +79,7 @@
         android:layout_width="match_parent"
         android:layout_height="0.1dp"
         android:layout_marginLeft="20dp"
+        android:id="@+id/line1"
         android:background="@color/color_grayline1dp" />
 
     <LinearLayout
@@ -166,11 +168,74 @@
         </RelativeLayout>
 
     </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@color/color_grayline1dp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/background">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/color_grayline1dp" />
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:id="@+id/jilu"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/icon_jilu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="8dp"
+                android:src="@drawable/icon_jilu" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="15dp"
+                    android:text="签到记录"
+                    android:textColor="@color/black_666666"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
+                    android:src="@drawable/arrow" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_marginLeft="20dp"
+            android:background="@color/color_grayline1dp" />
         <LinearLayout
             android:id="@+id/signin_remind"
             android:layout_width="match_parent"
             android:layout_height="64dp"
             android:background="@color/white"
+
             android:orientation="horizontal">
 
             <ImageView
@@ -179,7 +244,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="8dp"
-                android:src="@drawable/icon_multi_visit" />
+                android:src="@drawable/icon_tixing" />
 
             <RelativeLayout
                 android:layout_width="match_parent"

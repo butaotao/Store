@@ -19,6 +19,7 @@ import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.adapter.CircleCreateGroupAdapter;
 import com.dachen.dgroupdoctorcompany.adapter.CompanySelectPeopleListAdapter;
 import com.dachen.dgroupdoctorcompany.app.Constants;
+import com.dachen.dgroupdoctorcompany.archive.ArchiveUtils;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.dgroupdoctorcompany.db.dbdao.CompanyContactDao;
 import com.dachen.dgroupdoctorcompany.db.dbdao.RoleDao;
@@ -35,6 +36,7 @@ import com.dachen.dgroupdoctorcompany.utils.ExitActivity;
 import com.dachen.dgroupdoctorcompany.utils.GetAllDoctor;
 import com.dachen.dgroupdoctorcompany.views.HorizontalListView;
 import com.dachen.imsdk.adapter.MsgMenuAdapter;
+import com.dachen.imsdk.archive.entity.ArchiveItem;
 import com.dachen.imsdk.consts.SessionType;
 import com.dachen.imsdk.db.dao.ChatGroupDao;
 import com.dachen.imsdk.entity.GroupInfo2Bean.Data;
@@ -77,7 +79,7 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
     RoleDao roleDao;
     HorizontalListView addlistview;
     CircleCreateGroupAdapter addAdapter;
-    List<BaseSearch> listsHorizon;
+    public static List<BaseSearch> listsHorizon;
     RadioButton btn_radio_addall;
     boolean selectall;
     SessionGroup groupTool;
@@ -97,7 +99,7 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
     private LinearLayout layout_search;
     private boolean mShare;
     private String msgId;
-
+    ArchiveItem mItem;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,7 +108,7 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
 
         mShare = getIntent().getBooleanExtra("share", false);
         msgId = getIntent().getStringExtra(MsgMenuAdapter.INTENT_EXTRA_MSG_ID);
-
+        mItem = (ArchiveItem) getIntent().getSerializableExtra(ArchiveUtils.INTENT_KEY_ARCHIVE_ITEM);
         mPullToRefreshScrollView = (PullToRefreshScrollView) findViewById(R.id.refresh_scroll_view);
         mPullToRefreshScrollView.setMode(PullToRefreshBase.Mode.DISABLED);
 
@@ -372,8 +374,10 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
                 else {
                     if (groupType == SessionType.session_double) {
                         groupTool.createGroup(getIdsList(true), "10");
-                    } else
+                    } else{
                         groupTool.addGroupUser(getIdsList(false), getIntent().getStringExtra(INTENT_EXTRA_GROUP_ID));
+                    }
+
                 }
 
                 break;
@@ -384,6 +388,7 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
             case R.id.et_search:
                 if (CompareDatalogic.isInitContact()) {
                     Intent intent = new Intent(this, SearchContactActivity.class);
+                    intent.putExtra(INTENT_EXTRA_GROUP_USERS,groupUsers);
                     intent.putExtra("selectMode", 1);    //搜索选择返回多选页
                     startActivityForResult(intent,REQUEST_SEARCH);
                 } else {
@@ -580,9 +585,19 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
 //                }
                 EventBus.getDefault().post(new AddGroupUserEvent(groupId));
 //                RepresentGroupChatActivity.openUI(mThis, gname, gid, uids);
+                ArrayList<Data.UserInfo> users = null;
+                if (data.userList != null)
+                    users = new ArrayList<>(Arrays.asList(data.userList));
                 if (mShare) {
                     //转发信息
-                    ImRequestManager.forwardMsg(msgId,data.gid, 0, new ShareResultListener());
+                    if (mItem!=null){
+                     //   ImRequestManager.forwardMsg(mItem.po.msgId, data.gid, 0, new ShareResultListener());
+                        HashMap<String, Object> params = new HashMap<>();
+                        params.put("share_files",mItem);
+                        RepresentGroupChatActivity.openUI(mThis, data.gname, data.gid, users,params);
+                    }else {
+                        ImRequestManager.forwardMsg(msgId, data.gid, 0, new ShareResultListener());
+                    }
                 } else {
                     ChatActivityUtilsV2.openUI(mThis, gid, "10");
                 }
@@ -594,7 +609,13 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
                     users = new ArrayList<>(Arrays.asList(data.userList));
                 if (mShare) {
                     //转发信息
-                    ImRequestManager.forwardMsg(msgId,data.gid, 0, new ShareResultListener());
+                    if (mItem!=null){
+                        HashMap<String, Object> params = new HashMap<>();
+                        params.put("share_files",mItem);
+                        RepresentGroupChatActivity.openUI(mThis, data.gname, data.gid, users,params);
+                    }else {
+                        ImRequestManager.forwardMsg(msgId, data.gid, 0, new ShareResultListener());
+                    }
                 } else {
                     RepresentGroupChatActivity.openUI(mThis, data.gname, data.gid, users);
                 }
@@ -670,7 +691,7 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
             switch (requestCode) {
                 case REQUEST_SEARCH:
 
-                    CompanyContactListEntity c2 = (CompanyContactListEntity) intent.getSerializableExtra("data");
+                   /* CompanyContactListEntity c2 = (CompanyContactListEntity) intent.getSerializableExtra("data");
                         if (c2.select) {
                         } else {
                             c2.select = true;
@@ -687,7 +708,7 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
                                 list.set(i, c2);
                             }
                         }
-                    }
+                    }*/
 
 //            list.set(position, c2);
                         adapter.notifyDataSetChanged();

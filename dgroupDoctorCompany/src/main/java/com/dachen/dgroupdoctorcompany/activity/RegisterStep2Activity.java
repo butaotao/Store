@@ -316,7 +316,7 @@ public class RegisterStep2Activity extends BaseActivity implements OnClickListen
 	}
 	private void logingetUserType( ) {
 
-		String s = "org/drugCompanyEmployee/getLoginInfo";
+		String s = Constants.DRUG+"drugCompanyEmployee/getLoginInfo";
 		new HttpManager().post(this, s, LoginGetUserInfo.class,
 				Params.getUserInfo(this), this,
 				false, 1);

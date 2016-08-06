@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.dachen.common.utils.ToastUtil;
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.activity.FriendsContactsActivity;
+import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.entity.CompanyDepment;
 import com.dachen.dgroupdoctorcompany.entity.ContactsInfo;
 import com.dachen.dgroupdoctorcompany.fragment.AddressList;
@@ -172,7 +173,7 @@ public class CircleContactsFriendsAdapter extends BaseAdapter<ContactsInfo>imple
             userName = contactsInfo.getName();
         }
         maps.put("name",userName);
-        new HttpManager().post(mContext, "org/drugCompany/dept/addEnterUser", CompanyDepment.class,
+        new HttpManager().post(mContext, Constants.DRUG+"drugCompany/dept/addEnterUser", CompanyDepment.class,
                 maps, new HttpManager.OnHttpListener<Result>() {
                     @Override
                     public void onSuccess(Result response) {

@@ -27,9 +27,11 @@ import com.dachen.common.utils.StringUtils;
 import com.dachen.common.utils.ToastUtil;
 import com.dachen.common.utils.VolleyUtil;
 import com.dachen.dgroupdoctorcompany.R;
+import com.dachen.dgroupdoctorcompany.activity.ChatShareMsgActivity;
 import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.imsdk.ImSdk;
+import com.dachen.imsdk.adapter.MsgMenuAdapter;
 import com.dachen.imsdk.archive.download.ArchiveLoader;
 import com.dachen.imsdk.archive.download.ArchiveTaskInfo;
 import com.dachen.imsdk.archive.entity.ArchiveItem;
@@ -59,13 +61,14 @@ public abstract class ArchiveItemDetailUi extends BaseActivity implements View.O
     private FrameLayout mContainer;
     private Button mSave;
     private TextView mShare;
-
+    public static String DOCTYPE = "DOCTYPE";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.archive_detail_ui);
 
         setTheme(R.style.ActionSheetStyleiOS7);
+
         EventBus.getDefault().register(this);
         mItem = (ArchiveItem) getIntent().getSerializableExtra(ArchiveUtils.INTENT_KEY_ARCHIVE_ITEM);
         mFrom = getIntent().getStringExtra("from");
@@ -92,11 +95,12 @@ public abstract class ArchiveItemDetailUi extends BaseActivity implements View.O
         mProBar = (ProgressBar) findViewById(R.id.progressBar);
         vBtmAction = findViewById(R.id.ll_action);
         vBtmDownload = findViewById(R.id.ll_downloading);
+        enableBack();
         btnAction = (Button) findViewById(R.id.btn_action);
         ibCancelDl = (ImageButton) findViewById(R.id.ibtn_cancel_download);
         mSave = (Button) findViewById(R.id.btn_save);
         mSave.setOnClickListener(this);
-        findViewById(R.id.back_btn).setOnClickListener(this);
+
         mShare = (TextView) findViewById(R.id.share);
         mShare.setOnClickListener(this);
 //        if("MedieDocumentActicity".equals(mFrom)){
@@ -104,11 +108,9 @@ public abstract class ArchiveItemDetailUi extends BaseActivity implements View.O
 //        }else{
 //            mShare.setVisibility(View.VISIBLE);
 //        }
-        if ("add".equals(mFrom) ||"im".equals(mFrom)) {
+        if ("add".equals(mFrom)) {
             mShare.setText("发送");
-        } else if("MedieDocumentActicity".equals(mFrom)){
-            mShare.setVisibility(View.GONE);
-        }else {
+        }  else {
             mShare.setText("转发");
         }
 
@@ -204,9 +206,7 @@ public abstract class ArchiveItemDetailUi extends BaseActivity implements View.O
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.back_btn:
-                finish();
-                break;
+
             case R.id.btn_save:
                 saveFile();
                 break;
@@ -231,10 +231,14 @@ public abstract class ArchiveItemDetailUi extends BaseActivity implements View.O
         if(null == mItem){
             return;
         }
-        Intent intent = new Intent();
-        intent.putExtra(ArchiveUtils.INTENT_KEY_ARCHIVE_ITEM, mItem);
+       Intent intent = new Intent();
+       /* intent.putExtra(ArchiveUtils.INTENT_KEY_ARCHIVE_ITEM, mItem);
         setResult(RESULT_OK, intent);
-        finish();
+        finish();*/
+        intent = new Intent(this, ChatShareMsgActivity.class);
+        intent.putExtra(ArchiveUtils.INTENT_KEY_ARCHIVE_ITEM, mItem);
+
+        startActivity(intent);
     }
 
     @Override

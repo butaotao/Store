@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.dachen.common.utils.ToastUtil;
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.adapter.AddSelfPartHospitaAdapter;
+import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.dgroupdoctorcompany.entity.DeleteAddSelfPartHospital;
 import com.dachen.dgroupdoctorcompany.entity.HospitalDes;
@@ -231,7 +232,7 @@ public void refreshdata(int size){
     //
 
     public void getHospital() {
-        String s = "org/saleFriend/getAssignHospitalList";
+        String s = Constants.DRUG+"saleFriend/getAssignHospitalList";
         HashMap<String, String> maps = new HashMap<>();
         maps.put("access_token", UserInfo.getInstance(this).getSesstion());
         maps.put("userId", SharedPreferenceUtil.getString(this, "id", ""));
@@ -245,7 +246,7 @@ public void refreshdata(int size){
     }
 
     public void deleteHospitalRelation(String id) {
-        String s = "org/assignGoodsGroup/deleteRelationGoodsgroup";
+        String s = Constants.DRUG+"assignGoodsGroup/deleteRelationGoodsgroup";
         HashMap<String, String> maps = new HashMap<>();
         maps.put("access_token", UserInfo.getInstance(this).getSesstion());
         maps.put("userId", SharedPreferenceUtil.getString(this, "id", ""));

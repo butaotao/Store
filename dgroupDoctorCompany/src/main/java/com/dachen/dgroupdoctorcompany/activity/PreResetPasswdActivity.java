@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dachen.dgroupdoctorcompany.R;
@@ -69,7 +70,6 @@ public class PreResetPasswdActivity extends BaseActivity implements
 	private String smsid = "";
 	String authCode;
 	String phonenum;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -94,7 +94,6 @@ public class PreResetPasswdActivity extends BaseActivity implements
 			mAuthCodeEdit.requestFocus();
 			setTitle("设置密码");
 		}
-
 
 
 

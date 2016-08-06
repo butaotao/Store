@@ -200,7 +200,7 @@ public class GetAllDoctor {
         HashMap<String, String> maps = new HashMap<>();
         maps.put("access_token", UserInfo.getInstance(CompanyApplication.context).getSesstion());
 
-        new HttpManager().get(CompanyApplication.context, "org/saleFriend/search", DoctorsList.class,
+        new HttpManager().get(CompanyApplication.context, Constants.DRUG+"saleFriend/search", DoctorsList.class,
                 maps, new HttpManager.OnHttpListener<Result>() {
                     @Override
                     public void onSuccess(Result entity) {
@@ -234,7 +234,7 @@ public class GetAllDoctor {
         maps.put("access_token", com.dachen.medicine.config.UserInfo.getInstance(CompanyApplication.context).getSesstion());
         maps.put("userId", userid);
         HashMap<String, String> interfaces = new HashMap<>();
-        interfaces.put("interface1", "org/user/get" + "");
+        interfaces.put("interface1", Constants.DRUG+"user/get" + "");
         new HttpManager().get(CompanyApplication.context, interfaces, ChatAgreeEntity.class,
                 maps, new HttpManager.OnHttpListener<Result>() {
                     @Override

@@ -9,13 +9,30 @@
         layout="@layout/layout_parent_titlebar_groupcompany"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="18dp">
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/addnewphone"/>
+        <TextView
+            android:id="@+id/tel_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
 
+            android:text="修改后原有手机号将被替换为新手机号，请用新手机号登录"
+            android:textSize="16sp"
+            android:textColor="@color/color_aaaaaa"/>
+    </LinearLayout>
     <com.dachen.medicine.view.ClearEditText
         android:id="@+id/phone_numer_edit"
         style="@style/IMLineEditText"
         android:layout_marginLeft="18dp"
         android:layout_marginRight="18dp"
-        android:layout_marginTop="40dp"
         android:background="@drawable/inputbox"
         android:hint="@string/please_input_phone_number"
         android:inputType="phone" />
@@ -35,6 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
+            android:paddingLeft="8dp"
             android:layout_toLeftOf="@+id/send_again_btn"
             android:background="@null"
             android:hint="@string/please_input_auth_code"
@@ -105,11 +123,11 @@
         android:id="@+id/next_step_btn"
         android:layout_height="40dp"
         android:layout_width="match_parent"
-        android:background="@drawable/btn_blue_all_9ddcff"
+        android:background="@drawable/btn_blue_all_3cbaff"
         android:layout_marginLeft="18dp"
         android:layout_marginRight="18dp"
         android:layout_marginTop="50dp"
-        android:text="@string/next_step"
+        android:text="提交"
         android:textColor="@color/white"/>
 
     <RelativeLayout

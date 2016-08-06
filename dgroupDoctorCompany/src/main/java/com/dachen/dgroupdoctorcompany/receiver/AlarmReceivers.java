@@ -16,12 +16,15 @@ import android.text.TextUtils;
 import com.dachen.common.utils.DeviceInfoUtil;
 import com.dachen.common.utils.TimeUtils;
 import com.dachen.dgroupdoctorcompany.R;
+import com.dachen.dgroupdoctorcompany.activity.AlarmDialogFullScreenActivity;
 import com.dachen.dgroupdoctorcompany.activity.SelectAddressActivity;
 import com.dachen.dgroupdoctorcompany.activity.SignListActivity;
+import com.dachen.dgroupdoctorcompany.db.dbdao.RemindDao;
 import com.dachen.dgroupdoctorcompany.db.dbentity.Reminder;
 import com.dachen.dgroupdoctorcompany.db.dbentity.WeekSinger;
 import com.dachen.dgroupdoctorcompany.service.PlayMusicService;
 import com.dachen.medicine.common.utils.Alarm;
+import com.dachen.medicine.common.utils.SharedPreferenceUtil;
 import com.dachen.medicine.common.utils.ToastUtils;
 import com.dachen.medicine.config.AppConfig;
 import com.dachen.medicine.config.UserInfo;
@@ -69,7 +72,6 @@ public class AlarmReceivers extends BroadcastReceiver {
     private static final String TAG = AlarmReceivers.class.getSimpleName();
     @Override
     public void onReceive( final Context context,  final Intent data) {
-        ToastUtil.showToast(context,"alert");
         new showNotifactionThread(System.currentTimeMillis()+"",context,data).start();
     }
     public class showNotifactionThread extends Thread{
@@ -101,15 +103,25 @@ public class AlarmReceivers extends BroadcastReceiver {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(time);
         int dayInWeek = calendar.get(Calendar.DAY_OF_WEEK);
+        RemindDao dao = new RemindDao(context);
+        Reminder reminder = dao.queryByUserCreateTime(alarm2.createTime);
         boolean show = false;
-        for (WeekSinger weekSinger:weeks){
-            if (dayInWeek == weekSinger.week){
+        if (reminder.isOpen==0&& !SharedPreferenceUtil.getString(context,"id","").equals(alarm2.userloginid)){
+            return;
+        }
+
+
+            if (!TextUtils.isEmpty(reminder.weekday) &&reminder.weekday.contains(""+dayInWeek)){
                 show = true;
-                break;
+            }
+
+        if (show==false){
+            if (reminder.times==0){
+                show = true;
             }
         }
         if (show){
-            showNotification(context, alarm2);
+            showNotification(context, reminder);
         }
     }
 
@@ -119,20 +131,29 @@ public class AlarmReceivers extends BroadcastReceiver {
         bundle.putSerializable("alarm",  alarm);
         service.putExtra("alarm",  bundle);
         context.startService(service);
-        Intent intent = new Intent(context, SelectAddressActivity.class);
-        intent.putExtra("alarm", alarm);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        Class<? extends Activity> clazz = SelectAddressActivity.class;
-
+        String thisAppPackageName = context.getPackageName()+"";
+        Class<? extends Activity> clazz = AlarmDialogFullScreenActivity.class;
+        String currentActivity = getCurrentActivity(context);
+        String packageName = getCurrentPackageName(context);
+        boolean islock = false;
+        if (DeviceInfoUtil.isScreenLocked(context)||(!currentActivity.contains(AppConfig.PACKAGENAME_PACIENT_LIBRAY)
+                &&!currentActivity.contains(AppConfig.PACKAGENAME_DOCTOR_LIBRARY)&&
+                !packageName.contains(thisAppPackageName))) {
+            clazz = SelectAddressActivity.class;
+            islock = true;
+        }
         Intent intent2 = new Intent(context, clazz);
         intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent2.putExtra("alarm", alarm);
-
+        if (!islock){
+            context.startActivity(intent2);
+            return;
+        }
         PendingIntent fullScreenIntent = PendingIntent.getActivity(context, alarm._id, intent2,
                 PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
-        builder.setTicker("的用药：" )
-                .setContentText("的用" )
+        builder.setTicker("亲,时间快到了,赶紧去考勤签到吧!" ).setContentTitle("药企圈")
+                .setContentText("亲,时间快到了,赶紧去考勤签到吧!" )
                 .setContentIntent(fullScreenIntent).setWhen(System.currentTimeMillis()).setOngoing(false)
                 .setDefaults(Notification.DEFAULT_VIBRATE).setSmallIcon(R.drawable.ic_launcher_icon).setAutoCancel(true)
 				/*.setFullScreenIntent(fullScreenIntent, false)*//*.setSound(getSoundUri(context, alarm))*/;

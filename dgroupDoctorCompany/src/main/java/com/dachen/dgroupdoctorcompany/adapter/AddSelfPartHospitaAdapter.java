@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.dachen.common.utils.ToastUtil;
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.activity.AddSelfPartHospitalActivity;
+import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.dgroupdoctorcompany.entity.DeleteAddSelfPartHospital;
 import com.dachen.dgroupdoctorcompany.entity.HospitalDes;
@@ -132,7 +133,7 @@ public class AddSelfPartHospitaAdapter extends android.widget.BaseAdapter{
     }
 
     public void deleteHospital(final HospitalDes me, final CustomDialog dialog){
-        String  s = "org/saleFriend/deleteHospital";
+        String  s = Constants.DRUG+"saleFriend/deleteHospital";
         HashMap<String ,String > maps = new HashMap<>();
         maps.put("access_token", UserInfo.getInstance(context).getSesstion());
         maps.put("userId", SharedPreferenceUtil.getString(context, "id", ""));

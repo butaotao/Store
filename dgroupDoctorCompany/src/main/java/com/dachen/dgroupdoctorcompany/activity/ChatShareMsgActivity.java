@@ -3,6 +3,7 @@ package com.dachen.dgroupdoctorcompany.activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -13,10 +14,15 @@ import com.alibaba.fastjson.JSON;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.dachen.common.async.SimpleResultListener;
 import com.dachen.common.json.EmptyResult;
 import com.dachen.common.utils.ToastUtil;
 import com.dachen.common.utils.VolleyUtil;
 import com.dachen.dgroupdoctorcompany.R;
+import com.dachen.dgroupdoctorcompany.archive.ArchiveUtils;
+import com.dachen.dgroupdoctorcompany.im.activity.RepresentGroupChatActivity;
+import com.dachen.dgroupdoctorcompany.im.events.AddGroupUserEvent;
+import com.dachen.dgroupdoctorcompany.im.utils.ChatActivityUtilsV2;
 import com.dachen.dgroupdoctorcompany.utils.CompareDatalogic;
 import com.dachen.dgroupdoctorcompany.utils.ExitActivity;
 import com.dachen.dgroupdoctorcompany.utils.UserInfo;
@@ -24,15 +30,23 @@ import com.dachen.dgroupdoctorcompany.views.CustomDialog;
 import com.dachen.imsdk.activities.ImBaseActivity;
 import com.dachen.imsdk.adapter.ChatGroupAdapter;
 import com.dachen.imsdk.adapter.MsgMenuAdapter;
+import com.dachen.imsdk.archive.entity.ArchiveItem;
+import com.dachen.imsdk.consts.SessionType;
 import com.dachen.imsdk.db.dao.ChatGroupDao;
 import com.dachen.imsdk.db.po.ChatGroupPo;
+import com.dachen.imsdk.entity.GroupInfo2Bean;
 import com.dachen.imsdk.net.ImCommonRequest;
 import com.dachen.imsdk.net.PollingURLs;
+import com.dachen.imsdk.net.SessionGroup;
+import com.dachen.imsdk.service.ImRequestManager;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import de.greenrobot1.event.EventBus;
 
 /**
  * 转发消息页
@@ -45,16 +59,16 @@ public class ChatShareMsgActivity extends ImBaseActivity implements View.OnClick
     private String msgId;
     private RelativeLayout rl_colleague,rl_doctor;
     private View center_line;
-
-
+    protected ArchiveItem mItem;
+    private boolean inWork;
+    String groupId = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vchat_menber_activity);
         ExitActivity.getInstance().addActivity(this);
-
         msgId = getIntent().getStringExtra(MsgMenuAdapter.INTENT_EXTRA_MSG_ID);
-
+        mItem = (ArchiveItem) getIntent().getSerializableExtra(ArchiveUtils.INTENT_KEY_ARCHIVE_ITEM);
         TextView tv = (TextView) findViewById(com.dachen.imsdk.R.id.tv_title);
         tv.setText("转发消息");
 
@@ -81,6 +95,20 @@ public class ChatShareMsgActivity extends ImBaseActivity implements View.OnClick
         new InitTask().execute();
     }
 
+    private class ShareResultListener implements SimpleResultListener {
+
+        @Override
+        public void onSuccess() {
+            ToastUtil.showToast(mThis,"转发成功");
+            finish();
+            ExitActivity.getInstance().exit();
+        }
+
+        @Override
+        public void onError(String msg) {
+            ToastUtil.showToast(mThis, msg);
+        }
+    }
     @Override
     public void onClick(View v) {
 
@@ -97,6 +125,7 @@ public class ChatShareMsgActivity extends ImBaseActivity implements View.OnClick
                 Intent intent = new Intent(this, SelectPeopleActivity.class);
                 intent.putExtra(SelectPeopleActivity.INTENT_EXTRA_GROUP_TYPE,-1);
                 intent.putExtra("share", true);
+                intent.putExtra(ArchiveUtils.INTENT_KEY_ARCHIVE_ITEM, mItem);
                 intent.putExtra(MsgMenuAdapter.INTENT_EXTRA_MSG_ID,msgId);
                 startActivity(intent);
 //                CallIntent.SelectPeopleActivity(this, null, -1);
@@ -106,6 +135,7 @@ public class ChatShareMsgActivity extends ImBaseActivity implements View.OnClick
 //                CallIntent.selectDoctor(this);
                 Intent intent2 = new Intent(this, ChoiceDoctorForChatActivity.class);
                 intent2.putExtra("share", true);
+                intent2.putExtra(ArchiveUtils.INTENT_KEY_ARCHIVE_ITEM, mItem);
                 intent2.putExtra(MsgMenuAdapter.INTENT_EXTRA_MSG_ID,msgId);
                 startActivity(intent2);
                 break;
@@ -117,7 +147,7 @@ public class ChatShareMsgActivity extends ImBaseActivity implements View.OnClick
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             final ChatGroupPo group = mList.get(position);
-            CustomDialog.Builder builder = new CustomDialog.Builder(ChatShareMsgActivity.this,new CustomDialog.CustomClickEvent(){
+          /*  CustomDialog.Builder builder = new CustomDialog.Builder(ChatShareMsgActivity.this,new CustomDialog.CustomClickEvent(){
 
 
                 @Override
@@ -130,8 +160,35 @@ public class ChatShareMsgActivity extends ImBaseActivity implements View.OnClick
                 public void onDismiss(CustomDialog customDialog) {
                     customDialog.dismiss();
                 }
-            }).setTitle("确定发送给").setMessage(group.name).setPositive("确定").setNegative("取消");
-            builder.create().show();
+            }).setTitle("确定发送给").setMessage(group.name).setNegative("取消").setPositive("确定");
+            builder.create().show();*/
+            final com.dachen.medicine.view.CustomDialog dialog = new com.dachen.medicine.view.CustomDialog(ChatShareMsgActivity.this);
+            dialog.showDialog("确定发送给", group.name, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dimissDialog();
+                    if (null != msgId) {
+                        forwardMsg(group.groupId);
+                    } else {
+                        HashMap<String, Object> params = new HashMap<>();
+                        params.put("share_files", mItem);
+                        ArrayList<GroupInfo2Bean.Data.UserInfo> userList = ChatActivityUtilsV2.getUserList(group);
+                        RepresentGroupChatActivity.openUI(ChatShareMsgActivity.this, group.name, group.groupId, userList,params);
+                    }
+
+
+
+//                CallIntent.getSelectData.getData(listsHorizon);
+
+
+                }
+            }, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dimissDialog();
+                }
+            });
+
 
         }
     };
@@ -151,6 +208,18 @@ public class ChatShareMsgActivity extends ImBaseActivity implements View.OnClick
 
     private void forwardMsg(String groupId){
         Map<String,Object> reqMap=new HashMap<>();
+        if (msgId==null&&null!=mItem){
+            if (null!=mItem.po&& !TextUtils.isEmpty(mItem.po.msgId)){
+                msgId = mItem.po.msgId;
+            }
+        }
+        if (TextUtils.isEmpty(msgId)){
+            msgId = "";
+        }
+
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("share_files", mItem);
+
         reqMap.put("msgId",msgId);
         reqMap.put("gid",groupId);
         reqMap.put("index",0);

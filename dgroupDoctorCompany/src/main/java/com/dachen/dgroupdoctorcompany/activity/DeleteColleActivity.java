@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.dachen.common.utils.ToastUtil;
 import com.dachen.dgroupdoctorcompany.R;
+import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.dgroupdoctorcompany.db.dbdao.CompanyContactDao;
 import com.dachen.dgroupdoctorcompany.entity.CompanyContactListEntity;
@@ -87,7 +88,7 @@ public class DeleteColleActivity extends BaseActivity implements View.OnClickLis
         //组织id
         maps.put("orgId",entity.id);//orgId
         maps.put("userId",entity.userId);
-        new HttpManager().post(this, "org/drugCompany/dept/departEmployee", CompanyDepment.class,
+        new HttpManager().post(this, Constants.DRUG+"drugCompany/dept/departEmployee", CompanyDepment.class,
                 maps, this,
                 false, 1);
     }

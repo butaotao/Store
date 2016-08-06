@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.dachen.common.utils.ToastUtil;
 import com.dachen.dgroupdoctorcompany.R;
+import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.dgroupdoctorcompany.db.dbdao.DoctorDao;
 import com.dachen.dgroupdoctorcompany.db.dbentity.Doctor;
@@ -151,7 +152,7 @@ public class DoctorDetailActivity extends BaseActivity implements HttpManager.On
                 maps.put("access_token", UserInfo.getInstance(DoctorDetailActivity.this).getSesstion());
                 maps.put("userId",id);
 
-                new HttpManager().post(DoctorDetailActivity.this, "org/saleFriend/deleteFriend", DoctorsList.class,
+                new HttpManager().post(DoctorDetailActivity.this, Constants.DRUG+"saleFriend/deleteFriend", DoctorsList.class,
                         maps, DoctorDetailActivity.this,
                         false, 1);
                 dialog.dimissDialog();

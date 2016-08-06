@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.dachen.common.utils.ToastUtil;
 import com.dachen.dgroupdoctorcompany.R;
+import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.dgroupdoctorcompany.entity.UpLoadFriend;
 import com.dachen.medicine.common.utils.MActivityManager;
@@ -164,7 +165,7 @@ public class AddFriendActivity extends BaseActivity implements HttpManager.OnHtt
             maps.put("drugList",json);
         }
 
-        new HttpManager().post(this, "org/saleFriend/addFriend", Result.class,
+        new HttpManager().post(this, Constants.DRUG+"saleFriend/addFriend", Result.class,
                 maps, this,
                 false, 1);
     }

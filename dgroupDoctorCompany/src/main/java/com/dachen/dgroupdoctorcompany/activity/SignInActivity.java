@@ -9,17 +9,21 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.dachen.common.utils.ToastUtil;
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
+import com.dachen.dgroupdoctorcompany.entity.OftenSignPlace;
 import com.dachen.dgroupdoctorcompany.entity.SignInBaseData;
 import com.dachen.dgroupdoctorcompany.utils.UserInfo;
+import com.dachen.medicine.common.utils.SharedPreferenceUtil;
 import com.dachen.medicine.entity.Result;
 import com.dachen.medicine.net.HttpManager;
 import com.dachen.medicine.net.Params;
@@ -34,17 +38,25 @@ public class SignInActivity extends BaseActivity implements HttpManager.OnHttpLi
     private ImageView           mIvChecking;
     private ImageView           mIvVisit;
     private String              POI;
-    private int                 distance;
+    private int                 distance = -1;
     private LinearLayout vSignin;
     private LinearLayout vVisit;
     private LinearLayout vTogetherVisit;
     private LinearLayout signin_remind;
-
+    double lengh = -1;
     private AMapLocationClient locationClient = null;
     private AMapLocationClientOption locationOption = null;
     private double                     latitude;//纬度
     private double                     longitude;//经度
     private String                     city;//城市
+    ArrayList<OftenSignPlace.Data.PageData> pageData;
+    AMapLocation aMapLocation;
+    String address;
+    long allowDistance = 250;
+    RelativeLayout rl_titlebar;
+    boolean isSHOW;
+    LinearLayout jilu;
+    View line1;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +68,7 @@ public class SignInActivity extends BaseActivity implements HttpManager.OnHttpLi
         IntentFilter filter = new IntentFilter();
         filter.addAction("action.to.signlist");
         registerReceiver(hasMessageReceiver, filter);
+        getSignRecord();
     }
 
     @Override
@@ -64,9 +77,12 @@ public class SignInActivity extends BaseActivity implements HttpManager.OnHttpLi
         setTitle("选择签到类型");
         mTvSignAll = (TextView) findViewById(R.id.tvSignAll);
         mIvChecking = (ImageView) findViewById(R.id.ivChecking);
+        jilu = (LinearLayout) findViewById(R.id.jilu);
+        jilu.setOnClickListener(this);
         mIvVisit = (ImageView) findViewById(R.id.ivVisit);
         vSignin = (LinearLayout) findViewById(R.id.vSignin);
         vVisit = (LinearLayout) findViewById(R.id.vVisit);
+        line1 = findViewById(R.id.line1);
         vTogetherVisit = (LinearLayout) findViewById(R.id.vTogetherVisit);
         signin_remind = getViewById(R.id.signin_remind);
         mTvSignAll.setOnClickListener(this);
@@ -74,15 +90,18 @@ public class SignInActivity extends BaseActivity implements HttpManager.OnHttpLi
         vVisit.setOnClickListener(this);
         vTogetherVisit.setOnClickListener(this);
         signin_remind.setOnClickListener(this);
+        findViewById(R.id.rl_titlebar).setOnClickListener(this);
     }
 
     private void initData(){
         if(UserInfo.getInstance(SignInActivity.this).isMediePresent()){
             vVisit.setVisibility(View.VISIBLE);
             vTogetherVisit.setVisibility(View.VISIBLE);
+            line1.setVisibility(View.VISIBLE);
         }else{
             vVisit.setVisibility(View.GONE);
             vTogetherVisit.setVisibility(View.GONE);
+            line1.setVisibility(View.GONE);
         }
         locationClient = new AMapLocationClient(this.getApplicationContext());
         locationOption = new AMapLocationClientOption();
@@ -114,19 +133,29 @@ public class SignInActivity extends BaseActivity implements HttpManager.OnHttpLi
     public void onClick(View v) {
         super.onClick(v);
         switch (v.getId()){
-            case R.id.tvSignAll:
+            case R.id.jilu:
                 Intent intentAll = new Intent(SignInActivity.this,SignListActivity.class);
                 startActivity(intentAll);
                 break;
             case R.id.vSignin:
-                Intent intent = new Intent(SignInActivity.this,SelectAddressActivity.class);
-                intent.putExtra("mode",AddSignInActivity.MODE_WORKING);
-                intent.putExtra("poi",POI);
-                intent.putExtra("distance",distance);
-                intent.putExtra("latitude",latitude);
-                intent.putExtra("longitude",longitude);
-                intent.putExtra("city",city);
-                startActivity(intent);
+                if (distance<=allowDistance&&distance>=0&&!TextUtils.isEmpty(address)){
+                    Intent intent = new Intent(SignInActivity.this, AddSignInActivity.class);
+                    intent.putExtra("name", address);
+                    intent.putExtra("longitude", longitude);
+                    intent.putExtra("latitude", latitude);
+                    intent.putExtra("mode", AddSignInActivity.MODE_WORKING);
+                    startActivity(intent);
+                }else {
+                    Intent intent = new Intent(SignInActivity.this,SelectAddressActivity.class);
+                    intent.putExtra("mode",AddSignInActivity.MODE_WORKING);
+                    intent.putExtra("poi",POI);
+                    intent.putExtra("distance",distance);
+                    intent.putExtra("latitude",latitude);
+                    intent.putExtra("longitude",longitude);
+                    intent.putExtra("city",city);
+                    startActivity(intent);
+                }
+
                 break;
             case R.id.vVisit:
                 Intent intent2 = new Intent(SignInActivity.this,SelectAddressActivity.class);
@@ -152,12 +181,27 @@ public class SignInActivity extends BaseActivity implements HttpManager.OnHttpLi
                 break;
             case R.id.signin_remind:
                 Intent intent4 = new Intent(SignInActivity.this,SigninRemindActivity.class);
-
                 startActivity(intent4);
+                break;
+            case R.id.rl_titlebar:
+                if (!isSHOW){
+                    allowDistance = 10*1000;
+                    isSHOW = true;
+                }else {
+                    allowDistance = 250;
+                    isSHOW = false;
+                }
+                ToastUtil.showToast(this,allowDistance+"");
                 break;
         }
     }
-
+    //企业ID暂时写死
+    public void getSignRecord(){
+        String companyId =SharedPreferenceUtil.getString(this, "enterpriseId", "");
+        companyId =  "5763c35ab522257e6659e632";
+        new HttpManager().post(this, Constants.GETSIGNRECORD, OftenSignPlace.class, Params
+                .getSinOftenPlace(SignInActivity.this, companyId), this, false, 1);
+    }
     @Override
     public void onSuccess(Result response) {
         if(null!=response){
@@ -169,6 +213,13 @@ public class SignInActivity extends BaseActivity implements HttpManager.OnHttpLi
                         distance = data.map.distance;
                         POI = data.map.point;
                     }
+                }
+            }else if (response instanceof OftenSignPlace){
+                OftenSignPlace place = (OftenSignPlace) response;
+
+                if (null!=place&&null!=place.data&&null!=place.data.pageData){
+                    pageData = place.data.pageData;
+                    compareDistance(pageData,aMapLocation);
                 }
             }
         }
@@ -184,14 +235,36 @@ public class SignInActivity extends BaseActivity implements HttpManager.OnHttpLi
     public void onFailure(Exception e, String errorMsg, int s) {
 
     }
+    public boolean compareDistance(ArrayList<OftenSignPlace.Data.PageData> pageData,AMapLocation aMapLocation){
+        if (pageData==null||aMapLocation==null){
+            lengh = -2;
+            return false;
+        }
+        for (OftenSignPlace.Data.PageData data:pageData){
+            if (null!=data&&!TextUtils.isEmpty(data.coordinate)){
+                String[] coord = data.coordinate.replace("[","").replace("]","").replace("\"","").split(",");
+                if (coord.length>1){
+                    lengh =  getDistance(Double.parseDouble(coord[0]),Double.parseDouble(coord[1]),
+                            aMapLocation.getLongitude(), aMapLocation.getLatitude());
+                    address = data.simpleAddress;
+                    if (lengh<=allowDistance){
 
+                        break;
+                    }
+                }
+            }
+        }
+        return false;
+    }
     @Override
     public void onLocationChanged(AMapLocation aMapLocation) {
         if(null != aMapLocation){
             int code = aMapLocation.getErrorCode();
             if(code == 0){
+                this.aMapLocation =  aMapLocation;
                 latitude = aMapLocation.getLatitude();
                 longitude = aMapLocation.getLongitude();
+                compareDistance(pageData,aMapLocation);
                 city = aMapLocation.getCity();
             }
         }
@@ -215,7 +288,37 @@ public class SignInActivity extends BaseActivity implements HttpManager.OnHttpLi
 
         unregisterReceiver(hasMessageReceiver);
     }
-
+    /**
+     * 计算地球上任意两点(经纬度)距离
+     *
+     * @param long1
+     *            第一点经度
+     * @param lat1
+     *            第一点纬度
+     * @param long2
+     *            第二点经度
+     * @param lat2
+     *            第二点纬度
+     * @return 返回距离 单位：米
+     */
+    public static double getDistance(double long1, double lat1, double long2,
+                                  double lat2) {
+        double a, b, R;
+        R = 6378137; // 地球半径
+        lat1 = lat1 * Math.PI / 180.0;
+        lat2 = lat2 * Math.PI / 180.0;
+        a = lat1 - lat2;
+        b = (long1 - long2) * Math.PI / 180.0;
+        double d;
+        double sa2, sb2;
+        sa2 = Math.sin(a / 2.0);
+        sb2 = Math.sin(b / 2.0);
+        d = 2
+                * R
+                * Math.asin(Math.sqrt(sa2 * sa2 + Math.cos(lat1)
+                * Math.cos(lat2) * sb2 * sb2));
+        return d;
+    }
     /** 广播 **/
     BroadcastReceiver hasMessageReceiver = new BroadcastReceiver(){
         @Override

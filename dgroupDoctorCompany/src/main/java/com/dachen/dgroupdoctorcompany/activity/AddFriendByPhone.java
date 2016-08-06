@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 
 import com.dachen.common.utils.ToastUtil;
 import com.dachen.dgroupdoctorcompany.R;
+import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.dgroupdoctorcompany.fragment.AddressList;
 import com.dachen.dgroupdoctorcompany.utils.GetAllDoctor;
@@ -138,7 +139,7 @@ public class AddFriendByPhone extends BaseActivity implements HttpManager.OnHttp
         }
         showLoadingDialog();
         maps.put("name",userName);
-        new HttpManager().post(this, "org/drugCompany/dept/addEnterUser", Result.class,
+        new HttpManager().post(this, Constants.DRUG+"drugCompany/dept/addEnterUser", Result.class,
                 maps, new HttpManager.OnHttpListener<Result>() {
                     @Override
                     public void onSuccess(Result response) {

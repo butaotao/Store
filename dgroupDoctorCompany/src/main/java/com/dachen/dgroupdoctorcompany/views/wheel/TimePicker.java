@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
 public class TimePicker extends LinearLayout{
 
 	private Calendar calendar = Calendar.getInstance();
-	private WheelView hours, mins; //Wheel picker
+	public WheelView hours, mins; //Wheel picker
 	private OnChangeListener onChangeListener; //onChangeListener
 	private final int MARGIN_RIGHT = 15;		//调整文字右端距离
 	private ArrayList<DateObject> hourList,minuteList;
@@ -53,20 +53,20 @@ public class TimePicker extends LinearLayout{
 
 		//小时选择器
 		hours = new WheelView(context);
-		LayoutParams lparams_hours = new LayoutParams(80,LayoutParams.WRAP_CONTENT);
+		LayoutParams lparams_hours = new LayoutParams(180,LayoutParams.WRAP_CONTENT);
 		lparams_hours.setMargins(0, 0, MARGIN_RIGHT, 0);
 		hours.setLayoutParams(lparams_hours);
 		hours.setAdapter(new StringWheelAdapter(hourList, 24));
-		hours.setVisibleItems(7);
+		hours.setVisibleItems(5);
 		hours.setCyclic(true);
 		hours.addChangingListener(onHoursChangedListener);
 		addView(hours);
 
 		//分钟选择器
 		mins = new WheelView(context);
-		mins.setLayoutParams(new LayoutParams(80,LayoutParams.WRAP_CONTENT));
+		mins.setLayoutParams(new LayoutParams(180,LayoutParams.WRAP_CONTENT));
 		mins.setAdapter(new StringWheelAdapter(minuteList,60));
-		mins.setVisibleItems(7);
+		mins.setVisibleItems(5);
 		mins.setCyclic(true);
 		mins.addChangingListener(onMinsChangedListener);
 		addView(mins);

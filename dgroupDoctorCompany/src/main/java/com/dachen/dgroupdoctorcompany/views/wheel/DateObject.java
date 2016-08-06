@@ -55,13 +55,13 @@ public class DateObject extends Object{
 				this.hour = hour2 % 24;
 			}else
 				this.hour = hour2;
-			this.listItem =  this.hour + "时";
+			this.listItem =  this.hour+"" /*+ "时"*/;
 		}else if(isHourType == false && minute2 != -1){	//设置分钟
 			if(minute2 > 60)
 				this.minute = minute2 % 60;
 			else
 				this.minute = minute2;
-			this.listItem =  this.minute + "分";
+			this.listItem =  this.minute+"" /*+ "分"*/;
 		}
 	}
 	

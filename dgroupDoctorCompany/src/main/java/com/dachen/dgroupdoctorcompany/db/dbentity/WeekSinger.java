@@ -12,6 +12,8 @@ import java.util.ArrayList;
  */
 @DatabaseTable(tableName = "table_companyreminderweek")
 public class WeekSinger implements Serializable{
+    @DatabaseField(generatedId=true)
+    public int _id;
     @DatabaseField(columnName = "week")
     public int  week;
     @DatabaseField(canBeNull = false, foreign = true, foreignAutoRefresh = true, columnName = "remind_id")

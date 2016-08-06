@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.adapter.HospitalListAdapter;
+import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.dgroupdoctorcompany.entity.BaseSearch;
 import com.dachen.dgroupdoctorcompany.entity.HospitalList;
@@ -69,7 +70,7 @@ public class HospitalListActivity extends BaseActivity implements HttpManager.On
      maps.put(cityOrProvince,id);
      maps.put("pageIndex","1");
      maps.put("pageSize","100");
-     new HttpManager().post(this, "org/saleFriend/searchHospitalList", HospitalList.class,
+     new HttpManager().post(this, Constants.DRUG+"saleFriend/searchHospitalList", HospitalList.class,
              maps, this,
              false, 1);
  }

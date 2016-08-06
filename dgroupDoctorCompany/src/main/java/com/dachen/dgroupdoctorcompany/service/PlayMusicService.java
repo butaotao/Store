@@ -77,7 +77,7 @@ public class PlayMusicService extends Service{
     }
     public static Uri getSoundUri(Context context, Alarm alarm) {
 
-        return Uri.parse("android.resource://" + context.getPackageName() + "/raw/" + "sign_add.mp3");
+        return Uri.parse("android.resource://" + context.getPackageName() + "/raw/" + "sign_add");
     }
 
 

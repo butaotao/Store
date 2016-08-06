@@ -47,8 +47,8 @@ public class RemindDao {
     public void addRemind(Reminder article) {
         if (!TextUtils.isEmpty(article.userloginid)/*&&( null==queryByUserId(article.userId)||queryByUserId(article.userId).size()==0)*/){
             try {
-                if (null!=queryByUserCreateTime(article.createTime)&&queryByUserCreateTime(article.createTime).size()>0){
-                    Reminder doctor = queryByUserCreateTime(article.createTime).get(0);
+                if (null!=queryByUserCreateTime(article.createTime) ){
+                    Reminder doctor = queryByUserCreateTime(article.createTime);
                     article._id = doctor._id;
                 }
                 /*if (null==queryByUserId(article.userId)||queryByUserId(article.userId).size()==0){*/
@@ -59,13 +59,16 @@ public class RemindDao {
             }
         }
     }
-    public List<Reminder> queryByUserCreateTime(long userId){
+    public Reminder queryByUserCreateTime(long createTime){
         QueryBuilder<Reminder, Integer> builder = articleDao.queryBuilder();
         try {
             String  loginid=SharedPreferenceUtil.getString(context, "id", "");
+            builder.orderBy("createTime", false);
+
             Where<Reminder, Integer> where = builder.where();
-            where.eq("userloginid", loginid);
-            return builder.query();
+
+            where.eq("userloginid", loginid).and().eq("createTime",createTime);
+            return builder.queryForFirst();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -78,14 +81,16 @@ public class RemindDao {
         QueryBuilder<Reminder, Integer> builder = articleDao.queryBuilder();
         try {
             String  loginid=SharedPreferenceUtil.getString(context, "id", "");
+            builder.orderBy("hour", true);
+            builder.orderBy("minute", true);
             Where<Reminder, Integer> where = builder.where();
-            where.eq("userloginid", loginid).and().eq("userloginid", loginid);
+            where.eq("userloginid", loginid);
             return builder.query();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return null;
+        return new ArrayList<>();
     }
 
 
@@ -125,12 +130,12 @@ public class RemindDao {
      * @param
      * @return
      */
-    public int deleteByid(String userId) {
+    public int deleteByCreateTime(long createTime) {
         try {
             String  loginid=SharedPreferenceUtil.getString(context,"id","");
             DeleteBuilder<Reminder, Integer> builder = articleDao.deleteBuilder();
             Where<Reminder, Integer> where = builder.where();
-            where.eq("userloginid", loginid);
+            where.eq("userloginid", loginid).and().eq("createTime", createTime);
             return builder.delete();
         } catch (SQLException e) {
             // TODO Auto-generated catch block

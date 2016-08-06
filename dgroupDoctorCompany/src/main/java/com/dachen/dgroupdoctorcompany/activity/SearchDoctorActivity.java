@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.adapter.SearchDoctorAdapter;
+import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.dgroupdoctorcompany.db.dbdao.DoctorDao;
 import com.dachen.dgroupdoctorcompany.db.dbdao.SearchRecordsDao;
@@ -250,23 +251,13 @@ public class SearchDoctorActivity extends BaseActivity implements OnClickListene
         maps.put("access_token", UserInfo.getInstance(this).getSesstion());
         maps.put("hospitalId", hospitId);
         maps.put("keyword", keyword);
-        new HttpManager().post(this, "org/saleFriend/getList", SearchDoctorListEntity.class,
+        new HttpManager().post(this, Constants.DRUG+"saleFriend/getList", SearchDoctorListEntity.class,
                 maps, this,
                 false, 1);
         showLoadingDialog();
     }
 
-    /*public void getSearchResultWithNull(String keyword){
 
-        HashMap<String ,String > maps = new HashMap<>();
-        maps.put("access_token", UserInfo.getInstance(this).getSesstion());
-        maps.put("hospitalId", hospitId);
-        maps.put("keyword", "");
-        new HttpManager().post(this, "org/saleFriend/getList", SearchDoctorListEntity.class,
-                maps, this,
-                false, 1);
-        showLoadingDialog();
-    }*/
     @Override
     public void onBackPressed() {
         finish();

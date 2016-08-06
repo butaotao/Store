@@ -211,7 +211,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
 
     private void loginRequest(String phoneNum, String password) {
         final String userType = Constants.USER_TYPE;
-        final String requestTag = "login";
         new HttpManager().post(this, Constants.LOGIN + "", LoginRegisterResult.class,
                 Params.getLoginParams(phoneNum, password, userType, this), loginListener,
                 false, 3);
@@ -330,7 +329,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
                 LoginRegisterResult logins = (LoginRegisterResult) entity;
                 UserLoginc.setUserInfo(logins, LoginActivity.this);
                 UserUtils.logingetUserType(LoginActivity.this);
-                SharedPreferenceUtil.putString(LoginActivity.this,"password", Md5Util.toMD5(password));
             }
         }
         @Override

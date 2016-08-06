@@ -6,7 +6,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,14 +16,19 @@ import com.dachen.common.utils.TimeUtils;
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.dgroupdoctorcompany.db.dbdao.RemindDao;
+import com.dachen.dgroupdoctorcompany.db.dbdao.WeekDao;
 import com.dachen.dgroupdoctorcompany.db.dbentity.Reminder;
 import com.dachen.dgroupdoctorcompany.db.dbentity.WeekSinger;
 import com.dachen.dgroupdoctorcompany.utils.CommonUitls;
 import com.dachen.dgroupdoctorcompany.utils.DataUtils.AlarmBusiness;
 import com.dachen.dgroupdoctorcompany.utils.TitleManager;
 import com.dachen.dgroupdoctorcompany.views.ItemContainer;
+import com.dachen.dgroupdoctorcompany.views.TimePickerCustomer;
 import com.dachen.dgroupdoctorcompany.views.TimePickerEx;
+import com.dachen.dgroupdoctorcompany.views.WheelView;
+import com.dachen.dgroupdoctorcompany.views.wheel.TimePicker;
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
+import com.dachen.medicine.common.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -45,31 +52,54 @@ public class AddSigninRemindActivity extends BaseActivity implements OnClickList
     private List<String> mListLable = new ArrayList<>();
     private List<String> mListLableSelect = new ArrayList<>();
     RemindDao dao;
+    WeekDao weekDao;
     int hour;
     int minute;
+    TimePickerCustomer timePicker;
+    Reminder changereminder;
+    LinearLayout rl_deletealert;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View view = View.inflate(this, R.layout.activity_add_signin_remind, null);
         setContentView(view);
+        changereminder = (Reminder) getIntent().getSerializableExtra("reminder");
         dao = new RemindDao(this);
+        weekDao = new WeekDao(this);
         initViews();
         setTag();
         setTitle("签到提醒");
         TitleManager.showText(this, view, this, "保存");
-        List<String> data = new ArrayList<String>();
-        List<String> seconds = new ArrayList<String>();
-        for (int i = 0; i < 24; i++) {
-            data.add(i + "");
+        timePicker = (TimePickerCustomer) findViewById(R.id.minute_pv);
+        if (changereminder!=null){
+            hour = changereminder.hour;
+            minute = changereminder.minute;
+            rl_deletealert.setVisibility(View.VISIBLE);
+
+            timePicker.hours.setItems(timePicker.hourList,hour + "");
+            timePicker.mins.setItems(timePicker.minuteList,minute+"");
+
+        }else {
+            long curTime = System.currentTimeMillis();
+            Calendar c = Calendar.getInstance();
+            c.setTime(new Date(curTime));
+            int hour = c.get(Calendar.HOUR_OF_DAY);
+            int minute = c.get(Calendar.MINUTE);
+            timePicker.hours.setItems(timePicker.hourList,hour+"");
+            timePicker.mins.setItems(timePicker.minuteList, minute + "");
+
+
+            rl_deletealert.setVisibility(View.GONE);
         }
-        for (int i = 0; i < 60; i++) {
-            seconds.add(i + "");
-        }
-        long curTime = System.currentTimeMillis();
-        Calendar c = Calendar.getInstance();
-        c.setTime(new Date(curTime));
-        hour = c.get(Calendar.HOUR);
-        minute = c.get(Calendar.MINUTE);
+
+        timePicker.setOnChangeListener(new TimePickerCustomer.OnChangeListener() {
+            @Override
+            public void onChange(int hours, int munites) {
+                hour = hours;
+                minute = munites;
+            }
+        });
+       // test();
     }
     private void setTag(){
         mListLable.add("每周一");
@@ -84,6 +114,19 @@ public class AddSigninRemindActivity extends BaseActivity implements OnClickList
             addLableItem(strLableItem,false);
         }
     }
+    public void test(){
+        final WheelView wheelView = (WheelView) findViewById(R.id.minute_pv);
+        final List<String> lists = new ArrayList<>();
+        for(int i = 0; i < 20; i++){
+            lists.add("test:" + i);
+        }
+        wheelView.lists(lists).fontSize(35).showCount(5).selectTip(" ").select(0).listener(new WheelView.OnWheelViewItemSelectListener() {
+            @Override
+            public void onItemSelect(int index) {
+                ToastUtils.showToast(AddSigninRemindActivity.this,"current select:" + wheelView.getSelectItem() + " index :" + index + ",result=" + lists.get(index));
+            }
+        }).build();
+    }
     private void addLableItem(String lable,boolean isEdite){
         TextView textView = new TextView(getApplicationContext());
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,0);
@@ -95,7 +138,7 @@ public class AddSigninRemindActivity extends BaseActivity implements OnClickList
         textView.setBackgroundResource(R.drawable.biaoqian_dis);
      //   textView.setTextColor(getResources().getColor(R.color.white));
         textView.setTextColor(getResources().getColor(R.color.blue_3cbaff));
-
+        showHaveSetweekday(lable, textView);
         textView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,10 +160,44 @@ public class AddSigninRemindActivity extends BaseActivity implements OnClickList
     }
 
     private void initViews() {
+        rl_deletealert = (LinearLayout) findViewById(R.id.rl_deletealert);
+        rl_deletealert.setOnClickListener(this);
         vLableContainer = getViewById(R.id.vLableContainer);
         vLableContainer.setItemNum(5);
     }
+    public void showHaveSetweekday(String day,TextView textViewItem){
+        if (null!=changereminder){
+            String t = changereminder.weekday;
+            boolean flag = false;
+            if (t.contains("1")&&day.contains("周一")){
+                flag = true;
+                mListLableSelect.add("每周一");
+            }else if(t.contains("2")&&day.contains("周二")){
+                mListLableSelect.add("每周二");
+                flag = true;
+            }else if(t.contains("3")&&day.contains("周三")){
+                mListLableSelect.add("每周三");
+                flag = true;
+            }else if(t.contains("4")&&day.contains("周四")){
+                mListLableSelect.add("每周四");
+                flag = true;
+            }else if(t.contains("5")&&day.contains("周五")){
+                mListLableSelect.add("每周五");
+                flag = true;
+            }else if(t.contains("6")&&day.contains("周六")){
+                mListLableSelect.add("每周六");
+                flag = true;
+            }else if(t.contains("7")&&day.contains("周日")){
+                mListLableSelect.add("每周日");
+                flag = true;
+            }
+            if (flag){
+                textViewItem.setBackgroundResource(R.drawable.biaoqian);
+                textViewItem.setTextColor(getResources().getColor(R.color.white));
+            }
 
+        }
+    }
     @Override
     public void onClick(View view) {
         super.onClick(view);
@@ -128,43 +205,94 @@ public class AddSigninRemindActivity extends BaseActivity implements OnClickList
             case R.id.tv_search:
                 String  loginid= SharedPreferenceUtil.getString(this, "id", "");
                 Reminder reminder = new Reminder();
-                reminder.createTime = System.currentTimeMillis();
-                reminder.hour = hour+"";
-                reminder.minute = minute+"";
-                reminder.userloginid = loginid;
-                ArrayList<WeekSinger> weekSinger = new ArrayList<WeekSinger>();
-                for (int i=0;i<mListLableSelect.size();i++){
-                    WeekSinger s=new WeekSinger();
-                    s.week = getstate(mListLableSelect.get(i));
-                    weekSinger.add(s);
+                if (null != changereminder ){
+                    reminder.createTime = changereminder.createTime;
+                }else {
+                    reminder.createTime = System.currentTimeMillis();
                 }
+                reminder.updateTime = System.currentTimeMillis();
+                reminder.hour = timePicker.hours.getSelectedIndex();
+                reminder.minute = timePicker.mins.getSelectedIndex();
+                reminder.userloginid = loginid;
+                reminder.isOpen = 1;
+                ArrayList<WeekSinger> weekSinger = new ArrayList<WeekSinger>();
+                String wweekday = "";
+                if (mListLableSelect.size()>0){
+                    int[] paixu = sort();
+                    for (int k=0;k<paixu.length;k++){
+                        WeekSinger s=new WeekSinger();
+                        s.week = paixu[k];
+                        s.reminder = reminder;
+                        weekSinger.add(s);
+                        wweekday+=s.week+",";
+                    }
+                }
+
+
+                reminder.times = weekSinger.size();
                 reminder.weeks = weekSinger;
+                reminder.weekday = wweekday;
                 dao.addRemind(reminder);
+                for(WeekSinger s:weekSinger ){
+                    weekDao.addRemind(s);
+                }
                 List<Reminder> reminders =  dao.queryAllByUserid();
                 int rr = reminders.size();
                 AlarmBusiness.setAlarm(this, reminder);
+                ToastUtils.showToast(this,"保存成功!");
+                finish();
                 break;
+            case R.id.rl_deletealert:
+                if (null!=changereminder){
+                    AlarmBusiness.cancelAlarm(this, changereminder);
+                    dao.deleteByCreateTime(changereminder.createTime);
+                    ToastUtils.showToast(this,"删除成功!");
+                }
 
+                finish();
+                break;
         }
     }
     public int getstate(String date){
         if (date.contains("日")){
-            return 1;
-        }else if (date.contains("一")){
-            return 2;
-        }else if (date.contains("二")){
-            return 3;
-        }else if (date.contains("三")){
-            return 4;
-        }else if (date.contains("四")){
-            return 5;
-        }else if (date.contains("五")){
-            return 6;
-        }else if (date.contains("六")){
             return 7;
+        }else if (date.contains("一")){
+            return 1;
+        }else if (date.contains("二")){
+            return 2;
+        }else if (date.contains("三")){
+            return 3;
+        }else if (date.contains("四")){
+            return 4;
+        }else if (date.contains("五")){
+            return 5;
+        }else if (date.contains("六")){
+            return 6;
         }
 
         return -1;
+    }
+    public int[]  sort(){
+        int[] paixu = new int[mListLableSelect.size()];
+
+        for (int i=0;i<mListLableSelect.size();i++){
+            paixu[i] = getstate(mListLableSelect.get(i));
+        }
+
+        for(int i=0;i<paixu.length;i++)
+        {
+            for(int j=0;j<paixu.length-i-1;j++)
+            {
+                int temp=0;
+                if(paixu[j]>paixu[j+1])
+                {
+                    temp=paixu[j];
+                    paixu[j]=paixu[j+1];
+                    paixu[j+1]=temp;
+                }
+            }
+        }
+        return paixu;
     }
 
 }

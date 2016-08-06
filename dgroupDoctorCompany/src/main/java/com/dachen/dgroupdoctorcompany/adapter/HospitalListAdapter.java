@@ -13,6 +13,7 @@ import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.activity.HospitalActivity;
 import com.dachen.dgroupdoctorcompany.activity.HospitalManagerActivity;
 import com.dachen.dgroupdoctorcompany.activity.SearchActivity;
+import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.db.dbentity.SearchRecords;
 import com.dachen.dgroupdoctorcompany.entity.BaseSearch;
 import com.dachen.dgroupdoctorcompany.entity.Hospital;
@@ -208,7 +209,7 @@ public class HospitalListAdapter extends BaseCustomAdapter<BaseSearch> implement
         HashMap<String ,String > maps = new HashMap<>();
         maps.put("access_token", UserInfo.getInstance(context).getSesstion());
         maps.put("hospitalId",id);
-        new HttpManager().post(context, "org/saleFriend/addHospital", Result.class,
+        new HttpManager().post(context, Constants.DRUG+"saleFriend/addHospital", Result.class,
                 maps, new HttpManager.OnHttpListener<Result>() {
                     @Override
                     public void onSuccess(Result response) {

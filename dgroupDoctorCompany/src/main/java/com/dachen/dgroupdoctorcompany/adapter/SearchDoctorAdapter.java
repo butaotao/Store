@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.dachen.common.utils.ToastUtil;
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.activity.AddFriendActivity;
+import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.db.dbentity.Doctor;
 import com.dachen.dgroupdoctorcompany.db.dbentity.SearchRecords;
 import com.dachen.dgroupdoctorcompany.entity.BaseSearch;
@@ -138,7 +139,7 @@ public class SearchDoctorAdapter extends BaseCustomAdapter<BaseSearch> implement
         HashMap<String ,String > maps = new HashMap<>();
         maps.put("access_token",  UserInfo.getInstance(mContext).getSesstion());
         maps.put("doctorId",id);
-        new HttpManager().post(mContext, "org/saleFriend/addFriend", Result.class,
+        new HttpManager().post(mContext, Constants.DRUG+"saleFriend/addFriend", Result.class,
                 maps, this,
                 false, 1);
     }

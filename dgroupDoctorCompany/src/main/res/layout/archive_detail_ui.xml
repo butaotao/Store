@@ -7,7 +7,7 @@
 
     <RelativeLayout style="@style/ActionBar_Container">
 
-        <RelativeLayout
+       <!-- <RelativeLayout
             android:id="@+id/back_btn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
@@ -32,8 +32,12 @@
                 android:text="返回"
                 android:textColor="@color/color_3cbaff"
                 android:textSize="17sp"/>
-        </RelativeLayout>
-
+        </RelativeLayout>-->
+<include layout="@layout/layout_parent_titlebar_groupcompany"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/back_btn"
+    ></include>
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="match_parent"

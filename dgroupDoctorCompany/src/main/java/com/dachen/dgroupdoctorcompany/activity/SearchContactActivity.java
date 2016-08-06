@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -25,6 +26,7 @@ import android.widget.TextView;
 import com.dachen.common.async.SimpleResultListener;
 import com.dachen.common.utils.ToastUtil;
 import com.dachen.dgroupdoctorcompany.R;
+import com.dachen.dgroupdoctorcompany.adapter.CircleCreateGroupAdapter;
 import com.dachen.dgroupdoctorcompany.adapter.SearchContactAdapter;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.dgroupdoctorcompany.db.dbdao.CompanyContactDao;
@@ -34,8 +36,11 @@ import com.dachen.dgroupdoctorcompany.db.dbentity.Doctor;
 import com.dachen.dgroupdoctorcompany.db.dbentity.SearchRecords;
 import com.dachen.dgroupdoctorcompany.entity.BaseSearch;
 import com.dachen.dgroupdoctorcompany.entity.CompanyContactListEntity;
+import com.dachen.dgroupdoctorcompany.entity.CompanyDepment;
 import com.dachen.dgroupdoctorcompany.im.activity.Represent2DoctorChatActivity;
+import com.dachen.dgroupdoctorcompany.utils.CommonUitls;
 import com.dachen.dgroupdoctorcompany.utils.ExitActivity;
+import com.dachen.dgroupdoctorcompany.views.HorizontalListView;
 import com.dachen.imsdk.adapter.MsgMenuAdapter;
 import com.dachen.imsdk.db.dao.ChatGroupDao;
 import com.dachen.imsdk.entity.GroupInfo2Bean;
@@ -89,20 +94,35 @@ public class SearchContactActivity extends BaseActivity implements OnClickListen
     private String mDoctorId;
     private boolean mShare;
     private String msgId;
-
-
+    HorizontalListView addlistview;
+    CircleCreateGroupAdapter addAdapter;
+    List<BaseSearch> horizonList;
+    Button btn_add;
+    ArrayList<CompanyContactListEntity> groupUsers;
+    LinearLayout ll_horizonl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_allcontact);
-
+        groupUsers = (ArrayList<CompanyContactListEntity>) getIntent().getSerializableExtra(SelectPeopleActivity.INTENT_EXTRA_GROUP_USERS);
+        if (groupUsers == null) {
+            groupUsers = new ArrayList<>();
+        }
         mShare = getIntent().getBooleanExtra("share", false);
         seachdoctor = getIntent().getStringExtra("seachdoctor");
+        ll_horizonl = (LinearLayout) findViewById(R.id.ll_horizonl);
         selectMode  = getIntent().getIntExtra("selectMode", 0);
-        msgId = getIntent().getStringExtra(MsgMenuAdapter.INTENT_EXTRA_MSG_ID);
+        ll_horizonl.setVisibility(View.GONE);
 
-        findViewById(R.id.rl_sure).setVisibility(View.GONE);
+        btn_add = (Button) findViewById(R.id.btn_add);
+        btn_add.setOnClickListener(this);
+        msgId = getIntent().getStringExtra(MsgMenuAdapter.INTENT_EXTRA_MSG_ID);
+        addlistview = (HorizontalListView) findViewById(R.id.addlistview);
+        horizonList = CommonUitls.getListsHorizon();
+        addAdapter = new CircleCreateGroupAdapter(this, horizonList);
+        addlistview.setAdapter(addAdapter);
+      //  findViewById(R.id.rl_sure).setVisibility(View.GONE);
         if (TextUtils.isEmpty(seachdoctor)){
             et_search.setHint("搜索姓名/手机号");
         }else {
@@ -180,7 +200,10 @@ public class SearchContactActivity extends BaseActivity implements OnClickListen
         },seachdoctor);
         adapter.setisShowMore(true);
         listview.setAdapter(adapter);
-
+        if (selectMode==1){
+            ll_horizonl.setVisibility(View.VISIBLE);
+            adapter.setShowSelect(true);
+        }
         et_search.setOnEditorActionListener(
                 new TextView.OnEditorActionListener() {
                     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -218,11 +241,31 @@ public class SearchContactActivity extends BaseActivity implements OnClickListen
                     CompanyContactListEntity info = (CompanyContactListEntity) adapter.getItem(arg2);
                     // 在这里编写自己想要实现的功能
                     if (selectMode == 1) {          //新建同事对话搜索
-                        Intent intent = new Intent();
+                      /*  Intent intent = new Intent();
                         intent.putExtra("data", adapter.getItem(arg2));
                         setResult(RESULT_OK,intent);
-                        finish();
-                    } else {
+                        finish();*/
+                        BaseSearch contact = adapter.getItem(arg2);
+                        CompanyContactListEntity c2 = null;
+                        CompanyDepment.Data.Depaments c1 = null;
+                        if (contact instanceof CompanyContactListEntity) {
+                            c2 = (CompanyContactListEntity) (contact);
+                            if (c2.select) {
+                                c2.select = false;
+                                horizonList.remove(c2);
+                            } else {
+                                c2.select = true;
+                                if ( !groupUsers.contains(c2) &&!c2.userId.equals(SharedPreferenceUtil.getString(SearchContactActivity.this, "id", ""))) {
+                                    CommonUitls.addCompanyContactListEntity(c2);
+                                }
+                            }
+                            company.set(arg2, c2);
+                            adapter.notifyDataSetChanged();
+                            addAdapter.notifyDataSetChanged();
+                            btn_add.setText("开始(" + horizonList.size() + ")");
+                        }
+
+                    } else  if (selectMode != 1){
                         Intent intent = new Intent(SearchContactActivity.this,ColleagueDetailActivity.class);
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("peopledes",info);
@@ -476,6 +519,19 @@ public class SearchContactActivity extends BaseActivity implements OnClickListen
             hospitals.addAll(search);
             //listview.setAdapter(adapter);
             rl_noresult.setVisibility(View.GONE);
+            List<BaseSearch> searches = CommonUitls.getListsHorizon();
+            for (int i=0;i<company.size();i++){
+                for (int j=0;j<searches.size();j++){
+                    CompanyContactListEntity entity = company.get(i);
+                    CompanyContactListEntity entityHorizon = (CompanyContactListEntity)searches.get(j);
+                    if (entity.userId.equals((entityHorizon).userId)){
+                        entity.select =entityHorizon.select;
+                        company.set(i,entityHorizon);
+                        continue;
+                    }
+                }
+            }
+
             adapter = new SearchContactAdapter(this,R.layout.adapter_searchcontact,hospitals,company,doctors, new RefreshDataInterface() {
                 @Override
                 public void refreshData() {
@@ -490,6 +546,7 @@ public class SearchContactActivity extends BaseActivity implements OnClickListen
             adapter.sethospitalSize(doctors.size());
             adapter.setisShowMore(true);
             listview.setAdapter(adapter);
+            btn_add.setText("开始(" + searches.size() + ")");
         }else {
             hospitals.clear();
             adapter = new SearchContactAdapter(this,R.layout.adapter_searchcontact,hospitals,company,doctors, new RefreshDataInterface() {
@@ -504,7 +561,8 @@ public class SearchContactActivity extends BaseActivity implements OnClickListen
             adapter.sethospitalSize(doctors.size());
             listview.setAdapter(adapter);
             rl_noresult.setVisibility(View.VISIBLE);
-            tv_noresult.setText("没有”"+keyword+"“的相关搜索结果");
+            tv_noresult.setText("没有”" + keyword + "“的相关搜索结果");
+            btn_add.setText("开始(" + "0)");
         }
         if (keyword.equals(clear)){
             rl_noresult.setVisibility(View.GONE);

@@ -101,7 +101,7 @@ public class WheelView extends View {
 	 * �Ӻ���getDesiredHeight() �������������ֵӦ����ƽ�ָ�ÿһ��ѡ��ġ� </br>
 	 * �����������о�ɣ���������һ���ܺͣ�Ҳ������5���ɼ����ôÿ���ɼ���ĸ��Ӹ߾��� ADDITIONAL_ITEM_HEIGHT/5
 	 */
-	private static final int ADDITIONAL_ITEM_HEIGHT = 70;
+	private static final int ADDITIONAL_ITEM_HEIGHT = 60;
 
 	/** 
 	 * Text size 
@@ -109,7 +109,7 @@ public class WheelView extends View {
 	 *  </br>
 	 * �ֺ�
 	 */
-	private static final int TEXT_SIZE = 48;
+	private static final int TEXT_SIZE =80;
 
 	/** 
 	 * Top and bottom items offset (to hide that) 
@@ -182,14 +182,14 @@ public class WheelView extends View {
 	 *  </br>
 	 * ����ʵ�� ��ֵ��Ϊ100 û���κα仯
 	 */
-	private int itemsWidth = 100;
+	private int itemsWidth = 600;
 	/**
 	 * Widths
 	 * 
 	 *  </br>
 	 * Ҳ����ʵ�� ��ֵ��Ϊ100 û���κα仯
 	 */
-	private int labelWidth = 80;
+	private int labelWidth = 380;
 
 	// Count of visible items
 	/**
@@ -675,15 +675,17 @@ public class WheelView extends View {
 	 */
 	private void initResourcesIfNecessary() {
 		if (itemsPaint == null) {
+			//Paint.FAKE_BOLD_TEXT_FLAG
 			itemsPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG
-					| Paint.FAKE_BOLD_TEXT_FLAG);
+					);
 			//itemsPaint.density = getResources().getDisplayMetrics().density;
 			itemsPaint.setTextSize(TEXT_SIZE);
 		}
 
 		if (valuePaint == null) {
+			//Paint.FAKE_BOLD_TEXT_FLAG
 			valuePaint = new TextPaint(Paint.ANTI_ALIAS_FLAG
-					| Paint.FAKE_BOLD_TEXT_FLAG | Paint.DITHER_FLAG);
+					  | Paint.DITHER_FLAG);
 			//valuePaint.density = getResources().getDisplayMetrics().density;
 			valuePaint.setTextSize(TEXT_SIZE);
 			valuePaint.setShadowLayer(0.1f, 0, 0.1f, 0xFFC0C0C0);

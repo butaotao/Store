@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -12,6 +13,7 @@ import com.dachen.dgroupdoctorcompany.activity.SearchContactActivity;
 import com.dachen.dgroupdoctorcompany.db.dbentity.Doctor;
 import com.dachen.dgroupdoctorcompany.entity.BaseSearch;
 import com.dachen.dgroupdoctorcompany.entity.CompanyContactListEntity;
+import com.dachen.medicine.common.utils.SharedPreferenceUtil;
 import com.dachen.medicine.net.CustomImagerLoader;
 
 import java.util.List;
@@ -30,6 +32,7 @@ public class SearchContactAdapter extends BaseCustomAdapter<BaseSearch>{
     SearchContactActivity.RefreshDataInterface refreshDataInterface;
     boolean isShowMore = true;
     String seachdoctor;
+    boolean showSelect;
     public SearchContactAdapter(Context context, int resId, List<BaseSearch> objects,List<CompanyContactListEntity> contact,
                                 List<Doctor> doctors ,SearchContactActivity.RefreshDataInterface refreshDataInterface,String seachdoctor) {
         super(context, resId, objects);
@@ -47,6 +50,9 @@ public class SearchContactAdapter extends BaseCustomAdapter<BaseSearch>{
     }
     public void setDoctors(List<Doctor> doctors){
         this.doctors = doctors;
+    }
+    public void setShowSelect(boolean showSelect){
+        this.showSelect = showSelect;
     }
     @Override
     protected BaseViewHolder getViewHolder() {
@@ -106,6 +112,23 @@ public class SearchContactAdapter extends BaseCustomAdapter<BaseSearch>{
                 holder.tv_leader_position_right.setVisibility(View.GONE);
 //            ImageLoader.getInstance().displayImage(people.headPicFileName, holder.head_icon);
             CustomImagerLoader.getInstance().loadImage(holder.head_icon,people.headPicFileName);
+            holder.btn_radio.setBackgroundResource(R.drawable.icon_pay_unselect);
+            if (people.select){
+                //   holder.btn_radio.setSelected(true);
+                holder.btn_radio.setBackgroundResource(R.drawable.icon_pay_selected);
+            }else {
+                //  holder.btn_radio.setSelected(false);
+
+            }
+
+            if (people.haveSelect==true||people.userId.equals(SharedPreferenceUtil.getString(mContext, "id", ""))){
+                holder.btn_radio.setBackgroundResource(R.drawable.icon_pay_disable);
+            }
+            if (showSelect){
+                holder.btn_radio.setVisibility(View.VISIBLE);
+            }else {
+                holder.btn_radio.setVisibility(View.GONE);
+            }
         }else if(base instanceof Doctor){
             Doctor doctor = (Doctor) base;
             holder.tv_name_leader.setText(doctor.name);
@@ -177,5 +200,7 @@ public class SearchContactAdapter extends BaseCustomAdapter<BaseSearch>{
         TextView tv_hosorcom;
         @Bind(R.id.rl_below)
         RelativeLayout rl_below;
+        @Bind(R.id.btn_radio)
+        RadioButton btn_radio;
     }
 }

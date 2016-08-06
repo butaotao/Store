@@ -16,13 +16,16 @@ import com.dachen.common.async.SimpleResultListener;
 import com.dachen.common.utils.ToastUtil;
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.adapter.ChoiceDoctorForChatAdapter;
+import com.dachen.dgroupdoctorcompany.archive.ArchiveUtils;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.dgroupdoctorcompany.db.dbdao.DoctorDao;
 import com.dachen.dgroupdoctorcompany.db.dbentity.Doctor;
 import com.dachen.dgroupdoctorcompany.im.activity.Represent2DoctorChatActivity;
+import com.dachen.dgroupdoctorcompany.im.activity.RepresentGroupChatActivity;
 import com.dachen.dgroupdoctorcompany.utils.ExitActivity;
 import com.dachen.dgroupdoctorcompany.views.InputDialog;
 import com.dachen.imsdk.adapter.MsgMenuAdapter;
+import com.dachen.imsdk.archive.entity.ArchiveItem;
 import com.dachen.imsdk.db.dao.ChatGroupDao;
 import com.dachen.imsdk.entity.GroupInfo2Bean.Data;
 import com.dachen.imsdk.net.SessionGroup;
@@ -30,6 +33,8 @@ import com.dachen.imsdk.net.SessionGroup.SessionGroupCallback;
 import com.dachen.imsdk.service.ImRequestManager;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -62,7 +67,7 @@ public class ChoiceDoctorForChatActivity extends BaseActivity {
     LinearLayout layout_search;
     private boolean mShare;
     private String msgId;
-
+    ArchiveItem mItem;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,10 +76,10 @@ public class ChoiceDoctorForChatActivity extends BaseActivity {
         setTitle("选择联系人");
         where = this.getIntent().getStringExtra("where");
         type = this.getIntent().getStringExtra("type");
-        from = this.getIntent().getIntExtra("from",TogetherVisitActivity.MODE_FROM_VIST_LIST);
+        from = this.getIntent().getIntExtra("from", TogetherVisitActivity.MODE_FROM_VIST_LIST);
         mShare = getIntent().getBooleanExtra("share", false);
         msgId = getIntent().getStringExtra(MsgMenuAdapter.INTENT_EXTRA_MSG_ID);
-
+        mItem = (ArchiveItem) getIntent().getSerializableExtra(ArchiveUtils.INTENT_KEY_ARCHIVE_ITEM);
         if(null != where && "AddSignInActivity".equals(where)){
             setTitle("选择客户");
         }
@@ -266,8 +271,21 @@ public class ChoiceDoctorForChatActivity extends BaseActivity {
         public void onGroupInfo(Data data, int what) {
             ChatGroupDao dao=new ChatGroupDao();
             dao.saveOldGroupInfo(data);
+
             if (mShare) {
-                ImRequestManager.forwardMsg(msgId,data.gid, 0, new ShareResultListener());
+
+                ArrayList<Data.UserInfo> users = null;
+                if (data.userList != null)
+                    users = new ArrayList<>(Arrays.asList(data.userList));
+                    //转发信息
+                    if (mItem!=null){
+                        //   ImRequestManager.forwardMsg(mItem.po.msgId, data.gid, 0, new ShareResultListener());
+                        HashMap<String, Object> params = new HashMap<>();
+                        params.put("share_files",mItem);
+                        RepresentGroupChatActivity.openUI(mThis, data.gname, data.gid, users, params);
+                    }else {
+                        ImRequestManager.forwardMsg(msgId, data.gid, 0, new ShareResultListener());
+                    }
             } else {
                 Represent2DoctorChatActivity.openUI(mThis, data.gname, data.gid, userId);
                 finish();

@@ -1,5 +1,6 @@
 package com.dachen.dgroupdoctorcompany.activity;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -16,16 +17,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.dachen.common.utils.ToastUtil;
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.dgroupdoctorcompany.base.UserLoginc;
+import com.dachen.dgroupdoctorcompany.entity.CheckPhoneOnSys;
 import com.dachen.dgroupdoctorcompany.entity.Void;
 import com.dachen.dgroupdoctorcompany.utils.UserUtils;
 import com.dachen.dgroupdoctorcompany.views.CustomDialog;
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
 import com.dachen.medicine.common.utils.SystemUtils;
 import com.dachen.medicine.common.utils.ToastUtils;
+import com.dachen.medicine.config.UserInfo;
 import com.dachen.medicine.entity.LoginRegisterResult;
 import com.dachen.medicine.entity.Result;
 import com.dachen.medicine.net.HttpManager;
@@ -93,7 +97,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,Ht
 
 	private void initViews() {
 		mSendAgainBtn.setText(R.string.get_auth_code);
-		setTitle("注册");
+		setTitle("修改手机号码");
 		mNextStepBtn.setBackgroundResource(R.drawable.btn_blue_all_9ddcff);
 		mNextStepBtn.addTextChangedListener(new TextWatcher() {
 			@Override
@@ -130,58 +134,58 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,Ht
 	void onNextStepBtnClicked() {
 		nextStep2();
 	}
-	
+
 	@Nullable
 	@OnClick(R.id.rl_back)
 	void onBackStepBtnClicked() {
 		doBack();
 	}
-	
+
 	@Nullable
 	@OnClick(R.id.get_call_code)
 	void onGetCallCodeClicked() {
 		sendAgain(VOICECODE);
 	}
-		
+
 	private void sendAgain(int smsOrVoice)
 	{
 		String phoneNumber = mPhoneNumEdit.getText().toString().trim();
+
 		if (TextUtils.isEmpty(phoneNumber)) {
-			ToastUtils.showToast(this, "请输入正确的手机号");
+			mPhoneNumEdit.requestFocus();
+			ToastUtils.showToast(this,getResources().getString(
+					R.string.toast_verify_phone_null));
 			return;
 		}
-		//验证号码真实，去掉
-//		if (!StringUtils.isMobileNumber(phoneNumber)) {
-//			mPhoneNumEdit.requestFocus();
-//			mPhoneNumEdit.setError(StringUtils.editTextHtmlErrorTip(RegisterActivity.this, R.string.phone_number_format_error));
-//			return;
-//		}
+		if (phoneNumber.length()<11) {
+			ToastUtils.showToast(this, getResources().getString(
+					R.string.toast_verify_phone_length));
+			return;
+		}
+
 		if(!clicked){
 			clicked = true;
 			verifyTelephone(phoneNumber,smsOrVoice);
 		}
 	}
-	
+
 	/* 验证该号码有没有注册 */
 	private void verifyTelephone(final String phoneNumber,final int smsOrVoice) {
-		final String userType = Constants.USER_TYPE;
-
-		Map<String, String> params = new HashMap<String, String>();
-		params.put("telephone", phoneNumber);
-		params.put("userType", userType);
-		final String requestTag = "verifyTelephone";
-		HashMap<String, String> interfaces = new HashMap<String, String>();
-		interfaces.put("interface1", Constants.VERIFY_TELEPHONE);
-
-		new HttpManager().post(this, interfaces,
-				Void.class, params, new HttpManager.OnHttpListener<Result>() {
+		showLoadingDialog();
+		HashMap<String,String> maps = new HashMap<>();
+		maps.put("access_token", UserInfo.getInstance(this).getSesstion());
+		maps.put("newPhone", phoneNumber);
+		new HttpManager().post(this, Constants.DRUG +"drugCompanyEmployee/checkNewPhoneIfOnSystem", CheckPhoneOnSys.class,
+				maps, new HttpManager.OnHttpListener<Result>() {
 					@Override
 					public void onSuccess(Result result) {
-						if (result == null) {
-							clicked = false;
-							ToastUtils.showToast(RegisterActivity.this, getResources().getString(R.string.data_exception));
-							return;
-						}
+						if (result.resultCode ==1){
+							CheckPhoneOnSys sys = (CheckPhoneOnSys)result;
+							if (sys.data==1){
+								closeLoadingDialog();
+								ToastUtils.showToast(RegisterActivity.this, "该手机号已被绑定或使用，请更换新号码重试");
+								return;
+							}
 						if (result.getResultCode() == 1) {// 手机号没有被注册,那么就发送验证码
 
 							mSendAgainBtn.setEnabled(false);
@@ -196,33 +200,13 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,Ht
 							}
 
 						} else if (result.getResultCode() == 0) {// 手机号已经被注册
+							closeLoadingDialog();
 							clicked = false;
 							if (!TextUtils.isEmpty(result.getResultMsg())) {
 								ToastUtils.showToast(RegisterActivity.this, result.getResultMsg());
-							} else {
-								ToastUtils.showToast(RegisterActivity.this, getResources().getString(R.string.telphone_already_rigister));
 							}
-						} else if(result.getResultCode() == 100){//手机号未从后台导入
-							clicked = false;
-							String msg = result.getResultMsg();
-							if(TextUtils.isEmpty(msg)){
-								msg = "注册错误";
-							}
-							CustomDialog.Builder builder = new CustomDialog.Builder(RegisterActivity.this,new CustomDialog.CustomClickEvent(){
-
-
-								@Override
-								public void onClick(CustomDialog customDialog) {
-									customDialog.dismiss();
-								}
-
-								@Override
-								public void onDismiss(CustomDialog customDialog) {
-									customDialog.dismiss();
-								}
-							}).setTitle("提示").setMessage(msg).setPositive("知道了");
-							builder.create().show();
-						}else {// 错误
+						}  else {// 错误
+							closeLoadingDialog();
 							clicked = false;
 							if (!TextUtils.isEmpty(result.getResultMsg())) {
 								ToastUtils.showToast(RegisterActivity.this, result.getResultMsg());
@@ -230,6 +214,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,Ht
 								ToastUtils.showToast(RegisterActivity.this, getResources().getString(R.string.data_exception));
 							}
 						}
+					}
 					}
 
 					@Override
@@ -239,9 +224,11 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,Ht
 
 					@Override
 					public void onFailure(Exception e, String errorMsg, int s) {
+						closeLoadingDialog();
 						clicked = false;
 					}
-				}, 3);
+				},
+				false, 1);
 	}
 
 	/**
@@ -260,6 +247,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,Ht
 				Void.class, params, new HttpManager.OnHttpListener<Result>() {
 					@Override
 					public void onSuccess(Result result) {
+						closeLoadingDialog();
 						if (result != null && result.getResultCode() == 1) {// 发送成功
 							ToastUtils.showToast(RegisterActivity.this, "验证码已发送，请注意查收");
 							//语音验证码不可点击，直到120秒后
@@ -280,6 +268,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,Ht
 
 					@Override
 					public void onFailure(Exception e, String errorMsg, int s) {
+						closeLoadingDialog();
 						ToastUtils.showToast(RegisterActivity.this, getResources().getString(R.string.get_auth_code_failed));
 						mReckonHandler.removeCallbacksAndMessages(null);
 						mReckonHandler.sendEmptyMessage(0x2);
@@ -298,12 +287,11 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,Ht
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("telephone", phoneNumber);
 		params.put("templateId", templateId);// 短信模板。
-        /*HashMap<String, String> interfaces = new HashMap<String, String>();
-        interfaces.put("interface1","user/preResetPasswordVoiceCode");*/
 		new HttpManager().post(this, "/sms/randcode/getVoiceCode",
 				Void.class, params, new HttpManager.OnHttpListener<Result>() {
 					@Override
 					public void onSuccess(Result result) {
+						closeLoadingDialog();
 						if (result != null && result.getResultCode() == 1) {// 发送成功
 							ToastUtils.showToast(RegisterActivity.this, "语音验证码已发送，请注意接听电话");
 							//语音验证码不可点击，直到120秒后
@@ -316,12 +304,10 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,Ht
 						}
 						clicked = false;
 					}
-
 					@Override
 					public void onSuccess(ArrayList<Result> response) {
 
 					}
-
 					@Override
 					public void onFailure(Exception e, String errorMsg, int s) {
 						ToastUtils.showToast(RegisterActivity.this, "获取语音验证码失败");
@@ -353,219 +339,15 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,Ht
 		}
 	};
 
-	private void nextStep() {
-		final String phoneNumber = mPhoneNumEdit.getText().toString().trim();
-		final String password = mPasswordEdit.getText().toString().trim();
-		String confirmPassword = mConfirmPasswordEdit.getText().toString().trim();
-		if (TextUtils.isEmpty(phoneNumber)) {
-			ToastUtils.showToast(this, "请输入正确的手机号");
-			return;
-		}
 
-		if(TELEPHONE_AUTH)
-		{
-			//验证号码真实，去掉
-//			if (!StringUtils.isMobileNumber(phoneNumber)) {
-//				mPhoneNumEdit.requestFocus();
-//				mPhoneNumEdit.setError(StringUtils.editTextHtmlErrorTip(this, R.string.phone_number_format_error));
-//				return;
-//			}
-		}
 
-		String authCode = mAuthCodeEdit.getText().toString().trim();
-		if (TextUtils.isEmpty(authCode)) {
-			 mAuthCodeEdit.requestFocus();
-			 ToastUtils.showToast(this, getResources().getString(R.string.auth_code_input));
-//			 mAuthCodeEdit.setError(StringUtils.editTextHtmlErrorTip(this, R.string.auth_code_input));
-			return;
-		}
-
-		if (TextUtils.isEmpty(password) || password.length() < 6) {
-			mPasswordEdit.requestFocus();
-			ToastUtils.showToast(this, getResources().getString(R.string.password_empty_error));
-//			mPasswordEdit.setError(StringUtils.editTextHtmlErrorTip(this, R.string.password_empty_error));
-			return;
-		}
-		if (TextUtils.isEmpty(confirmPassword) || confirmPassword.length() < 6 || confirmPassword.length() > 18) {
-			mConfirmPasswordEdit.requestFocus();
-			ToastUtils.showToast(this, getResources().getString(R.string.confirm_password_empty_error));
-//			mConfirmPasswordEdit.setError(StringUtils.editTextHtmlErrorTip(this, R.string.confirm_password_empty_error));
-			return;
-		}
-		if (!confirmPassword.equals(password)) {
-			mConfirmPasswordEdit.requestFocus();
-			ToastUtils.showToast(this, getResources().getString(R.string.password_confirm_password_not_match));
-//			mConfirmPasswordEdit.setError(StringUtils.editTextHtmlErrorTip(this, R.string.password_confirm_password_not_match));
-			return;
-		}
-
-		if(TELEPHONE_AUTH)
-		{
-			verifyCode(phoneNumber,authCode,password,userType);
-//			register(phoneNumber,password,userType);
-		}
-		else {
-//			verifyCode(phoneNumber,authCode,password,userType);
-			register(phoneNumber,password,userType);
-		}
-	}
-
-	/**
-	 * 是否请求了验证码
-	 *
-	 * @return
-	 */
-	private void verifyCode(final String phoneNumber,final String randcode,final String password,final String userType) {
-		final String templateId = "25118";
-		HashMap<String, String> params = new HashMap<String, String>();
-		params.put("telephone", phoneNumber);
-		params.put("randcode", randcode);
-		params.put("templateId", templateId);// 短信模板。
-		HashMap<String, String> interfaces = new HashMap<String, String>();
-		interfaces.put("interface1", Constants.VERIFY_CODE);
-
-		new HttpManager().post(this, interfaces,
-				Void.class, params, new HttpManager.OnHttpListener<Result>() {
-					@Override
-					public void onSuccess(Result result) {
-						if (result != null && result.getResultCode() == 1) {// 发送成功
-							register(phoneNumber, password, userType);
-						} else {
-							ToastUtils.showToast(RegisterActivity.this, getResources().getString(R.string.auth_code_error));
-						}
-					}
-
-					@Override
-					public void onSuccess(ArrayList<Result> response) {
-
-					}
-
-					@Override
-					public void onFailure(Exception e, String errorMsg, int s) {
-						ToastUtils.showToast(RegisterActivity.this, getResources().getString(R.string.auth_code_error));
-					}
-				}, 3);
-	}
-
-	private void register(final String phoneNumber,final String password,final String userType) {
-		HashMap<String, String> params = new HashMap<String, String>();
-		params.put("telephone",phoneNumber);
-		params.put("password", password);
-		params.put("userType", userType);
-		params.put("name", phoneNumber);
-		HashMap<String, String> interfaces = new HashMap<String, String>();
-		interfaces.put("interface1", Constants.USER_REGISTER);
-		new HttpManager().post(this, interfaces,
-				LoginRegisterResult.class, params, new HttpManager.OnHttpListener<Result>() {
-					@Override
-					public void onSuccess(Result result) {
-						if (result == null) {
-							ToastUtils.showToast(RegisterActivity.this, getResources().getString(R.string.register_error));
-							return;
-						}
-						if (result.getResultCode() == Result.CODE_SUCCESS) {// 注册成功
-							LoginRegisterResult logins = (LoginRegisterResult) result;
-
-							UserLoginc.setUserInfo(logins, RegisterActivity.this);
-
-							if (null != logins.data.getUser().getUserId() && null != logins.data.getUser().getTelephone()
-									&& null != logins.data.getUser().getName()) {
-								closeLoadingDialog();
-								autoLogin();
-							} else {// 失败
-								closeLoadingDialog();
-								if (TextUtils.isEmpty(result.getResultMsg())) {
-									ToastUtils.showToast(RegisterActivity.this, getResources().getString(R.string.register_error));
-								} else {
-									ToastUtils.showToast(RegisterActivity.this, result.getResultMsg());
-								}
-							}
-						} else {// 失败
-							closeLoadingDialog();
-							if (TextUtils.isEmpty(result.getResultMsg())) {
-								ToastUtils.showToast(RegisterActivity.this, getResources().getString(R.string.register_error));
-							} else {
-								ToastUtils.showToast(RegisterActivity.this, result.getResultMsg());
-							}
-						}
-					}
-
-					@Override
-					public void onSuccess(ArrayList<Result> response) {
-
-					}
-
-					@Override
-					public void onFailure(Exception e, String errorMsg, int s) {
-						ToastUtils.showToast(RegisterActivity.this, getResources().getString(R.string.auth_code_error));
-					}
-				}, 3);
-	}
-
-	/**
-	 * 注册后自动登录
-	 */
-	private void autoLogin() {
-		intent = new Intent();
-		final String userId = SharedPreferenceUtil.getString(RegisterActivity.this,"id", "");
-		final String access_token = SharedPreferenceUtil.getString(RegisterActivity.this,"session", "");
-		if (TextUtils.isEmpty(userId)) {
-			return;
-		}
-		HashMap<String, String> params = new HashMap<String, String>();
-		params.put("userId", userId);
-		params.put("serial", SystemUtils.getDeviceId(this));
-		params.put("access_token", access_token);
-		HashMap<String, String> interfaces = new HashMap<String, String>();
-
-		interfaces.put("interface1", Constants.USER_LORGIN_AUTO);
-		new HttpManager().post(this, interfaces,
-				LoginRegisterResult.class, params, new HttpManager.OnHttpListener<Result>() {
-					@Override
-					public void onSuccess(Result result) {
-						if (result == null) {
-							closeLoadingDialog();
-							return;
-						}
-						LoginRegisterResult logins = (LoginRegisterResult) result;
-						boolean success = false;
-						if (result.getResultCode() == Result.CODE_SUCCESS) {
-							if (null != logins.data.getUser().getUserId() && null != logins.data.getUser().getTelephone()
-									&& null != logins.data.getUser().getName())
-								success = true;// 设置登陆用户信息
-						}
-						UserLoginc.setUserInfo(logins, RegisterActivity.this);
-
-						if (success) {// 登陆成功
-							showLoadingDialog();
-							UserUtils.logingetUserType(RegisterActivity.this);
-						} else {// 登录失败
-							String message = TextUtils.isEmpty(result.getResultMsg()) ? getString(R.string.login_failed) : result.getResultMsg();
-							ToastUtils.showToast(RegisterActivity.this, message);
-						}
-						closeLoadingDialog();
-					}
-
-					@Override
-					public void onSuccess(ArrayList<Result> response) {
-
-					}
-
-					@Override
-					public void onFailure(Exception e, String errorMsg, int s) {
-						closeLoadingDialog();
-					}
-				}, 3);
-
-	}
 	@Override
 	public void onBackPressed() {
 		doBack();
 	}
 
 	private void doBack() {
-		Intent intent = new Intent(this,LoginActivity.class);
-		startActivity(intent);
+
 		finish();
 	}
 
@@ -578,58 +360,38 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,Ht
 
 		if(TELEPHONE_AUTH)
 		{
-			//验证号码真实，去掉
-//			if (!StringUtils.isMobileNumber(phoneNumber)) {
-//				mPhoneNumEdit.requestFocus();
-//				mPhoneNumEdit.setError(StringUtils.editTextHtmlErrorTip(this, R.string.phone_number_format_error));
-//				return;
-//			}
 		}
 		String authCode = mAuthCodeEdit.getText().toString().trim();
 		if (TextUtils.isEmpty(authCode)) {
 			mAuthCodeEdit.requestFocus();
 			ToastUtils.showToast(RegisterActivity.this, getResources().getString(R.string.auth_code_input));
-//          mAuthCodeEdit.setError(StringUtils.editTextHtmlErrorTip(this, R.string.auth_code_input));
 			return;
 		}
 
-		if(TELEPHONE_AUTH)
-		{
-			verifyCode2(phoneNumber,authCode);
-//			register(phoneNumber,password,userType);
-		}
-		else {
-//			verifyCode(phoneNumber,authCode,password,userType);
-			register2(phoneNumber);
-		}
-
+		changePhoneNum(phoneNumber, this, authCode);
 	}
-
-	/**
-	 * 是否请求了验证码
-	 *
-	 * @return
-	 */
-	private void verifyCode2(final String phoneNumber,final String randcode) {
-
-
-		final String templateId = "25118";
-		HashMap<String, String> params = new HashMap<String, String>();
-		params.put("telephone", phoneNumber);
-		params.put("randcode", randcode);
-		params.put("templateId", templateId);// 短信模板。
-		HashMap<String, String> interfaces = new HashMap<String, String>();
-		interfaces.put("interface1", Constants.VERIFY_CODE);
-
-		new HttpManager().post(this, interfaces,
-				Void.class, params, new HttpManager.OnHttpListener<Result>() {
+	public  void changePhoneNum(String phoneNum, final Activity context,String authCode ) {
+		//drugCompanyEmployee/modifyUserPhone
+		HashMap<String,String> maps = new HashMap<>();
+		maps.put("access_token", UserInfo.getInstance(context).getSesstion());
+		maps.put("newPhone", phoneNum);
+		maps.put("drugCompanyId", SharedPreferenceUtil.getString(context, "enterpriseId", ""));
+		maps.put("authCode", authCode);
+		new HttpManager().post(context, Constants.DRUG + "drugCompanyEmployee/modifyUserPhone", Result.class,
+				maps, new HttpManager.OnHttpListener<Result>() {
 					@Override
-					public void onSuccess(Result result) {
-						if (result != null && result.getResultCode() == 1) {// 发送成功
-							register2(phoneNumber);
-							ToastUtils.showToast(RegisterActivity.this, getResources().getString(R.string.auth_code_right));
+					public void onSuccess(Result response) {
+						if (response.resultCode == 1) {
+							ToastUtil.showToast(context, "修改手机号成功，请使用新手机号登录");
+							if (context instanceof BaseActivity) {
+								BaseActivity baseActivity = (BaseActivity) context;
+								baseActivity.closeLoadingDialog();
+							}
+							Intent intent = new Intent(context, LoginActivity.class);
+							context.startActivity(intent);
+							context.finish();
 						} else {
-							ToastUtils.showToast(RegisterActivity.this, "请输入正确的验证码");
+							ToastUtils.showToast(context, response.resultMsg);
 						}
 					}
 
@@ -640,17 +402,12 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,Ht
 
 					@Override
 					public void onFailure(Exception e, String errorMsg, int s) {
-						ToastUtils.showToast(RegisterActivity.this, getResources().getString(R.string.auth_code_error));
+
 					}
-				}, 3);
+				},
+				false, 1);
 	}
-	
-	private void register2(final String phoneNumber) {
-		Intent intent = new Intent(RegisterActivity.this, RegisterStep2Activity.class);
-		intent.putExtra("phoneNumber", phoneNumber);
-		startActivity(intent);
-		finish();
-	}
+
 
 	@Override
 	public void onClick(View v) {

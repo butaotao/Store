@@ -245,7 +245,15 @@ public class Params {
 		params.put("access_token", SharedPreferenceUtil.getString(context, "session", ""));
 		return params;
 	}
-
+	public static Map<String, String> getSinOftenPlace(Context context,String drugCompanyId) {
+		Map<String, String> params = getMapInstance();
+		params.put("access_token", SharedPreferenceUtil.getString(context, "session", ""));
+		params.put("drugCompanyId", drugCompanyId);
+		params.put("pageIndex","0");
+		params.put("pageSize","1000");
+		params.put("updateTime","0");
+		return params;
+	}
 	public static Map<String, String> getMedieDocParams(Context context, String bizId, int pageIndex, int pageSize) {
 		return getMedieDocParams(context, bizId, null, null, null, -1, pageIndex, pageSize);
 	}
