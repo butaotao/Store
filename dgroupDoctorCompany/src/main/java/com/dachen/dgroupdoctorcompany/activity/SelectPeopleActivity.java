@@ -597,6 +597,7 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
                         RepresentGroupChatActivity.openUI(mThis, data.gname, data.gid, users,params);
                     }else {
                         ImRequestManager.forwardMsg(msgId, data.gid, 0, new ShareResultListener());
+                        RepresentGroupChatActivity.openUI(mThis, data.gname, data.gid,users);
                     }
                 } else {
                     ChatActivityUtilsV2.openUI(mThis, gid, "10");
