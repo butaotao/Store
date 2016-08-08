@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    android:orientation="vertical">
+     >
 
-    <RelativeLayout style="@style/ActionBar_Container">
+    <RelativeLayout style="@style/ActionBar_Container"
+        android:id="@+id/rl_title">
         <RelativeLayout
             android:id="@+id/rl_back"
             android:layout_width="wrap_content"
@@ -65,6 +66,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background"
+        android:layout_below="@+id/rl_title"
+        android:id="@+id/ll_list"
         android:orientation="vertical">
     <RelativeLayout
         android:layout_width="match_parent"
@@ -82,7 +85,7 @@
             android:layout_alignParentLeft="true"
             android:textColor="@color/white"
             android:layout_marginLeft="40dp"
-            android:textSize="28sp"/>
+            android:textSize="29sp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -90,7 +93,7 @@
             android:text="@string/null_info"
             android:id="@+id/tv_time"
             android:textColor="@color/white"
-            android:textSize="24sp"
+            android:textSize="18sp"
             android:layout_marginTop="15dp"
             android:layout_alignLeft="@+id/tv_week"
             android:layout_below="@+id/tv_week"/>
@@ -108,19 +111,31 @@
         android:layout_height="match_parent"
  >
     </ListView>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:id="@+id/rl_empty"
-                android:layout_height="match_parent">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:gravity="center"
-                    android:textColor="@color/color_aaaaaa"
-                    android:textSize="16sp"
-                    android:layout_height="match_parent"
-                    android:text="未设置签到提醒"/>
-            </RelativeLayout>
+
         </RelativeLayout>
     </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/rl_empty"
+        android:gravity="center"
+        android:layout_height="match_parent">
 
-</LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:textColor="@color/color_aaaaaa"
+            android:textSize="16sp"
+            android:id="@+id/tv_desemp"
+
+            android:layout_height="wrap_content"
+            android:text="未设置签到提醒"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/tv_desemp"
+            android:layout_centerHorizontal="true"
+
+            android:background="@drawable/icon_no_sign"/>
+    </RelativeLayout>
+</RelativeLayout>

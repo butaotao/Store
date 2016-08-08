@@ -167,13 +167,16 @@ public class ChatShareMsgActivity extends ImBaseActivity implements View.OnClick
                 @Override
                 public void onClick(View v) {
                     dialog.dimissDialog();
+                    ArrayList<GroupInfo2Bean.Data.UserInfo> userList = ChatActivityUtilsV2.getUserList(group);
                     if (null != msgId) {
                         forwardMsg(group.groupId);
+                        RepresentGroupChatActivity.openUI(mThis, group.name, group.groupId, userList);
                     } else {
                         HashMap<String, Object> params = new HashMap<>();
                         params.put("share_files", mItem);
-                        ArrayList<GroupInfo2Bean.Data.UserInfo> userList = ChatActivityUtilsV2.getUserList(group);
+
                         RepresentGroupChatActivity.openUI(ChatShareMsgActivity.this, group.name, group.groupId, userList,params);
+                        RepresentGroupChatActivity.openUI(mThis,  group.name, group.groupId,userList);
                     }
 
 
@@ -247,6 +250,7 @@ public class ChatShareMsgActivity extends ImBaseActivity implements View.OnClick
         };
         StringRequest req = new ImCommonRequest(PollingURLs.forwardMsg(),reqMap,listener,errorListener);
         VolleyUtil.getQueue(this).add(req);
+
     }
 
 }

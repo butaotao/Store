@@ -16,13 +16,13 @@ import android.widget.TextView;
 
 import com.baoyz.actionsheet.ActionSheet;
 import com.baoyz.actionsheet.ActionSheet.ActionSheetListener;
-import com.dachen.common.utils.Md5Util;
 import com.dachen.common.utils.QiNiuUtils;
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.app.CompanyApplication;
 import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.dgroupdoctorcompany.base.UserLoginc;
+import com.dachen.dgroupdoctorcompany.entity.LoginRegisterResult;
 import com.dachen.dgroupdoctorcompany.utils.UserUtils;
 import com.dachen.imsdk.ImSdk;
 import com.dachen.medicine.common.utils.MActivityManager;
@@ -31,7 +31,6 @@ import com.dachen.medicine.common.utils.ToastUtils;
 import com.dachen.medicine.config.ContextConfig;
 import com.dachen.medicine.config.ContextConfig.EnvironmentType;
 import com.dachen.medicine.config.UserInfo;
-import com.dachen.medicine.entity.LoginRegisterResult;
 import com.dachen.medicine.entity.Result;
 import com.dachen.medicine.net.HttpManager;
 import com.dachen.medicine.net.HttpManager.OnHttpListener;
@@ -213,7 +212,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
         final String userType = Constants.USER_TYPE;
         new HttpManager().post(this, Constants.LOGIN + "", LoginRegisterResult.class,
                 Params.getLoginParams(phoneNum, password, userType, this), loginListener,
-                false, 3);
+                false, 1);
 
     }
     public final boolean verifyPhoneIfNeed() {
@@ -328,7 +327,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
                 CompanyApplication.setInitContactList(2);
                 LoginRegisterResult logins = (LoginRegisterResult) entity;
                 UserLoginc.setUserInfo(logins, LoginActivity.this);
-                UserUtils.logingetUserType(LoginActivity.this);
+                Intent intent = new Intent(mThis, MainActivity.class);
+                intent.putExtra("login", "login");
+                mThis.startActivity(intent);
             }
         }
         @Override

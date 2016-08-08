@@ -3,10 +3,10 @@
     android:shape="rectangle"
     >
         <corners          
-              android:bottomLeftRadius="3dp"
-              android:bottomRightRadius="3dp"
-              android:topLeftRadius="3dp"
-              android:topRightRadius="3dp"/>
+              android:bottomLeftRadius="5dp"
+              android:bottomRightRadius="5dp"
+              android:topLeftRadius="5dp"
+              android:topRightRadius="5dp"/>
   <stroke android:width="0.5dp" android:color="@color/color_3cbaff"></stroke>
  <!-- 填充的颜色 -->
     <solid android:color="@color/color_3cbaff" />

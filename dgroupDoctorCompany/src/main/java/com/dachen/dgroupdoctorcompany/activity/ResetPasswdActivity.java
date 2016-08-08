@@ -13,11 +13,11 @@ import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.dgroupdoctorcompany.base.UserLoginc;
+import com.dachen.dgroupdoctorcompany.entity.LoginRegisterResult;
 import com.dachen.dgroupdoctorcompany.utils.UserUtils;
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
 import com.dachen.medicine.common.utils.SystemUtils;
 import com.dachen.medicine.common.utils.ToastUtils;
-import com.dachen.medicine.entity.LoginRegisterResult;
 import com.dachen.medicine.entity.Result;
 import com.dachen.medicine.net.HttpManager;
 import com.dachen.medicine.net.HttpManager.OnHttpListener;
@@ -130,7 +130,7 @@ public class ResetPasswdActivity extends BaseActivity implements
 		new HttpManager().post(this, Constants.RESET_PASSWD,
 				LoginRegisterResult.class, Params.getResetPasswordParams(phone,
 						userType, smsid, ranCode, mPasswordEdit.getText()
-								.toString().trim()), this, false, 3);
+								.toString().trim()), this, false, 1);
 
 	}
 

@@ -44,7 +44,7 @@ public class LoginGetUserInfo extends Result {
 		public Assistant assistant;
 		public Loc loc;
 		public LoginLog loginLog;
-	public String headPic;
+		public String headPic;
 		public ArrayList<Company> companys;
 		public User getUser() {
 			return user;

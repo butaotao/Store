@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dachen.dgroupdoctorcompany.R;
@@ -123,10 +122,11 @@ public class PreResetPasswdActivity extends BaseActivity implements
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("phone", phoneNumber);
 		params.put("userType", Constants.USER_TYPE);
-		HashMap<String, String> interfaces = new HashMap<String, String>();
-		interfaces.put("interface1","health/user/preResetPasswordVoiceCode");
-		new HttpManager().post(this, interfaces,
-				TelePhoneVerifyData.class, params, this, 1);
+
+
+		new HttpManager().post(this, Constants.DRUG+"drugCompanyEmployee/updatePassword", TelePhoneVerifyData.class,
+				params, this,
+				false, 1);
 	}
 
 

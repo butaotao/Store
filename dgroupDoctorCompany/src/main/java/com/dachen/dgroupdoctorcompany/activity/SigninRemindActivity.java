@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -37,6 +38,7 @@ public class SigninRemindActivity extends BaseActivity implements OnClickListene
     private ImageButton btn_add;
     SignInRemindAdapter adapter;
     RelativeLayout rl_empty;
+    LinearLayout ll_list;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +51,7 @@ public class SigninRemindActivity extends BaseActivity implements OnClickListene
         tv_time = getViewById(R.id.tv_time);
         remind_list = getViewById(R.id.remind_list);
         btn_add = getViewById(R.id.btn_add);
-
+        ll_list = (LinearLayout) findViewById(R.id.ll_list);
         rl_empty = (RelativeLayout) findViewById(R.id.rl_empty);
         rl_empty.setVisibility(View.GONE);
         long curTime = System.currentTimeMillis();
@@ -74,10 +76,13 @@ public class SigninRemindActivity extends BaseActivity implements OnClickListene
                 startActivity(intent);
             }
         });
+        rl_empty.setVisibility(View.GONE);
         if (lists.size()==0){
             rl_empty.setVisibility(View.VISIBLE);
+            ll_list.setVisibility(View.GONE);
         }else {
             rl_empty.setVisibility(View.GONE);
+            ll_list.setVisibility(View.VISIBLE);
         }
 //        link_service.setOnClickListener(this);
         btn_add.setOnClickListener(this);

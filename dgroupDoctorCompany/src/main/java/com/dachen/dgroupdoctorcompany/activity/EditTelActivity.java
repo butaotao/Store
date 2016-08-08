@@ -3,7 +3,9 @@ package com.dachen.dgroupdoctorcompany.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -36,7 +38,7 @@ public class EditTelActivity extends BaseActivity implements OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_tel);
-        setTitle("修改手机号");
+        setTitle("修改手机号码");
         init();
     }
 
@@ -55,6 +57,26 @@ public class EditTelActivity extends BaseActivity implements OnClickListener {
 
         link_service.setOnClickListener(this);
         next_btn.setOnClickListener(this);
+        password.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!TextUtils.isEmpty(s)) {
+                    next_btn.setBackgroundResource(R.drawable.btn_blue_all_3cbaff);
+                        return;
+                }
+                next_btn.setBackgroundResource(R.drawable.btn_blue_all_9ddcff);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     @Override
@@ -65,6 +87,7 @@ public class EditTelActivity extends BaseActivity implements OnClickListener {
                 if (TextUtils.isEmpty(password.getText().toString().trim())) {
                     ToastUtils.showToast(EditTelActivity.this, "密码不能为空");
                 } else {
+                    showLoadingDialog();
                     LoginLogic.loginRequest(tel,password.getText().toString().trim(),this,LoginLogic.EDITPHONE);
                 }
 

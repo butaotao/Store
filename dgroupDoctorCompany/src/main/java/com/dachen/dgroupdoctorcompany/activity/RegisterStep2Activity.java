@@ -19,13 +19,12 @@ import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.dgroupdoctorcompany.base.UserLoginc;
-import com.dachen.dgroupdoctorcompany.entity.Company;
 import com.dachen.dgroupdoctorcompany.entity.LoginGetUserInfo;
+import com.dachen.dgroupdoctorcompany.entity.LoginRegisterResult;
 import com.dachen.dgroupdoctorcompany.utils.UserUtils;
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
 import com.dachen.medicine.common.utils.SystemUtils;
 import com.dachen.medicine.common.utils.ToastUtils;
-import com.dachen.medicine.entity.LoginRegisterResult;
 import com.dachen.medicine.entity.Result;
 import com.dachen.medicine.net.HttpManager;
 import com.dachen.medicine.net.Params;
@@ -317,7 +316,7 @@ public class RegisterStep2Activity extends BaseActivity implements OnClickListen
 	private void logingetUserType( ) {
 
 		String s = Constants.DRUG+"drugCompanyEmployee/getLoginInfo";
-		new HttpManager().post(this, s, LoginGetUserInfo.class,
+		new HttpManager().post(this, s, LoginRegisterResult.class,
 				Params.getUserInfo(this), this,
 				false, 1);
 	}
@@ -325,8 +324,8 @@ public class RegisterStep2Activity extends BaseActivity implements OnClickListen
 	@Override
 	public void onSuccess(Result entity) {
 		if (entity.resultCode==1){
-			if (entity instanceof LoginGetUserInfo){
-				LoginGetUserInfo info = (LoginGetUserInfo) entity;
+			if (entity instanceof LoginRegisterResult){
+				LoginRegisterResult info = (LoginRegisterResult) entity;
 
 				UserLoginc.setUserInfos(info, RegisterStep2Activity.this);
 				Intent intent = new Intent(mThis, MainActivity.class);

@@ -42,6 +42,7 @@ import com.dachen.dgroupdoctorcompany.utils.CommonUitls;
 import com.dachen.dgroupdoctorcompany.utils.ExitActivity;
 import com.dachen.dgroupdoctorcompany.views.HorizontalListView;
 import com.dachen.imsdk.adapter.MsgMenuAdapter;
+import com.dachen.imsdk.consts.SessionType;
 import com.dachen.imsdk.db.dao.ChatGroupDao;
 import com.dachen.imsdk.entity.GroupInfo2Bean;
 import com.dachen.imsdk.net.SessionGroup;
@@ -99,7 +100,8 @@ public class SearchContactActivity extends BaseActivity implements OnClickListen
     List<BaseSearch> horizonList;
     Button btn_add;
     ArrayList<CompanyContactListEntity> groupUsers;
-    LinearLayout ll_horizonl;
+    private boolean inWork;
+    LinearLayout bottom_bar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -109,11 +111,10 @@ public class SearchContactActivity extends BaseActivity implements OnClickListen
         if (groupUsers == null) {
             groupUsers = new ArrayList<>();
         }
+
         mShare = getIntent().getBooleanExtra("share", false);
         seachdoctor = getIntent().getStringExtra("seachdoctor");
-        ll_horizonl = (LinearLayout) findViewById(R.id.ll_horizonl);
         selectMode  = getIntent().getIntExtra("selectMode", 0);
-        ll_horizonl.setVisibility(View.GONE);
 
         btn_add = (Button) findViewById(R.id.btn_add);
         btn_add.setOnClickListener(this);
@@ -199,11 +200,20 @@ public class SearchContactActivity extends BaseActivity implements OnClickListen
             }
         },seachdoctor);
         adapter.setisShowMore(true);
-        listview.setAdapter(adapter);
-        if (selectMode==1){
-            ll_horizonl.setVisibility(View.VISIBLE);
+        bottom_bar = (LinearLayout) findViewById(R.id.bottom_bar);
+        bottom_bar.setVisibility(View.GONE);
+        if (mShare||selectMode==1){
             adapter.setShowSelect(true);
+            bottom_bar.setVisibility(View.VISIBLE);
+        }else {
+            adapter.setShowSelect(false);
+            bottom_bar.setVisibility(View.GONE);
         }
+
+        listview.setAdapter(adapter);
+     //   if (selectMode==1){
+
+       // }
         et_search.setOnEditorActionListener(
                 new TextView.OnEditorActionListener() {
                     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -390,7 +400,31 @@ public class SearchContactActivity extends BaseActivity implements OnClickListen
         }else  if(v.getId() == R.id.tv_search){
             //ToastUtils.showToast(this,"搜索");
             finish();
+        }else  if(v.getId() == R.id.btn_add)   {
+          /*  if (inWork) return;
+            inWork = true;
+            if (listsHorizon.size() == 0) {
+                ToastUtil.showToast(this, "您未选择任何人");
+                return;
+            }
+//                CallIntent.getSelectData.getData(listsHorizon);
+            int groupType = getIntent().getIntExtra(INTENT_EXTRA_GROUP_TYPE, 0);
+            showLoadingDialog();
+
+            if (groupUsers.size() == 0)
+                groupTool.createGroup(getIdsList(false), "10");
+            else {
+                if (groupType == SessionType.session_double) {
+                    groupTool.createGroup(getIdsList(true), "10");
+                } else{
+                    groupTool.addGroupUser(getIdsList(false), getIntent().getStringExtra(INTENT_EXTRA_GROUP_ID));
+                }
+
+            }*/
+            finish();
         }
+
+
     }
 
     public void forSearch(){

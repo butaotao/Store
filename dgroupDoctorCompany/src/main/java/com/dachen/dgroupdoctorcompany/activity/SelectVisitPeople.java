@@ -252,13 +252,16 @@ public class SelectVisitPeople extends BaseActivity implements HttpManager.OnHtt
         mRadarViewGroup = (RadarViewGroup) this.findViewById(R.id.radarViewGroup);
         mBtSure = (Button) this.findViewById(R.id.btSure);
         mBtSure.setOnClickListener(this);
+        btn_choiceposition = (Button) this.findViewById(R.id.btn_choiceposition);
+        btn_choiceposition.setOnClickListener(this);
+        btn_choiceposition.setVisibility(View.VISIBLE);
         mIvPicture = (ImageView) mRadarViewGroup.findViewById(R.id.ivPicture);
         mTvAddress = (TextView) this.findViewById(R.id.tvAddress);
         mTvName = (TextView) this.findViewById(R.id.tvName);
         tvMediea = (TextView) this.findViewById(R.id.tvMediea);
         tvTimeCount = (TextView) this.findViewById(R.id.tvTimeCount);
         tvSure = (TextView) this.findViewById(R.id.tvSure);
-        this.findViewById(R.id.btn_choiceposition).setOnClickListener(this);
+
         this.findViewById(R.id.tvCancel).setOnClickListener(this);
     }
 
@@ -316,6 +319,7 @@ public class SelectVisitPeople extends BaseActivity implements HttpManager.OnHtt
         tvTimeCount.setText(""+time);
         tvSure.setText("等待"+initatorName+"确认...");
 //        mBtSure.setText("确定选择(1)人");
+        btn_choiceposition.setOnClickListener(this);
         mMyHandler.sendEmptyMessageDelayed(MSG_UPDATE_TIME,1000);
 
         if(!TextUtils.isEmpty(headPic)){
@@ -455,6 +459,7 @@ public class SelectVisitPeople extends BaseActivity implements HttpManager.OnHtt
                     ToastUtil.showToast(this,"请求成功");
                 }else if(response instanceof AddVisitGroup){
 //                    mBtSure.setText("确定选择(1)人");
+                    btn_choiceposition.setVisibility(View.GONE);
                     for(int i=0;i<mVisitPeopleList.size();i++){
                         VisitPeople visitPeople = mVisitPeopleList.get(i);
                         mRadarViewGroup.removeCircleView(visitPeople);
@@ -548,8 +553,9 @@ public class SelectVisitPeople extends BaseActivity implements HttpManager.OnHtt
 
                 Set<VisitPeople> set = new HashSet<>();
                 set.addAll(mVisitPeopleList);
-                int size = set.size()+1;
-//                mBtSure.setText("确定选择("+size+")人");
+                int size = set.size();
+                mBtSure.setText("确定选择("+size+")人");
+                btn_choiceposition.setVisibility(View.GONE);
             }
 
         }
@@ -606,6 +612,7 @@ public class SelectVisitPeople extends BaseActivity implements HttpManager.OnHtt
             set.addAll(mVisitPeopleList);
             int size = set.size()+1;
 //            mBtSure.setText("确定选择("+size+")人");
+            btn_choiceposition.setVisibility(View.GONE);
             mRadarViewGroup.removeCircleView(visitPeople);
         }
     }

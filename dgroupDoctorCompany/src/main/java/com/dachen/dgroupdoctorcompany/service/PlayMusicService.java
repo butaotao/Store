@@ -22,6 +22,7 @@ import android.text.TextUtils;
 import com.dachen.common.utils.DeviceInfoUtil;
 import com.dachen.common.utils.ToastUtil;
 import com.dachen.dgroupdoctorcompany.app.CompanyApplication;
+import com.dachen.dgroupdoctorcompany.db.dbentity.Reminder;
 import com.dachen.medicine.common.utils.Alarm;
 import java.io.IOException;
 
@@ -50,10 +51,8 @@ public class PlayMusicService extends Service{
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (null!=intent){
             Bundle bundle= intent.getBundleExtra("alarm");
-            Alarm alarm;
 
             if (null!=bundle){
-                alarm = (Alarm) bundle.getSerializable("alarm");
                 if (  CompanyApplication.getMediaPlayer().isPlaying()) {
 
 
@@ -64,7 +63,7 @@ public class PlayMusicService extends Service{
 
 
                     try {
-                        CompanyApplication.getMediaPlayer().play(getSoundUri(this,alarm));
+                        CompanyApplication.getMediaPlayer().play(getSoundUri(this));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -75,7 +74,7 @@ public class PlayMusicService extends Service{
         }
         return super.onStartCommand(intent, flags, startId);
     }
-    public static Uri getSoundUri(Context context, Alarm alarm) {
+    public static Uri getSoundUri(Context context) {
 
         return Uri.parse("android.resource://" + context.getPackageName() + "/raw/" + "sign_add");
     }

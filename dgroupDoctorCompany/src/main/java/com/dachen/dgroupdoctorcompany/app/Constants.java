@@ -28,7 +28,7 @@ public class Constants {
     /**
      * 自动登录
      */
-    public static String USER_LORGIN_AUTO = "user/login/auto";
+    public static String USER_LORGIN_AUTO = DRUG+ "drugCompanyEmployee/login/auto";
 
     public static final int HTTP_REQUEST_NOT_LOGIN = 302;
     public static String USER_REGISTER = "user/register";
@@ -42,7 +42,7 @@ public class Constants {
 
     public static String LOGOUT = "user/logout";
     // 登录接口
-    public static final String LOGIN = "user/login";
+    public static final String LOGIN = DRUG + "drugCompanyEmployee/login";
     public static final String LOGINVERIFY = "login";
     public static final String XIAOMI = "user/registerDeviceToken";
     public static final String XIAOMIREMOVE = "user/removeDeviceToken";
@@ -92,7 +92,7 @@ public class Constants {
     /**
      * 重置密码
      */
-    public static String RESET_PASSWD = "user/resetPassword";
+    public static String RESET_PASSWD = DRUG+"drugCompanyEmployee/resetPassword\n";
     /**
      * 用户 - 验证重设密码的验证码
      */

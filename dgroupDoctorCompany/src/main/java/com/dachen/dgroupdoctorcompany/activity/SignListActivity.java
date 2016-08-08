@@ -2,7 +2,9 @@ package com.dachen.dgroupdoctorcompany.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -46,6 +48,8 @@ public class SignListActivity extends BaseActivity implements HttpManager.OnHttp
     private SignInListAdapter                   mAdapter;
     private int                                 pageIndex = 0;
     private int                                 pageSize = 20;
+    private String coordinate;
+    private String address;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +91,22 @@ public class SignListActivity extends BaseActivity implements HttpManager.OnHttp
         mAdapter = new SignInListAdapter(SignListActivity.this);
         mLvSign = mVSignin.getRefreshableView();
         mLvSign.setAdapter(mAdapter);
+        mLvSign.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(SignListActivity.this,MapDetailActivity.class);
+                if(!TextUtils.isEmpty(coordinate)&&coordinate.contains(",")){
+                    String[] array = coordinate.split(",");
+                    String latitude = array[0];
+                    String longitude = array[1];
+                    intent.putExtra("latitude", Double.valueOf(latitude));
+                    intent.putExtra("longitude", Double.valueOf(longitude));
+                } if (!TextUtils.isEmpty(address)){
+                    intent.putExtra("address",address);
+                }
+                startActivity(intent);
+            }
+        });
         mVSignin.setOnRefreshListener(this);
         mVSignin.setEmptyView(findViewById(R.id.empty_container));
         if(UserInfo.getInstance(SignListActivity.this).isMediePresent()){
@@ -229,8 +249,9 @@ public class SignListActivity extends BaseActivity implements HttpManager.OnHttp
 
             String strId = listVisitVo.id;
             String address = listVisitVo.address;
+            address = listVisitVo.address;
             long time = listVisitVo.time;
-            String coordinate = listVisitVo.coordinate;
+            coordinate = listVisitVo.coordinate;
             String remark = listVisitVo.remark;
             List<String> lable = listVisitVo.singedTag;
             Intent intent = new Intent(SignListActivity.this,AddSignInActivity.class);
@@ -257,10 +278,11 @@ public class SignListActivity extends BaseActivity implements HttpManager.OnHttp
             long time = listVisitVo.time;
             String name = listVisitVo.doctorName;
             String address = listVisitVo.address;
+            address = listVisitVo.address;
             String addressName = listVisitVo.addressName;
             String doctorname = listVisitVo.doctorName;
             String remark = listVisitVo.remark;
-            String coordinate = listVisitVo.coordinate;
+            coordinate = listVisitVo.coordinate;
             String doctorid = listVisitVo.doctorId;
             String state = listVisitVo.state;
             intent.putExtra("id", mid);

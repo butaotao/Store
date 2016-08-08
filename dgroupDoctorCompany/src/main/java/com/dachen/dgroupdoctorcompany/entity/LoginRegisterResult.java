@@ -8,6 +8,8 @@ import com.dachen.medicine.entity.Result;
 import com.dachen.medicine.entity.Settings;
 import com.dachen.medicine.entity.User;
 
+import java.util.ArrayList;
+
 public class LoginRegisterResult extends Result {
 	public LoginData data;
 
@@ -17,26 +19,31 @@ public class LoginRegisterResult extends Result {
 		private int expires_in;// 多少秒后过时
 		private String name;// 姓名
 		private String nickname;// 昵称
-		private String userId;
+		public String userId;
+		public String userName;
 		public int userType;
+		public String logo;
+		public String headPic;
 		public String telephone;
 		public int age;
 		public int sex;
 		public int status;
 		public String createTime;
-
-		private int companyId;// 公司Id
+		public ArrayList<Company> companys;
 		private Cv cv;
 
 		private Login login;
-		public User user;
+		public com.dachen.medicine.entity.User user;
 		public Settings settings;
 		public Doctor doctor;
 		public Assistant assistant;
 		public Loc loc;
 		public LoginLog loginLog;
-
-		public User getUser() {
+		public EnterpriseUser enterpriseUser;
+		public class EnterpriseUser{
+		public String companyName;
+		}
+		public com.dachen.medicine.entity.User getUser() {
 			return user;
 		}
 
@@ -204,13 +211,6 @@ public class LoginRegisterResult extends Result {
 			this.login = login;
 		}
 
-		public int getCompanyId() {
-			return companyId;
-		}
-
-		public void setCompanyId(int companyId) {
-			this.companyId = companyId;
-		}
 
 		public class Cv {
 			private String resumeId;
@@ -334,20 +334,6 @@ public class LoginRegisterResult extends Result {
 				this.offlineTime = offlineTime;
 			}
 
-		}
-
-		@Override
-		public String toString() {
-			return "LoginRegisterResult [_tk=" + _tk + ", access_token="
-					+ access_token + ", expires_in=" + expires_in + ", name="
-					+ name + ", nickname=" + nickname + ", userId=" + userId
-					+ ", userType=" + userType + ", telephone=" + telephone
-					+ ", age=" + age + ", sex=" + sex + ", status=" + status
-					+ ", createTime=" + createTime + ", companyId=" + companyId
-					+ ", cv=" + cv + ", login=" + login + ", user=" + user
-					+ ", settings=" + settings + ", doctor=" + doctor
-					+ ", assistant=" + assistant + ", loc=" + loc
-					+ ", loginLog=" + loginLog + "]";
 		}
 	}
 

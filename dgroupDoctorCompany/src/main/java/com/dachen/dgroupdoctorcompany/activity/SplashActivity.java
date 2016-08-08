@@ -15,12 +15,12 @@ import com.dachen.dgroupdoctorcompany.base.UserLoginc;
 import com.dachen.dgroupdoctorcompany.db.dbdao.CompanyContactDao;
 import com.dachen.dgroupdoctorcompany.db.dbdao.DoctorDao;
 import com.dachen.dgroupdoctorcompany.db.dbdao.RoleDao;
+import com.dachen.dgroupdoctorcompany.entity.LoginRegisterResult;
 import com.dachen.dgroupdoctorcompany.utils.UserUtils;
 import com.dachen.imsdk.ImSdk;
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
 import com.dachen.medicine.common.utils.ToastUtils;
 import com.dachen.medicine.config.UserInfo;
-import com.dachen.medicine.entity.LoginRegisterResult;
 import com.dachen.medicine.entity.Result;
 import com.dachen.medicine.net.HttpManager;
 
@@ -109,7 +109,7 @@ public class SplashActivity extends BaseActivity implements HttpManager.OnHttpLi
             final String userType = Constants.USER_TYPE;
             new HttpManager().post(this, Constants.USER_LORGIN_AUTO + "", LoginRegisterResult.class,
                     params, this,
-                    false, 3);
+                    false, 1);
         }else {
             startLoginActivity();
         }

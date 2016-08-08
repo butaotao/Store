@@ -38,6 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="36dp"
+        android:visibility="invisible"
         android:layout_below="@+id/rl_titlebar"
         android:layout_above="@+id/btSure"/>
 
@@ -76,7 +77,7 @@
                             android:layout_centerVertical="true"
                             android:id="@+id/iv_position"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="22dp"/>
+                            android:layout_marginLeft="15dp"/>
                         <TextView
                             android:id="@+id/tvAddress"
                             android:layout_width="wrap_content"
@@ -88,13 +89,18 @@
                             android:textSize="14sp"
                             android:ellipsize="end"
                             android:textColor="@color/white"
-                            android:layout_marginLeft="20dp"
+                            android:layout_marginLeft="10dp"
                             android:singleLine="true"/>
                         <Button android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:text="选择地址"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginBottom="3dp"
+                            android:layout_marginRight="6dp"
+                            android:textSize="14sp"
                             android:id="@+id/btn_choiceposition"
                             android:textColor="@color/white"
+                            android:background="@drawable/bulk_white"
                             android:layout_alignParentRight="true"
                             ></Button>
                     </RelativeLayout>
@@ -175,7 +181,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <com.dachen.dgroupdoctorcompany.views.RadarViewGroup
+                     <com.dachen.dgroupdoctorcompany.views.RadarViewGroup
                         android:id="@+id/radarViewGroup"
                         android:layout_width="match_parent"
                         android:layout_height="360dp">
@@ -188,7 +194,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:scaleType="fitXY"/>
-                    </com.dachen.dgroupdoctorcompany.views.RadarViewGroup>
+                   </com.dachen.dgroupdoctorcompany.views.RadarViewGroup>
 
                 </RelativeLayout>
 

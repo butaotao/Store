@@ -28,7 +28,7 @@ public class RadarView extends View {
 
     //每个圆圈所占的比例
     private static float[] circleProportion = {1 / 8f, 2 / 8f, 3 / 8f, 4 / 8f};
-    private int scanSpeed = 12;
+    private int scanSpeed = 1;
 
     private int currentScanningCount;//当前扫描的次数
     private int currentScanningItem;//当前扫描显示的item
@@ -48,7 +48,7 @@ public class RadarView extends View {
             scanAngle = (scanAngle + scanSpeed) % 360;
             matrix.postRotate(scanSpeed, mWidth / 2, mHeight / 2);
             invalidate();
-            postDelayed(run, 130);
+            postDelayed(run, 10);
             //开始扫描显示标志为true 且 只扫描一圈
             if (startScan && currentScanningCount <= (360 / scanSpeed)) {
                 if (iScanningListener != null && currentScanningCount % scanSpeed == 0

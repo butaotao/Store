@@ -1,8 +1,10 @@
 package com.dachen.dgroupdoctorcompany.base;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.text.TextUtils;
 
+import com.dachen.dgroupdoctorcompany.activity.MainActivity;
 import com.dachen.dgroupdoctorcompany.app.CompanyApplication;
 import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.db.dbdao.CompanyContactDao;
@@ -14,12 +16,11 @@ import com.dachen.dgroupdoctorcompany.entity.Company;
 import com.dachen.dgroupdoctorcompany.db.dbentity.DepAdminsList;
 import com.dachen.dgroupdoctorcompany.entity.DoctorsList;
 import com.dachen.dgroupdoctorcompany.entity.LoginGetUserInfo;
+import com.dachen.dgroupdoctorcompany.entity.LoginRegisterResult;
 import com.dachen.dgroupdoctorcompany.utils.GetAllDoctor;
-import com.dachen.dgroupdoctorcompany.utils.UserUtils;
 import com.dachen.imsdk.ImSdk;
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
 import com.dachen.medicine.config.UserInfo;
-import com.dachen.medicine.entity.LoginRegisterResult;
 import com.dachen.medicine.entity.Result;
 import com.dachen.medicine.entity.User;
 import com.dachen.medicine.net.HttpManager;
@@ -87,15 +88,20 @@ public class UserLoginc {
         User u = d.getUser();
         if(!TextUtils.isEmpty(d.getAccess_token())){
             ImSdk.getInstance().initUser(d.getAccess_token(), u.userId, u.name, u.nickname, u.headPicFileName);
+        }
+        setUserInfos(logins,mThis);
 
+    }
+    public static  void setUserInfos(LoginRegisterResult logins,Activity mThis,int type){
+        if ( type ==0 ){
+            setUserInfos(logins,mThis);
         }
     }
-
-    public static  void setUserInfos(LoginGetUserInfo logins,Activity mThis){
+    public static  void setUserInfos(LoginRegisterResult logins,Activity mThis){
         if (logins.data==null){
             return;
         }
-        DepAdminsListDao dao = new DepAdminsListDao(mThis);
+
         UserInfo.getInstance(CompanyApplication.getInstance()).setPackageName(mThis, "com.dachen.dgroupdoctorcompany");
         UserInfo.getInstance(CompanyApplication.getInstance()).setUserType(Constants.USER_TYPE);
         UserInfo.getInstance(CompanyApplication.getInstance()).setId(logins.data.userId);
@@ -103,7 +109,17 @@ public class UserLoginc {
         SharedPreferenceUtil.putString(CompanyApplication.getInstance(),"telephone", logins.data.telephone);
         SharedPreferenceUtil.putString(CompanyApplication.getInstance(), "username", logins.data.userName);
         ArrayList<Company> companys = logins.data.companys;
+        getCompanyInfo(companys,mThis);
+        String url = logins.data.logo;
+        SharedPreferenceUtil.putString(CompanyApplication.getInstance(),   "head_url", url);
+        SharedPreferenceUtil.putString(CompanyApplication.getInstance(), logins.data.headPic + "head_url", url);
+        if (!TextUtils.isEmpty(SharedPreferenceUtil.getString(mThis,"session",""))){
+            addDoctor(mThis,true,false);
+        }
+    }
+    public static void getCompanyInfo(ArrayList<Company> companys,Activity mThis){
         if (null!=companys&&companys.size()>0){
+            DepAdminsListDao dao = new DepAdminsListDao(mThis);
             Company c = companys.get(0);
             SharedPreferenceUtil.putString(CompanyApplication.getInstance(),"enterpriseId",c.companyId);
             SharedPreferenceUtil.putString(CompanyApplication.getInstance(),"enterpriseIds",c.companyId);
@@ -135,21 +151,7 @@ public class UserLoginc {
 
             }
         }
-
-
-
-
-        String url = logins.data.logo;
-        SharedPreferenceUtil.putString(CompanyApplication.getInstance(),   "head_url", url);
-        SharedPreferenceUtil.putString(CompanyApplication.getInstance(), logins.data.headPic + "head_url", url);
-        if (!TextUtils.isEmpty(SharedPreferenceUtil.getString(mThis,"session",""))){
-
-            addDoctor(mThis,true,false);
-        }
-
-
     }
-
     public static  void addDoctor(final Activity context, final boolean add,boolean showLoading){
         //enterprise/doctor/search
         if (showLoading){
@@ -179,11 +181,8 @@ public class UserLoginc {
                                     dao.addCompanyContact(doctor);
                                 }
                             }
-
-
                         }
                     }
-
                     @Override
                     public void onSuccess(ArrayList<Result> response) {
 

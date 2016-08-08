@@ -288,6 +288,7 @@ public class AddressList extends BaseFragment implements View.OnClickListener{
 			case R.id.layout_search1:
 				if (CompareDatalogic.isInitContact()) {
 					intent = new Intent(mActivity, SearchContactActivity.class);
+
 					startActivity(intent);
 				} else {
 					ToastUtils.showToast(mActivity, "通讯录初始化中...");

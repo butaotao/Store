@@ -80,7 +80,7 @@
             android:layout_centerVertical="true"
             android:gravity="center"
             android:minWidth="80dp"
-            android:textColor="@color/hyper_text"
+            android:textColor="@color/gray_time_text"
             android:textSize="16sp"
             android:text="@string/get_auth_code" />
 
@@ -126,15 +126,20 @@
         android:background="@drawable/btn_blue_all_3cbaff"
         android:layout_marginLeft="18dp"
         android:layout_marginRight="18dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:text="提交"
         android:textColor="@color/white"/>
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="10">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:layout_alignParentBottom="true"
         android:orientation="horizontal"
+        android:layout_marginBottom="20dp"
         android:gravity="center" >
 
         <TextView
@@ -158,5 +163,5 @@
             android:textSize="15sp" />
 
     </RelativeLayout>
-
+    </RelativeLayout>
 </LinearLayout>

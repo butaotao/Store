@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -93,6 +94,7 @@ public class SelfVisitActivity extends BaseActivity implements View.OnClickListe
     private double longitude;//经度
     private String mStrFloor = "";
     private String mStrAddress;
+    private String address;
     private String mId;
     private String coordinate;
     private String strTime;
@@ -111,6 +113,7 @@ public class SelfVisitActivity extends BaseActivity implements View.OnClickListe
     private boolean isSelectAddress;
     private boolean isOrigin = false;
     private TextView del_desp;
+    private LinearLayout ll_visit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,6 +136,8 @@ public class SelfVisitActivity extends BaseActivity implements View.OnClickListe
         tv_title_save.setVisibility(View.VISIBLE);
         tv_title_save.setOnClickListener(this);
         tv_title = getViewById(R.id.tv_title);
+        ll_visit = getViewById(R.id.ll_visit);
+        ll_visit.setOnClickListener(this);
         if(MODE_FROM_VIST_LIST_ITEM == mMode){
             tv_title.setText("拜访详情");
         }else if(MODE_FROM_SIGN == mMode || MODE_FROM_SIGN_LIST == mMode){
@@ -308,6 +313,23 @@ public class SelfVisitActivity extends BaseActivity implements View.OnClickListe
                 media_intent.putExtra("mediea", mStrMedia);
                 startActivityForResult(media_intent, REQUEST_SELECT_MEDIA);
                 break;
+            case R.id.ll_visit:
+                 if(MODE_FROM_VIST_LIST_ITEM == mMode|| MODE_FROM_SIGN_LIST == mMode){
+                     intent = new Intent(this,MapDetailActivity.class);
+                     if(!TextUtils.isEmpty(coordinate)&&coordinate.contains(",")){
+                         String[] array = coordinate.split(",");
+                         String latitude = array[0];
+                         String longitude = array[1];
+                         intent.putExtra("latitude", Double.valueOf(latitude));
+                         intent.putExtra("longitude", Double.valueOf(longitude));
+                     }
+                     if (!TextUtils.isEmpty(address)){
+                         intent.putExtra("address",address);
+                     }
+                      startActivity(intent);
+                    }
+
+                break;
         }
     }
 
@@ -385,6 +407,7 @@ public class SelfVisitActivity extends BaseActivity implements View.OnClickListe
                     VisitMember member = ((VisitMemberResponse) response).getData().getVisit();
                     long time = member.getTime();
                     mStrAddress = member.getAddress();
+                    address = member.getAddressName();
                     mStrFloor = member.getAddressName();
                     if (member.getDoctorName() != null) {
                         mStrDoctorName = member.getDoctorName();

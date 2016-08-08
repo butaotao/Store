@@ -124,11 +124,7 @@ public class SearchContactAdapter extends BaseCustomAdapter<BaseSearch>{
             if (people.haveSelect==true||people.userId.equals(SharedPreferenceUtil.getString(mContext, "id", ""))){
                 holder.btn_radio.setBackgroundResource(R.drawable.icon_pay_disable);
             }
-            if (showSelect){
-                holder.btn_radio.setVisibility(View.VISIBLE);
-            }else {
-                holder.btn_radio.setVisibility(View.GONE);
-            }
+
         }else if(base instanceof Doctor){
             Doctor doctor = (Doctor) base;
             holder.tv_name_leader.setText(doctor.name);
@@ -171,6 +167,11 @@ public class SearchContactAdapter extends BaseCustomAdapter<BaseSearch>{
 
             }
         });
+        if (showSelect){
+            holder.btn_radio.setVisibility(View.VISIBLE);
+        }else {
+            holder.btn_radio.setVisibility(View.GONE);
+        }
     }
     public void setPartSize(int partSize){
         this.partSize = partSize;

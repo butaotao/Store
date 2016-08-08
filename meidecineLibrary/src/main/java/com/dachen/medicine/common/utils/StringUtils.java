@@ -236,5 +236,16 @@ public class StringUtils {
 		}
 		return url;
 	}
+	public static boolean isNumeric(String str){
+		Pattern pattern = Pattern.compile("[0-9]*");
+		if (TextUtils.isEmpty(str)){
+			return false;
+		}
 
+		Matcher isNum = pattern.matcher(str.trim().replace(" ",""));
+		if( !isNum.matches() ){
+			return false;
+		}
+		return true;
+	}
 }

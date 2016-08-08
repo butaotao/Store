@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -96,6 +97,7 @@ public class JointVisitActivity extends BaseActivity implements View.OnClickList
     private double longitude;//经度
     private String mStrFloor="";
     private String mStrAddress;
+    private String address;
     private String mId;
     private String coordinate;
     private String strTime;
@@ -114,7 +116,7 @@ public class JointVisitActivity extends BaseActivity implements View.OnClickList
     private ImageView variety_arrow;
     private boolean isOrigin = false;
     private TextView  del_desp;
-
+    private LinearLayout ll_showmapdes;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -143,6 +145,8 @@ public class JointVisitActivity extends BaseActivity implements View.OnClickList
         tv_title.setText("客户拜访");}
         tvWeek = getViewById(R.id.tvWeek);
         tvDate = getViewById(R.id.tvDate);
+        ll_showmapdes = getViewById(R.id.ll_showmapdes);
+        ll_showmapdes.setOnClickListener(this);
         tv_time_location = getViewById(R.id.tv_time_location);
         tv_address = getViewById(R.id.tv_address);
         vSelect = getViewById(R.id.vSelect);
@@ -176,7 +180,7 @@ public class JointVisitActivity extends BaseActivity implements View.OnClickList
         mId = this.getIntent().getStringExtra("id");
         showLoadingDialog();
         new HttpManager().post(this, Constants.VISIT_DETAIL, VisitMemberResponse.class,
-                Params.getVisitDetail(JointVisitActivity.this,mId),
+                Params.getVisitDetail(JointVisitActivity.this, mId),
                 this, false, 4);
     }
 
@@ -221,6 +225,20 @@ public class JointVisitActivity extends BaseActivity implements View.OnClickList
                 media_intent.putExtra("mode",ChoiceMedieaActivity.MODE_SINGLE_VISIT);
                 media_intent.putExtra("mediea",mStrMedia);
                 startActivityForResult(media_intent,REQUEST_SELECT_MEDIA);
+                break;
+            case R.id.ll_showmapdes:
+                intent = new Intent(this,MapDetailActivity.class);
+                if(!TextUtils.isEmpty(coordinate)&&coordinate.contains(",")){
+                    String[] array = coordinate.split(",");
+                    String latitude = array[0];
+                    String longitude = array[1];
+                    intent.putExtra("latitude", Double.valueOf(latitude));
+                    intent.putExtra("longitude", Double.valueOf(longitude));
+                    intent.putExtra("address",address);
+                }
+
+
+                startActivity(intent);
                 break;
         }
     }
@@ -289,6 +307,7 @@ public class JointVisitActivity extends BaseActivity implements View.OnClickList
                     VisitMember member = ((VisitMemberResponse) response).getData().getVisit();
                     long time = member.getTime();
                     mStrAddress = member.getAddress();
+                    address = member.getAddressName();
                     mStrFloor = member.getAddressName();
                     mStrDoctorName = member.getDoctorName();
                     String remark = member.getRemark();

@@ -14,7 +14,7 @@
         android:layout_marginRight="10dp"
         android:gravity="center_vertical"
         android:text="搜索"
-        android:textColor="@color/color_1B9ADE"
+        android:textColor="@color/color_3cbaff"
         android:textSize="15sp" />
 
 

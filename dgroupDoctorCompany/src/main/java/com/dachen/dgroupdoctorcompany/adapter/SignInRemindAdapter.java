@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dachen.common.utils.TimeUtils;
+import com.dachen.common.utils.ToastUtil;
 import com.dachen.common.widget.UISwitchButton;
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.activity.AddSigninRemindActivity;
@@ -91,9 +92,12 @@ public class SignInRemindAdapter extends BaseAdapter{
 					info.isOpen = 0;
 				//	holder.open.setChecked(true);
 					holder.rl_item.setBackgroundColor(context.getResources().getColor(R.color.content_background));
+
 				} else {
 					info.isOpen = 1;
 					holder.rl_item.setBackgroundColor(context.getResources().getColor(R.color.white));
+					ToastUtil.showToast(context,"关闭提醒");
+
 					//holder.open.setChecked(false);
 				}
 				listSelected.set(arg0, info);
@@ -144,7 +148,7 @@ public class SignInRemindAdapter extends BaseAdapter{
 				return times;
 			}
 		}else {
-			return "永不";
+			return "不重复";
 		}
 	}
 }

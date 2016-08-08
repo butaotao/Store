@@ -37,7 +37,7 @@
             android:layout_height="match_parent"
             android:layout_toRightOf="@id/img_erweima"
             android:gravity="center_vertical"
-            android:text="修改手机号"
+            android:text="修改手机号码"
             android:textColor="@color/bindcard_gray"
             android:textSize="@dimen/text_size_myinfo_16" />
 

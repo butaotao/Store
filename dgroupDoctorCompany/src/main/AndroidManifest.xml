@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.dachen.dgroupdoctorcompany"
-    android:versionCode="180"
-    android:versionName="1.4080602.163">
+    android:versionCode="164"
+    android:versionName="1.4080603.164">
 <!--
     android:versionCode="161"
     android:versionName="1.4070706.161">-->
@@ -56,7 +56,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:replace="android:allowBackup,android:theme">
+        tools:replace="android:allowBackup,android:theme,android:label">
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="56cfc91567e58ec110000390" />
@@ -122,6 +122,11 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.SiginDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MapDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
@@ -605,6 +610,7 @@
         <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
              App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
         <service android:name="com.dachen.dgroupdoctorcompany.service.VersionUpdateService"/>
+        <service android:name="com.dachen.dgroupdoctorcompany.service.PlayMusicService"/>
 
         <!-- 第三方相关 :接收Push消息（注册、Push消息、Push连接状态、标签，LBS上报结果）广播 -->
         <receiver android:name="com.dachen.dgroupdoctorcompany.receiver.HwPushReceiver" >

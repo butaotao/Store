@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import com.dachen.dgroupdoctorcompany.db.SQLiteHelper;
 import com.dachen.dgroupdoctorcompany.entity.CompanyContactListEntity;
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
+import com.dachen.medicine.common.utils.StringUtils;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
@@ -228,10 +229,21 @@ public class CompanyContactDao {
             builder.limit(50l).offset((pageNo - 1) * 50l);
             Where<CompanyContactListEntity, Integer> where = builder.where();
             if (name.equals("1")){
+                builder.orderBy("name", true);
                  where.and(where.eq("userloginid", loginid), where.like("name", "%" + name + "%"));
             }else {
-                where.or(where.and(where.eq("userloginid", loginid), where.like("name", "%" + name + "%")),
-                        where.and(where.eq("userloginid", loginid), where.like("telephone", "%" + name + "%")));
+                boolean isNunicodeDigits= StringUtils.isNumeric(name);
+                if (isNunicodeDigits){
+                    builder.orderBy("telephone", true);
+                    where.or(where.and(where.eq("userloginid", loginid), where.like("telephone", "%" + name + "%"))
+                            ,where.and(where.eq("userloginid", loginid), where.like("name", "%" + name + "%"))
+                            );
+                }else {
+                    builder.orderBy("name", true);
+                    where.or(where.and(where.eq("userloginid", loginid), where.like("name", "%" + name + "%")),
+                            where.and(where.eq("userloginid", loginid), where.like("telephone", "%" + name + "%")));
+                }
+
             }/*else {
                 where.or(where.and(where.eq("userloginid", loginid), where.like("name", "%" + name + "%")),
                         where.and(where.eq("userloginid", loginid), where.like("telephone", "%" + name + "%")));
@@ -242,10 +254,10 @@ public class CompanyContactDao {
             if (null != where.query()) {
                 entities.addAll(builder.distinct().query());
             }
-            if (entities.size() > 1) {
+           /* if (entities.size() > 1) {
                 Collections.sort(entities, new PinyinComparator());
-            }
-
+            }*/
+            List<CompanyContactListEntity> entitiess  = entities;
             return entities;
         } catch (SQLException e) {
             // TODO Auto-generated catch block
