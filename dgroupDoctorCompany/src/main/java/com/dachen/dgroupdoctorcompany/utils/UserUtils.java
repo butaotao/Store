@@ -7,6 +7,7 @@ import android.content.Intent;
 import com.dachen.dgroupdoctorcompany.activity.LoginActivity;
 import com.dachen.dgroupdoctorcompany.activity.MainActivity;
 import com.dachen.dgroupdoctorcompany.activity.RegisterStep2Activity;
+import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.dgroupdoctorcompany.base.UserLoginc;
 import com.dachen.dgroupdoctorcompany.entity.Company;
@@ -25,7 +26,7 @@ import java.util.ArrayList;
  */
 public class UserUtils {
     public static void logingetUserType(final Activity context) {
-        String s = "org/drugCompanyEmployee/getLoginInfo";
+        String s = Constants.DRUG+"/drugCompanyEmployee/getLoginInfo";
         new HttpManager().post(context, s, LoginRegisterResult.class,
                 Params.getUserInfo(context), new HttpManager.OnHttpListener<Result>() {
                     @Override

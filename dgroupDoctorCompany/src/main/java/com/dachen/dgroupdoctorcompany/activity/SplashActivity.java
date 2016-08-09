@@ -99,9 +99,11 @@ public class SplashActivity extends BaseActivity implements HttpManager.OnHttpLi
     }
 //user/login/auto
     private void loginRequest(/*String phoneNum, String password*/) {
-        boolean id = TextUtils.isEmpty(SharedPreferenceUtil.getString(this, "id", ""));
-        boolean session = TextUtils.isEmpty(SharedPreferenceUtil.getString(this, "session", ""));//
-        if (!id&& !session){
+        String id = SharedPreferenceUtil.getString(this, "id", "");
+        String session = SharedPreferenceUtil.getString(this, "session", "");
+        boolean isIdExit = TextUtils.isEmpty(id);
+        boolean isSessionExit = TextUtils.isEmpty(session);//
+        if (!isIdExit&& !isSessionExit){
             HashMap<String, String> params = new HashMap<String, String>();
             params.put("userId", SharedPreferenceUtil.getString(this, "id", ""));
             params.put("serial", SharedPreferenceUtil.getString(this, "mRegId", ""));

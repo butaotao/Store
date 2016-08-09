@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.dachen.dgroupdoctorcompany"
-    android:versionCode="164"
-    android:versionName="1.4080603.164">
+    android:versionCode="166"
+    android:versionName="1.4080902.166">
 <!--
     android:versionCode="161"
     android:versionName="1.4070706.161">-->
@@ -117,7 +117,6 @@
         <activity
             android:name=".activity.AlarmDialogFullScreenActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:launchMode="singleTask"
             android:theme="@android:style/Theme.Translucent"
             android:screenOrientation="portrait" />
         <activity
@@ -350,7 +349,6 @@
         <activity
             android:name=".activity.SearchContactActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-
             android:windowSoftInputMode="adjustResize|stateVisible"
             android:screenOrientation="portrait" />
         <!--android:launchMode="singleTask"-->

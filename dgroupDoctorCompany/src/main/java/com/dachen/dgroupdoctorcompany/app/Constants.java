@@ -22,7 +22,7 @@ public class Constants {
      * 请求成功状态码
      **/
     public static final int HTTP_REQUEST_SUCCESS_CODE = 200;
-    public static String VERIFY_CODE = "sms/randcode/verifyCode";
+    public static String VERIFY_CODE = DRUG+"sms/randcode/verifyCode";
     public static String VISITRECORD = "visit/getVisitList";
     public static String VISITINFO = "visit/getVisitInfoByUserId";
     /**
@@ -40,7 +40,7 @@ public class Constants {
      * 我 登出
      */
 
-    public static String LOGOUT = "user/logout";
+    public static String LOGOUT = DRUG+"user/logout";
     // 登录接口
     public static final String LOGIN = DRUG + "drugCompanyEmployee/login";
     public static final String LOGINVERIFY = "login";
@@ -88,7 +88,7 @@ public class Constants {
     /**
      * 请求重置密码
      */
-    public static String PRE_RESET_PASSWD = "health/user/preResetPassword";
+    public static String PRE_RESET_PASSWD = DRUG+"/user/preResetPassword";
     /**
      * 重置密码
      */
@@ -96,7 +96,7 @@ public class Constants {
     /**
      * 用户 - 验证重设密码的验证码
      */
-    public static String VERIFYRESETPASSWORD = "health/user/verifyResetPassword";
+    public static String VERIFYRESETPASSWORD = DRUG+"user/verifyResetPassword";
 
     public static String MEDIE_MANAGEMENT = DRUG+"assignGoodsGroup/getMySellerDrug";
 
@@ -134,7 +134,7 @@ public class Constants {
     //获取签到历史记录
     public static String GET_VISIT_LIST = "visit/getList";
     //修改用户名称
-    public static String UPDATE_USER_NAME = "health/user/updateUserName";
+    public static String UPDATE_USER_NAME = DRUG+"user/updateUserName";
     //修改用户职位
     public static String UPDATE_JOB_TITLE = DRUG+"drugCompany/dept/updateUserTitle";
     //删除拜访

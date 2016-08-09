@@ -96,7 +96,7 @@ public class ModifyPasswordActivity extends BaseActivity {
         params.put("oldPassword", oldPwd);
         params.put("newPassword", newPwd);
         params.put("access_token", session);
-        new HttpManager().post(this, "health/user/updatePassword",
+        new HttpManager().post(this, "drugorg/drugCompanyEmployee/updatePassword",
                 Void.class, params, new HttpManager.OnHttpListener<Result>() {
                     @Override
                     public void onSuccess(Result result) {
@@ -107,7 +107,7 @@ public class ModifyPasswordActivity extends BaseActivity {
                                 ToastUtils.showToast(ModifyPasswordActivity.this,"修改密码成功");
 
                                 finish();
-                            } else if (v.resultCode == 0) {
+                            } else if (v.resultCode == 0||v.resultCode ==100) {
                                 ToastUtils.showToast(ModifyPasswordActivity.this,"旧密码输入错误");
                             } else {
                                 ToastUtils.showToast(ModifyPasswordActivity.this,v.resultMsg);

@@ -1,5 +1,6 @@
 package com.dachen.dgroupdoctorcompany.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -7,6 +8,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewStub;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
@@ -224,6 +226,8 @@ public class SearchSignRecordDepActivity extends BaseActivity implements HttpMan
                                 tv_empty.setText("没有相关搜索结果");
                                 ToastUtil.showToast(SearchSignRecordDepActivity.this, "搜索内容不能为空");
                             }
+                            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                            imm.hideSoftInputFromWindow(et_search.getWindowToken(), 0);
                         }
                         return false;
                     }

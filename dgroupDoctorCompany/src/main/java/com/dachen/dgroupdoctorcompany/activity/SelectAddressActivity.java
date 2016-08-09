@@ -94,7 +94,7 @@ public class SelectAddressActivity extends BaseActivity implements LocationSourc
 
     private String                      city;//定位所在的城市
     private AddressListAdapter          mAdapter;
-    private int                         distance = 500;//定位范围
+    private int                         distance = 250;//定位范围
     private int                         mMode;
     private boolean                     isTouch = false;
     private int level = 17;
@@ -145,7 +145,6 @@ public class SelectAddressActivity extends BaseActivity implements LocationSourc
        if(ndistance>0){
            distance = ndistance;
        }
-       distance = 250;
        mlatitude = this.getIntent().getDoubleExtra("latitude",0);
        mlongitude = this.getIntent().getDoubleExtra("longitude",0);
        lp = new LatLonPoint(mlatitude,mlongitude);
@@ -528,10 +527,10 @@ public class SelectAddressActivity extends BaseActivity implements LocationSourc
                 .anchor(0.5f, 0.5f)
                 .position(new LatLng(lp.getLatitude(), lp.getLongitude())));
         circle = mAMap.addCircle(new CircleOptions()
-                .center(new LatLng(lp.getLatitude(), lp.getLongitude())).radius(distance)
+                .center(new LatLng(lp.getLatitude(), lp.getLongitude())).radius(distance+60)
                 .strokeColor(Color.argb(30, 1, 1, 1))
                 .fillColor(Color.argb(20, 1, 1, 1))
-                .strokeWidth(2));
+                .strokeWidth(4));
         locationMarker.showInfoWindow();
     }
 
@@ -633,10 +632,10 @@ public class SelectAddressActivity extends BaseActivity implements LocationSourc
 //                                .position(new LatLng(lp.getLatitude(), lp.getLongitude())));
                         if(null!=circle && !circle.isVisible()){
                             circle = mAMap.addCircle(new CircleOptions()
-                                .center(new LatLng(lp.getLatitude(),lp.getLongitude())).radius(distance)
+                                .center(new LatLng(lp.getLatitude(),lp.getLongitude())).radius(distance+60)
                                 .strokeColor(Color.BLUE)
                                 .fillColor(Color.argb(50, 1, 1, 1))
-                                .strokeWidth(2));
+                                .strokeWidth(4));
                         }
 
 

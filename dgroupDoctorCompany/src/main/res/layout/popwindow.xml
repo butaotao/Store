@@ -35,7 +35,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dip"
                 android:layout_toRightOf="@id/iv_scan"
-                android:text="新建同事对话"
+                android:text="新建同事会话"
                 android:textColor="@android:color/black"
                 android:textSize="15sp" />
         </RelativeLayout>
@@ -69,7 +69,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dip"
                 android:layout_toRightOf="@id/iv_find"
-                android:text="新建医生对话"
+                android:text="新建医生会话"
                 android:textColor="@android:color/black"
                 android:textSize="15sp" />
         </RelativeLayout>

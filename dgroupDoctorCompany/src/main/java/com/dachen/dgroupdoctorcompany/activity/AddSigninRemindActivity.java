@@ -58,6 +58,7 @@ public class AddSigninRemindActivity extends BaseActivity implements OnClickList
     TimePickerCustomer timePicker;
     Reminder changereminder;
     LinearLayout rl_deletealert;
+    int isOpen = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +67,7 @@ public class AddSigninRemindActivity extends BaseActivity implements OnClickList
         changereminder = (Reminder) getIntent().getSerializableExtra("reminder");
         dao = new RemindDao(this);
         weekDao = new WeekDao(this);
+        isOpen = 1;
         initViews();
         setTag();
         setTitle("签到提醒");
@@ -76,9 +78,9 @@ public class AddSigninRemindActivity extends BaseActivity implements OnClickList
             minute = changereminder.minute;
             rl_deletealert.setVisibility(View.VISIBLE);
 
-            timePicker.hours.setItems(timePicker.hourList,hour + "");
+            timePicker.hours.setItems(timePicker.hourList, hour + "");
             timePicker.mins.setItems(timePicker.minuteList,minute+"");
-
+            isOpen = changereminder.isOpen;
         }else {
             long curTime = System.currentTimeMillis();
             Calendar c = Calendar.getInstance();
@@ -88,7 +90,7 @@ public class AddSigninRemindActivity extends BaseActivity implements OnClickList
             timePicker.hours.setItems(timePicker.hourList,hour+"");
             timePicker.mins.setItems(timePicker.minuteList, minute + "");
 
-
+            isOpen = 1;
             rl_deletealert.setVisibility(View.GONE);
         }
 
@@ -214,7 +216,7 @@ public class AddSigninRemindActivity extends BaseActivity implements OnClickList
                 reminder.hour = timePicker.hours.getSelectedIndex();
                 reminder.minute = timePicker.mins.getSelectedIndex();
                 reminder.userloginid = loginid;
-                reminder.isOpen = 1;
+                reminder.isOpen = isOpen;
                 ArrayList<WeekSinger> weekSinger = new ArrayList<WeekSinger>();
                 String wweekday = "";
                 if (mListLableSelect.size()>0){

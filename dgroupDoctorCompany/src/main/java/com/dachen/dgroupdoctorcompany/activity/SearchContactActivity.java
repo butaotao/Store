@@ -37,6 +37,7 @@ import com.dachen.dgroupdoctorcompany.db.dbentity.SearchRecords;
 import com.dachen.dgroupdoctorcompany.entity.BaseSearch;
 import com.dachen.dgroupdoctorcompany.entity.CompanyContactListEntity;
 import com.dachen.dgroupdoctorcompany.entity.CompanyDepment;
+import com.dachen.dgroupdoctorcompany.fragment.AddressList;
 import com.dachen.dgroupdoctorcompany.im.activity.Represent2DoctorChatActivity;
 import com.dachen.dgroupdoctorcompany.utils.CommonUitls;
 import com.dachen.dgroupdoctorcompany.utils.ExitActivity;
@@ -102,6 +103,11 @@ public class SearchContactActivity extends BaseActivity implements OnClickListen
     ArrayList<CompanyContactListEntity> groupUsers;
     private boolean inWork;
     LinearLayout bottom_bar;
+    public boolean isShow;
+    public boolean showDoctor;
+    public boolean showColleague;
+    public boolean showAll;
+    public int  SHOWCONTENT;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -112,9 +118,7 @@ public class SearchContactActivity extends BaseActivity implements OnClickListen
             groupUsers = new ArrayList<>();
         }
 
-        mShare = getIntent().getBooleanExtra("share", false);
-        seachdoctor = getIntent().getStringExtra("seachdoctor");
-        selectMode  = getIntent().getIntExtra("selectMode", 0);
+
 
         btn_add = (Button) findViewById(R.id.btn_add);
         btn_add.setOnClickListener(this);
@@ -140,6 +144,9 @@ public class SearchContactActivity extends BaseActivity implements OnClickListen
         dao = new CompanyContactDao(this);
         searchRecordsDao = new SearchRecordsDao(this);
         doctorDao = new DoctorDao(this);
+        mShare = getIntent().getBooleanExtra("share", false);
+        seachdoctor = getIntent().getStringExtra("seachdoctor");
+        selectMode  = getIntent().getIntExtra("selectMode", 0);
         rl_history = (RelativeLayout) this.findViewById(R.id.rl_history);
         vstub_title = (ViewStub) findViewById(R.id.vstub_title);
         RelativeLayout rl = (RelativeLayout) this.findViewById(R.id.ll_sub);
@@ -202,14 +209,19 @@ public class SearchContactActivity extends BaseActivity implements OnClickListen
         adapter.setisShowMore(true);
         bottom_bar = (LinearLayout) findViewById(R.id.bottom_bar);
         bottom_bar.setVisibility(View.GONE);
-        if (mShare||selectMode==1){
-            adapter.setShowSelect(true);
-            bottom_bar.setVisibility(View.VISIBLE);
-        }else {
-            adapter.setShowSelect(false);
+        SHOWCONTENT = getIntent().getIntExtra(AddressList.SHOWCONTENT,0);
+        if (SHOWCONTENT==AddressList.SHOWALL){
+            showAll = true;
+            isShow = false;
             bottom_bar.setVisibility(View.GONE);
         }
-
+        if (SHOWCONTENT==AddressList.SHOWCOLLEAG){
+            showAll = false;
+            isShow = true;
+            showColleague = true;
+            showDoctor = false;
+            bottom_bar.setVisibility(View.GONE);
+        }
         listview.setAdapter(adapter);
      //   if (selectMode==1){
 
@@ -221,6 +233,8 @@ public class SearchContactActivity extends BaseActivity implements OnClickListen
                             // 在这里编写自己想要实现的功能
                             pageNo = 1;
                             forSearch();
+                            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                            imm.hideSoftInputFromWindow(et_search.getWindowToken(), 0);
                         }
                         return false;
                     }
@@ -399,28 +413,11 @@ public class SearchContactActivity extends BaseActivity implements OnClickListen
             listview.setAdapter(adapter);*/
         }else  if(v.getId() == R.id.tv_search){
             //ToastUtils.showToast(this,"搜索");
+            Intent intent = new Intent(this,SelectPeopleActivity.class);
+            setResult(RESULT_OK, intent);
             finish();
         }else  if(v.getId() == R.id.btn_add)   {
-          /*  if (inWork) return;
-            inWork = true;
-            if (listsHorizon.size() == 0) {
-                ToastUtil.showToast(this, "您未选择任何人");
-                return;
-            }
-//                CallIntent.getSelectData.getData(listsHorizon);
-            int groupType = getIntent().getIntExtra(INTENT_EXTRA_GROUP_TYPE, 0);
-            showLoadingDialog();
 
-            if (groupUsers.size() == 0)
-                groupTool.createGroup(getIdsList(false), "10");
-            else {
-                if (groupType == SessionType.session_double) {
-                    groupTool.createGroup(getIdsList(true), "10");
-                } else{
-                    groupTool.addGroupUser(getIdsList(false), getIntent().getStringExtra(INTENT_EXTRA_GROUP_ID));
-                }
-
-            }*/
             finish();
         }
 
@@ -468,7 +465,7 @@ public class SearchContactActivity extends BaseActivity implements OnClickListen
 
         @Override
         public void run() {
-
+            if (showColleague||showAll){
             List<CompanyContactListEntity> tempCompany = dao.querySearchPage(keyword, pageNo);
             if(pageNo == 1){
                 company = tempCompany;
@@ -482,20 +479,27 @@ public class SearchContactActivity extends BaseActivity implements OnClickListen
                     isLoadMore = false;
                 }
             }
+            }else {
+                company.clear();
+            }
+            if (showDoctor||showAll){
+                List<Doctor> tempDoctors = doctorDao.querySearchPage(keyword, pageNo);
+                if(pageNo == 1){
+                    doctors = tempDoctors;
+                }
 
-            List<Doctor> tempDoctors = doctorDao.querySearchPage(keyword, pageNo);
-            if(pageNo == 1){
-                doctors = tempDoctors;
+                if (null != tempDoctors && tempDoctors.size() > 0){
+                    if(pageNo > 1){
+                        doctors.addAll(tempDoctors);
+                    }
+                    if(tempDoctors.size() < 50){
+                        isLoadMore = false;
+                    }
+                }
+            }else {
+                doctors.clear();
             }
 
-            if (null != tempDoctors && tempDoctors.size() > 0){
-                if(pageNo > 1){
-                    doctors.addAll(tempDoctors);
-                }
-                if(tempDoctors.size() < 50){
-                    isLoadMore = false;
-                }
-            }
 
             if(TextUtils.isEmpty(seachdoctor)){
                 for (int i=0; i<3; i++){
@@ -607,6 +611,9 @@ public class SearchContactActivity extends BaseActivity implements OnClickListen
     @Override
     public void onBackPressed() {
         if (finish){
+            Intent intent = new Intent(this,SelectPeopleActivity.class);
+            setResult(RESULT_OK,intent);
+            finish();
             finish();
         }else {
             adapter.setisShowMore(true);

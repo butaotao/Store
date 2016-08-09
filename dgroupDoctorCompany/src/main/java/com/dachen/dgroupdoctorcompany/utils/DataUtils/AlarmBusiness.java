@@ -37,6 +37,11 @@ public class AlarmBusiness {
 
         long firstRingTime = getNextAlarmTimeInMillis(alarm);
         if (alarm.times!=0){
+            int day = 0;
+            if (isAlarmExpired(alarm)) {// 闹钟已过期则取消
+                day = 1;
+            }
+            firstRingTime = firstRingTime+day*24*60*60*1000;
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
                     firstRingTime,
                     24*60*60*1000+(int)(Math.random()*1000*30), pendingIntents);

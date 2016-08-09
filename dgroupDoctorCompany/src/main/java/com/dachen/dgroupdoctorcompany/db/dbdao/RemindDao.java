@@ -73,7 +73,7 @@ public class RemindDao {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return null;
+        return new Reminder();
 
     }
 

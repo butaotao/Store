@@ -72,6 +72,11 @@ public class AddressList extends BaseFragment implements View.OnClickListener{
 	List<DepAdminsList> lists;
 	DepManagerAdapter depManagerAdapter;
 	View line2;
+	public static final int SHOWALL = 0;
+	public static final int SHOWCOLLEAG = 1;
+	public static final int SHOWDOCTOR = 2;
+	public static final String SHOWCONTENT = "showcontent";
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -288,7 +293,7 @@ public class AddressList extends BaseFragment implements View.OnClickListener{
 			case R.id.layout_search1:
 				if (CompareDatalogic.isInitContact()) {
 					intent = new Intent(mActivity, SearchContactActivity.class);
-
+					intent.putExtra(SHOWCONTENT,SHOWALL);
 					startActivity(intent);
 				} else {
 					ToastUtils.showToast(mActivity, "通讯录初始化中...");

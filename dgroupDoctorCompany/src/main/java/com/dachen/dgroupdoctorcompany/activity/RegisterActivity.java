@@ -422,25 +422,19 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,Ht
 			ToastUtils.showToast(this, "该手机号码与当前登录的手机号码一致,请更换新号码重试");
 			return;
 		}
-		/*if (TextUtils.isEmpty(phoneNumber)) {
-			ToastUtils.showToast(this, "请输入手机号");
-			return;
-		}*/
+
 
 		if(TELEPHONE_AUTH)
 		{
 		}
 
-		/*if (TextUtils.isEmpty(authCode)) {
-			mAuthCodeEdit.requestFocus();
-			//ToastUtils.showToast(RegisterActivity.this, getResources().getString(R.string.auth_code_input));
-			return;
-		}*/
+
 
 		changePhoneNum(phoneNumber, this, authCode);
 	}
 	public  void changePhoneNum(String phoneNum, final Activity context,String authCode ) {
 		//drugCompanyEmployee/modifyUserPhone
+		showLoadingDialog();
 		HashMap<String,String> maps = new HashMap<>();
 		maps.put("access_token", UserInfo.getInstance(context).getSesstion());
 		maps.put("newPhone", phoneNum);
@@ -452,6 +446,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,Ht
 				maps, new HttpManager.OnHttpListener<Result>() {
 					@Override
 					public void onSuccess(Result response) {
+						closeLoadingDialog();
 						if (response.resultCode == 1) {
 							ToastUtil.showToast(context, "修改手机号成功，请使用新手机号登录");
 							if (context instanceof BaseActivity) {
@@ -473,7 +468,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,Ht
 
 					@Override
 					public void onFailure(Exception e, String errorMsg, int s) {
-
+						closeLoadingDialog();
 					}
 				},
 				false, 1);

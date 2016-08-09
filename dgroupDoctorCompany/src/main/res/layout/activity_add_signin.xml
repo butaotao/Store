@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/ivAddress"
                 android:layout_marginLeft="15dp"
-                android:text="科兴科学园"
+                android:text="@string/null_info"
                 android:layout_centerVertical="true"
                 android:singleLine="true"
                 android:textColor="@color/color_333333"
@@ -83,7 +83,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="15dp"
-                android:text="2016-3-22"
+                android:text="@string/null_info"
                 android:gravity="center"
                 android:textColor="@color/color_333333"
                 android:textSize="16sp"/>
@@ -92,7 +92,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="18dp"
-                android:text="上午9:30"
+                android:text="@string/null_info"
                 android:textColor="@color/color_333333"
                 android:textSize="16sp"/>
         </LinearLayout>
@@ -199,6 +199,8 @@
                 android:hint="请输入备注信息"
                 android:gravity="left|top"
                 android:padding="4dp"
+                android:maxLength="500"
+                android:ellipsize="end"
                 android:textColorHint="@color/color_aaaaaa"
                 android:textColor="@color/color_333333"
                 android:textSize="16sp"

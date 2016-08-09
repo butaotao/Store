@@ -27,6 +27,7 @@ import com.dachen.dgroupdoctorcompany.entity.BaseSearch;
 import com.dachen.dgroupdoctorcompany.entity.CompanyContactListEntity;
 import com.dachen.dgroupdoctorcompany.entity.CompanyDepment;
 import com.dachen.dgroupdoctorcompany.entity.Void;
+import com.dachen.dgroupdoctorcompany.fragment.AddressList;
 import com.dachen.dgroupdoctorcompany.im.activity.RepresentGroupChatActivity;
 import com.dachen.dgroupdoctorcompany.im.events.AddGroupUserEvent;
 import com.dachen.dgroupdoctorcompany.im.utils.ChatActivityUtilsV2;
@@ -389,6 +390,7 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
                 if (CompareDatalogic.isInitContact()) {
                     Intent intent = new Intent(this, SearchContactActivity.class);
                     intent.putExtra(INTENT_EXTRA_GROUP_USERS,groupUsers);
+                    intent.putExtra(AddressList.SHOWCONTENT,AddressList.SHOWCOLLEAG);
                     intent.putExtra("selectMode", 1);    //搜索选择返回多选页
                     startActivityForResult(intent,REQUEST_SEARCH);
                 } else {
@@ -713,6 +715,7 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
 
 //            list.set(position, c2);
                         adapter.notifyDataSetChanged();
+                    addAdapter.notifyDataSetChanged();
                         btn_add.setText("开始(" + listsHorizon.size() + ")");
                     break;
                 default:

@@ -106,7 +106,8 @@ public class AlarmReceivers extends BroadcastReceiver {
         RemindDao dao = new RemindDao(context);
         Reminder reminder = dao.queryByUserCreateTime(alarm2.createTime);
         boolean show = false;
-        if (reminder.isOpen==0&& !SharedPreferenceUtil.getString(context,"id","").equals(alarm2.userloginid)){
+        String session = SharedPreferenceUtil.getString(context,"session","");
+        if (null==reminder||TextUtils.isEmpty(session)||reminder.isOpen==0&& !SharedPreferenceUtil.getString(context,"id","").equals(alarm2.userloginid)){
             return;
         }
 
@@ -155,7 +156,7 @@ public class AlarmReceivers extends BroadcastReceiver {
         builder.setTicker("亲,时间快到了,赶紧去考勤签到吧!" ).setContentTitle("药企圈")
                 .setContentText("亲,时间快到了,赶紧去考勤签到吧!" )
                 .setContentIntent(fullScreenIntent).setWhen(System.currentTimeMillis()).setOngoing(false)
-                .setDefaults(Notification.DEFAULT_VIBRATE).setSmallIcon(R.drawable.ic_launcher_icon).setAutoCancel(true)
+                .setDefaults(Notification.FLAG_SHOW_LIGHTS).setSmallIcon(R.drawable.ic_launcher_icon).setAutoCancel(true)
 				/*.setFullScreenIntent(fullScreenIntent, false)*//*.setSound(getSoundUri(context, alarm))*/;
         //builder.setSound(getSoundUri(context, alarm));
         NotificationManager notificationManager = (NotificationManager) context

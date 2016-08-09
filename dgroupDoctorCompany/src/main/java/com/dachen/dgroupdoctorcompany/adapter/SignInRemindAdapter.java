@@ -92,11 +92,11 @@ public class SignInRemindAdapter extends BaseAdapter{
 					info.isOpen = 0;
 				//	holder.open.setChecked(true);
 					holder.rl_item.setBackgroundColor(context.getResources().getColor(R.color.content_background));
-
+					ToastUtil.showToast(context, "关闭提醒");
 				} else {
 					info.isOpen = 1;
 					holder.rl_item.setBackgroundColor(context.getResources().getColor(R.color.white));
-					ToastUtil.showToast(context,"关闭提醒");
+					ToastUtil.showToast(context,"开启提醒");
 
 					//holder.open.setChecked(false);
 				}

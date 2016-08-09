@@ -1,5 +1,6 @@
 package com.dachen.dgroupdoctorcompany.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewStub;
 import android.view.Window;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
@@ -83,6 +85,8 @@ public class DoctorFriendActivity extends BaseActivity implements HttpManager.On
                         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                             // 在这里编写自己想要实现的功能
                             forSearch();
+                            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                            imm.hideSoftInputFromWindow(et_search.getWindowToken(), 0);
                         }
                         return false;
                     }

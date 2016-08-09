@@ -306,9 +306,7 @@ public class CompanyContactListActivity extends BaseActivity implements HttpMana
                 if (null != companyDepment.data && null != companyDepment.data.departments && companyDepment.data.departments.size() > 0) {
                     haveDep = true;
                     list.clear();
-                    if (p == 1) {
-                        firstLevelId = companyDepment.data.departments.get(0).id;
-                    }
+
                     idDep = companyDepment.data.departments.get(0).id;
                     mParentId = companyDepment.data.departments.get(0).parentId;
 
@@ -317,6 +315,15 @@ public class CompanyContactListActivity extends BaseActivity implements HttpMana
 
                     adapter.setSize(companyDepment.data.departments.size());
                     adapter.notifyDataSetChanged();
+                    if (p == 1) {
+                        checkUndefine(companyDepment.data.departments);
+                        firstLevelId = companyDepment.data.departments.get(0).id;
+                        if (list.size()==0){
+                            haveDep = false;
+                            idDep = "0";
+                            pareid = null;
+                        }
+                    }
 
 
                 } else {
@@ -401,10 +408,21 @@ public class CompanyContactListActivity extends BaseActivity implements HttpMana
             layout_line.setVisibility(View.VISIBLE);
         }
         closeLoadingDialog();
-        Logger.d("onItemClick","success-----------"+System.currentTimeMillis());
+        Logger.d("onItemClick", "success-----------" + System.currentTimeMillis());
     }
 
+    public void checkUndefine(ArrayList<CompanyDepment.Data.Depaments> departments){
+        for(CompanyDepment.Data.Depaments depament:departments){
+            if (!TextUtils.isEmpty(depament.name)&&depament.name.equals("未分配")){
+                List<CompanyContactListEntity> entities = companyContactDao.queryByDepID(depament.id);
+                if (entities==null||entities.size()==0){
+                    list.remove(depament);
+                }
+                break;
+            }
 
+        }
+    }
     public void setTitles(String name) {
         List<CompanyContactListEntity> entities
                 = companyContactDao.queryByParentId(pareid);

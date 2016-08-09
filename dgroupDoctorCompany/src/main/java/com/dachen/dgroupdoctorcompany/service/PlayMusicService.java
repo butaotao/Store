@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -21,6 +22,7 @@ import android.text.TextUtils;
 
 import com.dachen.common.utils.DeviceInfoUtil;
 import com.dachen.common.utils.ToastUtil;
+import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.app.CompanyApplication;
 import com.dachen.dgroupdoctorcompany.db.dbentity.Reminder;
 import com.dachen.medicine.common.utils.Alarm;
@@ -30,6 +32,8 @@ import java.io.IOException;
  * Created by Burt on 2016/3/26.
  */
 public class PlayMusicService extends Service{
+    private SoundPool                  mSoundPool;
+    private int                        mSoundId;
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -49,6 +53,8 @@ public class PlayMusicService extends Service{
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        mSoundPool = new SoundPool(1, AudioManager.STREAM_SYSTEM, 0);
+        mSoundId = mSoundPool.load(this, R.raw.sign_add,1);
         if (null!=intent){
             Bundle bundle= intent.getBundleExtra("alarm");
 
@@ -63,7 +69,8 @@ public class PlayMusicService extends Service{
 
 
                     try {
-                        CompanyApplication.getMediaPlayer().play(getSoundUri(this));
+                       // CompanyApplication.getMediaPlayer().play(getSoundUri(this));
+                        playAddSign();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -79,6 +86,8 @@ public class PlayMusicService extends Service{
         return Uri.parse("android.resource://" + context.getPackageName() + "/raw/" + "sign_add");
     }
 
-
+    private void playAddSign(){
+        mSoundPool.play(mSoundId,1, 1, 0, 0, 1);
+    }
 
 }

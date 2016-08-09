@@ -61,6 +61,7 @@ public class SignInActivity extends BaseActivity implements HttpManager.OnHttpLi
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+        showLoadingDialog();
         initView();
         initData();
 
@@ -69,6 +70,7 @@ public class SignInActivity extends BaseActivity implements HttpManager.OnHttpLi
         filter.addAction("action.to.signlist");
         registerReceiver(hasMessageReceiver, filter);
         getSignRecord();
+
     }
 
     @Override
@@ -138,7 +140,7 @@ public class SignInActivity extends BaseActivity implements HttpManager.OnHttpLi
                 startActivity(intentAll);
                 break;
             case R.id.vSignin:
-                if (distance<=allowDistance&&distance>=0&&!TextUtils.isEmpty(address)){
+                if (lengh<=allowDistance&&lengh>=0&&!TextUtils.isEmpty(address)){
                     Intent intent = new Intent(SignInActivity.this, AddSignInActivity.class);
                     intent.putExtra("name", address);
                     intent.putExtra("longitude", longitude);
@@ -183,7 +185,7 @@ public class SignInActivity extends BaseActivity implements HttpManager.OnHttpLi
                 Intent intent4 = new Intent(SignInActivity.this,SigninRemindActivity.class);
                 startActivity(intent4);
                 break;
-            case R.id.rl_titlebar:
+          /*  case R.id.rl_titlebar:
                 if (!isSHOW){
                     allowDistance = 10*1000;
                     isSHOW = true;
@@ -192,13 +194,13 @@ public class SignInActivity extends BaseActivity implements HttpManager.OnHttpLi
                     isSHOW = false;
                 }
                 ToastUtil.showToast(this,allowDistance+"");
-                break;
+                break;*/
         }
     }
     //企业ID暂时写死
     public void getSignRecord(){
         String companyId =SharedPreferenceUtil.getString(this, "enterpriseId", "");
-        companyId =  "5763c35ab522257e6659e632";
+       // companyId =  "5763c35ab522257e6659e632";
         new HttpManager().post(this, Constants.GETSIGNRECORD, OftenSignPlace.class, Params
                 .getSinOftenPlace(SignInActivity.this, companyId), this, false, 1);
     }
@@ -217,7 +219,8 @@ public class SignInActivity extends BaseActivity implements HttpManager.OnHttpLi
             }else if (response instanceof OftenSignPlace){
                 OftenSignPlace place = (OftenSignPlace) response;
 
-                if (null!=place&&null!=place.data&&null!=place.data.pageData){
+                if (null!=place&&null!=place.data
+                        &&null!=place.data.pageData){
                     pageData = place.data.pageData;
                     compareDistance(pageData,aMapLocation);
                 }
@@ -258,6 +261,7 @@ public class SignInActivity extends BaseActivity implements HttpManager.OnHttpLi
     }
     @Override
     public void onLocationChanged(AMapLocation aMapLocation) {
+        closeLoadingDialog();
         if(null != aMapLocation){
             int code = aMapLocation.getErrorCode();
             if(code == 0){

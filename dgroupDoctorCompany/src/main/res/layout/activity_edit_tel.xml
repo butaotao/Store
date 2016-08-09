@@ -14,14 +14,18 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="15dp">
-
+        android:padding="15dp" >
+<ImageView
+    android:layout_width="28dp"
+    android:layout_height="28dp"
+    android:background="@drawable/shownowphone"
+    android:id="@+id/iv_alert"/>
         <TextView
             android:id="@+id/tel_txt"
+            android:layout_marginTop="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/addfrined_alert"
-            android:drawablePadding="5dp"
+            android:layout_toRightOf="@+id/iv_alert"
             android:textColor="@color/color_aaaaaa"
             android:text="当前登录手机号："
             android:textSize="16sp" />
@@ -30,6 +34,7 @@
             android:id="@+id/phone_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:layout_toRightOf="@+id/tel_txt"
             android:drawablePadding="5dp"
             android:textColor="@color/blue_3cbaff"

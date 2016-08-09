@@ -139,6 +139,8 @@ public class SearchDoctorActivity extends BaseActivity implements OnClickListene
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     // 在这里编写自己想要实现的功能
                     forSearch();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(et_search.getWindowToken(), 0);
                 }
                 return false;
             }

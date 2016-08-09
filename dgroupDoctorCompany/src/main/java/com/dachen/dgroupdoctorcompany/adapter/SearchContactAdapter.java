@@ -33,6 +33,7 @@ public class SearchContactAdapter extends BaseCustomAdapter<BaseSearch>{
     boolean isShowMore = true;
     String seachdoctor;
     boolean showSelect;
+    SearchContactActivity activity;
     public SearchContactAdapter(Context context, int resId, List<BaseSearch> objects,List<CompanyContactListEntity> contact,
                                 List<Doctor> doctors ,SearchContactActivity.RefreshDataInterface refreshDataInterface,String seachdoctor) {
         super(context, resId, objects);
@@ -41,6 +42,9 @@ public class SearchContactAdapter extends BaseCustomAdapter<BaseSearch>{
         this.objects =objects;
         this.seachdoctor = seachdoctor;
         this.refreshDataInterface = refreshDataInterface;
+        if(context instanceof SearchContactActivity){
+            activity = (SearchContactActivity) context;
+        }
     }
     public void setisShowMore(boolean isShowMore){
         this.isShowMore=isShowMore;
@@ -167,7 +171,7 @@ public class SearchContactAdapter extends BaseCustomAdapter<BaseSearch>{
 
             }
         });
-        if (showSelect){
+        if (activity.isShow){
             holder.btn_radio.setVisibility(View.VISIBLE);
         }else {
             holder.btn_radio.setVisibility(View.GONE);

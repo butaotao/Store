@@ -362,10 +362,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         params.put("telephone", phoneNumber);
         params.put("randcode", randcode);
         params.put("templateId", templateId);// 短信模板。
-        HashMap<String, String> interfaces = new HashMap<String, String>();
-        interfaces.put("interface1", Constants.VERIFY_CODE);
 
-        new HttpManager().post(this, interfaces,
+        new HttpManager().post(this, Constants.VERIFY_CODE,
                 Void.class, params, new HttpManager.OnHttpListener<Result>() {
                     @Override
                     public void onSuccess(Result result) {
@@ -385,7 +383,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                     public void onFailure(Exception e, String errorMsg, int s) {
                         ToastUtils.showToast(RegisterActivity.this, getResources().getString(R.string.auth_code_error));
                     }
-                }, 1);
+                }, false,1);
     }
 
     private void register(final String phoneNumber,final String password,final String userType) {

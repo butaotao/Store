@@ -98,7 +98,7 @@ public class SettingActivity extends BaseActivity implements HttpManager.OnHttpL
 
                     }
                 },
-                false,3);
+                false,1);
         logOut();
     }
     public void removeregeisterXiaoMi(){

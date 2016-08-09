@@ -128,7 +128,7 @@ public class OrgActivity extends BaseActivity implements HttpManager.OnHttpListe
         HashMap<String ,String > maps = new HashMap<>();
         maps.put("access_token", SharedPreferenceUtil.getString(this, "session", ""));
         maps.put("drugCompanyId", SharedPreferenceUtil.getString(this, "enterpriseId", ""));
-        maps.put("getUnassigned", "0");
+        maps.put("getUnassigned", "1");
 //        maps.put("id",idDep);
 
         new HttpManager().post(this, Constants.GET_ENTER_ORG, OrgEntity.class,

@@ -188,6 +188,7 @@
                     android:gravity="right"
                     android:singleLine="true"
                     android:hint="请选择"
+                    android:layout_toRightOf="@+id/tvVisit"
                     android:textColor="@color/color_3cbaff"
                     android:textColorHint="@color/color_3cbaff"
                     android:textSize="14sp"

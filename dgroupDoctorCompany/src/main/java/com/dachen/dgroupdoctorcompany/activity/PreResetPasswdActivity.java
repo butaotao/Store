@@ -246,9 +246,8 @@ public class PreResetPasswdActivity extends BaseActivity implements
 		params.put("userType", userType);
 		params.put("ranCode", randcode);
 		params.put("smsid", smsid);
-		HashMap<String, String> interfaces = new HashMap<String, String>();
-		interfaces.put("interface1", Constants.VERIFYRESETPASSWORD);
-		new HttpManager().post(this,interfaces, Result.class, params, this, 1);
+		params.put("templateId", templateId);
+		new HttpManager().post(this,Constants.VERIFYRESETPASSWORD, Result.class, params, this,false, 1);
 	}
 
 	@Override
