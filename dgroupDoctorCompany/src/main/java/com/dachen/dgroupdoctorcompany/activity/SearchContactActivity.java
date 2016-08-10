@@ -265,11 +265,11 @@ public class SearchContactActivity extends BaseActivity implements OnClickListen
                     CompanyContactListEntity info = (CompanyContactListEntity) adapter.getItem(arg2);
                     // 在这里编写自己想要实现的功能
                     if (selectMode == 1) {          //新建同事对话搜索
-                      /*  Intent intent = new Intent();
+                        Intent intent = new Intent();
                         intent.putExtra("data", adapter.getItem(arg2));
                         setResult(RESULT_OK,intent);
-                        finish();*/
-                        BaseSearch contact = adapter.getItem(arg2);
+                        finish();
+                        /*BaseSearch contact = adapter.getItem(arg2);
                         CompanyContactListEntity c2 = null;
                         CompanyDepment.Data.Depaments c1 = null;
                         if (contact instanceof CompanyContactListEntity) {
@@ -287,7 +287,7 @@ public class SearchContactActivity extends BaseActivity implements OnClickListen
                             adapter.notifyDataSetChanged();
                             addAdapter.notifyDataSetChanged();
                             btn_add.setText("开始(" + horizonList.size() + ")");
-                        }
+                        }*/
 
                     } else  if (selectMode != 1){
                         Intent intent = new Intent(SearchContactActivity.this,ColleagueDetailActivity.class);
@@ -466,7 +466,10 @@ public class SearchContactActivity extends BaseActivity implements OnClickListen
         @Override
         public void run() {
             if (showColleague||showAll){
-            List<CompanyContactListEntity> tempCompany = dao.querySearchPage(keyword, pageNo);
+                List<CompanyContactListEntity> tempCompany;
+
+                    tempCompany = dao.querySearchPage(keyword, pageNo,true);
+
             if(pageNo == 1){
                 company = tempCompany;
             }
@@ -502,9 +505,25 @@ public class SearchContactActivity extends BaseActivity implements OnClickListen
 
 
             if(TextUtils.isEmpty(seachdoctor)){
-                for (int i=0; i<3; i++){
+                int size = 0;
+                for (int i=0; i<company.size(); i++){
                     if ( i<company.size() && null != company.get(i)){
-                        search.add(company.get(i));
+                        if (CommonUitls.getListsHorizon().contains(company.get(i))){
+                            continue;
+                        }
+                        size++;
+                        if (showColleague){
+                            search.add(company.get(i));
+                        }else {
+                            if (size<3){
+                                search.add(company.get(i));
+                            }else {
+                                break;
+                            }
+                        }
+
+
+
                     }
                 }
                 for (int j=0;j<3;j++){
@@ -613,7 +632,6 @@ public class SearchContactActivity extends BaseActivity implements OnClickListen
         if (finish){
             Intent intent = new Intent(this,SelectPeopleActivity.class);
             setResult(RESULT_OK,intent);
-            finish();
             finish();
         }else {
             adapter.setisShowMore(true);

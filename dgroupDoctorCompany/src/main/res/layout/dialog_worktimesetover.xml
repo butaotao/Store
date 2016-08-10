@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/rl_above"
+        android:background="@drawable/btn_blue_above">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/iv_guider"
+            android:text="上班签到提醒"
+            android:id="@+id/tv_onwork"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:layout_below="@+id/rl_above"
+        android:id="@+id/rl_below"
+
+
+        android:background="@drawable/btn_white_below">
+        <ImageView
+            android:id="@+id/minute_pv"
+            android:layout_width="76dp"
+            android:gravity="center_horizontal"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/guiderover"
+
+            android:layout_height="76dp" />
+
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:layout_below="@+id/minute_pv"
+    android:layout_marginTop="20dp"
+    android:textSize="17dp"
+    android:textColor="@color/color_333333"
+    android:text="恭喜你,设置完成"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:layout_alignParentBottom="true">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:text="完成"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/white"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:id="@+id/btn_gosetting"
+                android:background="@drawable/btn_organge_all_ff7e15"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
+</RelativeLayout>

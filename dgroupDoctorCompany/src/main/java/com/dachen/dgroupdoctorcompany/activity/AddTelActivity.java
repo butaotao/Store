@@ -270,7 +270,7 @@ public class AddTelActivity extends BaseActivity implements View.OnClickListener
         params.put("templateId", templateId);// 短信模板。
         /*HashMap<String, String> interfaces = new HashMap<String, String>();
         interfaces.put("interface1","user/preResetPasswordVoiceCode");*/
-        new HttpManager().post(this, "/sms/randcode/getVoiceCode",
+        new HttpManager().post(this, Constants.DRUG+"sms/randcode/getVoiceCode",
                 Void.class, params, new HttpManager.OnHttpListener<Result>() {
                     @Override
                     public void onSuccess(Result result) {
@@ -299,7 +299,7 @@ public class AddTelActivity extends BaseActivity implements View.OnClickListener
                         mReckonHandler.sendEmptyMessage(0x2);
                         clicked = false;
                     }
-                }, false, 3);
+                }, false, 1);
     }
 
     private int reckonTime = 60;

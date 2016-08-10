@@ -119,6 +119,7 @@ public class PreResetPasswdActivity extends BaseActivity implements
 	 * @return
 	 */
 	private void getVoiceCode(final String phoneNumber) {
+		showLoadingDialog();
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("phone", phoneNumber);
 		params.put("userType", Constants.USER_TYPE);
@@ -162,7 +163,7 @@ public class PreResetPasswdActivity extends BaseActivity implements
 	}
 
 	private void sendAgain() {
-
+		showLoadingDialog();
 		phoneNumber = mPhoneNumEdit.getText().toString().trim();
 		final String userType = Constants.USER_TYPE;
 		final String requestTag = "preReset";
@@ -239,6 +240,7 @@ public class PreResetPasswdActivity extends BaseActivity implements
 	 * @return
 	 */
 	private void verifyCode(final String phoneNumber, final String randcode) {
+		showLoadingDialog();
 		final String templateId = "25118";
 		final String userType = Constants.USER_TYPE;
 		HashMap<String, String> params = new HashMap<String, String>();
@@ -260,6 +262,7 @@ public class PreResetPasswdActivity extends BaseActivity implements
 	public void onSuccess(Result result) {
 		// TODO Auto-generated method stub
 		System.err.println("response==" + result);
+		closeLoadingDialog();
 		if (result != null) {// 发送成功
 			if (result instanceof ResetPassword) {
 				if (1 == result.getResultCode()) {
@@ -322,6 +325,7 @@ public class PreResetPasswdActivity extends BaseActivity implements
 	public void onFailure(Exception e, String errorMsg,int s) {
 		// TODO Auto-generated method stub
 		ToastUtils.showToast(PreResetPasswdActivity.this,R.string.net_exception);
+		closeLoadingDialog();
 	}
 
 }

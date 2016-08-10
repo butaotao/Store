@@ -11,7 +11,7 @@ public class Constants {
      * 网络连接超时
      **/
     public static final int HTTP_REQUEST_CONNECT_TIMEOUT = 198;
-    public static String USER_UPDATE = "user/update";
+    public static String USER_UPDATE = DRUG+"user/update";
 
     /**
      * 网络连接异常
@@ -100,7 +100,7 @@ public class Constants {
 
     public static String MEDIE_MANAGEMENT = DRUG+"assignGoodsGroup/getMySellerDrug";
 
-    public static String MEDIE_DOCUMENT = DRUG+"goods/file/queryFile";
+    public static String MEDIE_DOCUMENT = "org/goods/file/queryFile";
 
     public static String PUB_ISCUSTOMER = "pub/isCustomer";
 
@@ -118,7 +118,7 @@ public class Constants {
     //直播会议 - 取消或完成会议
     public static String MEETING_STOP = "meeting/stop";
     //文件管理 - 医药代表获取所有的文件
-    public static String GET_UPLOADED_FILE_LIST = DRUG+"goods/file/getUploadedFileList";
+    public static String GET_UPLOADED_FILE_LIST = "org/goods/file/getUploadedFileList";
     //地图选取接口
     public static String GET_VISIT_BASIC_DATA = "visit/getBasicData";
 
@@ -186,7 +186,7 @@ public class Constants {
     //创建者确定协同组
     public static String CONFIRM_VISIT_GROUP = "visit/confirmSynergGroup";
     //品种组 - 根据关键字搜索品种组（分页）
-    public static String GET_GOODSGROUP_LIST = DRUG+"goods/group/getGoodsGroupList";
+    public static String GET_GOODSGROUP_LIST = "/org/goods/group/getGoodsGroupList";
 
     public static String CREATE_AND_JOIN_VISIT_GROUP = "visit/startSynergGroup";
 

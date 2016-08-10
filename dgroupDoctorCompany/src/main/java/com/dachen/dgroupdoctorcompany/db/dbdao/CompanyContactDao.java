@@ -222,11 +222,14 @@ public class CompanyContactDao {
         return null;
     }
 
-    public List<CompanyContactListEntity> querySearchPage(String name, int pageNo) {
+    public List<CompanyContactListEntity> querySearchPage(String name, int pageNo,boolean limit) {
         QueryBuilder<CompanyContactListEntity, Integer> builder = articleDao.queryBuilder();
         String loginid = SharedPreferenceUtil.getString(context, "id", "");
         try {
-            builder.limit(50l).offset((pageNo - 1) * 50l);
+            if (limit){
+                builder.limit(50l).offset((pageNo - 1) * 50l);
+            }
+
             Where<CompanyContactListEntity, Integer> where = builder.where();
             if (name.equals("1")){
                 builder.orderBy("name", true);
@@ -234,7 +237,7 @@ public class CompanyContactDao {
             }else {
                 boolean isNunicodeDigits= StringUtils.isNumeric(name);
                 if (isNunicodeDigits){
-                    builder.orderBy("telephone", true);
+                    builder.orderBy("name", true);
                     where.or(where.and(where.eq("userloginid", loginid), where.like("telephone", "%" + name + "%"))
                             ,where.and(where.eq("userloginid", loginid), where.like("name", "%" + name + "%"))
                             );

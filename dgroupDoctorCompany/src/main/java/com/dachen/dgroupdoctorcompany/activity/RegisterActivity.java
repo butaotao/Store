@@ -222,9 +222,9 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,Ht
 							CheckPhoneOnSys sys = (CheckPhoneOnSys)result;
 							if (sys.data==1){
 								closeLoadingDialog();
-								mSendAgainBtn.setText(R.string.again);
-								mSendAgainBtn.setTextColor(Color.parseColor("#30b2cc"));
+								mSendAgainBtn.setText(R.string.getcode);
 								mSendAgainBtn.setEnabled(true);
+								mSendAgainBtn.setTextColor(getResources().getColor(R.color.blue_496fb7));
 								get_call_code.setTextColor(getResources().getColor(R.color.blue_496fb7));
 								get_call_code.setClickable(true);
 								clicked = false;

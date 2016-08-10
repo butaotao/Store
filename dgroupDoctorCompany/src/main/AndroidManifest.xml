@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.dachen.dgroupdoctorcompany"
-    android:versionCode="166"
-    android:versionName="1.4080902.166">
+    android:versionCode="168"
+    android:versionName="1.4081002.168">
 <!--
     android:versionCode="161"
     android:versionName="1.4070706.161">-->
@@ -116,6 +116,16 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.AlarmDialogFullScreenActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@android:style/Theme.Translucent"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.GuiderDialogActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@android:style/Theme.Translucent"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.GuiderDialogsetworkTime"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@android:style/Theme.Translucent"
             android:screenOrientation="portrait" />

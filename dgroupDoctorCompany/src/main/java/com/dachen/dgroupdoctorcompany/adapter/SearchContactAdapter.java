@@ -102,7 +102,7 @@ public class SearchContactAdapter extends BaseCustomAdapter<BaseSearch>{
                 holder.rl_search.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                         objects.clear();
+                        objects.clear();
                         objects.addAll(contact);
                         isShowMore = false;
                         refreshDataInterface.refreshData();
@@ -111,6 +111,9 @@ public class SearchContactAdapter extends BaseCustomAdapter<BaseSearch>{
                     }
                 });
             }else {
+                holder.rl_below.setVisibility(View.GONE);
+            }
+            if (activity.showColleague){
                 holder.rl_below.setVisibility(View.GONE);
             }
                 holder.tv_leader_position_right.setVisibility(View.GONE);
@@ -171,11 +174,11 @@ public class SearchContactAdapter extends BaseCustomAdapter<BaseSearch>{
 
             }
         });
-        if (activity.isShow){
+     /*   if (activity.isShow){
             holder.btn_radio.setVisibility(View.VISIBLE);
-        }else {
+        }else {*/
             holder.btn_radio.setVisibility(View.GONE);
-        }
+       // }
     }
     public void setPartSize(int partSize){
         this.partSize = partSize;

@@ -84,7 +84,7 @@ public class RadarView extends View {
         mPaintLine = new Paint();
         mPaintLine.setColor(getResources().getColor(R.color.black_333333));
         mPaintLine.setAntiAlias(true);
-        mPaintLine.setStrokeWidth(1);
+        mPaintLine.setStrokeWidth(3);
         mPaintLine.setStyle(Paint.Style.STROKE);
 
         mPaintCircle = new Paint();
@@ -139,7 +139,7 @@ public class RadarView extends View {
     private void drawCircle(Canvas canvas) {
         canvas.drawCircle(mWidth / 2, mHeight / 2, mWidth * circleProportion[1], mPaintLine);     // 绘制小圆
         canvas.drawCircle(mWidth / 2, mHeight / 2, mWidth * circleProportion[2], mPaintLine);   // 绘制中圆
-        canvas.drawCircle(mWidth / 2, mHeight / 2, mWidth * circleProportion[3], mPaintLine); // 绘制中大圆
+        canvas.drawCircle(mWidth / 2, mHeight / 2, mWidth * circleProportion[3]-2, mPaintLine); // 绘制中大圆
     }
 
     /**

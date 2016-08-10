@@ -170,6 +170,7 @@ public class DoctorDao {
         List<Doctor> doctorss = new ArrayList<>();
         try {
             Where<Doctor, Integer> where = builder.where();
+            builder.orderBy("name", true);
             where.or(where.and(where.like("name", "%" + name + "%"), where.eq("userloginid", loginid)),
                      where.and(where.like("telephone", "%" + name + "%"), where.eq("userloginid", loginid)));
 

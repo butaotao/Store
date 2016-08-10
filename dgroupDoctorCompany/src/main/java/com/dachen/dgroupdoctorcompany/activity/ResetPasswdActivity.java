@@ -127,6 +127,7 @@ public class ResetPasswdActivity extends BaseActivity implements
 	private void reset(String password, String userType) {
 		// TODO Auto-generated method stub
 		final String requestTag = "Reset";
+		showLoadingDialog();
 		new HttpManager().post(this, Constants.RESET_PASSWD,
 				LoginRegisterResult.class, Params.getResetPasswordParams(phone,
 						userType, smsid, ranCode, mPasswordEdit.getText()
@@ -142,6 +143,7 @@ public class ResetPasswdActivity extends BaseActivity implements
 
 	@Override
 	public void onSuccess(Result response) {
+		closeLoadingDialog();
 		// TODO Auto-generated method stub
 		if (null != response && 1 == response.getResultCode()) {
 			/*Intent intent = new Intent(ResetPasswdActivity.this,
@@ -246,6 +248,7 @@ public class ResetPasswdActivity extends BaseActivity implements
 
 	@Override
 	public void onFailure(Exception e, String errorMsg,int s) {
+		closeLoadingDialog();
 		// TODO Auto-generated method stub
 		ToastUtils.showToast(ResetPasswdActivity.this,errorMsg);
 	}

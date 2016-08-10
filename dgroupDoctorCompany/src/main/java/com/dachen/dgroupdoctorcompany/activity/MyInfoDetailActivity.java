@@ -303,7 +303,7 @@ public class MyInfoDetailActivity extends BaseActivity implements HttpManager.On
                 ToastUtil.showToast(MyInfoDetailActivity.this,R.string.upload_avatar_failed);
             }
         };
-        String urls =AppConfig.getUrl(Constants.USER_UPDATE, 3);
+        String urls =AppConfig.getUrl(Constants.USER_UPDATE, 1);
         StringRequest request=new StringRequest(Request.Method.POST,urls,listener,errorListener){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {

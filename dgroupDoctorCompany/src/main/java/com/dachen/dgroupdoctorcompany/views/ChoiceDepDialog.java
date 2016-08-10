@@ -3,6 +3,7 @@ package com.dachen.dgroupdoctorcompany.views;
 import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
@@ -146,7 +147,7 @@ public class ChoiceDepDialog extends Dialog implements View.OnClickListener,Scro
         horizonlistview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (horizon.size()>=1){
+                if (horizon.size()>=1&& !TextUtils.isEmpty(horizon.get(0).orgName)&&!horizon.get(0).orgName.equals("请选择")){
                     List<DepAdminsList> horizonremove = new ArrayList<DepAdminsList>();
                     horizonremove = horizon.subList(0, position + 1);
                     // horizon.clear();

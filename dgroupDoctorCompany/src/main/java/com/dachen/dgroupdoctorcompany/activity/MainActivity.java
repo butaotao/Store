@@ -49,6 +49,7 @@ import com.dachen.dgroupdoctorcompany.receiver.HwPushReceiver;
 import com.dachen.dgroupdoctorcompany.service.VersionUpdateService;
 import com.dachen.dgroupdoctorcompany.utils.GaoDeMapUtils;
 import com.dachen.dgroupdoctorcompany.utils.UserInfo;
+import com.dachen.dgroupdoctorcompany.views.GuiderDialog;
 import com.dachen.imsdk.ImSdk;
 import com.dachen.imsdk.db.dao.ChatGroupDao;
 import com.dachen.imsdk.entity.event.NewMsgEvent;
@@ -164,6 +165,14 @@ public class MainActivity extends BaseActivity implements OnHttpListener,
         mGaoDeMapUtils = new GaoDeMapUtils(this.getApplicationContext(), this);
 
         getVersion();
+        if (SharedPreferenceUtil.getString(this,"showguider","0").equals("0")){
+            GuiderDialog dialog = new GuiderDialog(this);
+            dialog.showDialog();
+            SharedPreferenceUtil.putString(this,"showguider","1");
+        }
+
+      /*  Intent intent = new Intent(this,GuiderDialogActivity.class);
+        startActivity(intent);*/
     }
 
 

@@ -209,7 +209,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
     }
 
     private void loginRequest(String phoneNum, String password) {
-        final String userType = Constants.USER_TYPE;
+        final String userType = Constants.USER_TYPEC+"";
         new HttpManager().post(this, Constants.LOGIN + "", LoginRegisterResult.class,
                 Params.getLoginParams(phoneNum, password, userType, this), loginListener,
                 false, 1);

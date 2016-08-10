@@ -36,7 +36,7 @@ public class HospitalManagerActivity extends BaseActivity implements HttpManager
     HospitalManagerChildrenAdapter adapter;
     ViewStub vstub_title;
     public static int totalNumHospital;
-    public static int larSize = 50;
+    public static int larSize = Integer.MAX_VALUE;
     public static int refresh = 1;
 
     protected void onCreate(Bundle savedInstanceState) {

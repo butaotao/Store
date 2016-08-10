@@ -298,11 +298,12 @@ public class SelectVisitPeople extends BaseActivity implements HttpManager.OnHtt
         }else{
             mMode = MODE_JOIN;
         }
-
+        btn_choiceposition.setVisibility(View.GONE);
         if(MODE_ADD == mMode){
             mBtSure.setVisibility(View.VISIBLE);
             tvSure.setVisibility(View.GONE);
             setTitle("寻找拜访人员");
+            btn_choiceposition.setVisibility(View.VISIBLE);
         }else if(MODE_JOIN == mMode){
             mBtSure.setVisibility(View.GONE);
             tvSure.setVisibility(View.VISIBLE);
@@ -317,7 +318,8 @@ public class SelectVisitPeople extends BaseActivity implements HttpManager.OnHtt
 
 
         tvTimeCount.setText(""+time);
-        tvSure.setText("等待"+initatorName+"确认...");
+        tvSure.setText("等待" + initatorName + "确认...");
+
 //        mBtSure.setText("确定选择(1)人");
         btn_choiceposition.setOnClickListener(this);
         mMyHandler.sendEmptyMessageDelayed(MSG_UPDATE_TIME,1000);
@@ -435,7 +437,7 @@ public class SelectVisitPeople extends BaseActivity implements HttpManager.OnHtt
     private void cancelVisitGroup(){
         showLoadingDialog();
         new HttpManager().get(this, Constants.CANCEL_VISIT_GROUP, Result.class,
-                Params.joinVisitGroup(SelectVisitPeople.this,id),
+                Params.joinVisitGroup(SelectVisitPeople.this, id),
                 this,false,4);
     }
 
@@ -544,22 +546,36 @@ public class SelectVisitPeople extends BaseActivity implements HttpManager.OnHtt
     }
 
     public void addVisitPeople(VisitPeople visitPeople){
+
         if(null != visitPeople){
             if(!isAddPeople(visitPeople)){
                 SparseArray<VisitPeople> sparseArray = new SparseArray<>();
-                sparseArray.put(0,visitPeople);
+                sparseArray.put(0, visitPeople);
                 mRadarViewGroup.setDatas(sparseArray);
                 mVisitPeopleList.add(visitPeople);
 
                 Set<VisitPeople> set = new HashSet<>();
                 set.addAll(mVisitPeopleList);
                 int size = set.size();
-                mBtSure.setText("确定选择("+size+")人");
-                btn_choiceposition.setVisibility(View.GONE);
+                size = size+1;
+                if (size>=2){
+                    mBtSure.setText("确定" + size + "人");
+
+                    btn_choiceposition.setVisibility(View.GONE);
+                }else {
+                    mBtSure.setText("确定拜访");
+                    btn_choiceposition.setVisibility(View.VISIBLE);
+                }
+
+                tvSure.setVisibility(View.GONE);
+
             }
 
         }
-
+        if(mMode == MODE_JOIN){
+            tvSure.setText("等待" + initatorName + "确认...");
+            tvSure.setVisibility(View.VISIBLE);
+        }
     }
 
     private boolean isAddPeople(VisitPeople people){
@@ -577,7 +593,7 @@ public class SelectVisitPeople extends BaseActivity implements HttpManager.OnHtt
     public void createDeleteVisit(){
         final CustomDialog dialog = new CustomDialog(this);
         String name = !TextUtils.isEmpty(initatorName)?initatorName:"创建者";
-        dialog.showDialog("提示", name+"已取消协同拜访", R.string.visit_group_yes,
+        dialog.showDialog("提示", name + "已取消协同拜访", R.string.visit_group_yes,
                 0, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -611,10 +627,23 @@ public class SelectVisitPeople extends BaseActivity implements HttpManager.OnHtt
             Set<VisitPeople> set = new HashSet<>();
             set.addAll(mVisitPeopleList);
             int size = set.size()+1;
-//            mBtSure.setText("确定选择("+size+")人");
-            btn_choiceposition.setVisibility(View.GONE);
             mRadarViewGroup.removeCircleView(visitPeople);
+
+            if (size>=2){
+                mBtSure.setText("确定" + size + "人");
+
+                btn_choiceposition.setVisibility(View.GONE);
+            }else {
+                mBtSure.setText("确定拜访");
+                btn_choiceposition.setVisibility(View.VISIBLE);
+            }
+            tvSure.setVisibility(View.GONE);
         }
+        if(mMode == MODE_JOIN){
+            tvSure.setText("等待" + initatorName + "确认...");
+            tvSure.setVisibility(View.VISIBLE);
+        }
+
     }
 
     public void createVisitGroup(){

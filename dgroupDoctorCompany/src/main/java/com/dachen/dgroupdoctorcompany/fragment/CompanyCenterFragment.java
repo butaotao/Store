@@ -19,6 +19,7 @@ import com.dachen.dgroupdoctorcompany.db.dbdao.DepAdminsListDao;
 import com.dachen.dgroupdoctorcompany.entity.H5Url;
 import com.dachen.dgroupdoctorcompany.utils.GaoDeMapUtils;
 import com.dachen.dgroupdoctorcompany.utils.UserInfo;
+import com.dachen.dgroupdoctorcompany.views.GuiderDialog;
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
 import com.dachen.medicine.entity.Result;
 import com.dachen.medicine.net.HttpManager.OnHttpListener;
@@ -103,10 +104,13 @@ public class CompanyCenterFragment extends BaseFragment implements ExpandableLis
                 break;
             case R.id.rl_sign_in:
                 showLoadingDialog();
+               /* GuiderDialog dialog = new GuiderDialog(mActivity);
+                dialog.show();*/
                 Intent signIntent = new Intent(mActivity,SignInActivity.class);
                 startActivity(signIntent);
                 break;
             case R.id.rl_singrecord:
+
                 Intent singRecordIntent = new Intent(mActivity,RecordActivity.class);
                 startActivity(singRecordIntent);
                 break;

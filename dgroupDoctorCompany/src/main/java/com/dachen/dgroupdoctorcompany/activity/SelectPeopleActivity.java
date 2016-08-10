@@ -694,7 +694,8 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
             switch (requestCode) {
                 case REQUEST_SEARCH:
 
-                   /* CompanyContactListEntity c2 = (CompanyContactListEntity) intent.getSerializableExtra("data");
+                  CompanyContactListEntity c2 = (CompanyContactListEntity) intent.getSerializableExtra("data");
+                    if (null!=c2){
                         if (c2.select) {
                         } else {
                             c2.select = true;
@@ -703,16 +704,16 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
                             }
                         }
                         addAdapter.notifyDataSetChanged();
-                    for (int i = 0; i < list.size(); i++) {
-                        BaseSearch search = list.get(i);
-                        if (search instanceof CompanyContactListEntity) {
-                            CompanyContactListEntity entity = (CompanyContactListEntity) list.get(i);
-                            if (entity.userId.equals(c2.userId)) {
-                                list.set(i, c2);
+                        for (int i = 0; i < list.size(); i++) {
+                            BaseSearch search = list.get(i);
+                            if (search instanceof CompanyContactListEntity) {
+                                CompanyContactListEntity entity = (CompanyContactListEntity) list.get(i);
+                                if (entity.userId.equals(c2.userId)) {
+                                    list.set(i, c2);
+                                }
                             }
                         }
-                    }*/
-
+                    }
 //            list.set(position, c2);
                         adapter.notifyDataSetChanged();
                     addAdapter.notifyDataSetChanged();
