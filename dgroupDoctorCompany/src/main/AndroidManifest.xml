@@ -134,6 +134,8 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
+        <service
+            android:name=".service.GaoDeService"  />
         <activity
             android:name=".activity.MapDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"

@@ -1,11 +1,16 @@
 package com.dachen.dgroupdoctorcompany.utils;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.dachen.dgroupdoctorcompany.activity.AddSignInActivity;
+import com.dachen.dgroupdoctorcompany.activity.SignInActivity;
+import com.dachen.dgroupdoctorcompany.receiver.LocationReceiver;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,7 +33,9 @@ public class GaoDeMapUtils  {
         this.mContext = context;
         this.mLocationListener = locationListener;
     }
-
+    public GaoDeMapUtils(Context context){
+        this.mContext = context;
+    }
     public  void startLocation(){
         locationClient = new AMapLocationClient(mContext);
         locationOption = new AMapLocationClientOption();
@@ -64,19 +71,32 @@ public class GaoDeMapUtils  {
                     city = aMapLocation.getCity();
                     mStrFloor = aMapLocation.getAoiName();
                     mStrAddress = aMapLocation.getAddress();
-
                     Map<String,Object>map = new HashMap<>();
                     map.put("latitude",latitude);
                     map.put("longitude",longitude);
-                    map.put("city",city);
-                    map.put("floor",mStrFloor);
-                    map.put("address",mStrAddress);
-                    mLocationListener.onLocation(map);
+                    map.put("city", city);
+                    map.put("floor", mStrFloor);
+                    map.put("address", mStrAddress);
+                    if (mLocationListener!=null){
+                        mLocationListener.onLocation(map);
+                    }
+
+                    Intent intent = new Intent(SignInActivity.ACTION);
+                    intent.putExtra("latitude",latitude);
+                    intent.putExtra("longitude",longitude);
+                    intent.putExtra("address",mStrAddress);
+                    intent.putExtra("city",city);
+                    mContext.sendBroadcast(intent);
+
                 }else{
-                    mLocationListener.onLocation(null);
+                    if (mLocationListener!=null) {
+                        mLocationListener.onLocation(null);
+                    }
                 }
             }else{
-                mLocationListener.onLocation(null);
+                if (mLocationListener!=null) {
+                    mLocationListener.onLocation(null);
+                }
             }
         }
     }

@@ -1,5 +1,6 @@
 package com.dachen.dgroupdoctorcompany.entity;
 
+import com.dachen.dgroupdoctorcompany.db.dbentity.OftenSinPlace;
 import com.dachen.medicine.entity.Result;
 
 import java.util.ArrayList;
@@ -10,19 +11,7 @@ import java.util.ArrayList;
 public class OftenSignPlace extends Result{
     public Data data;
     public class Data{
-        public ArrayList<PageData> pageData;
-        public class PageData{
-                public String coordinate;
-                public String creator;
-                public String creatorDate;
-                public String drugCompanyId;
-                public String fullAddress;
-                public String id;
-                public String simpleAddress;
-                public String type;
-                public int updator;
-                public long updatorDate;
+        public ArrayList<OftenSinPlace> pageData;
 
-        }
     }
 }

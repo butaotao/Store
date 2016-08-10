@@ -16,12 +16,16 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
-import com.dachen.common.utils.ToastUtil;
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
+import com.dachen.dgroupdoctorcompany.db.dbdao.OftenSignPlaceDao;
+import com.dachen.dgroupdoctorcompany.db.dbentity.OftenSinPlace;
 import com.dachen.dgroupdoctorcompany.entity.OftenSignPlace;
 import com.dachen.dgroupdoctorcompany.entity.SignInBaseData;
+import com.dachen.dgroupdoctorcompany.receiver.LocationReceiver;
+import com.dachen.dgroupdoctorcompany.service.GaoDeService;
+import com.dachen.dgroupdoctorcompany.utils.GaoDeMapUtils;
 import com.dachen.dgroupdoctorcompany.utils.UserInfo;
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
 import com.dachen.medicine.entity.Result;
@@ -29,6 +33,7 @@ import com.dachen.medicine.net.HttpManager;
 import com.dachen.medicine.net.Params;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by weiwei on 2016/3/30.
@@ -43,34 +48,53 @@ public class SignInActivity extends BaseActivity implements HttpManager.OnHttpLi
     private LinearLayout vVisit;
     private LinearLayout vTogetherVisit;
     private LinearLayout signin_remind;
-    double lengh = -1;
+    public static double lengh = -1;
     private AMapLocationClient locationClient = null;
     private AMapLocationClientOption locationOption = null;
-    private double                     latitude;//纬度
-    private double                     longitude;//经度
+    public double                     latitude;//纬度
+    public double                     longitude;//经度
     private String                     city;//城市
-    ArrayList<OftenSignPlace.Data.PageData> pageData;
+    ArrayList<OftenSinPlace> pageData;
     AMapLocation aMapLocation;
-    String address;
-    long allowDistance = 250;
+    public static String address;
+    public static long allowDistance = 250;
     RelativeLayout rl_titlebar;
     boolean isSHOW;
     LinearLayout jilu;
     View line1;
+    LocationReceiver receiver;
+    public static OftenSignPlaceDao oftenSignPlaceDao;
+    GaoDeMapUtils mGaoDeMapUtils;
+    public static final String ACTION = "com.dachen.dgroupdoctorcompany.location";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
         showLoadingDialog();
+        oftenSignPlaceDao = new OftenSignPlaceDao(this);
+        lengh = -1;
         initView();
         initData();
-
+        Intent intent = new Intent(this,GaoDeService.class);
+        startService(intent);
         //接受广播
         IntentFilter filter = new IntentFilter();
         filter.addAction("action.to.signlist");
         registerReceiver(hasMessageReceiver, filter);
         getSignRecord();
+        receiver = new LocationReceiver(){
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                super.onReceive(context, intent);
 
+                long latitude = intent.getLongExtra("latitude", 0L);
+                long longitude = intent.getLongExtra("longitude",0L);
+                compareDistance(longitude,latitude,context);
+            }
+        };
+        IntentFilter filters= new IntentFilter();
+        filters.addAction(ACTION);
+        registerReceiver(receiver, filter);
     }
 
     @Override
@@ -218,11 +242,11 @@ public class SignInActivity extends BaseActivity implements HttpManager.OnHttpLi
                 }
             }else if (response instanceof OftenSignPlace){
                 OftenSignPlace place = (OftenSignPlace) response;
-
                 if (null!=place&&null!=place.data
                         &&null!=place.data.pageData){
                     pageData = place.data.pageData;
-                    compareDistance(pageData,aMapLocation);
+
+                    addData(pageData);
                 }
             }
         }
@@ -238,26 +262,72 @@ public class SignInActivity extends BaseActivity implements HttpManager.OnHttpLi
     public void onFailure(Exception e, String errorMsg, int s) {
 
     }
-    public boolean compareDistance(ArrayList<OftenSignPlace.Data.PageData> pageData,AMapLocation aMapLocation){
-        if (pageData==null||aMapLocation==null){
-            lengh = -2;
-            return false;
-        }
-        for (OftenSignPlace.Data.PageData data:pageData){
+    public boolean compareDistance(final AMapLocation aMapLocation){
+        List<OftenSinPlace> lists = oftenSignPlaceDao.queryAllByUserid();
+        boolean flag = false;
+        final String id = SharedPreferenceUtil.getString(this,"id","");;
+                for (OftenSinPlace data:lists){
+                    if (null!=data&&!TextUtils.isEmpty(data.coordinate)){
+                        String[] coord = data.coordinate.replace("[","").replace("]","").replace("\"","").split(",");
+                        if (coord.length>1){
+                            lengh =  getDistance(Double.parseDouble(coord[0]),Double.parseDouble(coord[1]),
+                                    aMapLocation.getLongitude(), aMapLocation.getLatitude());
+
+                            address = data.simpleAddress;
+                            if (lengh<=allowDistance){
+                                break;
+                            }
+                        }
+                    }
+                }
+
+        return flag;
+    }
+
+    public static boolean compareDistance(long longtitude,long latitude,Context context){
+        List<OftenSinPlace> lists = oftenSignPlaceDao.queryAllByUserid();
+        boolean flag = false;
+        final String id = SharedPreferenceUtil.getString(context, "id", "");;
+        for (OftenSinPlace data:lists){
             if (null!=data&&!TextUtils.isEmpty(data.coordinate)){
                 String[] coord = data.coordinate.replace("[","").replace("]","").replace("\"","").split(",");
                 if (coord.length>1){
                     lengh =  getDistance(Double.parseDouble(coord[0]),Double.parseDouble(coord[1]),
-                            aMapLocation.getLongitude(), aMapLocation.getLatitude());
+                            longtitude, latitude);
                     address = data.simpleAddress;
                     if (lengh<=allowDistance){
-
+                        flag = true;
                         break;
                     }
                 }
             }
         }
-        return false;
+
+        return flag;
+    }
+    public void addData(final ArrayList<OftenSinPlace> pageData){
+
+        final String id = SharedPreferenceUtil.getString(this,"id","");;
+        final ArrayList<OftenSinPlace> pageData2 =new ArrayList<>();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (OftenSinPlace data:pageData){
+                    if (null!=data&&!TextUtils.isEmpty(data.coordinate)){
+                        String[] coord = data.coordinate.replace("[","").replace("]","").replace("\"","").split(",");
+                        if (coord.length>1){
+
+                            data.userloginid = id;
+                            pageData2.add(data);
+                        }
+                    }
+                }
+                oftenSignPlaceDao.addCompanyContactLis(pageData2);
+                List<OftenSinPlace> lists = oftenSignPlaceDao.queryAllByUserid();
+            }
+
+        }).start();
+
     }
     @Override
     public void onLocationChanged(AMapLocation aMapLocation) {
@@ -268,7 +338,7 @@ public class SignInActivity extends BaseActivity implements HttpManager.OnHttpLi
                 this.aMapLocation =  aMapLocation;
                 latitude = aMapLocation.getLatitude();
                 longitude = aMapLocation.getLongitude();
-                compareDistance(pageData,aMapLocation);
+                compareDistance(aMapLocation);
                 city = aMapLocation.getCity();
             }
         }
@@ -280,6 +350,9 @@ public class SignInActivity extends BaseActivity implements HttpManager.OnHttpLi
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (null!=receiver){
+            unregisterReceiver(receiver);
+        }
         if (null != locationClient) {
             /**
              * 如果AMapLocationClient是在当前Activity实例化的，

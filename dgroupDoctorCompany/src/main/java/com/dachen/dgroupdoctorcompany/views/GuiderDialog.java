@@ -55,7 +55,7 @@ public class GuiderDialog extends Dialog implements View.OnClickListener,ScrollT
         setCancelable(true);
         this.setCanceledOnTouchOutside(false);
 
-        lp.width = (int) (metric.widthPixels)-200;; // 宽度
+        lp.width = (int) (metric.widthPixels)-100;; // 宽度
         lp.height = (int) (metric.heightPixels);; // 高度/*
        /* lp.alpha = 0.7f; // 透明度*/
         window.setAttributes(lp);

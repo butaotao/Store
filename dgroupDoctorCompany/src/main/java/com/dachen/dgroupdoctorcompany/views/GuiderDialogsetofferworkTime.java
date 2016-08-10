@@ -33,7 +33,7 @@ public class GuiderDialogsetofferworkTime extends Dialog implements View.OnClick
     int isworkTime;
     RemindDao dao;
     WeekDao weekDao;
-    TimePickerCustomer timePicker;
+    TimePickerCustomerGuider timePicker;
     private List<String> mListLable = new ArrayList<>();
     private List<String> mListLableSelect = new ArrayList<>();
     public GuiderDialogsetofferworkTime(Activity activity) {
@@ -60,7 +60,7 @@ public class GuiderDialogsetofferworkTime extends Dialog implements View.OnClick
         setCancelable(true);
         this.setCanceledOnTouchOutside(false);
 
-        timePicker = (TimePickerCustomer) findViewById(R.id.minute_pv);
+        timePicker = (TimePickerCustomerGuider) findViewById(R.id.minute_pv);
         long curTime = System.currentTimeMillis();
         Calendar c = Calendar.getInstance();
         c.setTime(new Date(curTime));
@@ -68,7 +68,7 @@ public class GuiderDialogsetofferworkTime extends Dialog implements View.OnClick
         int minute = c.get(Calendar.MINUTE);
         timePicker.hours.setItems(timePicker.hourList, 18 + "");
         timePicker.mins.setItems(timePicker.minuteList, 0 + "");
-        timePicker.setOnChangeListener(new TimePickerCustomer.OnChangeListener() {
+        timePicker.setOnChangeListener(new TimePickerCustomerGuider.OnChangeListener() {
             @Override
             public void onChange(int hours, int munites) {
               /*  hour = hours;

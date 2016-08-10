@@ -3,6 +3,7 @@ package com.dachen.dgroupdoctorcompany.activity;
 /**
  * Created by Burt on 2016/8/6.
  */
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -16,6 +17,7 @@ import com.dachen.common.media.SoundPlayer;
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.dgroupdoctorcompany.db.dbentity.Reminder;
+import com.dachen.dgroupdoctorcompany.receiver.LocationReceiver;
 import com.dachen.medicine.common.utils.Alarm;
 import com.dachen.medicine.common.utils.LogUtils;
 import com.dachen.medicine.common.utils.TimeUtils;
@@ -46,6 +48,11 @@ public class AlarmDialogFullScreenActivity extends BaseActivity   {
 
     private Reminder mAlarm;
     SoundPlayer player ;
+    LocationReceiver receiver;
+    boolean startSign;
+    long latitude;
+    long longitude;
+    String address;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -53,6 +60,7 @@ public class AlarmDialogFullScreenActivity extends BaseActivity   {
         setContentView(getLayoutResId());
         ButterKnife.bind(this);
         player = new SoundPlayer(this);
+        startSign = false;
         // 当处于锁屏状态时，允许此界面出现在锁屏界面之上，即不用解锁也能显示此界面
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
                 | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
@@ -63,7 +71,17 @@ public class AlarmDialogFullScreenActivity extends BaseActivity   {
         setFinishOnTouchOutside(false);
 
         initData(getIntent());
+        receiver = new LocationReceiver(){
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                super.onReceive(context, intent);
 
+                latitude = intent.getLongExtra("latitude", 0L);
+                longitude = intent.getLongExtra("longitude", 0L);
+                address = intent.getStringExtra("address");
+                startSign = SignInActivity.compareDistance(longitude,latitude,context);
+            }
+        };
 
     }
 
@@ -99,10 +117,22 @@ public class AlarmDialogFullScreenActivity extends BaseActivity   {
 
     @OnClick(R.id.right_btn)//服用
     public void onRightBtnClick(View v) {
-        Intent intent = new Intent(this, SelectAddressActivity.class);
-        intent.putExtra("alarm", mAlarm);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+        if (startSign){
+            Intent intent = new Intent(this, AddSignInActivity.class);
+
+            intent.putExtra("name", SignInActivity.address);
+            intent.putExtra("longitude", longitude);
+            intent.putExtra("latitude", latitude);
+            intent.putExtra("mode", AddSignInActivity.MODE_WORKING);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }else {
+            Intent intent = new Intent(this, SelectAddressActivity.class);
+            intent.putExtra("alarm", mAlarm);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+
+        }
         finish();
     }
 

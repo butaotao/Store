@@ -25,13 +25,13 @@
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="320dp"
+        android:layout_height="220dp"
         android:layout_below="@+id/rl_above"
         android:id="@+id/rl_below"
 
 
         android:background="@drawable/btn_white_below">
-        <com.dachen.dgroupdoctorcompany.views.TimePickerCustomer
+        <com.dachen.dgroupdoctorcompany.views.TimePickerCustomerGuider
             android:id="@+id/minute_pv"
             android:layout_width="match_parent"
             android:gravity="center_horizontal"

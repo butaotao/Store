@@ -22,6 +22,7 @@ import com.dachen.dgroupdoctorcompany.activity.SignListActivity;
 import com.dachen.dgroupdoctorcompany.db.dbdao.RemindDao;
 import com.dachen.dgroupdoctorcompany.db.dbentity.Reminder;
 import com.dachen.dgroupdoctorcompany.db.dbentity.WeekSinger;
+import com.dachen.dgroupdoctorcompany.service.GaoDeService;
 import com.dachen.dgroupdoctorcompany.service.PlayMusicService;
 import com.dachen.medicine.common.utils.Alarm;
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
@@ -122,6 +123,8 @@ public class AlarmReceivers extends BroadcastReceiver {
             }
         }
         if (show){
+            Intent intent = new Intent(context,GaoDeService.class);
+            context.startService(intent);
             showNotification(context, reminder);
         }
     }

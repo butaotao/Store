@@ -44,7 +44,7 @@ public class GuiderDialogsetworkTimeOver extends Dialog implements View.OnClickL
         setCancelable(true);
         this.setCanceledOnTouchOutside(false);
 
-        lp.width = (int) (metric.widthPixels)-200;; // 宽度
+        lp.width = (int) (metric.widthPixels)-120;; // 宽度
         lp.height = (int) (metric.heightPixels);; // 高度/*
        /* lp.alpha = 0.7f; // 透明度*/
         window.setAttributes(lp);

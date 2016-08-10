@@ -7,6 +7,7 @@ import com.dachen.common.utils.Logger;
 import com.dachen.dgroupdoctorcompany.db.dbdao.RemindDao;
 import com.dachen.dgroupdoctorcompany.db.dbentity.DepAdminsList;
 import com.dachen.dgroupdoctorcompany.db.dbentity.Doctor;
+import com.dachen.dgroupdoctorcompany.db.dbentity.OftenSinPlace;
 import com.dachen.dgroupdoctorcompany.db.dbentity.Reminder;
 import com.dachen.dgroupdoctorcompany.db.dbentity.SearchRecords;
 import com.dachen.dgroupdoctorcompany.db.dbentity.WeekSinger;
@@ -59,6 +60,7 @@ public class SQLiteHelper  extends OrmLiteSqliteOpenHelper {
             TableUtils.createTableIfNotExists(connSource,DepAdminsList.class);
             TableUtils.createTableIfNotExists(connSource,Reminder.class);
             TableUtils.createTableIfNotExists(connSource,WeekSinger.class);
+            TableUtils.createTableIfNotExists(connSource,OftenSinPlace.class);
         } catch (SQLException e) {
             e.printStackTrace();
         }
