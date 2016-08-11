@@ -52,6 +52,20 @@ public class CompanyImMsgHandler extends ImMsgHandler{
     }
 
     @Override
+    public void onClickNewMpt17(ChatMessagePo chatMessage, ChatAdapterV2 adapter, View v) {
+        ImgTextMsgV2 mpt = getImgTextMsgV2(chatMessage);
+        if (mpt == null) {
+            return;
+        }
+        final String url = mpt.url;
+        Intent intent = new Intent(mContext, WebActivityForCompany.class);
+        intent.putExtra("url", url).putExtra(WebActivityForCompany.INTENT_SHOW_TITLE,true);
+//        intent.putExtra(WebActivity.INTENT_CHECK_404,true);
+        intent.putExtra(WebActivityForCompany.INTENT_NO_CACHE, true);
+        mContext.startActivity(intent);
+    }
+
+    @Override
     public boolean menuHasForward() {
         return true;
     }
