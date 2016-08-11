@@ -65,8 +65,8 @@ public class GuiderDialogsetworkTime extends Dialog implements View.OnClickListe
             long curTime = System.currentTimeMillis();
             Calendar c = Calendar.getInstance();
             c.setTime(new Date(curTime));
-            timePicker.hours.setItems(timePicker.hourList,9+"");
-            timePicker.mins.setItems(timePicker.minuteList, 0 + "");
+            timePicker.hours.setItems(timePicker.hourList,"09");
+            timePicker.mins.setItems(timePicker.minuteList, "00");
             timePicker.setOnChangeListener(new TimePickerCustomerGuider.OnChangeListener() {
                 @Override
                 public void onChange(int hours, int munites) {

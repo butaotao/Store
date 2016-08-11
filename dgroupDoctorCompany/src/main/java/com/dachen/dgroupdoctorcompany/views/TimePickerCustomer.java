@@ -75,11 +75,13 @@ public class TimePickerCustomer extends LinearLayout {
 		minuteList = new ArrayList<String>();
 
 		for (int i = 0; i < 24; i++) {
-			hourList.add(i+"");
+			String h = String.format("%02d",i);
+			hourList.add(h );
 		}
 
 		for (int j = 0; j < 60; j++) {
-			minuteList.add(j+"");
+			String m = String.format("%02d",j);
+			minuteList.add(m);
 		}
 
 		//小时选择器

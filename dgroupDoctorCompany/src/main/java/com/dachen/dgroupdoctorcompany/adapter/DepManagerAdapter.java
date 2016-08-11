@@ -51,6 +51,7 @@ public class DepManagerAdapter extends android.widget.BaseAdapter{
             holder = new ViewHolder();
             holder.line2 = view.findViewById(R.id.line2);
             holder.textdes = (TextView) view.findViewById(R.id.textdes);
+            holder.textdes2 = (TextView) view.findViewById(R.id.textdes2);
             holder.ll_all = (LinearLayout) view.findViewById(R.id.ll_all);
             view.setTag(holder);
         }
@@ -59,15 +60,35 @@ public class DepManagerAdapter extends android.widget.BaseAdapter{
             holder.line2.setVisibility(View.GONE);
         }
         String depName = adminsList.orgName;
-        String dName = adminsList.orgName;
-        if (dName.contains("-")&&dName.length()>=2){
-            depName = dName.substring(dName.indexOf("-")+1);
+        String des = "";
+        String s [] = null;
+        if (depName.contains("/")){
+             s  = depName.split("/");
+            if (s.length>2){
+                for (int j=2;j<s.length;j++){
+                    String k = s[j];
+                    if (j==2){
+                        des = k;
+                    }else {
+                        des =des +" · "+k;
+                    }
+                }
+            }
+            des = des.replace(".  .",".");
         }
-        holder.textdes.setText(depName);
+
+        if (s!=null&&s.length>0){
+            holder.textdes.setText(des);
+            holder.textdes2.setText(s[s.length-1]);
+        }else {
+            holder.textdes2.setText(depName);
+        }
+
         return view;
     }
     public static class ViewHolder{
         TextView textdes;
+        TextView textdes2;
         View line2;
         LinearLayout ll_all;
     }

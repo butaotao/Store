@@ -82,7 +82,7 @@ public class RadarView extends View {
 
     private void init() {
         mPaintLine = new Paint();
-        mPaintLine.setColor(getResources().getColor(R.color.black_333333));
+        mPaintLine.setColor(getResources().getColor(R.color.text_select_color));
         mPaintLine.setAntiAlias(true);
         mPaintLine.setStrokeWidth(3);
         mPaintLine.setStyle(Paint.Style.STROKE);

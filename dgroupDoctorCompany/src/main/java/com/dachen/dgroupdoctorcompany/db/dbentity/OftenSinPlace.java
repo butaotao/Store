@@ -8,6 +8,8 @@ import com.j256.ormlite.table.DatabaseTable;
  */
 @DatabaseTable(tableName = "table_oftensinplace")
 public class OftenSinPlace {
+    @DatabaseField(generatedId=true)
+    public int _id;
     @DatabaseField(columnName = "coordinate")
     public String coordinate;
     @DatabaseField(columnName = "drugCompanyId")
@@ -18,8 +20,8 @@ public class OftenSinPlace {
     public String simpleAddress;
     @DatabaseField(columnName = "type")
     public String type;
-    @DatabaseField(generatedId=true)
-    public int _id;
+    @DatabaseField(columnName = "status")
+    public int status;
     @DatabaseField(columnName = "userloginid")
     public String userloginid;
 }

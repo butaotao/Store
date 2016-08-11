@@ -78,8 +78,10 @@ public class AddSigninRemindActivity extends BaseActivity implements OnClickList
             minute = changereminder.minute;
             rl_deletealert.setVisibility(View.VISIBLE);
 
-            timePicker.hours.setItems(timePicker.hourList, hour + "");
-            timePicker.mins.setItems(timePicker.minuteList,minute+"");
+            String h = String.format("%02d", hour);
+            String m = String.format("%02d", minute);
+            timePicker.hours.setItems(timePicker.hourList,h+"");
+            timePicker.mins.setItems(timePicker.minuteList, m + "");
             isOpen = changereminder.isOpen;
         }else {
             long curTime = System.currentTimeMillis();
@@ -87,8 +89,10 @@ public class AddSigninRemindActivity extends BaseActivity implements OnClickList
             c.setTime(new Date(curTime));
             int hour = c.get(Calendar.HOUR_OF_DAY);
             int minute = c.get(Calendar.MINUTE);
-            timePicker.hours.setItems(timePicker.hourList,hour+"");
-            timePicker.mins.setItems(timePicker.minuteList, minute + "");
+            String h = String.format("%02d", hour);
+            String m = String.format("%02d", minute);
+            timePicker.hours.setItems(timePicker.hourList,h+"");
+            timePicker.mins.setItems(timePicker.minuteList, m + "");
 
             isOpen = 1;
             rl_deletealert.setVisibility(View.GONE);

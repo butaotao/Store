@@ -166,7 +166,19 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
         addAdapter = new CircleCreateGroupAdapter(this, listsHorizon);
         addlistview = getViewById(R.id.addlistview);
         addlistview.setAdapter(addAdapter);
-
+        addlistview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                BaseSearch  baseSearch= (BaseSearch) addAdapter.getItem(position);
+                listsHorizon.remove(baseSearch);
+                int baseSearchlist=list.indexOf(baseSearch);
+                CompanyContactListEntity entity = (CompanyContactListEntity) list.get(baseSearchlist);
+                entity.select = false;
+                list.set(baseSearchlist,entity);
+                addAdapter.notifyDataSetChanged();
+                adapter.notifyDataSetChanged();
+            }
+        });
 
         adapter = new CompanySelectPeopleListAdapter(this, R.layout.adapter_selectpeoplelist, list, 0);
         listview.setAdapter(adapter);

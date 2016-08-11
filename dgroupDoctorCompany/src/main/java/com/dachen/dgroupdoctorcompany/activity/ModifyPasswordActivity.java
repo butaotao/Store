@@ -7,6 +7,7 @@ import android.widget.EditText;
 
 import com.dachen.common.utils.Md5Util;
 import com.dachen.dgroupdoctorcompany.R;
+import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.dgroupdoctorcompany.entity.Void;
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
@@ -96,7 +97,7 @@ public class ModifyPasswordActivity extends BaseActivity {
         params.put("oldPassword", oldPwd);
         params.put("newPassword", newPwd);
         params.put("access_token", session);
-        new HttpManager().post(this, "drugorg/drugCompanyEmployee/updatePassword",
+        new HttpManager().post(this, Constants.DRUG+"drugCompanyEmployee/updatePassword",
                 Void.class, params, new HttpManager.OnHttpListener<Result>() {
                     @Override
                     public void onSuccess(Result result) {

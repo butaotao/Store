@@ -251,6 +251,10 @@ public class MainActivity extends BaseActivity implements OnHttpListener,
         fragment_index = 1;
         FragmentUtils.changeFragment(getSupportFragmentManager(),
                 R.id.fragment_container, fragments, fragment_index);
+        Intent intent = new Intent(AddressList.action);
+
+        sendBroadcast(intent);
+
         showItem();
     }
 

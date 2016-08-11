@@ -125,7 +125,7 @@ public class PreResetPasswdActivity extends BaseActivity implements
 		params.put("userType", Constants.USER_TYPE);
 
 
-		new HttpManager().post(this, Constants.DRUG+"drugCompanyEmployee/updatePassword", TelePhoneVerifyData.class,
+		new HttpManager().post(this, Constants.GETVOICECODE, TelePhoneVerifyData.class,
 				params, this,
 				false, 1);
 	}
@@ -301,6 +301,7 @@ public class PreResetPasswdActivity extends BaseActivity implements
 				}
 			} else {
 				if (1 == result.getResultCode()) {
+					phoneNumber = mPhoneNumEdit.getText().toString().trim();
 					Intent intent = new Intent(PreResetPasswdActivity.this,
 							ResetPasswdActivity.class);
 					intent.putExtra(SMSID, smsid);

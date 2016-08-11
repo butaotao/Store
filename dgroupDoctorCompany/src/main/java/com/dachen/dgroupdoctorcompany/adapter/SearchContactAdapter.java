@@ -1,6 +1,7 @@
 package com.dachen.dgroupdoctorcompany.adapter;
 
 import android.content.Context;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,6 +14,7 @@ import com.dachen.dgroupdoctorcompany.activity.SearchContactActivity;
 import com.dachen.dgroupdoctorcompany.db.dbentity.Doctor;
 import com.dachen.dgroupdoctorcompany.entity.BaseSearch;
 import com.dachen.dgroupdoctorcompany.entity.CompanyContactListEntity;
+import com.dachen.dgroupdoctorcompany.utils.HtmlTextViewEdit;
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
 import com.dachen.medicine.net.CustomImagerLoader;
 
@@ -34,9 +36,11 @@ public class SearchContactAdapter extends BaseCustomAdapter<BaseSearch>{
     String seachdoctor;
     boolean showSelect;
     SearchContactActivity activity;
+    Context context;
     public SearchContactAdapter(Context context, int resId, List<BaseSearch> objects,List<CompanyContactListEntity> contact,
                                 List<Doctor> doctors ,SearchContactActivity.RefreshDataInterface refreshDataInterface,String seachdoctor) {
         super(context, resId, objects);
+        this.context = context;
         this.contact = contact;
         this.doctors = doctors;
         this.objects =objects;
@@ -68,10 +72,33 @@ public class SearchContactAdapter extends BaseCustomAdapter<BaseSearch>{
         BaseSearch base;
         base = (BaseSearch)getItem(position);
         ViewHolder holder = (ViewHolder)baseViewHolder;
+        holder.iv_irr.setVisibility(View.VISIBLE);
         if(base instanceof CompanyContactListEntity){
             CompanyContactListEntity  people = (CompanyContactListEntity)base;
+            holder.tv_name_phone.setVisibility(View.GONE);
+            if (!TextUtils.isEmpty(people.position)/*&&!activity.showColleague*/){
+                holder.tv_nameright.setText(people.position);
+                holder.tv_nameright.setVisibility(View.GONE);
+            }else{
+                holder.tv_nameright.setVisibility(View.GONE);
+            }
             if (!TextUtils.isEmpty(people.name)){
-                holder.tv_name_leader.setText(people.name);
+                Spanned spanned = HtmlTextViewEdit.showkeywordContent(people.name,activity.searchText,context);
+                if (activity!=null/*&&activity.showColleague*/){
+                    if (people.name.contains(activity.searchText)){
+                        holder.tv_name_leader.setText(spanned);
+                    }else {
+                        holder.tv_name_leader.setText(people.name);
+                    }
+                    if (!"1".equals(activity.searchText)&&people.telephone.contains(activity.searchText)){
+                        Spanned spannedphone = HtmlTextViewEdit.showkeywordContent("("+people.telephone+")",activity.searchText,context);
+                        holder.tv_name_phone.setText(spannedphone);
+                        holder.tv_name_phone.setVisibility(View.VISIBLE);
+                    }
+                    holder.iv_irr.setVisibility(View.GONE);
+                }else {
+                    holder.tv_name_leader.setText(people.name);
+                }
             }else{
                 holder.tv_name_leader.setVisibility(View.GONE);
             }
@@ -81,12 +108,8 @@ public class SearchContactAdapter extends BaseCustomAdapter<BaseSearch>{
             }else{
                 holder.tv_leader_position.setVisibility(View.GONE);
             }
-            if (!TextUtils.isEmpty(people.position)){
-                holder.tv_nameright.setText(people.position);
-              //  holder.tv_nameright.setVisibility(View.GONE);
-            }else{
-                holder.tv_nameright.setVisibility(View.GONE);
-            }
+
+
             /*if (!TextUtils.isEmpty(people.name)){
                 holder.tv_leader_position_right.setText(people.name);
             }
@@ -134,7 +157,19 @@ public class SearchContactAdapter extends BaseCustomAdapter<BaseSearch>{
 
         }else if(base instanceof Doctor){
             Doctor doctor = (Doctor) base;
-            holder.tv_name_leader.setText(doctor.name);
+            if (activity!=null/*&&activity.showDoctor*/&&!TextUtils.isEmpty(activity.searchText)){
+                Spanned spanned = HtmlTextViewEdit.showkeywordContent(doctor.name,activity.searchText,context);
+                holder.tv_name_leader.setText(spanned);
+                holder.iv_irr.setVisibility(View.GONE);
+                holder.tv_nameright.setVisibility(View.GONE);
+            }else {
+                if (TextUtils.isEmpty(doctor.name)){
+                    holder.tv_name_leader.setText(doctor.name);
+                }else {
+                    holder.tv_name_leader.setText("");
+                }
+                holder.tv_nameright.setVisibility(View.GONE);
+           }
             holder.tv_leader_position.setText(doctor.hospital);
             holder.tv_nameright.setText(doctor.title);
             holder.tv_leader_position_right.setText(doctor.departments);
@@ -174,6 +209,7 @@ public class SearchContactAdapter extends BaseCustomAdapter<BaseSearch>{
 
             }
         });
+        holder.tv_nameright.setVisibility(View.GONE);
      /*   if (activity.isShow){
             holder.btn_radio.setVisibility(View.VISIBLE);
         }else {*/
@@ -210,5 +246,9 @@ public class SearchContactAdapter extends BaseCustomAdapter<BaseSearch>{
         RelativeLayout rl_below;
         @Bind(R.id.btn_radio)
         RadioButton btn_radio;
+        @Bind(R.id.iv_irr)
+        ImageView iv_irr;
+        @Bind(R.id.tv_name_phone)
+        TextView tv_name_phone;
     }
 }

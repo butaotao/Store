@@ -364,7 +364,7 @@ public class SearchActivity extends BaseActivity implements OnClickListener, OnH
         maps.put("type", 0 + "");
         maps.put("keyword", keyword);
         maps.put("pageIndex", "1");
-        maps.put("pageSize", "100");
+        maps.put("pageSize", "1000");
         new HttpManager().post(this, Constants.SEARCHHOSPITALS, HospitalList.class,
                 maps, this,
                 false, 1);

@@ -26,4 +26,13 @@ public class Meeting implements Serializable {
     public String headPicFileName;//头像
     public String domain;//域名
     public int isMyCreate;//1:是我创建，0：不是我创建的
+
+    @Override
+    public boolean equals(Object o) {
+        Meeting m = (Meeting)o;
+        if (m.createUserId.equals(this.createUserId)){
+            return true;
+        }
+        return false;
+    }
 }

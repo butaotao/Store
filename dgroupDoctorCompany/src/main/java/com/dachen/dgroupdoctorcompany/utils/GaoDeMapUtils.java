@@ -11,6 +11,7 @@ import com.amap.api.location.AMapLocationListener;
 import com.dachen.dgroupdoctorcompany.activity.AddSignInActivity;
 import com.dachen.dgroupdoctorcompany.activity.SignInActivity;
 import com.dachen.dgroupdoctorcompany.receiver.LocationReceiver;
+import com.dachen.medicine.common.utils.SharedPreferenceUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,11 +28,15 @@ public class GaoDeMapUtils  {
     private  String                     mStrFloor ;
     private  String                     mStrAddress ;
     private Context mContext;
+    private long nowtime;
     private LocationListener mLocationListener;
 
     public GaoDeMapUtils(Context context,LocationListener locationListener){
         this.mContext = context;
         this.mLocationListener = locationListener;
+    }
+    public void setNowtime(long nowtime){
+        this.nowtime = nowtime;
     }
     public GaoDeMapUtils(Context context){
         this.mContext = context;
@@ -86,6 +91,9 @@ public class GaoDeMapUtils  {
                     intent.putExtra("longitude",longitude);
                     intent.putExtra("address",mStrAddress);
                     intent.putExtra("city",city);
+                    SharedPreferenceUtil.putString(mContext, "nowtimelatitude", latitude + "");
+                    SharedPreferenceUtil.putString(mContext, "nowtimelongitude", longitude + "");
+                    SharedPreferenceUtil.putLong(mContext,"nowtime",nowtime);
                     mContext.sendBroadcast(intent);
 
                 }else{

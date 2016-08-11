@@ -331,7 +331,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,Ht
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("telephone", phoneNumber);
 		params.put("templateId", templateId);// 短信模板。
-		new HttpManager().post(this, "/sms/randcode/getVoiceCode",
+		new HttpManager().post(this, Constants.DRUG+"sms/randcode/getVoiceCode",
 				Void.class, params, new HttpManager.OnHttpListener<Result>() {
 					@Override
 					public void onSuccess(Result result) {
@@ -359,7 +359,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,Ht
 						mReckonHandler.sendEmptyMessage(0x2);
 						clicked = false;
 					}
-				}, false, 3);
+				}, false, 1);
 	}
 
 	private int reckonTime = 120;

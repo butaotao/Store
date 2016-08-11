@@ -265,7 +265,7 @@ public class MeetingDetailActivity extends BaseActivity implements View.OnClickL
         });
         mPasswordLayout = getViewById(R.id.password_layout);
         String userId = SharedPreferenceUtil.getString(mThis, "id", "");
-        if (mMeeting != null && mMeeting.createUserId != null && mMeeting.createUserId.equals(userId) && mMeeting.status == 1) {//是会议创建者,并且会议未开始
+        if (mMeeting != null && mMeeting.createUserId != null && mMeeting.createUserId.equals(userId) && mMeeting.isMyCreate == 1) {//是会议创建者,并且会议未开始
             mPasswordLayout.setVisibility(View.VISIBLE);
             mEdit.setVisibility(View.VISIBLE);
         }

@@ -132,10 +132,11 @@ public class BaseRecordActivity extends BaseActivity implements View.OnClickList
         iv_state.setBackgroundResource(R.drawable.recordirro);
         managerDao = new DepAdminsListDao(this);
         deptId = "";
-        List<CompanyContactListEntity> entities = contactDao.queryByTelephone
-                (SharedPreferenceUtil.getString(this, "telephone", ""));
+        DepAdminsListDao dao = new DepAdminsListDao(this);
+        List<DepAdminsList> entities = dao.queryManager();
+        dao.queryManager().get(0);
         if (entities.size() > 0) {
-            deptId = entities.get(0).id;
+            deptId = entities.get(0).orgId;
         } else {
             deptId = SharedPreferenceUtil.getString(this, "departId", "");
         }

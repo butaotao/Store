@@ -69,12 +69,12 @@ public class TimePickerCustomerGuider extends LinearLayout {
 		minuteList = new ArrayList<String>();
 
 		for (int i = 0; i < 24; i++) {
-			String h = String.format("%d%d",i);
+			String h = String.format("%02d",i);
 			hourList.add(h );
 		}
 
 		for (int j = 0; j < 60; j++) {
-			String m = String.format("%d%d",j);
+			String m = String.format("%02d",j);
 			minuteList.add(m);
 		}
 

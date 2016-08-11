@@ -228,17 +228,20 @@ public abstract class ArchiveItemDetailUi extends BaseActivity implements View.O
     }
 
     private void shareItem() {
-        if(null == mItem){
+        if (null == mItem) {
             return;
         }
-       Intent intent = new Intent();
-       /* intent.putExtra(ArchiveUtils.INTENT_KEY_ARCHIVE_ITEM, mItem);
-        setResult(RESULT_OK, intent);
-        finish();*/
-        intent = new Intent(this, ChatShareMsgActivity.class);
+        Intent intent = new Intent();
+        if ("add".equals(mFrom)) {
+            intent.putExtra(ArchiveUtils.INTENT_KEY_ARCHIVE_ITEM, mItem);
+            setResult(RESULT_OK, intent);
+            finish();
+        } else{
+            intent = new Intent(this, ChatShareMsgActivity.class);
         intent.putExtra(ArchiveUtils.INTENT_KEY_ARCHIVE_ITEM, mItem);
 
         startActivity(intent);
+    }
     }
 
     @Override

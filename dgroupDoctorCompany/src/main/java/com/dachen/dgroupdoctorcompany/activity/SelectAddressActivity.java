@@ -46,6 +46,7 @@ import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.dgroupdoctorcompany.entity.JoinVisitGroup;
 import com.dachen.dgroupdoctorcompany.utils.DataUtils.GetUserDepId;
+import com.dachen.medicine.common.utils.SharedPreferenceUtil;
 import com.dachen.medicine.entity.Result;
 import com.dachen.medicine.net.HttpManager;
 import com.dachen.medicine.net.Params;
@@ -104,16 +105,40 @@ public class SelectAddressActivity extends BaseActivity implements LocationSourc
     private int mSelectType;
     private String address_name;
     private String fromActivity;
+    long nowtime;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_address);
         mMapView = (MapView) findViewById(R.id.map);
         mMapView.onCreate(savedInstanceState);// 此方法必须重写
+
         initViews();
         initData();
+        startSignActivity();
     }
+    public void startSignActivity(){
+        String latitude = SharedPreferenceUtil.getString(this, "nowtimelatitude",  "");
+        String longitude = SharedPreferenceUtil.getString(this, "nowtimelongitude",  "");
+        long nowtime = SharedPreferenceUtil.getLong(this, "nowtime", 0);
+        long servceTime = getIntent().getLongExtra("nowtime",0);
+        if ((nowtime !=0)&&(nowtime==servceTime)&&!TextUtils.isEmpty(latitude)&&!TextUtils.isEmpty(longitude)){
+            double la = Double.parseDouble(latitude);
+            double lo = Double.parseDouble(longitude);
+            if (SignInActivity.compareDistance(lo,la,SelectAddressActivity.this)){
+                Intent intent = new Intent(this, AddSignInActivity.class);
 
+                intent.putExtra("name", SignInActivity.address);
+                intent.putExtra("longitude", longitude);
+                intent.putExtra("latitude", latitude);
+                intent.putExtra("mode", AddSignInActivity.MODE_WORKING);
+                intent.putExtra("allow",true);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                finish();
+            }
+        }
+    }
     public void initViews() {
         super.initView();
         setTitle("选择地点");

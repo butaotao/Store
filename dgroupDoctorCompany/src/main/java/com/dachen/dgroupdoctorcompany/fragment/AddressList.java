@@ -1,6 +1,8 @@
 package com.dachen.dgroupdoctorcompany.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -31,6 +33,7 @@ import com.dachen.dgroupdoctorcompany.entity.BaseSearch;
 import com.dachen.dgroupdoctorcompany.entity.CompanyContactListEntity;
 import com.dachen.dgroupdoctorcompany.im.activity.MyFavChatGroupActivity;
 import com.dachen.dgroupdoctorcompany.im.utils.ChatActivityUtilsV2;
+import com.dachen.dgroupdoctorcompany.receiver.ChangeReceiver;
 import com.dachen.dgroupdoctorcompany.utils.CompareDatalogic;
 import com.dachen.dgroupdoctorcompany.utils.UserInfo;
 import com.dachen.imsdk.consts.SessionType;
@@ -67,6 +70,7 @@ public class AddressList extends BaseFragment implements View.OnClickListener{
 	View listviewheader;
 	View vContract;
 	ListView listviewmanagerdepartment;
+	public static final  String action = "changedata";
 	DepAdminsListDao depDao ;
 	public static String deptId = "-1";
 	List<DepAdminsList> lists;
@@ -150,6 +154,9 @@ public class AddressList extends BaseFragment implements View.OnClickListener{
 		layout_search1.setOnClickListener(this);
 		et_search = (TextView) listviewheader.findViewById(R.id.et_search);
 		et_search.setOnClickListener(this);
+		IntentFilter filters= new IntentFilter();
+		filters.addAction(action);
+		mActivity.registerReceiver(receiver, filters);
 		return mRootView;
 	}
 
@@ -182,6 +189,15 @@ public class AddressList extends BaseFragment implements View.OnClickListener{
 		((ViewGroup.MarginLayoutParams)params).setMargins(0, 0, 0, 0);
 		listviewmanagerdepartment.setLayoutParams(params);
 	}
+	ChangeReceiver receiver = new ChangeReceiver(){
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			super.onReceive(context, intent);
+			lists.clear();
+			lists.addAll(depDao.queryManager());
+			depManagerAdapter.notifyDataSetChanged();
+		}
+	};
 	@Override
 	public void onResume() {
 		super.onResume();

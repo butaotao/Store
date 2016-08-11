@@ -82,6 +82,7 @@ public class AddSignInActivity extends BaseActivity implements HttpManager.OnHtt
     private SoundPool                  mSoundPool;
     private int                        mSoundId;
     private List<String>               mListLable = new ArrayList<>();
+    boolean allow;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -147,9 +148,18 @@ public class AddSignInActivity extends BaseActivity implements HttpManager.OnHtt
             vSelect.setVisibility(View.VISIBLE);
         }
         mId = this.getIntent().getStringExtra("id");
+        allow = getIntent().getBooleanExtra("allow",false);
         if(TextUtils.isEmpty(mId)){//说明当前是添加签到
             latitude = this.getIntent().getDoubleExtra("latitude",0);
-            longitude = this.getIntent().getDoubleExtra("longitude",0);
+            longitude = this.getIntent().getDoubleExtra("longitude", 0);
+            String latitu = this.getIntent().getStringExtra("latitude");
+            String longit = this.getIntent().getStringExtra("longitude");
+            if (!TextUtils.isEmpty(latitu)){
+                longitude = Double.parseDouble(latitu);
+            }
+            if (!TextUtils.isEmpty(longit)){
+                latitude = Double.parseDouble(longit);
+            }
             mStrLatitude = String.valueOf(latitude);
             mStrLongitude = String.valueOf(longitude);
             coordinate = mStrLatitude+","+mStrLongitude;
@@ -437,7 +447,7 @@ public class AddSignInActivity extends BaseActivity implements HttpManager.OnHtt
 //                final String city1 = "北京";
                 LatLng endLatlng = new LatLng(latitude1,longitude1);
                 float distance = AMapUtils.calculateLineDistance(startLatlng,  endLatlng);
-                if(distance>250.0f){//范围为250米
+                if(distance>250.0f&&!allow){//范围为250米
                     final CustomDialog dialog = new CustomDialog(this);
                     dialog.showDialog("定位地点", "当前定位地点和你选择的地点不符,请重新选择地点签到.", R.string.select_address,
                             0, new View.OnClickListener() {

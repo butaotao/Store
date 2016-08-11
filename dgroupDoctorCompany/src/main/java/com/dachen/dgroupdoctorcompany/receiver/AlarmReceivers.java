@@ -124,12 +124,13 @@ public class AlarmReceivers extends BroadcastReceiver {
         }
         if (show){
             Intent intent = new Intent(context,GaoDeService.class);
+            intent.putExtra("nowtime",time);
             context.startService(intent);
-            showNotification(context, reminder);
+            showNotification(context, reminder,time);
         }
     }
 
-    private void showNotification(Context context, Reminder alarm) {
+    private void showNotification(Context context, Reminder alarm,long time) {
         Intent service = new Intent(context, PlayMusicService.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("alarm",  alarm);
@@ -148,6 +149,7 @@ public class AlarmReceivers extends BroadcastReceiver {
         }
         Intent intent2 = new Intent(context, clazz);
         intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent2.putExtra("nowtime",time);
         intent2.putExtra("alarm", alarm);
         if (!islock){
             context.startActivity(intent2);

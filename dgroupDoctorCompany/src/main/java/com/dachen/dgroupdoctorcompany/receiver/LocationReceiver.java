@@ -16,13 +16,8 @@ import java.util.List;
  * Created by Burt on 2016/8/11.
  */
 public class LocationReceiver extends BroadcastReceiver {
-    OftenSignPlaceDao oftenSignPlaceDao;
-    double lengh = -1;
-    String address;
-    long allowDistance = 250;
     @Override
     public void onReceive(Context context, Intent intent) {
-        oftenSignPlaceDao = new OftenSignPlaceDao(context);
     }
 
 }

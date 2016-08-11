@@ -42,7 +42,6 @@ public class SharedPreferenceUtil {
 		editor.putLong(key, value);
 		return editor.commit();
 	}
-
 	public static long getLong(Context context,String key, int defaultValue) {
 		long value = MedicineApplication.getSharePreferences(context).getLong(key,
 				defaultValue);

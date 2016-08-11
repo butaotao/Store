@@ -53,6 +53,7 @@ public class AlarmDialogFullScreenActivity extends BaseActivity   {
     long latitude;
     long longitude;
     String address;
+    long nowtime;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -60,6 +61,7 @@ public class AlarmDialogFullScreenActivity extends BaseActivity   {
         setContentView(getLayoutResId());
         ButterKnife.bind(this);
         player = new SoundPlayer(this);
+        nowtime = getIntent().getLongExtra("nowtime",0);
         startSign = false;
         // 当处于锁屏状态时，允许此界面出现在锁屏界面之上，即不用解锁也能显示此界面
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
@@ -129,6 +131,7 @@ public class AlarmDialogFullScreenActivity extends BaseActivity   {
         }else {
             Intent intent = new Intent(this, SelectAddressActivity.class);
             intent.putExtra("alarm", mAlarm);
+            intent.putExtra("nowtime",nowtime);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
 

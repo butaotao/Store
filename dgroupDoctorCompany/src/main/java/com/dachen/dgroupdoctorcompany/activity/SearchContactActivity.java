@@ -85,7 +85,7 @@ public class SearchContactActivity extends BaseActivity implements OnClickListen
     TextView tv_noresult;
     List<CompanyContactListEntity> company;
     List<Doctor> doctors;
-    String searchText;
+    public String searchText = "";
     int partSize;
     RelativeLayout rl_search;
     boolean finish = true;
@@ -132,6 +132,7 @@ public class SearchContactActivity extends BaseActivity implements OnClickListen
             et_search.setHint("搜索姓名/手机号");
         }else {
             et_search.setHint("输入医生姓名关键词搜索");
+            showDoctor = true;
         }
     }
 
@@ -515,7 +516,7 @@ public class SearchContactActivity extends BaseActivity implements OnClickListen
                         if (showColleague){
                             search.add(company.get(i));
                         }else {
-                            if (size<3){
+                            if (size<=3){
                                 search.add(company.get(i));
                             }else {
                                 break;

@@ -25,6 +25,7 @@ public class Constants {
     public static String VERIFY_CODE = DRUG+"sms/randcode/verifyCode";
     public static String VISITRECORD = "visit/getVisitList";
     public static String VISITINFO = "visit/getVisitInfoByUserId";
+    public static String GETVOICECODE = DRUG+"user/preResetPasswordVoiceCode";
     /**
      * 自动登录
      */
@@ -92,7 +93,7 @@ public class Constants {
     /**
      * 重置密码
      */
-    public static String RESET_PASSWD = DRUG+"drugCompanyEmployee/resetPassword\n";
+    public static String RESET_PASSWD = DRUG+"drugCompanyEmployee/resetPassword";
     /**
      * 用户 - 验证重设密码的验证码
      */

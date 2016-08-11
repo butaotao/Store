@@ -263,6 +263,9 @@ public class SignInActivity extends BaseActivity implements HttpManager.OnHttpLi
 
     }
     public boolean compareDistance(final AMapLocation aMapLocation){
+        if (null == oftenSignPlaceDao){
+            oftenSignPlaceDao = new OftenSignPlaceDao(this);
+        }
         List<OftenSinPlace> lists = oftenSignPlaceDao.queryAllByUserid();
         boolean flag = false;
         final String id = SharedPreferenceUtil.getString(this,"id","");;
@@ -284,7 +287,10 @@ public class SignInActivity extends BaseActivity implements HttpManager.OnHttpLi
         return flag;
     }
 
-    public static boolean compareDistance(long longtitude,long latitude,Context context){
+    public static boolean compareDistance(double longtitude,double latitude,Context context){
+        if (null == oftenSignPlaceDao){
+            oftenSignPlaceDao = new OftenSignPlaceDao(context);
+        }
         List<OftenSinPlace> lists = oftenSignPlaceDao.queryAllByUserid();
         boolean flag = false;
         final String id = SharedPreferenceUtil.getString(context, "id", "");;
@@ -318,10 +324,13 @@ public class SignInActivity extends BaseActivity implements HttpManager.OnHttpLi
                         if (coord.length>1){
 
                             data.userloginid = id;
-                            pageData2.add(data);
+                            if (data.status == 0){
+                                pageData2.add(data);
+                            }
                         }
                     }
                 }
+                oftenSignPlaceDao.clearAll();
                 oftenSignPlaceDao.addCompanyContactLis(pageData2);
                 List<OftenSinPlace> lists = oftenSignPlaceDao.queryAllByUserid();
             }

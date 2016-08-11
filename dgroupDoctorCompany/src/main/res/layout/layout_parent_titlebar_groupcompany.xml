@@ -53,7 +53,7 @@
             android:ellipsize="end"
             android:maxEms="10"
             android:singleLine="true"
-            android:text="登录"
+            android:text="@string/null_info"
             android:textColor="@color/black" />
         <!--  <ViewStub android:layout_width="wrap_content"
            android:layout_height="wrap_content"
