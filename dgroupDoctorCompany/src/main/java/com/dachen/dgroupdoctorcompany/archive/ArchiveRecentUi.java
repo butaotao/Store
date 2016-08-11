@@ -17,6 +17,7 @@ import com.dachen.imsdk.db.po.ChatMessagePo;
 import com.dachen.imsdk.entity.ChatMessageV2.ArchiveMsgParam;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -46,9 +47,12 @@ public class ArchiveRecentUi extends BaseActivity {
         ArrayList<ArchiveItem> list=new ArrayList<>();
         ChatMessageDao dao=new ChatMessageDao();
         List<ChatMessagePo> msgList=dao.queryForType(groupId, MessageType.file,false);
+        HashSet<String> keys=new HashSet<>();
         for(ChatMessagePo msg:msgList){
             ArchiveMsgParam p= JSON.parseObject(msg.param,ArchiveMsgParam.class);
             if(p==null)continue;
+            if(keys.contains(p.key))continue;
+            keys.add(p.key);
             ArchiveItem item = new ArchiveItem(p.key, p.uri, p.name, p.format, p.size);
             item.sendDate=msg.sendTime;
             list.add(item);
