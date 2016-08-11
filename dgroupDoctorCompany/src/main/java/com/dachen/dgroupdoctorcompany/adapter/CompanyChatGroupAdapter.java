@@ -23,11 +23,11 @@ import java.util.List;
  * @描述 TODO
  */
 
-public class ChatGroupAdapter extends android.widget.BaseAdapter {
+public class CompanyChatGroupAdapter extends android.widget.BaseAdapter {
     private List<ChatGroupPo> mGroupList;
     private Context mContext;
 
-    public ChatGroupAdapter(Context mContext, List<ChatGroupPo> mGroupList) {
+    public CompanyChatGroupAdapter(Context mContext, List<ChatGroupPo> mGroupList) {
         this.mContext = mContext;
         this.mGroupList = mGroupList;
     }
