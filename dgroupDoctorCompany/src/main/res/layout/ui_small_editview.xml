@@ -40,10 +40,12 @@
         android:gravity="top" />
 
     <TextView
+        android:id="@+id/tv_num_hint"
         android:layout_width="wrap_content"
         android:layout_gravity="right"
         android:layout_marginRight="10dp"
-        android:text=""
+        android:text="1/1"
+        android:textColor="#aaa"
         android:layout_height="wrap_content"/>
 
     <Button

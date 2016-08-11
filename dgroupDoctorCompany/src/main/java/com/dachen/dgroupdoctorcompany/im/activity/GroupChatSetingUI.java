@@ -607,7 +607,7 @@ public class GroupChatSetingUI extends ImBaseActivity {
     @OnClick(R.id.im_group_chat_ui_setting_name_layout)
     void onClick_im_group_chat_ui_setting_name_layout() {
         String text = im_group_chat_ui_name_value.getText().toString();
-        SmallEditViewUI.openUI(mThis, "编辑群聊名称", text, InputType.TYPE_CLASS_TEXT, REQUEST_CODE_EDIT_TEXT);
+        SmallEditViewUI.openUI(mThis,16, "编辑群聊名称", text, InputType.TYPE_CLASS_TEXT, REQUEST_CODE_EDIT_TEXT);
     }
 
     /**
