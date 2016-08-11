@@ -25,7 +25,6 @@ import com.dachen.dgroupdoctorcompany.utils.CompareDatalogic;
 import com.dachen.dgroupdoctorcompany.utils.ExitActivity;
 import com.dachen.dgroupdoctorcompany.utils.UserInfo;
 import com.dachen.imsdk.activities.ImBaseActivity;
-import com.dachen.imsdk.adapter.ChatGroupAdapter;
 import com.dachen.imsdk.adapter.MsgMenuAdapter;
 import com.dachen.imsdk.archive.entity.ArchiveItem;
 import com.dachen.imsdk.db.dao.ChatGroupDao;
@@ -61,8 +60,8 @@ public class ChatShareMsgActivity extends ImBaseActivity implements View.OnClick
         msgId = getIntent().getStringExtra(MsgMenuAdapter.INTENT_EXTRA_MSG_ID);
         mItem = (ArchiveItem) getIntent().getSerializableExtra(ArchiveUtils.INTENT_KEY_ARCHIVE_ITEM);
         TextView tv = (TextView) findViewById(com.dachen.imsdk.R.id.tv_title);
-        tv.setText("转发消息");
-
+        //tv.setText("转发消息");
+        tv.setText("转发到");
         findViewById(R.id.btn_confirm).setVisibility(View.GONE);
         findViewById(R.id.back_btn).setOnClickListener(this);
         rl_colleague = (RelativeLayout) findViewById(R.id.rl_colleague);
@@ -202,6 +201,14 @@ public class ChatShareMsgActivity extends ImBaseActivity implements View.OnClick
 
     private void forwardMsg(String groupId){
         Map<String,Object> reqMap=new HashMap<>();
+    /*    if (msgId==null&&null!=mItem){
+            if (null!=mItem.po&& !TextUtils.isEmpty(mItem.po.msgId)){
+                msgId = mItem.po.msgId;
+            }
+        }*/
+        if (TextUtils.isEmpty(msgId)){
+            msgId = "";
+        }
 
         HashMap<String, Object> params = new HashMap<>();
         params.put("share_files", mItem);

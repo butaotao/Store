@@ -33,6 +33,7 @@ public abstract class AppBaseChatActivity extends ChatActivityV2 {
     }
 
     public void goArchiveItem(ArchiveItem item, ChatMessagePo po) {
+      //  item.po = po;
         item.sendUserId = po.fromUserId;
         item.receiveUserId = ImSdk.getInstance().userId;
         ArchiveUtils.goArchiveDetailActivity(this, REQUEST_CODE_ARCHIVE, item, "im");

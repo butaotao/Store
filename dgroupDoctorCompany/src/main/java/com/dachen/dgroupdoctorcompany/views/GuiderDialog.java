@@ -8,24 +8,11 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.dachen.dgroupdoctorcompany.R;
-import com.dachen.dgroupdoctorcompany.activity.BaseRecordActivity;
-import com.dachen.dgroupdoctorcompany.adapter.ChoiceAdpHorizonAdapter;
-import com.dachen.dgroupdoctorcompany.adapter.ChoiceAdpVertiAdapter;
-import com.dachen.dgroupdoctorcompany.db.dbdao.CompanyContactDao;
-import com.dachen.dgroupdoctorcompany.db.dbdao.DepAdminsListDao;
-import com.dachen.dgroupdoctorcompany.db.dbentity.DepAdminsList;
-import com.dachen.dgroupdoctorcompany.entity.CompanyContactListEntity;
-import com.dachen.medicine.common.utils.SharedPreferenceUtil;
 import com.dachen.medicine.view.ScrollTabView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Burt on 2016/6/23.
@@ -51,7 +38,7 @@ public class GuiderDialog extends Dialog implements View.OnClickListener,ScrollT
         Window window = getWindow();
         WindowManager.LayoutParams lp = window.getAttributes();
         window.setGravity(Gravity.BOTTOM);
-        window.setWindowAnimations(R.style.Umengstyle);
+        window.setWindowAnimations(R.style.Umengstyle2);
         setCancelable(true);
         this.setCanceledOnTouchOutside(false);
 
