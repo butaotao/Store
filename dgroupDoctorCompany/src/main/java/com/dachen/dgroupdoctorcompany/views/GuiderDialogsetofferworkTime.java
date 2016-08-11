@@ -56,7 +56,7 @@ public class GuiderDialogsetofferworkTime extends Dialog implements View.OnClick
         Window window = getWindow();
         WindowManager.LayoutParams lp = window.getAttributes();
         window.setGravity(Gravity.BOTTOM);
-        window.setWindowAnimations(R.style.Umengstyle);
+        window.setWindowAnimations(R.style.Umengstyle2);
         setCancelable(true);
         this.setCanceledOnTouchOutside(false);
 

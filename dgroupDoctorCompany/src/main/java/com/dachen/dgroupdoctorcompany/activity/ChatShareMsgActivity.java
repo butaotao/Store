@@ -21,32 +21,23 @@ import com.dachen.common.utils.VolleyUtil;
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.archive.ArchiveUtils;
 import com.dachen.dgroupdoctorcompany.im.activity.RepresentGroupChatActivity;
-import com.dachen.dgroupdoctorcompany.im.events.AddGroupUserEvent;
 import com.dachen.dgroupdoctorcompany.im.utils.ChatActivityUtilsV2;
 import com.dachen.dgroupdoctorcompany.utils.CompareDatalogic;
 import com.dachen.dgroupdoctorcompany.utils.ExitActivity;
 import com.dachen.dgroupdoctorcompany.utils.UserInfo;
-import com.dachen.dgroupdoctorcompany.views.CustomDialog;
 import com.dachen.imsdk.activities.ImBaseActivity;
-import com.dachen.imsdk.adapter.ChatGroupAdapter;
 import com.dachen.imsdk.adapter.MsgMenuAdapter;
 import com.dachen.imsdk.archive.entity.ArchiveItem;
-import com.dachen.imsdk.consts.SessionType;
 import com.dachen.imsdk.db.dao.ChatGroupDao;
 import com.dachen.imsdk.db.po.ChatGroupPo;
 import com.dachen.imsdk.entity.GroupInfo2Bean;
 import com.dachen.imsdk.net.ImCommonRequest;
 import com.dachen.imsdk.net.PollingURLs;
-import com.dachen.imsdk.net.SessionGroup;
-import com.dachen.imsdk.service.ImRequestManager;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import de.greenrobot1.event.EventBus;
 
 /**
  * 转发消息页
@@ -70,8 +61,8 @@ public class ChatShareMsgActivity extends ImBaseActivity implements View.OnClick
         msgId = getIntent().getStringExtra(MsgMenuAdapter.INTENT_EXTRA_MSG_ID);
         mItem = (ArchiveItem) getIntent().getSerializableExtra(ArchiveUtils.INTENT_KEY_ARCHIVE_ITEM);
         TextView tv = (TextView) findViewById(com.dachen.imsdk.R.id.tv_title);
-        tv.setText("转发消息");
-
+        //tv.setText("转发消息");
+        tv.setText("转发到");
         findViewById(R.id.btn_confirm).setVisibility(View.GONE);
         findViewById(R.id.back_btn).setOnClickListener(this);
         rl_colleague = (RelativeLayout) findViewById(R.id.rl_colleague);
@@ -211,11 +202,11 @@ public class ChatShareMsgActivity extends ImBaseActivity implements View.OnClick
 
     private void forwardMsg(String groupId){
         Map<String,Object> reqMap=new HashMap<>();
-        if (msgId==null&&null!=mItem){
+    /*    if (msgId==null&&null!=mItem){
             if (null!=mItem.po&& !TextUtils.isEmpty(mItem.po.msgId)){
                 msgId = mItem.po.msgId;
             }
-        }
+        }*/
         if (TextUtils.isEmpty(msgId)){
             msgId = "";
         }

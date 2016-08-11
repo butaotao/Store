@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.dachen.medicine"
-    android:versionCode="62"
-    android:versionName="1.071401.62" >
+          xmlns:tools="http://schemas.android.com/tools"
+          package="com.dachen.medicine"
+          android:versionCode="62"
+          android:versionName="1.071401.62">
 <!--       android:versionCode="59"
     android:versionName="1.070401.59-->
     <uses-sdk
@@ -79,6 +80,7 @@
         android:name=".app.MedicineApplication"
         android:allowBackup="true"
         android:icon="@drawable/launcher"
+        tools:replace="android:label"
         android:label="@string/app_name" >
         <meta-data
             android:name="UMENG_APPKEY"
@@ -109,8 +111,8 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data android:scheme="dachenappmedicine" android:pathPrefix="/medicine/openwith" />
-                
-                
+
+
             </intent-filter>
             -->
 

@@ -1,4 +1,4 @@
-include ':meidecineLibrary'
+include ':meidecineLibrary', ':greendaogenerator', ':cordovaLib'
 include ':mediecineLibraryRealizeDoctor'
 include ':mediecineLibraryRealize'
 include ':medicineDaChen'
