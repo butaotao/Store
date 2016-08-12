@@ -88,7 +88,11 @@ public class DepManagerAdapter extends android.widget.BaseAdapter{
             holder.textdes.setText(des);
             holder.textdes2.setText(s[s.length -1]);
         }else {
+            if (depName.contains("/")){
+                depName = depName.replace("/","");
+            }
             holder.textdes.setText(depName);
+            holder.textdes2.setText("");
         }
 
         return view;

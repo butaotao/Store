@@ -108,7 +108,8 @@ public class AlarmReceivers extends BroadcastReceiver {
         Reminder reminder = dao.queryByUserCreateTime(alarm2.createTime);
         boolean show = false;
         String session = SharedPreferenceUtil.getString(context,"session","");
-        if (null==reminder||TextUtils.isEmpty(session)||reminder.isOpen==0&& !SharedPreferenceUtil.getString(context,"id","").equals(alarm2.userloginid)){
+        if (null==reminder||TextUtils.isEmpty(session)||reminder.isOpen==0||
+                !SharedPreferenceUtil.getString(context,"id","").equals(alarm2.userloginid)){
             return;
         }
 

@@ -222,22 +222,24 @@ public class CompanyContactDao {
         return null;
     }
 
-    public List<CompanyContactListEntity> querySearchPage(String name, int pageNo,boolean limit) {
+    public List<CompanyContactListEntity> querySearchPage2(String name, int pageNo,boolean limit) {
         QueryBuilder<CompanyContactListEntity, Integer> builder = articleDao.queryBuilder();
         String loginid = SharedPreferenceUtil.getString(context, "id", "");
+        boolean ispinyin = false;
         try {
             if (limit){
                 builder.limit(50l).offset((pageNo - 1) * 50l);
             }
-
+            List<CompanyContactListEntity> entities = new ArrayList<>();
             Where<CompanyContactListEntity, Integer> where = builder.where();
             if (name.equals("1")){
                 builder.orderBy("name", true);
                  where.and(where.eq("userloginid", loginid), where.like("name", "%" + name + "%"));
+
             }else {
                 boolean isNunicodeDigits= StringUtils.isNumeric(name);
                 if (isNunicodeDigits){
-                    builder.orderBy("name", true);
+                    builder.orderBy("phone", true);
                     where.or(where.and(where.eq("userloginid", loginid), where.like("telephone", "%" + name + "%"))
                             ,where.and(where.eq("userloginid", loginid), where.like("name", "%" + name + "%"))
                             );
@@ -245,22 +247,16 @@ public class CompanyContactDao {
                     builder.orderBy("name", true);
                     where.or(where.and(where.eq("userloginid", loginid), where.like("name", "%" + name + "%")),
                             where.and(where.eq("userloginid", loginid), where.like("telephone", "%" + name + "%")));
+                    ispinyin = true;
                 }
 
-            }/*else {
-                where.or(where.and(where.eq("userloginid", loginid), where.like("name", "%" + name + "%")),
-                        where.and(where.eq("userloginid", loginid), where.like("telephone", "%" + name + "%")));
-            }*/
-
-
-            List<CompanyContactListEntity> entities = new ArrayList<>();
+            }
             if (null != where.query()) {
                 entities.addAll(builder.distinct().query());
+                CompanyContactListEntity contact = new CompanyContactListEntity();
+                contact.userId = loginid;
+                entities.remove(contact);
             }
-           /* if (entities.size() > 1) {
-                Collections.sort(entities, new PinyinComparator());
-            }*/
-            List<CompanyContactListEntity> entitiess  = entities;
             return entities;
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -269,7 +265,67 @@ public class CompanyContactDao {
         return new ArrayList<>();
     }
 
+    public List<CompanyContactListEntity> querySearchPage(String name, int pageNo,boolean limit) {
+        QueryBuilder<CompanyContactListEntity, Integer> builder = articleDao.queryBuilder();
+        String loginid = SharedPreferenceUtil.getString(context, "id", "");
+        boolean ispinyin = false;
+        try {
+            if (limit){
+                builder.limit(50l).offset((pageNo - 1) * 50l);
+            }
+            List<CompanyContactListEntity> entities = new ArrayList<>();
+            List<String> phones = new ArrayList<>();
+            Where<CompanyContactListEntity, Integer> where = builder.where();
 
+                boolean isNunicodeDigits= StringUtils.isNumeric(name);
+                if (isNunicodeDigits){
+                    builder.orderBy("name", true);
+                    where.and(where.eq("userloginid", loginid), where.like("telephone", "%" + name + "%")) ;
+                    if (null != where.query()) {
+                        entities.addAll(builder.distinct().query());
+                    }
+                    for (int i=0;i<entities.size();i++){
+                        phones.add(entities.get(i).userId);
+                    }
+                    where.reset();
+                    builder.orderBy("name", true);
+                   // where.and(where.eq("userloginid", loginid), where.like("name", "%" + name + "%"));
+                    where.and(where.and(where.eq("userloginid", loginid), where.like("name", "%" + name + "%")),
+                             where.notIn("userId", phones));
+                    if (null != where.query()) {
+                        entities.addAll(builder.distinct().query());
+                    }
+                }else {
+                    builder.orderBy("name", true);
+                    where.and(where.eq("userloginid", loginid), where.like("name", "%" + name + "%"));
+                    if (null != where.query()) {
+                        entities.addAll(builder.distinct().query());
+                    }
+                    for (int i=0;i<entities.size();i++){
+                        phones.add(entities.get(i).userId);
+                    }
+                    where.reset();
+                    builder.orderBy("name", true);
+                    where.and(where.and(where.eq("userloginid", loginid), where.like("telephone", "%" + name + "%")),
+                            where.and(where.eq("userloginid", loginid), where.notIn("userId", phones)));
+
+                    if (null != where.query()) {
+                        entities.addAll(builder.distinct().query());
+                    }
+                }
+            if (null != where.query()) {
+                CompanyContactListEntity contact = new CompanyContactListEntity();
+                contact.userId = loginid;
+                entities.remove(contact);
+            }
+
+            return entities;
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
+    }
     public List<CompanyContactListEntity> querySearch(String name) {
         QueryBuilder<CompanyContactListEntity, Integer> builder = articleDao.queryBuilder();
         String loginid = SharedPreferenceUtil.getString(context, "id", "");
