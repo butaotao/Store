@@ -69,7 +69,7 @@ import de.greenrobot1.event.EventBus;
 
 public class MyFragment extends BaseFragment implements OnClickListener,ActionSheetListener, HttpManager.OnHttpListener {
 	public final static int REQUEST_USER_INFO = 101;
-	// 总View，总视图 
+	// 总View，总视图
 	View mRootView;
 	@Nullable
 	@Bind(R.id.tv_usericon)
@@ -319,7 +319,7 @@ public class MyFragment extends BaseFragment implements OnClickListener,ActionSh
 				String userId = user.getUserId();
 				String headPicFileName = user.getHeadPicFileName();
 				String avatarUrl = StringUtils.getAvatarUrl(userId, headPicFileName);
-				if(!TextUtils.isEmpty(avatarUrl))
+				if(!TextViewUtils.isEmpty(avatarUrl))
 				{
 					ImageLoader.getInstance().displayImage(avatarUrl, head_icon);
 				}

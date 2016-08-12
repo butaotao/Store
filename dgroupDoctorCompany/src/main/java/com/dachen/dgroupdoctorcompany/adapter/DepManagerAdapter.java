@@ -1,15 +1,14 @@
 package com.dachen.dgroupdoctorcompany.adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.dachen.dgroupdoctorcompany.R;
-import com.dachen.dgroupdoctorcompany.activity.CompanyContactListActivity;
 import com.dachen.dgroupdoctorcompany.db.dbentity.DepAdminsList;
+import com.dachen.dgroupdoctorcompany.utils.TextViewUtils;
 
 import java.util.List;
 
@@ -53,6 +52,7 @@ public class DepManagerAdapter extends android.widget.BaseAdapter{
             holder.textdes = (TextView) view.findViewById(R.id.textdes);
             holder.textdes2 = (TextView) view.findViewById(R.id.textdes2);
             holder.ll_all = (LinearLayout) view.findViewById(R.id.ll_all);
+            holder.ll_tv_des = (LinearLayout) view.findViewById(R.id.ll_tv_des);
             view.setTag(holder);
         }
         holder.line2.setVisibility(View.VISIBLE);
@@ -60,12 +60,13 @@ public class DepManagerAdapter extends android.widget.BaseAdapter{
             holder.line2.setVisibility(View.GONE);
         }
         String depName = adminsList.orgName;
+        depName = "/12345/123/444/最后显示";
         String des = "";
         String s [] = null;
         if (depName.contains("/")){
              s  = depName.split("/");
             if (s.length>2){
-                for (int j=2;j<s.length;j++){
+                for (int j=2;j<s.length-1;j++){
                     String k = s[j];
                     if (j==2){
                         des = k;
@@ -75,11 +76,15 @@ public class DepManagerAdapter extends android.widget.BaseAdapter{
                 }
             }
             des = des.replace(".  .",".");
+            des = des.replace(" ","");
         }
 
         if (s!=null&&s.length>0){
-            holder.textdes.setText(des);
-            holder.textdes2.setText(s[s.length-1]);
+            holder.textdes.setText("·"+s[s.length-1]);
+            holder.textdes2.setText(des);
+            int text2Length = TextViewUtils.measureTextLength(holder.textdes2);
+            int viewMeasureWeith = TextViewUtils.getViewMeasureWeith(holder.ll_tv_des);
+            holder.textdes2.setWidth(viewMeasureWeith-text2Length);
         }else {
             holder.textdes2.setText(depName);
         }
@@ -91,5 +96,6 @@ public class DepManagerAdapter extends android.widget.BaseAdapter{
         TextView textdes2;
         View line2;
         LinearLayout ll_all;
+        LinearLayout ll_tv_des;
     }
 }

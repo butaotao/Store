@@ -11,7 +11,7 @@
         android:layout_height="0.5dp"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="77dp"
-        android:background="@color/color_grayline1dp"></View>
+        android:background="@color/color_grayline1dp"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
             android:layout_width="0.5dp"
             android:layout_height="35dp"
             android:layout_marginLeft="42dp"
-            android:background="@color/divide_line_color"></View>
+            android:background="@color/divide_line_color"/>
 
         <View
             android:id="@+id/line2"
@@ -30,7 +30,7 @@
             android:layout_height="35dp"
             android:layout_below="@+id/line1"
             android:layout_marginLeft="42dp"
-            android:background="@color/divide_line_color"></View>
+            android:background="@color/divide_line_color"/>
 
         <View
             android:id="@+id/line3"
@@ -38,7 +38,7 @@
             android:layout_height="0.5dp"
             android:layout_marginTop="34.5dp"
             android:layout_toRightOf="@+id/line1"
-            android:background="@color/divide_line_color"></View>
+            android:background="@color/divide_line_color"/>
 
         <ImageView
             android:id="@+id/ic_right_arrow"
@@ -52,6 +52,7 @@
             android:visibility="gone" />
 
         <LinearLayout
+            android:id="@+id/ll_tv_des"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_toLeftOf="@id/ic_right_arrow"
@@ -61,9 +62,9 @@
             <TextView
                 android:id="@+id/textdes2"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="10dp"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:singleLine="true"
@@ -75,7 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="15dp"
+
                 android:layout_marginRight="60dp"
                 android:ellipsize="end"
                 android:gravity="center_vertical"

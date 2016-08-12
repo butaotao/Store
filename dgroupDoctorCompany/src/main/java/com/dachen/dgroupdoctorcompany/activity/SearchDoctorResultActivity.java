@@ -169,7 +169,7 @@ public class SearchDoctorResultActivity extends BaseActivity implements OnClickL
 	}
 
 	public void forSearch(){
-		/*if (!TextUtils.isEmpty(et_search.getText())) {
+		/*if (!TextViewUtils.isEmpty(et_search.getText())) {
 			String searchText = et_search.getText().toString().trim();
 			getSearchResult(searchText);
 		}*/

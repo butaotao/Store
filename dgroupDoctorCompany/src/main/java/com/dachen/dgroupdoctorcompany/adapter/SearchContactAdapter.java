@@ -110,7 +110,7 @@ public class SearchContactAdapter extends BaseCustomAdapter<BaseSearch>{
             }
 
 
-            /*if (!TextUtils.isEmpty(people.name)){
+            /*if (!TextViewUtils.isEmpty(people.name)){
                 holder.tv_leader_position_right.setText(people.name);
             }
             //holder.tv_leader_position.setText(people.department);*/

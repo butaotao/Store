@@ -204,7 +204,7 @@ public class ChatShareMsgActivity extends ImBaseActivity implements View.OnClick
     private void forwardMsg(String groupId){
         Map<String,Object> reqMap=new HashMap<>();
     /*    if (msgId==null&&null!=mItem){
-            if (null!=mItem.po&& !TextUtils.isEmpty(mItem.po.msgId)){
+            if (null!=mItem.po&& !TextViewUtils.isEmpty(mItem.po.msgId)){
                 msgId = mItem.po.msgId;
             }
         }*/

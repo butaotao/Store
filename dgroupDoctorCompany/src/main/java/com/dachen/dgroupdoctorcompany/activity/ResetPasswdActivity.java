@@ -86,13 +86,13 @@ public class ResetPasswdActivity extends BaseActivity implements
 		String confirmPassword = mConfirmPasswordEdit.getText().toString()
 				.trim();
 
-	/*	if (TextUtils.isEmpty(password) || password.length() < 6) {
+	/*	if (TextViewUtils.isEmpty(password) || password.length() < 6) {
 			mPasswordEdit.requestFocus();
 			mPasswordEdit.setError(StringUtils.editTextHtmlErrorTip(this,
 					R.string.password_empty_error));
 			return;
 		}
-		if (TextUtils.isEmpty(confirmPassword) || confirmPassword.length() < 6
+		if (TextViewUtils.isEmpty(confirmPassword) || confirmPassword.length() < 6
 				|| confirmPassword.length() > 18) {
 			mConfirmPasswordEdit.requestFocus();
 			mConfirmPasswordEdit.setError(StringUtils.editTextHtmlErrorTip(

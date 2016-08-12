@@ -93,7 +93,7 @@ public class DemoMessageReceiver extends PushMessageReceiver {
         HashMap<String, String> infaces = new HashMap<String, String>();
         infaces.put("interface1", Constants.XIAOMI);*/
 
-//        if (BuildUtils.isHuaweiSystem() || TextUtils.isEmpty(ImUtils.getLoginUserId())) return;
+//        if (BuildUtils.isHuaweiSystem() || TextViewUtils.isEmpty(ImUtils.getLoginUserId())) return;
         if (TextUtils.isEmpty(ImUtils.getLoginUserId())) return;
         PushUtils.registerDevice(Constants.USER_TYPEC, SharedPreferenceUtil.getString(context, "mRegId", ""), null);
 

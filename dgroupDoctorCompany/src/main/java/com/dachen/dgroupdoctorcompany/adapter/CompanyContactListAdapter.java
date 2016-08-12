@@ -83,7 +83,7 @@ public class CompanyContactListAdapter extends BaseCustomAdapter<BaseSearch> {
             }
            /*  holder.tv_name_leader.setText(""+c1.username);
            String url = contact.headPicFileName;
-            if(!TextUtils.isEmpty(url))
+            if(!TextViewUtils.isEmpty(url))
             {
                 ImageLoader.getInstance().displayImage(url, holder.head_icon);
             }

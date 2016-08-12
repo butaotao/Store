@@ -642,7 +642,7 @@ public class SelectAddressActivity extends BaseActivity implements LocationSourc
                     List<PoiItem> poiItems = poiResult.getPois();// 取得第一页的poiitem数据，页数从数字0开始
                     List<SuggestionCity> suggestionCities = poiResult.getSearchSuggestionCitys();// 当搜索不到poiitem数据时，会返回含有搜索关键字的城市信息
                     if(null != poiItems && poiItems.size()>0){
-//                        if(!TextUtils.isEmpty(keyWord)){
+//                        if(!TextViewUtils.isEmpty(keyWord)){
 //                            mAMap.clear();// 清理之前的图标
 //                            PoiOverlay poiOverlay = new PoiOverlay(mAMap,poiItems);
 //                            poiOverlay.removeFromMap();

@@ -208,7 +208,7 @@ public class MyInfoDetailActivity extends BaseActivity implements HttpManager.On
 				String userId = user.getUserId();
 				String headPicFileName = user.getHeadPicFileName();
 				String avatarUrl = StringUtils.getAvatarUrl(userId, headPicFileName);
-				if(!TextUtils.isEmpty(avatarUrl))
+				if(!TextViewUtils.isEmpty(avatarUrl))
 				{
 					ImageLoader.getInstance().displayImage(avatarUrl, head_icon);
 				}
@@ -342,7 +342,7 @@ public class MyInfoDetailActivity extends BaseActivity implements HttpManager.On
 
         params.put("access_token", access_token);
         params.put("userId", loginUserId);
-        if(!TextUtils.isEmpty(oldAvatarName))
+        if(!TextViewUtils.isEmpty(oldAvatarName))
             params.put("oldAvatarName", oldAvatarName);
         try {
             params.put("file", file);

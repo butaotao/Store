@@ -106,7 +106,7 @@ public abstract class VisitListAdapter extends android.widget.BaseAdapter {
 //                viewHolder.ivDelete.setVisibility(View.VISIBLE);
 //            }
 //            viewHolder.line1.setVisibility(View.VISIBLE);
-//            if(TextUtils.isEmpty(remark)){
+//            if(TextViewUtils.isEmpty(remark)){
 //                viewHolder.tvRemark.setVisibility(View.GONE);
 //                viewHolder.line1.setVisibility(View.GONE);
 //            }else{

@@ -71,7 +71,7 @@ public class MyQRActivity extends BaseActivity implements View.OnClickListener {
 				String userId = user.getUserId();
 				String headPicFileName = user.getHeadPicFileName();
 				String avatarUrl = StringUtils.getAvatarUrl(userId, headPicFileName);
-				if(!TextUtils.isEmpty(avatarUrl))
+				if(!TextViewUtils.isEmpty(avatarUrl))
 				{
 					ImageLoader.getInstance().displayImage(avatarUrl, head_icon);
 				}

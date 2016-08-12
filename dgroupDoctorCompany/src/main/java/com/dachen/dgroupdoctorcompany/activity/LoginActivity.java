@@ -99,7 +99,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            //  if (!TextUtils.isEmpty(s)){
+            //  if (!TextViewUtils.isEmpty(s)){
             if (!TextUtils.isEmpty(mPhoneNumberEdit.getText())){
                 login_btn.setBackgroundResource(R.drawable.btn_blue_all_3cbaff);
                 return;
@@ -121,8 +121,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-         /*   if (!TextUtils.isEmpty(s)){
-                if (!TextUtils.isEmpty(mPasswordEdit.getText())){
+         /*   if (!TextViewUtils.isEmpty(s)){
+                if (!TextViewUtils.isEmpty(mPasswordEdit.getText())){
                     login_btn.setBackgroundResource(R.drawable.btn_blue_all_3cbaff);
                     return;
                 }

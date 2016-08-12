@@ -480,7 +480,7 @@ public class CreateAndEditMeetingActivity extends BaseActivity {
             return false;
         }
 
-//        if (TextUtils.isEmpty(mMeetingExpenses.getText().toString())) {
+//        if (TextViewUtils.isEmpty(mMeetingExpenses.getText().toString())) {
 //            ToastUtil.showToast(mThis, "会议费用不能为空");
 //            return false;
 //        }

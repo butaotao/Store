@@ -132,7 +132,7 @@ public class SearchResultActivity extends BaseActivity implements OnClickListene
 									long arg3) {
 				// TODO Auto-generated method stub
 				//	MedicineInfo info =	(MedicineInfo) adapter.getItem(arg2);
-			/* if (!TextUtils.isEmpty(info.search)) {
+			/* if (!TextViewUtils.isEmpty(info.search)) {
 				 getSearchResult(info.search);
 			} */
 			}
@@ -233,7 +233,7 @@ public class SearchResultActivity extends BaseActivity implements OnClickListene
 					info.search = ""+searchText;
 					listSearchWord.add(info);
 				}
-				
+
 				if (null!=listSearchWord&&listSearchWord.size()>0) {
 					ChoiceMedicineLogic.saveObject(this,ChoiceMedicineLogic.serialize(listSearchWord),"search");
 				}

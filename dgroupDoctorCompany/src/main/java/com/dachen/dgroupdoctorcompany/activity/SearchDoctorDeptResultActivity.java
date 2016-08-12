@@ -132,7 +132,7 @@ public class SearchDoctorDeptResultActivity extends BaseActivity implements OnCl
 				if (actionId == EditorInfo.IME_ACTION_DONE)
 				{
 					// 在这里编写自己想要实现的功能
-					if(!TextUtils.isEmpty(et_search.getText())) {
+					if(!TextViewUtils.isEmpty(et_search.getText())) {
 						String searchText = et_search.getText().toString().trim();
 						Intent intent = new Intent(SearchDoctorDeptResultActivity.this, SearchDoctorActivity.class);
 						intent.putExtra("hospitId",hospitId);
@@ -211,7 +211,7 @@ public class SearchDoctorDeptResultActivity extends BaseActivity implements OnCl
 		// TODO Auto-generated method stub
 		super.onClick(v);
 		if(v.getId() == R.id.et_search){
-			//if(!TextUtils.isEmpty(et_search.getText())) {
+			//if(!TextViewUtils.isEmpty(et_search.getText())) {
 			String searchText = et_search.getText().toString().trim();
 			Intent intent = new Intent(this, SearchDoctorActivity.class);
 			intent.putExtra("searchText","");

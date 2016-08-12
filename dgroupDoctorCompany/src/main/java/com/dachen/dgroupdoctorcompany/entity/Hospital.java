@@ -53,7 +53,7 @@ public class Hospital extends Result{
             public boolean equals(Object o) {
                 if ( o instanceof HospitalDes){
                     HospitalDes l = (HospitalDes)o;
-                    if(!TextUtils.isEmpty(this.id)&&!TextUtils.isEmpty(l.id)&&this.id.equals(l.id)){
+                    if(!TextViewUtils.isEmpty(this.id)&&!TextViewUtils.isEmpty(l.id)&&this.id.equals(l.id)){
                         return true;
                     }
                     return false;

@@ -38,9 +38,9 @@ import butterknife.OnClick;
 
 /**
  * 注册输入密码页面
- * 
+ *
  * @author ZENG
- * 
+ *
  */
 public class RegisterStep2Activity extends BaseActivity implements OnClickListener,HttpManager.OnHttpListener{
 	public static final String EXTRA_AUTH_CODE = "auth_code";
@@ -50,7 +50,7 @@ public class RegisterStep2Activity extends BaseActivity implements OnClickListen
 	protected ProgressDialog mProgressDialog;
 	protected Intent intent;
 	private final String userType = Constants.USER_TYPE;
-  
+
 	@Nullable
 	@Bind(R.id.name_edit)
 	EditText name_edit;
@@ -64,7 +64,7 @@ public class RegisterStep2Activity extends BaseActivity implements OnClickListen
 	@Bind(R.id.next_step_btn)
 	Button mNextStepBtn;
 	@Nullable
-	@Bind(R.id.back_step_btn) 
+	@Bind(R.id.back_step_btn)
 	Button btn_back;
 
 	@Override
@@ -101,19 +101,19 @@ public class RegisterStep2Activity extends BaseActivity implements OnClickListen
 			 }
 		 });
 	}
-	
+
 	@Nullable
 	@OnClick(R.id.next_step_btn)
 	void onNextStepBtnClicked() {
 		nextStep();
 	}
-	
+
 	@Nullable
 	@OnClick(R.id.rl_back)
 	void onBackStepBtnClicked() {
 		doBack();
 	}
-	
+
 	private void nextStep() {
 		final String phoneNumber = getIntent().getStringExtra("phoneNumber");
 		final String password = mPasswordEdit.getText().toString().trim();
@@ -122,8 +122,8 @@ public class RegisterStep2Activity extends BaseActivity implements OnClickListen
 		if (TextUtils.isEmpty(phoneNumber)) {
 			return;
 		}
-		
-	/*	if (TextUtils.isEmpty(name)) {
+
+	/*	if (TextViewUtils.isEmpty(name)) {
 			name_edit.requestFocus();
 			name_edit.setError(StringUtils.editTextHtmlErrorTip(this, R.string.please_input_name));
 			return;
@@ -141,7 +141,7 @@ public class RegisterStep2Activity extends BaseActivity implements OnClickListen
 			ToastUtil.showToast(this,R.string.register_empty_length_error);
 			return;
 		}
-//		if (TextUtils.isEmpty(confirmPassword) || confirmPassword.length() < 6 || confirmPassword.length() > 18) {
+//		if (TextViewUtils.isEmpty(confirmPassword) || confirmPassword.length() < 6 || confirmPassword.length() > 18) {
 //			mConfirmPasswordEdit.requestFocus();
 //			mConfirmPasswordEdit.setError(StringUtils.editTextHtmlErrorTip(this, R.string.confirm_password_empty_error));
 //			return;
@@ -152,7 +152,7 @@ public class RegisterStep2Activity extends BaseActivity implements OnClickListen
 			ToastUtil.showToast(this,R.string.register_password_confirm_password_not_match);
 			return;
 		}
-		
+
 		register(phoneNumber,password,userType);
 	}
 
@@ -228,7 +228,7 @@ public class RegisterStep2Activity extends BaseActivity implements OnClickListen
 					}
 				}, 3);
 	}
-	
+
 	/**
 	 * 注册后自动登录
 	 */
@@ -288,7 +288,7 @@ public class RegisterStep2Activity extends BaseActivity implements OnClickListen
 				}, 3);
 
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 		doBack();
@@ -311,7 +311,7 @@ public class RegisterStep2Activity extends BaseActivity implements OnClickListen
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		
+
 	}
 	private void logingetUserType( ) {
 

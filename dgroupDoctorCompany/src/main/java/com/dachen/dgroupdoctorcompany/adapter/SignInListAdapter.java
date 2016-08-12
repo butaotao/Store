@@ -178,14 +178,14 @@ public class SignInListAdapter extends BaseExpandableListAdapter  {
                     childHolder.tvLable.setVisibility(View.VISIBLE);
                     childHolder.tvLable.setText("协同");
                 }
-//                if(TextUtils.isEmpty(remark)){
+//                if(TextViewUtils.isEmpty(remark)){
 //                    childHolder.vRemark.setVisibility(View.GONE);
 //                }else{
 //                    childHolder.vRemark.setVisibility(View.VISIBLE);
 //                }
 //                childHolder.tvRemark.setText(remark);
                 Date date = new Date(time);
-                
+
                 String strTime= TimeFormatUtils.time_format_date(date);
                 childHolder.tvTime.setText(strTime);
 

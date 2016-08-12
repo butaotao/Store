@@ -86,7 +86,7 @@ public class EidtColleagueActivity extends BaseActivity{
         super.onActivityResult(requestCode, resultCode, data);
 //        if (resultCode == 1001) {
 //            if (data != null) {
-//                if (!TextUtils.isEmpty(data.getStringExtra("position"))) {
+//                if (!TextViewUtils.isEmpty(data.getStringExtra("position"))) {
 //                    listData.remove(Integer.parseInt(data.getStringExtra("position")));
 //                    adapter.notifyDataSetChanged();
 //                }

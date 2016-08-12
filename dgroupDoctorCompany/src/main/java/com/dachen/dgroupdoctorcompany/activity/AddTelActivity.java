@@ -117,7 +117,7 @@ public class AddTelActivity extends BaseActivity implements View.OnClickListener
     {
         phoneNumber = mPhoneNumEdit.getText().toString().trim();
 
-        /*if (TextUtils.isEmpty(phoneNumber)) {
+        /*if (TextViewUtils.isEmpty(phoneNumber)) {
             ToastUtils.showToast(this, "请输入正确的手机号");
             return;
         }*/
@@ -178,7 +178,7 @@ public class AddTelActivity extends BaseActivity implements View.OnClickListener
                         } else if (result.getResultCode() == 100) {//手机号未从后台导入
 //                            clicked = false;
 //                            String msg = result.getResultMsg();
-//                            if(TextUtils.isEmpty(msg)){
+//                            if(TextViewUtils.isEmpty(msg)){
 //                                msg = "注册错误";
 //                            }
 //                            CustomDialog.Builder builder = new CustomDialog.Builder(AddTelActivity.this,new CustomDialog.CustomClickEvent(){

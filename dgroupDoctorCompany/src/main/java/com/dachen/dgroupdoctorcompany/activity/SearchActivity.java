@@ -151,7 +151,7 @@ public class SearchActivity extends BaseActivity implements OnClickListener, OnH
                                     long arg3) {
                 if (adapter.getItem(arg2) instanceof SearchRecords) {
                     SearchRecords info = (SearchRecords) adapter.getItem(arg2);
-                    //                    if (!TextUtils.isEmpty(info.searchresult)) {
+                    //                    if (!TextViewUtils.isEmpty(info.searchresult)) {
                     // 在这里编写自己想要实现的功能
                     searchText = info.searchresult;
                     forSearchHistory(info.searchresult);
