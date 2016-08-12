@@ -19,7 +19,6 @@ import com.dachen.common.json.EmptyResult;
 import com.dachen.common.utils.ToastUtil;
 import com.dachen.common.utils.VolleyUtil;
 import com.dachen.dgroupdoctorcompany.R;
-import com.dachen.dgroupdoctorcompany.adapter.ChatGroupAdapter;
 import com.dachen.dgroupdoctorcompany.adapter.CompanyChatGroupAdapter;
 import com.dachen.dgroupdoctorcompany.archive.ArchiveUtils;
 import com.dachen.dgroupdoctorcompany.im.activity.RepresentGroupChatActivity;
@@ -47,7 +46,7 @@ import java.util.Map;
 public class ChatShareMsgActivity extends ImBaseActivity implements View.OnClickListener {
     public static final String TAG = "ChatShareMsgActivity";
 
-    private ChatGroupAdapter mAdapter;
+    private CompanyChatGroupAdapter mAdapter;
     private List<ChatGroupPo> mList=new ArrayList<>();
     private String msgId;
     private RelativeLayout rl_colleague,rl_doctor;
