@@ -116,7 +116,7 @@ public abstract class ArchiveItemDetailUi extends BaseActivity implements View.O
 
         ibCancelDl.setOnClickListener(this);
         if(null != mItem){
-            tvTitle.setText(mItem.name);
+            setTitle(mItem.name);
         }
     }
 

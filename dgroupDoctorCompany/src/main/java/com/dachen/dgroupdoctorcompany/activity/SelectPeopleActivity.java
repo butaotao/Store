@@ -171,10 +171,16 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 BaseSearch  baseSearch= (BaseSearch) addAdapter.getItem(position);
                 listsHorizon.remove(baseSearch);
-                int baseSearchlist=list.indexOf(baseSearch);
-                CompanyContactListEntity entity = (CompanyContactListEntity) list.get(baseSearchlist);
-                entity.select = false;
-                list.set(baseSearchlist,entity);
+                int baseSearchlist=0;
+                if (list!=null&&list.size()>0){
+                     baseSearchlist=list.indexOf(baseSearch);
+                }
+                if (baseSearchlist>0){
+                    CompanyContactListEntity entity = (CompanyContactListEntity) list.get(baseSearchlist);
+                    entity.select = false;
+                    list.set(baseSearchlist,entity);
+                }
+
                 addAdapter.notifyDataSetChanged();
                 adapter.notifyDataSetChanged();
             }

@@ -53,6 +53,7 @@
             android:ellipsize="end"
             android:maxEms="10"
             android:singleLine="true"
+            android:paddingLeft="7dp"
             android:text="@string/null_info"
             android:textColor="@color/black" />
         <!--  <ViewStub android:layout_width="wrap_content"

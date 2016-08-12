@@ -104,6 +104,7 @@ public class SearchContactAdapter extends BaseCustomAdapter<BaseSearch>{
             }
 
             if (!TextUtils.isEmpty(people.department)){
+                holder.tv_leader_position.setVisibility(View.VISIBLE);
                 holder.tv_leader_position.setText(people.department);
             }else{
                 holder.tv_leader_position.setVisibility(View.GONE);

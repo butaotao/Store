@@ -80,7 +80,7 @@ public class AddressList extends BaseFragment implements View.OnClickListener{
 	public static final int SHOWCOLLEAG = 1;
 	public static final int SHOWDOCTOR = 2;
 	public static final String SHOWCONTENT = "showcontent";
-
+	ChangeReceiver receiver ;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -154,6 +154,15 @@ public class AddressList extends BaseFragment implements View.OnClickListener{
 		layout_search1.setOnClickListener(this);
 		et_search = (TextView) listviewheader.findViewById(R.id.et_search);
 		et_search.setOnClickListener(this);
+		receiver = new ChangeReceiver(){
+			@Override
+			public void onReceive(Context context, Intent intent) {
+				super.onReceive(context, intent);
+				lists.clear();
+				lists.addAll(depDao.queryManager());
+				depManagerAdapter.notifyDataSetChanged();
+			}
+		};;
 		IntentFilter filters= new IntentFilter();
 		filters.addAction(action);
 		mActivity.registerReceiver(receiver, filters);
@@ -168,6 +177,16 @@ public class AddressList extends BaseFragment implements View.OnClickListener{
 
 
 	}
+
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+		if (null!=receiver){
+			mActivity.unregisterReceiver(receiver);
+		}
+
+	}
+
 	/**
 	 * ListView根据项数的大小自动改变高度
 	 */
@@ -189,15 +208,7 @@ public class AddressList extends BaseFragment implements View.OnClickListener{
 		((ViewGroup.MarginLayoutParams)params).setMargins(0, 0, 0, 0);
 		listviewmanagerdepartment.setLayoutParams(params);
 	}
-	ChangeReceiver receiver = new ChangeReceiver(){
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			super.onReceive(context, intent);
-			lists.clear();
-			lists.addAll(depDao.queryManager());
-			depManagerAdapter.notifyDataSetChanged();
-		}
-	};
+
 	@Override
 	public void onResume() {
 		super.onResume();

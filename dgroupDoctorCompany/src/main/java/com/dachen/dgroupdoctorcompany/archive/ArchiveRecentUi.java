@@ -55,7 +55,10 @@ public class ArchiveRecentUi extends BaseActivity {
             keys.add(p.key);
             ArchiveItem item = new ArchiveItem(p.key, p.uri, p.name, p.format, p.size);
             item.sendDate=msg.sendTime;
-            list.add(item);
+            if (!list.contains(item)){
+                list.add(item);
+            }
+
         }
         return list;
     }

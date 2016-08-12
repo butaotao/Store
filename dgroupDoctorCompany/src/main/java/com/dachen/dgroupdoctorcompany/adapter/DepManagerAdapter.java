@@ -1,6 +1,7 @@
 package com.dachen.dgroupdoctorcompany.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -42,10 +43,10 @@ public class DepManagerAdapter extends android.widget.BaseAdapter{
         View view;
         ViewHolder holder = null ;
         DepAdminsList adminsList = lists.get(position);
-        if (null!=convertView){
+        /*if (null!=convertView){
             view = convertView;
             holder = (ViewHolder) view.getTag();
-        }else {
+        }else {*/
             view = View.inflate(context, R.layout.adapter_depmanager,null);
             holder = new ViewHolder();
             holder.line2 = view.findViewById(R.id.line2);
@@ -53,16 +54,16 @@ public class DepManagerAdapter extends android.widget.BaseAdapter{
             holder.textdes2 = (TextView) view.findViewById(R.id.textdes2);
             holder.ll_all = (LinearLayout) view.findViewById(R.id.ll_all);
             holder.ll_tv_des = (LinearLayout) view.findViewById(R.id.ll_tv_des);
-            view.setTag(holder);
-        }
+          /*  view.setTag(holder);
+        }*/
         holder.line2.setVisibility(View.VISIBLE);
         if (position==(lists.size()-1)){
             holder.line2.setVisibility(View.GONE);
         }
         String depName = adminsList.orgName;
-        depName = "/12345/123/444/最后显示";
         String des = "";
         String s [] = null;
+        boolean show = false;
         if (depName.contains("/")){
              s  = depName.split("/");
             if (s.length>2){
@@ -74,19 +75,20 @@ public class DepManagerAdapter extends android.widget.BaseAdapter{
                         des =des +" · "+k;
                     }
                 }
+                show = true;
+            }else {
+                show = false;
+            }
+        }
+        if (s!=null&&s.length>0&&show){
+            if (!TextUtils.isEmpty(des)){
+                des = des+" · ";
             }
             des = des.replace(".  .",".");
-            des = des.replace(" ","");
-        }
-
-        if (s!=null&&s.length>0){
-            holder.textdes.setText("·"+s[s.length-1]);
-            holder.textdes2.setText(des);
-            int text2Length = TextViewUtils.measureTextLength(holder.textdes2);
-            int viewMeasureWeith = TextViewUtils.getViewMeasureWeith(holder.ll_tv_des);
-            holder.textdes2.setWidth(viewMeasureWeith-text2Length);
+            holder.textdes.setText(des);
+            holder.textdes2.setText(s[s.length -1]);
         }else {
-            holder.textdes2.setText(depName);
+            holder.textdes.setText(depName);
         }
 
         return view;

@@ -164,7 +164,7 @@ public class GetAllDoctor {
                                     ((BaseActivity) activity).closeLoadingDialog();
                                 }
 
-                                if (userinfo.length >= 2) {
+                                if (userinfo.length > 2) {
                                     String updatetime = userinfo[2];
                                     updatetime = updatetime.replace(" ", "").replace("ts=", "");
                                     SharedPreferenceUtil.putString(CompanyApplication.context,

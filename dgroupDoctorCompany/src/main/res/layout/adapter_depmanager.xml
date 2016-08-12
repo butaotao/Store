@@ -53,31 +53,40 @@
 
         <LinearLayout
             android:id="@+id/ll_tv_des"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_toLeftOf="@id/ic_right_arrow"
             android:layout_toRightOf="@id/line3"
             android:gravity="center_vertical"
             android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/ll_textdes"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:id="@+id/textdes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:textColor="@color/color_333333"
+                    android:textSize="16sp"
+                    android:text="@string/null_info"/>
+
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/textdes2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:ellipsize="end"
-                android:gravity="center_vertical"
-                android:singleLine="true"
-                android:text="@string/null_info"
-                android:textColor="@color/color_333333"
-                android:textSize="16sp" />
-            <TextView
-                android:id="@+id/textdes"
-                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_centerVertical="true"
-
-                android:layout_marginRight="60dp"
+                android:layout_marginRight="54dp"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:singleLine="true"
@@ -93,7 +102,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="2dp"
-            android:layout_marginRight="17dp"
+            android:layout_marginRight="6dp"
             android:background="@drawable/bulk_3cbaff"
             android:gravity="center"
             android:text="管理"

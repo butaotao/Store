@@ -119,7 +119,7 @@ public class SelfVisitActivity extends BaseActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_self_visit);
-
+        setTitle("");
         initView();
 
         initData();
@@ -141,7 +141,10 @@ public class SelfVisitActivity extends BaseActivity implements View.OnClickListe
         if(MODE_FROM_VIST_LIST_ITEM == mMode){
             tv_title.setText("拜访详情");
         }else if(MODE_FROM_SIGN == mMode || MODE_FROM_SIGN_LIST == mMode){
-            tv_title.setText("客户拜访");}
+            tv_title.setText("客户拜访");
+        }else if (MODE_FROM_VIST_LIST == mMode){
+            tv_title.setText("单独拜访");
+        }
         location_ray = getViewById(R.id.location_ray);
         location_ray.setOnClickListener(this);
         tv_time_location = getViewById(R.id.tv_time_location);
@@ -327,7 +330,16 @@ public class SelfVisitActivity extends BaseActivity implements View.OnClickListe
                          intent.putExtra("address",address);
                      }
                       startActivity(intent);
-                    }
+                    }else {
+                      intentAddress = new Intent(this, SelectAddressActivity.class);
+                     intentAddress.putExtra("select_mode", SelectAddressActivity.MODE_SELECT_ADDRESS);
+                     intentAddress.putExtra("poi", "地名地址信息|医疗保健服务|商务住宅|交通设施服务|公司企业|公共设施");
+                     intentAddress.putExtra("distance", 250);
+                     intentAddress.putExtra("latitude", latitude);
+                     intentAddress.putExtra("longitude", longitude);
+                     intentAddress.putExtra("city", city);
+                     startActivityForResult(intentAddress, REQUEST_SELECT_ADDRESS);
+                 }
 
                 break;
         }
