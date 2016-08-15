@@ -52,7 +52,7 @@ android {
 //gradle assembleRelease
     productFlavors {
 
-      yingyongbao {
+    /*  yingyongbao {
          manifestPlaceholders = [UMENG_CHANNEL_VALUE:"YINGYONGBAO_DOCTORCOMPANY"]
      }
      wandoujia {
@@ -66,11 +66,11 @@ android {
      }
      androidplay {
          manifestPlaceholders = [UMENG_CHANNEL_VALUE:"ANDROID_DOCTORCOMPANY" ]
-     }
+     }*/
      dachen {
-         manifestPlaceholders = [UMENG_CHANNEL_VALUE:"DACHEN_DOCTORCOMPANY" ]
+         manifestPlaceholders = [UMENG_CHANNEL_VALUE:"com1dachen2dgroupdoctorcompany" ]
      }
-     baidu {
+    /* baidu {
          manifestPlaceholders = [UMENG_CHANNEL_VALUE:"BAIDU_DOCTORCOMPANY" ]
      }
      mi {
@@ -84,7 +84,7 @@ android {
      }
         hiapk{
             manifestPlaceholders = [UMENG_CHANNEL_VALUE:"ANZHUO_DOCTORCOMPANY" ]
-        }
+        }*/
 }
 }
 android {

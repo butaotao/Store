@@ -16,6 +16,7 @@ import com.dachen.dgroupdoctorcompany.db.dbdao.CompanyContactDao;
 import com.dachen.dgroupdoctorcompany.db.dbdao.DoctorDao;
 import com.dachen.dgroupdoctorcompany.db.dbdao.RoleDao;
 import com.dachen.dgroupdoctorcompany.entity.LoginRegisterResult;
+import com.dachen.dgroupdoctorcompany.utils.Umeng;
 import com.dachen.dgroupdoctorcompany.utils.UserUtils;
 import com.dachen.imsdk.ImSdk;
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
@@ -46,7 +47,7 @@ public class SplashActivity extends BaseActivity implements HttpManager.OnHttpLi
         roleDao = new RoleDao(this);
         //渐变展示启动屏
         AlphaAnimation aa = new AlphaAnimation(0.3f, 1.0f);
-        aa.setDuration(1000);
+        aa.setDuration(100);
         view.startAnimation(aa);
         aa.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -103,7 +104,9 @@ public class SplashActivity extends BaseActivity implements HttpManager.OnHttpLi
         String session = SharedPreferenceUtil.getString(this, "session", "");
         boolean isIdExit = TextUtils.isEmpty(id);
         boolean isSessionExit = TextUtils.isEmpty(session);//
+        Umeng.getAutoLoginRequestData(id, session);
         if (!isIdExit&& !isSessionExit){
+
             HashMap<String, String> params = new HashMap<String, String>();
             params.put("userId", SharedPreferenceUtil.getString(this, "id", ""));
             params.put("serial", SharedPreferenceUtil.getString(this, "mRegId", ""));
@@ -126,7 +129,8 @@ public class SplashActivity extends BaseActivity implements HttpManager.OnHttpLi
     @Override
     public void onSuccess(Result entity) {
         if (entity instanceof LoginRegisterResult) {
-
+            LoginRegisterResult result = (LoginRegisterResult)entity;
+            Umeng.getAutoLoginData(result);
             if (entity.getResultCode() != 1) {
                 ToastUtils.showToast(this, entity.getResultMsg());
                 Intent intent = new Intent(this, LoginActivity.class);

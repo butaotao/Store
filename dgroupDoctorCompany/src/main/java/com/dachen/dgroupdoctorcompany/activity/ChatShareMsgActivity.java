@@ -34,6 +34,7 @@ import com.dachen.imsdk.db.po.ChatGroupPo;
 import com.dachen.imsdk.entity.GroupInfo2Bean;
 import com.dachen.imsdk.net.ImCommonRequest;
 import com.dachen.imsdk.net.PollingURLs;
+import com.dachen.imsdk.utils.ImUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,7 +54,7 @@ public class ChatShareMsgActivity extends ImBaseActivity implements View.OnClick
     private View center_line;
     protected ArchiveItem mItem;
     private boolean inWork;
-    String groupId = "";
+    String groupIds = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +62,7 @@ public class ChatShareMsgActivity extends ImBaseActivity implements View.OnClick
         ExitActivity.getInstance().addActivity(this);
         msgId = getIntent().getStringExtra(MsgMenuAdapter.INTENT_EXTRA_MSG_ID);
         mItem = (ArchiveItem) getIntent().getSerializableExtra(ArchiveUtils.INTENT_KEY_ARCHIVE_ITEM);
+        groupIds =  getIntent().getStringExtra(MsgMenuAdapter.INTENT_EXTRA_GROUP_ID);
         TextView tv = (TextView) findViewById(com.dachen.imsdk.R.id.tv_title);
         //tv.setText("转发消息");
         tv.setText("转发到");
@@ -118,6 +120,7 @@ public class ChatShareMsgActivity extends ImBaseActivity implements View.OnClick
                 intent.putExtra(SelectPeopleActivity.INTENT_EXTRA_GROUP_TYPE,-1);
                 intent.putExtra("share", true);
                 intent.putExtra(ArchiveUtils.INTENT_KEY_ARCHIVE_ITEM, mItem);
+                intent.putExtra(MsgMenuAdapter.INTENT_EXTRA_GROUP_ID,groupIds);
                 intent.putExtra(MsgMenuAdapter.INTENT_EXTRA_MSG_ID,msgId);
                 startActivity(intent);
 //                CallIntent.SelectPeopleActivity(this, null, -1);
@@ -128,6 +131,7 @@ public class ChatShareMsgActivity extends ImBaseActivity implements View.OnClick
                 Intent intent2 = new Intent(this, ChoiceDoctorForChatActivity.class);
                 intent2.putExtra("share", true);
                 intent2.putExtra(ArchiveUtils.INTENT_KEY_ARCHIVE_ITEM, mItem);
+                intent2.putExtra(MsgMenuAdapter.INTENT_EXTRA_GROUP_ID,groupIds);
                 intent2.putExtra(MsgMenuAdapter.INTENT_EXTRA_MSG_ID,msgId);
                 startActivity(intent2);
                 break;
@@ -170,8 +174,8 @@ public class ChatShareMsgActivity extends ImBaseActivity implements View.OnClick
                         RepresentGroupChatActivity.openUI(ChatShareMsgActivity.this, group.name, group.groupId, userList,params);
                         RepresentGroupChatActivity.openUI(mThis,  group.name, group.groupId,userList);
                     }
-
-
+                    ImUtils.closeChat(groupIds);
+                    finish();
 
 //                CallIntent.getSelectData.getData(listsHorizon);
 

@@ -155,7 +155,9 @@ public class UserLoginc {
     public static  void addDoctor(final Activity context, final boolean add,boolean showLoading){
         //enterprise/doctor/search
         if (showLoading){
-            ((BaseActivity)context).showLoadingDialog();
+            if (context instanceof BaseActivity){
+                ((BaseActivity)context).closeLoadingDialog();
+            }
         }
 
         HashMap<String ,String > maps = new HashMap<>();
@@ -171,7 +173,10 @@ public class UserLoginc {
                 maps, new HttpManager.OnHttpListener<Result>() {
                     @Override
                     public void onSuccess(Result entity) {
-                        ((BaseActivity)context).closeLoadingDialog();
+                        if (context instanceof BaseActivity){
+                            ((BaseActivity)context).closeLoadingDialog();
+                        }
+
                         if (entity instanceof DoctorsList){
                             DoctorsList doctorsList = (DoctorsList) entity;
                             if (null!=doctorsList&&null!=doctorsList.data&&doctorsList.data.size()>0){
@@ -190,7 +195,9 @@ public class UserLoginc {
 
                     @Override
                     public void onFailure(Exception e, String errorMsg, int s) {
-                        ((BaseActivity)context).closeLoadingDialog();
+                        if (context instanceof BaseActivity){
+                            ((BaseActivity)context).closeLoadingDialog();
+                        }
                     }
                 },
                 false, 1);

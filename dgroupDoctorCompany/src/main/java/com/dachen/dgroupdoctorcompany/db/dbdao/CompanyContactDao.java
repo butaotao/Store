@@ -183,18 +183,18 @@ public class CompanyContactDao {
         return null;
     }//telephone
 
-    public List<CompanyContactListEntity> queryByTelephone(String telephone) {
+    public CompanyContactListEntity queryByTelephone(String telephone) {
         QueryBuilder<CompanyContactListEntity, Integer> builder = articleDao.queryBuilder();
         String loginid = SharedPreferenceUtil.getString(context, "id", "");
         try {
             Where<CompanyContactListEntity, Integer> where = builder.where();
             builder.where().eq("userloginid", loginid).and().eq("telephone", telephone);
-            return builder.query();
+            return builder.queryForFirst();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return new ArrayList<>();
+        return new CompanyContactListEntity();
     }
 
 

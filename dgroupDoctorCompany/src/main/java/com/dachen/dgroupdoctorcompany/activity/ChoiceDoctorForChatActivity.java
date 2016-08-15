@@ -31,6 +31,7 @@ import com.dachen.imsdk.entity.GroupInfo2Bean.Data;
 import com.dachen.imsdk.net.SessionGroup;
 import com.dachen.imsdk.net.SessionGroup.SessionGroupCallback;
 import com.dachen.imsdk.service.ImRequestManager;
+import com.dachen.imsdk.utils.ImUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -68,6 +69,7 @@ public class ChoiceDoctorForChatActivity extends BaseActivity {
     private boolean mShare;
     private String msgId;
     ArchiveItem mItem;
+    private String groupIds;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +82,7 @@ public class ChoiceDoctorForChatActivity extends BaseActivity {
         mShare = getIntent().getBooleanExtra("share", false);
         msgId = getIntent().getStringExtra(MsgMenuAdapter.INTENT_EXTRA_MSG_ID);
         mItem = (ArchiveItem) getIntent().getSerializableExtra(ArchiveUtils.INTENT_KEY_ARCHIVE_ITEM);
+        groupIds = getIntent().getStringExtra(MsgMenuAdapter.INTENT_EXTRA_GROUP_ID);
         if(null != where && "AddSignInActivity".equals(where)){
             setTitle("选择客户");
         }
@@ -286,8 +289,10 @@ public class ChoiceDoctorForChatActivity extends BaseActivity {
                     }else {
                         ImRequestManager.forwardMsg(msgId, data.gid, 0, new ShareResultListener());
                     }
+               // ImUtils.closeChat(groupIds);
             } else {
                 Represent2DoctorChatActivity.openUI(mThis, data.gname, data.gid, userId);
+               // ImUtils.closeChat(groupIds);
                 finish();
             }
         }

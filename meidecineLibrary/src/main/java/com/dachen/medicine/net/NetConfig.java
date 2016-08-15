@@ -13,8 +13,8 @@ public class NetConfig {
     public static final String MEDIELWEBFILES = "web/files";
     public static final String MEDIELWEBAPI = "web/api";
     public static final String API_INNER_URL = "192.168.3.7";
-    public static final String APP_TEST_API_URL = "http://xg.mediportal.com.cn:80";
-    public static final  String KANG_ZHE = "xg.mediportal.com.cn";
+    public static final String APP_TEST_API_URL = "http://112.74.208.140:80";
+    public static final  String KANG_ZHE = "112.74.208.140";
     public static final  String KANG_ZHE_TEST = "120.25.84.65";
     /**
      * 外网

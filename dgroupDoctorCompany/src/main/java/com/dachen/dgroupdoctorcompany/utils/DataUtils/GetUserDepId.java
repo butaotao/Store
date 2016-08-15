@@ -1,6 +1,7 @@
 package com.dachen.dgroupdoctorcompany.utils.DataUtils;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.dachen.dgroupdoctorcompany.db.dbdao.CompanyContactDao;
 import com.dachen.dgroupdoctorcompany.entity.CompanyContactListEntity;
@@ -15,10 +16,10 @@ public class GetUserDepId {
     public static String getUserDepId(Context context){
         String depid = "";
         CompanyContactDao contactDao = new CompanyContactDao(context);
-        List<CompanyContactListEntity> entities =  contactDao.queryByTelephone
+        CompanyContactListEntity entities =  contactDao.queryByTelephone
                 (SharedPreferenceUtil.getString(context, "telephone", ""));
-        if (entities.size()>0){
-            depid = entities.get(0).id;
+        if (null!= entities&& !TextUtils.isEmpty(entities.id)){
+            depid = entities.id;
         }else {
 //            depid = SharedPreferenceUtil.getString(context,"orgId","");
             depid = SharedPreferenceUtil.getString(context,"departId","");

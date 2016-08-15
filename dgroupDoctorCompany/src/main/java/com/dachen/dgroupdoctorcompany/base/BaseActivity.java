@@ -54,7 +54,10 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
         if (mAnimationDrawable != null) {
             mAnimationDrawable.stop();
         }*/
-        mDialog.dismiss();
+        if (null!=mDialog&&mDialog.isShowing()){
+            mDialog.dismiss();
+        }
+
     }
     @Override
     public void setContentView(View view) {

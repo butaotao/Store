@@ -96,9 +96,6 @@ public class GetAllDoctor {
                 maps, new HttpManager.OnHttpListener<Result>() {
                     @Override
                     public void onSuccess(final Result response) {
-
-
-
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
@@ -171,7 +168,6 @@ public class GetAllDoctor {
                                             com.dachen.dgroupdoctorcompany.utils.UserInfo.getInstance(CompanyApplication.context).getId() + "_time", updatetime);
                                 }
                                 CompanyApplication.setInitContactList(3);
-                                Logger.d("yehj", "add---finish--" + TimeUtils.getTime());
                             }
                         }).start();
 

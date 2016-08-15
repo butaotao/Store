@@ -23,6 +23,7 @@ import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.dgroupdoctorcompany.base.UserLoginc;
 import com.dachen.dgroupdoctorcompany.entity.LoginRegisterResult;
+import com.dachen.dgroupdoctorcompany.utils.Umeng;
 import com.dachen.dgroupdoctorcompany.utils.UserUtils;
 import com.dachen.imsdk.ImSdk;
 import com.dachen.medicine.common.utils.MActivityManager;
@@ -210,6 +211,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
 
     private void loginRequest(String phoneNum, String password) {
         final String userType = Constants.USER_TYPEC+"";
+        Umeng.getLoginRequestData(phoneNum, password);
         new HttpManager().post(this, Constants.LOGIN + "", LoginRegisterResult.class,
                 Params.getLoginParams(phoneNum, password, userType, this), loginListener,
                 false, 1);
@@ -312,6 +314,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
         @Override
         public void onSuccess(Result entity) {
             if (entity instanceof  LoginRegisterResult){
+                LoginRegisterResult result = (LoginRegisterResult)entity;
+                Umeng.getLoginServerData(result,phoneNum);
                 if (entity.getResultCode() != 1) {
                     closeLoadingDialog();
                     if (entity.getResultCode() ==entity.CODE_ACCOUNT_REGETER){
@@ -321,7 +325,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
                     }else {
                         ToastUtils.showToast(mThis,entity.getResultMsg());
                     }
-
                     return;
                 }
                 CompanyApplication.setInitContactList(2);

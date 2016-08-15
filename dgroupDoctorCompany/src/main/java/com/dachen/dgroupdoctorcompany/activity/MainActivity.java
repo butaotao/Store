@@ -46,6 +46,7 @@ import com.dachen.dgroupdoctorcompany.im.AppImConstants;
 import com.dachen.dgroupdoctorcompany.im.events.UnreadEvent;
 import com.dachen.dgroupdoctorcompany.im.utils.AppImUtils;
 import com.dachen.dgroupdoctorcompany.receiver.HwPushReceiver;
+import com.dachen.dgroupdoctorcompany.service.CallSmsSafeService;
 import com.dachen.dgroupdoctorcompany.service.VersionUpdateService;
 import com.dachen.dgroupdoctorcompany.utils.GaoDeMapUtils;
 import com.dachen.dgroupdoctorcompany.utils.UserInfo;
@@ -173,9 +174,13 @@ public class MainActivity extends BaseActivity implements OnHttpListener,
 
       /*  Intent intent = new Intent(this,GuiderDialogActivity.class);
         startActivity(intent);*/
+       // startPhoneService();
     }
 
-
+    public void startPhoneService(){
+       Intent callSmsSafeIntent = new Intent(this,CallSmsSafeService.class);
+        startService(callSmsSafeIntent);
+    }
     public static String getVersionName(Context context) {
         PackageManager manager = context.getPackageManager();
         try {

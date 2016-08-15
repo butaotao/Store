@@ -217,20 +217,23 @@ public class MeetingListActivity extends BaseActivity {
 
                             if (null!=mMeetingList&&mMeetingList.size()>0){
                                 for (int j=0;j<mMeetingList.size();j++){
+                                    Meeting ms = mMeetingList.get(j);
                                     if (null!=users.data&&users.data.size()>0){
                                         for (int i=0;i<users.data.size();i++){
-                                            Meeting meeting = new Meeting();
                                             MettingUsers.User m = users.data.get(i);
-                                            meeting.createUserId=m.userId+"";
-                                            Meeting ms = mMeetingList.get(j);
-                                            ms.headPicFileName = m.headPicFileName;
-                                            ms.createUserName = m.name;
-                                            mMeetingList.set(j,ms);
-                                            break;
+                                            if (!TextUtils.isEmpty(ms.createUserId)&&(
+                                                    (m.userId + "").equals(ms.createUserId))){
+                                                Meeting meeting = new Meeting();
+                                                meeting.createUserId=m.userId+"";
+                                                ms.headPicFileName = m.headPicFileName;
+                                                ms.createUserName = m.name;
+                                                mMeetingList.set(j,ms);
+                                                break;
+                                            }
                                         }
                                     }
-                                    mAdapter.notifyDataSetChanged();
                                 }
+                                mAdapter.notifyDataSetChanged();
                             }
 
 

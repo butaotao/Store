@@ -44,6 +44,7 @@ import com.dachen.imsdk.entity.GroupInfo2Bean.Data;
 import com.dachen.imsdk.net.SessionGroup;
 import com.dachen.imsdk.net.SessionGroup.SessionGroupCallback;
 import com.dachen.imsdk.service.ImRequestManager;
+import com.dachen.imsdk.utils.ImUtils;
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
 import com.dachen.medicine.common.utils.ToastUtils;
 import com.dachen.medicine.config.UserInfo;
@@ -101,6 +102,7 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
     private boolean mShare;
     private String msgId;
     ArchiveItem mItem;
+    private String groupIds;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,7 +114,7 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
         mItem = (ArchiveItem) getIntent().getSerializableExtra(ArchiveUtils.INTENT_KEY_ARCHIVE_ITEM);
         mPullToRefreshScrollView = (PullToRefreshScrollView) findViewById(R.id.refresh_scroll_view);
         mPullToRefreshScrollView.setMode(PullToRefreshBase.Mode.DISABLED);
-
+        groupIds = getIntent().getStringExtra(MsgMenuAdapter.INTENT_EXTRA_GROUP_ID);
         layout_search = getViewById(R.id.layout_search);
         mSearch = getViewById(R.id.et_search);
         btn_add = (Button) findViewById(R.id.btn_add);
@@ -623,6 +625,7 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
                     ChatActivityUtilsV2.openUI(mThis, gid, "10");
                 }
                 setResult(RESULT_OK);
+               // ImUtils.closeChat(groupIds);
                 finish();
             } else {
                 ArrayList<Data.UserInfo> users = null;
@@ -642,6 +645,7 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
                 }
                 EventBus.getDefault().post(new AddGroupUserEvent(groupId));
                 setResult(RESULT_OK);
+                //ImUtils.closeChat(groupIds);
                 finish();
             }
         }

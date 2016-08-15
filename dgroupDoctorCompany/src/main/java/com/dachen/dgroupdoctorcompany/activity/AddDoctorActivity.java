@@ -59,7 +59,6 @@ public class AddDoctorActivity extends BaseActivity implements View.OnClickListe
         if (!TextUtils.isEmpty(name)){
             setTitle(name);
         }
-
         initData();
         initEvent();
     }
