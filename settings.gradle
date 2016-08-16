@@ -18,6 +18,7 @@ include ':rtmpResourceLib'
 include ':vitamioLibrary'
 include ':ImVideo'
 include ':videoConferencingLibrary'
+include ':teleconference'
 
 project(':actionSheetLibrary').projectDir = new File(rootDir, "../CommonLibraryProject/actionSheetLibrary")
 project(':barcodeScannerCore').projectDir = new File(rootDir, "../CommonLibraryProject/barcodeScannerCore")
@@ -33,3 +34,4 @@ project(':rtmpResourceLib').projectDir = new File(rootDir, "../CommonLibraryProj
 project(':vitamioLibrary').projectDir = new File(rootDir, "../CommonLibraryProject/vitamioLibrary")
 project(':ImVideo').projectDir = new File(rootDir, "../CommonLibraryProject/ImVideo")
 project(':videoConferencingLibrary').projectDir = new File(rootDir, "../CommonLibraryProject/videoConferencingLibrary")
+project(':teleconference').projectDir = new File(rootDir, "../CommonLibraryProject/teleconference")

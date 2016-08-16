@@ -101,15 +101,13 @@ repositories {
 dependencies {
     compile 'com.android.support:multidex:1.0.1'
     /*  compile fileTree(dir: 'libs', include: ['*.jar'])
-                                                                        testCompile 'junit:junit:4.12'
-                                                                        compile 'com.android.support:appcompat-v7:23.1.1'*/
+                                                                            testCompile 'junit:junit:4.12'
+                                                                            compile 'com.android.support:appcompat-v7:23.1.1'*/
     compile project(':actionSheetLibrary')
     compile 'com.jakewharton:butterknife:7.0.1'
     compile files('libs/MiPush_SDK_Client_3_0_3.jar')
-
     compile project(':ImSdk')
-//    compile 'com.dachen.library:ImSdk:1.0.0'
-
+    //    compile 'com.dachen.library:ImSdk:1.0.0'
     compile files('libs/ormlite-jdbc-4.49-SNAPSHOT.jar')
     compile project(':cmsLiveLibrary')
     compile project(':vitamioLibrary')
@@ -121,6 +119,7 @@ dependencies {
     compile project(path: ':ImVideo')
     compile project(':ImVideo')
     compile project(':meidecineLibrary')
+    compile project(':teleconference')
 }
 
 apply plugin: 'eclipse'
