@@ -308,7 +308,6 @@ public class SignInActivity extends BaseActivity implements HttpManager.OnHttpLi
                 }
             }
         }
-
         return flag;
     }
     public void addData(final ArrayList<OftenSinPlace> pageData){

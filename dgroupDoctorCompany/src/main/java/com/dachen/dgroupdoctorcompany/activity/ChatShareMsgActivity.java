@@ -174,8 +174,8 @@ public class ChatShareMsgActivity extends ImBaseActivity implements View.OnClick
                         RepresentGroupChatActivity.openUI(ChatShareMsgActivity.this, group.name, group.groupId, userList,params);
                         RepresentGroupChatActivity.openUI(mThis,  group.name, group.groupId,userList);
                     }
-                    ImUtils.closeChat(groupIds);
-                    finish();
+                    //ImUtils.closeChat(groupIds);
+                   // finish();
 
 //                CallIntent.getSelectData.getData(listsHorizon);
 
@@ -227,13 +227,14 @@ public class ChatShareMsgActivity extends ImBaseActivity implements View.OnClick
             @Override
             public void onResponse(String s) {
                 EmptyResult result= JSON.parseObject(s,EmptyResult.class);
+                mDialog.dismiss();
                 if(result.resultCode==1){
                     ToastUtil.showToast(mThis,"转发成功");
                     finish();
                 }else{
                     ToastUtil.showToast(mThis,result.detailMsg);
                 }
-                mDialog.dismiss();
+
             }
         };
 
