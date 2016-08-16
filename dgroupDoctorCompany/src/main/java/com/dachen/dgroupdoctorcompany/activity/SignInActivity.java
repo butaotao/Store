@@ -33,7 +33,9 @@ import com.dachen.medicine.net.HttpManager;
 import com.dachen.medicine.net.Params;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by weiwei on 2016/3/30.
@@ -66,6 +68,7 @@ public class SignInActivity extends BaseActivity implements HttpManager.OnHttpLi
     public static OftenSignPlaceDao oftenSignPlaceDao;
     GaoDeMapUtils mGaoDeMapUtils;
     public static final String ACTION = "com.dachen.dgroupdoctorcompany.location";
+    static Map<String ,Double> distanceMap = new HashMap<>();
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -278,12 +281,12 @@ public class SignInActivity extends BaseActivity implements HttpManager.OnHttpLi
 
                             address = data.simpleAddress;
                             if (lengh<=allowDistance){
-                                break;
+                                distanceMap.put(address,lengh);
                             }
                         }
                     }
                 }
-
+        getShortestAddress(distanceMap);
         return flag;
     }
 
@@ -302,14 +305,28 @@ public class SignInActivity extends BaseActivity implements HttpManager.OnHttpLi
                             longtitude, latitude);
                     address = data.simpleAddress;
                     if (lengh<=allowDistance){
+                        distanceMap.put(address,lengh);
                         flag = true;
-                        break;
                     }
                 }
             }
         }
+        getShortestAddress(distanceMap);
         return flag;
     }
+    //得到签到最短的地点
+    private static void getShortestAddress(Map<String, Double> distanceMap) {
+        double lenth;
+        double shortestLenth = Double.MAX_VALUE;
+        for (String addressM : distanceMap.keySet()) {
+            lenth = distanceMap.get(address);
+            if (shortestLenth>lenth) {
+                shortestLenth = lenth;
+                address = addressM;
+            }
+        }
+    }
+
     public void addData(final ArrayList<OftenSinPlace> pageData){
 
         final String id = SharedPreferenceUtil.getString(this,"id","");;

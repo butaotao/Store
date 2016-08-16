@@ -6,30 +6,16 @@ package com.dachen.dgroupdoctorcompany.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.dachen.common.media.SoundPlayer;
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.dgroupdoctorcompany.db.dbentity.Reminder;
 import com.dachen.dgroupdoctorcompany.receiver.LocationReceiver;
-import com.dachen.medicine.common.utils.Alarm;
-import com.dachen.medicine.common.utils.LogUtils;
-import com.dachen.medicine.common.utils.TimeUtils;
-import com.dachen.medicine.common.utils.ToastUtils;
-import com.dachen.medicine.config.UserInfo;
-import com.dachen.medicine.entity.Result;
-import com.dachen.medicine.net.HttpManager;
-import com.dachen.medicine.net.Params;
-import com.google.gson.Gson;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -121,7 +107,7 @@ public class AlarmDialogFullScreenActivity extends BaseActivity   {
     public void onRightBtnClick(View v) {
         if (startSign){
             Intent intent = new Intent(this, AddSignInActivity.class);
-
+            SignInActivity.compareDistance(longitude,latitude,getApplicationContext());
             intent.putExtra("name", SignInActivity.address);
             intent.putExtra("longitude", longitude);
             intent.putExtra("latitude", latitude);
