@@ -319,7 +319,7 @@ public class SignInActivity extends BaseActivity implements HttpManager.OnHttpLi
         double lenth;
         double shortestLenth = Double.MAX_VALUE;
         for (String addressM : distanceMap.keySet()) {
-            lenth = distanceMap.get(address);
+            lenth = distanceMap.get(addressM);
             if (shortestLenth>lenth) {
                 shortestLenth = lenth;
                 address = addressM;
