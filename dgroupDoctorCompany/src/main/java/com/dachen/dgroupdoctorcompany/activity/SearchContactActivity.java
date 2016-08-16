@@ -48,6 +48,7 @@ import com.dachen.imsdk.db.dao.ChatGroupDao;
 import com.dachen.imsdk.entity.GroupInfo2Bean;
 import com.dachen.imsdk.net.SessionGroup;
 import com.dachen.imsdk.service.ImRequestManager;
+import com.dachen.medicine.common.utils.MActivityManager;
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
 import com.dachen.medicine.entity.Result;
 import com.dachen.medicine.net.HttpManager.OnHttpListener;
@@ -345,6 +346,8 @@ public class SearchContactActivity extends BaseActivity implements OnClickListen
         SessionGroup groupTool=new SessionGroup(this);
         groupTool.setCallback(this);
         groupTool.createGroup(userIds, "3_10");
+        finish();
+        MActivityManager.getInstance().finishAppointActivity(ChoiceDoctorForChatActivity.class);
     }
 
     @Override

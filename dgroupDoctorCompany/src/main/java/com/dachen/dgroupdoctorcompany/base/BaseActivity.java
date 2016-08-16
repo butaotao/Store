@@ -81,6 +81,7 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mDialog = null;
         MActivityManager.getInstance().popActivity(this);
     }
 

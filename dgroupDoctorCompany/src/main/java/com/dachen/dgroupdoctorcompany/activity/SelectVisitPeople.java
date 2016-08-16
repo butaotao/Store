@@ -44,6 +44,7 @@ import com.dachen.dgroupdoctorcompany.utils.CommonUitls;
 import com.dachen.dgroupdoctorcompany.utils.DataUtils.GetUserDepId;
 import com.dachen.dgroupdoctorcompany.utils.JsonMananger;
 import com.dachen.dgroupdoctorcompany.views.RadarViewGroup;
+import com.dachen.medicine.common.utils.MActivityManager;
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
 import com.dachen.medicine.entity.Result;
 import com.dachen.medicine.net.HttpManager;
@@ -452,9 +453,7 @@ public class SelectVisitPeople extends BaseActivity implements HttpManager.OnHtt
     @Override
     public void onSuccess(Result response) {
         closeLoadingDialog();
-        if(!isPressCancel){
-            finish();
-        }
+
         if(null!=response){
             if(response.getResultCode() == 1){
                 if(response instanceof ConfirmVisit){//确定协同拜访
@@ -471,10 +470,11 @@ public class SelectVisitPeople extends BaseActivity implements HttpManager.OnHtt
                     mMyHandler.sendEmptyMessageDelayed(MSG_UPDATE_TIME,1000);
                 }else {
                     if (cancelVistitTogetter!=1){
-                        ToastUtil.showToast(this,"取消协同拜访成功");
-                        if(isPressCancel){
+                        ToastUtil.showToast(this, "取消协同拜访成功");
+                      //  if(isPressCancel){
+
                             onExit();
-                        }
+                       // }
                     }else {
                         choicePlace();
                     }
@@ -606,11 +606,15 @@ public class SelectVisitPeople extends BaseActivity implements HttpManager.OnHtt
     public void onExit(){
         Intent intent;
         if(TogetherVisitActivity.MODE_FROM_VIST_LIST == from){
-            intent = new Intent(this,VisitListActivity.class);
-            startActivity(intent);
+          /*  intent = new Intent(this,VisitListActivity.class);
+            startActivity(intent);*/
         }else if(TogetherVisitActivity.MODE_FROM_SIGN == from){
-            intent = new Intent(this,SignInActivity.class);
-            startActivity(intent);
+            /*intent = new Intent(this,SignInActivity.class);
+            startActivity(intent);*/
+        }
+
+        if (MODE_ADD == mMode){
+            MActivityManager.getInstance().finishAppointActivity(VisitListActivity.class);
         }
         finish();
     }

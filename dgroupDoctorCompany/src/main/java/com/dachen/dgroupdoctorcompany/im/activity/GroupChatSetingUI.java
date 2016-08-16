@@ -186,6 +186,7 @@ public class GroupChatSetingUI extends ImBaseActivity {
     protected void onDestroy() {
         EventBus.getDefault().unregister(this);
         super.onDestroy();
+        mDialog = null;
     }
 
     @OnItemClick(R.id.im_group_chat_ui_gridView)
@@ -681,8 +682,10 @@ public class GroupChatSetingUI extends ImBaseActivity {
      * 执行获取任务
      */
     private void executeObtainTask() {
+        if (null!=mDialog){
+            mDialog.show();
+        }
 
-        mDialog.show();
 
         RequestQueue queue = VolleyUtil.getQueue(this);
         // queue.cancelAll(this);
@@ -697,7 +700,9 @@ public class GroupChatSetingUI extends ImBaseActivity {
             @Override
             public void onResponse(String response) {
                 Logger.d(TAG, "executeObtainTask():onResponse():result:" + response);
-                mDialog.dismiss();
+                if (null!=mDialog) {
+                    mDialog.dismiss();
+                }
                 GroupInfo2Bean bean = GJson.parseObject(response, GroupInfo2Bean.class);
                 if (bean != null) {
                     if (bean.resultCode == HttpErrorCode.successed) {
@@ -721,7 +726,9 @@ public class GroupChatSetingUI extends ImBaseActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.w(TAG, "onErrorResponse()");
-                mDialog.dismiss();
+                if (null!=mDialog) {
+                    mDialog.dismiss();
+                }
                 ToastUtil.showErrorNet(mThis);
             }
 
@@ -860,7 +867,9 @@ public class GroupChatSetingUI extends ImBaseActivity {
             @Override
             public void onResponse(String response) {
                 Log.w(TAG, "executeUpdateTask():onResponse():result:" + response);
-                mDialog.dismiss();
+                if (null!=mDialog) {
+                    mDialog.dismiss();
+                }
                 UpdateGroup2Bean bean = GJson.parseObject(response, UpdateGroup2Bean.class);
                 if (bean != null) {
                     if (bean.resultCode == HttpErrorCode.successed) {
@@ -918,7 +927,9 @@ public class GroupChatSetingUI extends ImBaseActivity {
                 }
                 execute_what = whatNotKnowTask;
 
-                mDialog.dismiss();
+                if (null!=mDialog) {
+                    mDialog.dismiss();
+                }
 
                 ToastUtil.showErrorNet(GroupChatSetingUI.this);
             }

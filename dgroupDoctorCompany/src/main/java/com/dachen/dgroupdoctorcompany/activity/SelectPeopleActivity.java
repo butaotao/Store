@@ -31,6 +31,7 @@ import com.dachen.dgroupdoctorcompany.fragment.AddressList;
 import com.dachen.dgroupdoctorcompany.im.activity.RepresentGroupChatActivity;
 import com.dachen.dgroupdoctorcompany.im.events.AddGroupUserEvent;
 import com.dachen.dgroupdoctorcompany.im.utils.ChatActivityUtilsV2;
+import com.dachen.dgroupdoctorcompany.utils.CallIntent;
 import com.dachen.dgroupdoctorcompany.utils.CommonUitls;
 import com.dachen.dgroupdoctorcompany.utils.CompareDatalogic;
 import com.dachen.dgroupdoctorcompany.utils.ExitActivity;
@@ -40,7 +41,10 @@ import com.dachen.imsdk.adapter.MsgMenuAdapter;
 import com.dachen.imsdk.archive.entity.ArchiveItem;
 import com.dachen.imsdk.consts.SessionType;
 import com.dachen.imsdk.db.dao.ChatGroupDao;
+import com.dachen.imsdk.db.po.ChatMessagePo;
+import com.dachen.imsdk.entity.GroupInfo2Bean;
 import com.dachen.imsdk.entity.GroupInfo2Bean.Data;
+import com.dachen.imsdk.net.MessageSenderV2;
 import com.dachen.imsdk.net.SessionGroup;
 import com.dachen.imsdk.net.SessionGroup.SessionGroupCallback;
 import com.dachen.imsdk.service.ImRequestManager;
@@ -389,7 +393,18 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
 //                CallIntent.getSelectData.getData(listsHorizon);
                 int groupType = getIntent().getIntExtra(INTENT_EXTRA_GROUP_TYPE, 0);
                 showLoadingDialog();
+                    /*groupTool.setCallback(new SessionGroupCallback() {
 
+                        @Override
+                        public void onGroupInfo(Data data, int what) {
+                            CallIntent.startMainActivity(SelectPeopleActivity.this);
+                        }
+
+                        @Override
+                        public void onGroupInfoFailed(String msg) {
+
+                        }
+                    });*/
                 if (groupUsers.size() == 0)
                     groupTool.createGroup(getIdsList(false), "10");
                 else {
@@ -398,7 +413,6 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
                     } else{
                         groupTool.addGroupUser(getIdsList(false), getIntent().getStringExtra(INTENT_EXTRA_GROUP_ID));
                     }
-
                 }
 
                 break;
@@ -468,9 +482,6 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
                     haveDep = true;
                     list.addAll(companyDepment.data.departments);
                     pareid = companyDepment.data.departments.get(0).parentId;
-                    //List<CompanyContactListEntity> lists = companyContactDao.queryByDepID(idDep);
-                    //addHaveAdd(lists);
-
                     if (list != null && list.size() > 0 && list.get(0) instanceof CompanyDepment.Data.Depaments) {
                         CompanyDepment.Data.Depaments entity = (CompanyDepment.Data.Depaments) list.get(0);
                         if (null != listsTitle && listsTitle.size() > 0 && null != entity && entity.parentId != null && null != listsTitle.get(entity.parentId)
@@ -480,8 +491,6 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
                             setTitle("选择联系人");
                         }
                     }
-                    //adapter = new CompanySelectPeopleListAdapter(this, R.layout.adapter_selectpeoplelist, list, 0);
-                    //listview.setAdapter(adapter);
 
                     adapter.setSize(companyDepment.data.departments.size());
                     adapter.notifyDataSetChanged();
@@ -489,62 +498,11 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
                 } else {
                     haveDep = false;
                     adapter.setSize(0);
-                   /* List<CompanyContactListEntity> lists = companyContactDao.queryByDepID(idDep);
-                    if (lists != null && lists.size() > 0) {
-                        list.clear();
-                        lists = addHaveAdd(lists);
-                        for (int i = 0; i < lists.size(); i++) {
-                            for (int j = 0; j < listsHorizon.size(); j++) {
-                                if (lists.get(i).equals(listsHorizon.get(j))) {
-                                    CompanyContactListEntity entity = lists.get(i);
-                                    entity.select = true;
-                                    lists.set(i, entity);
-                                    break;
-                                }
-                            }
-                        }
-                        setTitle(lists.get(0).department);
-                        list.addAll(lists);
-                        adapter.setSize(0);
-                        adapter.notifyDataSetChanged();
-                    } else {
-
-                    }*/
                     closeLoadingDialog();
                 }
 
                 if (null != companyDepment.data && null != companyDepment.data.users && companyDepment.data.users.size() > 0) {
 
-                   /* List<CompanyContactListEntity> lists = new ArrayList<>();
-                    for (int i = 0; i < companyDepment.data.users.size(); i++) {
-                        List<CompanyContactListEntity> entities = companyContactDao.queryByUserId(companyDepment.data.users.get(i).toString());
-                        if (entities != null && entities.size() > 0) {
-                            lists.add((CompanyContactListEntity) entities.get(0));
-                        }
-                    }
-
-
-                    if (lists != null && lists.size() > 0) {
-                        if (!haveDep) {
-                            adapter.setSize(0);
-                            list.clear();
-                        }
-                        lists = addHaveAdd(lists);
-                        for (int i = 0; i < lists.size(); i++) {
-                            for (int j = 0; j < listsHorizon.size(); j++) {
-                                if (lists.get(i).equals(listsHorizon.get(j))) {
-                                    CompanyContactListEntity entity = lists.get(i);
-                                    entity.select = true;
-                                    lists.set(i, entity);
-                                    break;
-                                }
-                            }
-                        }
-                        list.addAll(lists);
-                        adapter.notifyDataSetChanged();
-                    } else {
-
-                    }*/
 
 
                     if (companyDepment.data.users.size() > mPageSize) {
@@ -614,19 +572,21 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
                     //转发信息
                     if (mItem!=null){
                      //   ImRequestManager.forwardMsg(mItem.po.msgId, data.gid, 0, new ShareResultListener());
-                        HashMap<String, Object> params = new HashMap<>();
-                        params.put("share_files",mItem);
-                        RepresentGroupChatActivity.openUI(mThis, data.gname, data.gid, users,params);
+//                        HashMap<String, Object> params = new HashMap<>();
+//                        params.put("share_files",mItem);
+//                        RepresentGroupChatActivity.openUI(mThis, data.gname, data.gid, users, params);
+                        ImRequestManager.sendArchive(mItem, data.gid,new ShareItemFileListener());
                     }else {
                         ImRequestManager.forwardMsg(msgId, data.gid, 0, new ShareResultListener());
-                        RepresentGroupChatActivity.openUI(mThis, data.gname, data.gid,users);
                     }
                 } else {
                     ChatActivityUtilsV2.openUI(mThis, gid, "10");
+                    finish();
+                   // CallIntent.startMainActivity(SelectPeopleActivity.this);
                 }
+                EventBus.getDefault().post(new AddGroupUserEvent(groupId));
                 setResult(RESULT_OK);
                // ImUtils.closeChat(groupIds);
-                finish();
             } else {
                 ArrayList<Data.UserInfo> users = null;
                 if (data.userList != null)
@@ -634,22 +594,23 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
                 if (mShare) {
                     //转发信息
                     if (mItem!=null){
-                        HashMap<String, Object> params = new HashMap<>();
-                        params.put("share_files",mItem);
-                        RepresentGroupChatActivity.openUI(mThis, data.gname, data.gid, users,params);
+//                        HashMap<String, Object> params = new HashMap<>();
+//                        params.put("share_files",mItem);
+//                        RepresentGroupChatActivity.openUI(mThis, data.gname, data.gid, users, params);
+                        ImRequestManager.sendArchive(mItem, data.gid, new ShareItemFileListener());
                     }else {
                         ImRequestManager.forwardMsg(msgId, data.gid, 0, new ShareResultListener());
                     }
                 } else {
                     RepresentGroupChatActivity.openUI(mThis, data.gname, data.gid, users);
+                    finish();
                 }
                 EventBus.getDefault().post(new AddGroupUserEvent(groupId));
                 setResult(RESULT_OK);
                 //ImUtils.closeChat(groupIds);
-                finish();
+               // CallIntent.startMainActivity(SelectPeopleActivity.this);
             }
         }
-
         @Override
         public void onGroupInfoFailed(String msg) {
             closeLoadingDialog();
@@ -657,14 +618,25 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
             ToastUtil.showToast(mThis, msg);
         }
     };
+    private class ShareItemFileListener implements MessageSenderV2.MessageSendCallbackV2{
 
+        @Override
+        public void sendSuccessed(ChatMessagePo msg, String groudId, String msgId, long time) {
+            CallIntent.startMainActivity(SelectPeopleActivity.this);
+        }
+
+        @Override
+        public void sendFailed(ChatMessagePo msg, int resultCode, String resultMsg) {
+
+        }
+    }
     private class ShareResultListener implements SimpleResultListener {
 
         @Override
         public void onSuccess() {
-            ToastUtil.showToast(mThis,"转发成功");
-            finish();
-            ExitActivity.getInstance().exit();
+            CallIntent.startMainActivity(SelectPeopleActivity.this);
+            ToastUtil.showToast(mThis, "转发成功");
+
         }
 
         @Override
@@ -736,7 +708,6 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
                             }
                         }
                     }
-//            list.set(position, c2);
                         adapter.notifyDataSetChanged();
                     addAdapter.notifyDataSetChanged();
                         btn_add.setText("开始(" + listsHorizon.size() + ")");

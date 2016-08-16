@@ -139,7 +139,15 @@ public class SplashActivity extends BaseActivity implements HttpManager.OnHttpLi
                 return;
             }
             initUser();
-            UserUtils.logingetUserType(SplashActivity.this);
+           // UserUtils.logingetUserType(SplashActivity.this);
+
+
+            LoginRegisterResult logins = (LoginRegisterResult) entity;
+            UserLoginc.setUserInfo(logins, SplashActivity.this);
+            Intent intent = new Intent(mThis, MainActivity.class);
+            intent.putExtra("login", "login");
+            mThis.startActivity(intent);
+            finish();
         }
     }
 
