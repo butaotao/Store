@@ -325,6 +325,8 @@ public class SignInActivity extends BaseActivity implements HttpManager.OnHttpLi
                 address = addressM;
             }
         }
+        distanceMap.clear();
+        distanceMap = null;
     }
 
     public void addData(final ArrayList<OftenSinPlace> pageData){

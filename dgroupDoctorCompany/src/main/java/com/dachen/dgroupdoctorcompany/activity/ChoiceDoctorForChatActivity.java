@@ -22,12 +22,15 @@ import com.dachen.dgroupdoctorcompany.db.dbdao.DoctorDao;
 import com.dachen.dgroupdoctorcompany.db.dbentity.Doctor;
 import com.dachen.dgroupdoctorcompany.im.activity.Represent2DoctorChatActivity;
 import com.dachen.dgroupdoctorcompany.im.activity.RepresentGroupChatActivity;
+import com.dachen.dgroupdoctorcompany.utils.CallIntent;
 import com.dachen.dgroupdoctorcompany.utils.ExitActivity;
 import com.dachen.dgroupdoctorcompany.views.InputDialog;
 import com.dachen.imsdk.adapter.MsgMenuAdapter;
 import com.dachen.imsdk.archive.entity.ArchiveItem;
 import com.dachen.imsdk.db.dao.ChatGroupDao;
+import com.dachen.imsdk.db.po.ChatMessagePo;
 import com.dachen.imsdk.entity.GroupInfo2Bean.Data;
+import com.dachen.imsdk.net.MessageSenderV2;
 import com.dachen.imsdk.net.SessionGroup;
 import com.dachen.imsdk.net.SessionGroup.SessionGroupCallback;
 import com.dachen.imsdk.service.ImRequestManager;
@@ -283,9 +286,10 @@ public class ChoiceDoctorForChatActivity extends BaseActivity {
                     //转发信息
                     if (mItem!=null){
                         //   ImRequestManager.forwardMsg(mItem.po.msgId, data.gid, 0, new ShareResultListener());
-                        HashMap<String, Object> params = new HashMap<>();
+                       /* HashMap<String, Object> params = new HashMap<>();
                         params.put("share_files",mItem);
-                        RepresentGroupChatActivity.openUI(mThis, data.gname, data.gid, users, params);
+                        RepresentGroupChatActivity.openUI(mThis, data.gname, data.gid, users, params);*/
+                        ImRequestManager.sendArchive(mItem, data.gid, new ShareItemFileListener());
                     }else {
                         ImRequestManager.forwardMsg(msgId, data.gid, 0, new ShareResultListener());
                     }
@@ -293,7 +297,8 @@ public class ChoiceDoctorForChatActivity extends BaseActivity {
             } else {
                 Represent2DoctorChatActivity.openUI(mThis, data.gname, data.gid, userId);
                // ImUtils.closeChat(groupIds);
-                finish();
+
+                CallIntent.startMainActivity(ChoiceDoctorForChatActivity.this);
             }
         }
 
@@ -302,7 +307,18 @@ public class ChoiceDoctorForChatActivity extends BaseActivity {
             ToastUtil.showToast(mThis, "创建会话失败");
         }
     }
+    private class ShareItemFileListener implements MessageSenderV2.MessageSendCallbackV2{
 
+        @Override
+        public void sendSuccessed(ChatMessagePo msg, String groudId, String msgId, long time) {
+            CallIntent.startMainActivity(ChoiceDoctorForChatActivity.this);
+        }
+
+        @Override
+        public void sendFailed(ChatMessagePo msg, int resultCode, String resultMsg) {
+
+        }
+    }
     private class ShareResultListener implements SimpleResultListener {
 
         @Override

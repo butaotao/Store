@@ -3,7 +3,6 @@ package com.dachen.dgroupdoctorcompany.activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -13,7 +12,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
@@ -24,14 +22,9 @@ import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.CameraPosition;
-import com.amap.api.maps.model.CircleOptions;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
-import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyTrafficStyle;
-import com.amap.api.services.core.PoiItem;
-import com.amap.api.services.poisearch.PoiResult;
-import com.amap.api.services.poisearch.PoiSearch;
 import com.dachen.common.utils.ToastUtil;
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.app.CompanyApplication;
@@ -49,7 +42,6 @@ import com.dachen.medicine.entity.Result;
 import com.dachen.medicine.net.HttpManager;
 import com.dachen.medicine.net.Params;
 import com.dachen.medicine.view.CustomDialog;
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
@@ -452,9 +444,7 @@ public class SelectVisitPeople extends BaseActivity implements HttpManager.OnHtt
     @Override
     public void onSuccess(Result response) {
         closeLoadingDialog();
-        if(!isPressCancel){
-            finish();
-        }
+
         if(null!=response){
             if(response.getResultCode() == 1){
                 if(response instanceof ConfirmVisit){//确定协同拜访
@@ -471,10 +461,11 @@ public class SelectVisitPeople extends BaseActivity implements HttpManager.OnHtt
                     mMyHandler.sendEmptyMessageDelayed(MSG_UPDATE_TIME,1000);
                 }else {
                     if (cancelVistitTogetter!=1){
-                        ToastUtil.showToast(this,"取消协同拜访成功");
-                        if(isPressCancel){
+                        ToastUtil.showToast(this, "取消协同拜访成功");
+                      //  if(isPressCancel){
+
                             onExit();
-                        }
+                       // }
                     }else {
                         choicePlace();
                     }
@@ -606,11 +597,15 @@ public class SelectVisitPeople extends BaseActivity implements HttpManager.OnHtt
     public void onExit(){
         Intent intent;
         if(TogetherVisitActivity.MODE_FROM_VIST_LIST == from){
-            intent = new Intent(this,VisitListActivity.class);
-            startActivity(intent);
+          /*  intent = new Intent(this,VisitListActivity.class);
+            startActivity(intent);*/
         }else if(TogetherVisitActivity.MODE_FROM_SIGN == from){
-            intent = new Intent(this,SignInActivity.class);
-            startActivity(intent);
+            /*intent = new Intent(this,SignInActivity.class);
+            startActivity(intent);*/
+        }
+
+        if (MODE_ADD == mMode){
+            //MActivityManager.getInstance().finishAppointActivity(VisitListActivity.class);
         }
         finish();
     }

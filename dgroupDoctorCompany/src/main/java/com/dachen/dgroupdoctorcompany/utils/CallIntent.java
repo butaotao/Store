@@ -6,6 +6,7 @@ import android.content.Intent;
 
 import com.dachen.dgroupdoctorcompany.activity.ChoiceDoctorForChatActivity;
 import com.dachen.dgroupdoctorcompany.activity.ChoiceDoctorForVisitActivity;
+import com.dachen.dgroupdoctorcompany.activity.MainActivity;
 import com.dachen.dgroupdoctorcompany.activity.SelectPeopleActivity;
 import com.dachen.dgroupdoctorcompany.entity.BaseSearch;
 import com.dachen.dgroupdoctorcompany.entity.CompanyContactListEntity;
@@ -65,6 +66,13 @@ public class CallIntent {
     public static void selectDoctorForVisit(final Context context){
         Intent intent;
         intent = new Intent(context, ChoiceDoctorForVisitActivity.class);
+        context.startActivity (intent);
+    }
+    public static void startMainActivity(final Activity context){
+        context.finish();
+        Intent intent;
+        intent = new Intent(context, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity (intent);
     }
 }

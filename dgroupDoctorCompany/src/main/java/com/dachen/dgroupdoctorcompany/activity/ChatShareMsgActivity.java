@@ -23,6 +23,7 @@ import com.dachen.dgroupdoctorcompany.adapter.CompanyChatGroupAdapter;
 import com.dachen.dgroupdoctorcompany.archive.ArchiveUtils;
 import com.dachen.dgroupdoctorcompany.im.activity.RepresentGroupChatActivity;
 import com.dachen.dgroupdoctorcompany.im.utils.ChatActivityUtilsV2;
+import com.dachen.dgroupdoctorcompany.utils.CallIntent;
 import com.dachen.dgroupdoctorcompany.utils.CompareDatalogic;
 import com.dachen.dgroupdoctorcompany.utils.ExitActivity;
 import com.dachen.dgroupdoctorcompany.utils.UserInfo;
@@ -31,9 +32,12 @@ import com.dachen.imsdk.adapter.MsgMenuAdapter;
 import com.dachen.imsdk.archive.entity.ArchiveItem;
 import com.dachen.imsdk.db.dao.ChatGroupDao;
 import com.dachen.imsdk.db.po.ChatGroupPo;
+import com.dachen.imsdk.db.po.ChatMessagePo;
 import com.dachen.imsdk.entity.GroupInfo2Bean;
 import com.dachen.imsdk.net.ImCommonRequest;
+import com.dachen.imsdk.net.MessageSenderV2;
 import com.dachen.imsdk.net.PollingURLs;
+import com.dachen.imsdk.service.ImRequestManager;
 import com.dachen.imsdk.utils.ImUtils;
 
 import java.util.ArrayList;
@@ -167,16 +171,17 @@ public class ChatShareMsgActivity extends ImBaseActivity implements View.OnClick
                     if (null != msgId) {
                         forwardMsg(group.groupId);
                         RepresentGroupChatActivity.openUI(mThis, group.name, group.groupId, userList);
+                        CallIntent.startMainActivity(ChatShareMsgActivity.this);
                     } else {
-                        HashMap<String, Object> params = new HashMap<>();
+                       /* HashMap<String, Object> params = new HashMap<>();
                         params.put("share_files", mItem);
-
-                        RepresentGroupChatActivity.openUI(ChatShareMsgActivity.this, group.name, group.groupId, userList,params);
-                        RepresentGroupChatActivity.openUI(mThis,  group.name, group.groupId,userList);
+                        RepresentGroupChatActivity.openUI(ChatShareMsgActivity.this, group.name, group.groupId, userList, params);
+                        RepresentGroupChatActivity.openUI(mThis,  group.name, group.groupId,userList);*/
+                        ImRequestManager.sendArchive(mItem, group.groupId, new ShareItemFileListener());
                     }
                     //ImUtils.closeChat(groupIds);
                    // finish();
-
+                   //
 //                CallIntent.getSelectData.getData(listsHorizon);
 
 
@@ -191,6 +196,18 @@ public class ChatShareMsgActivity extends ImBaseActivity implements View.OnClick
 
         }
     };
+    private class ShareItemFileListener implements MessageSenderV2.MessageSendCallbackV2{
+
+        @Override
+        public void sendSuccessed(ChatMessagePo msg, String groudId, String msgId, long time) {
+            CallIntent.startMainActivity(ChatShareMsgActivity.this);
+        }
+
+        @Override
+        public void sendFailed(ChatMessagePo msg, int resultCode, String resultMsg) {
+
+        }
+    }
     private class InitTask extends AsyncTask<Void,Void,List<ChatGroupPo>> {
         @Override
         protected List<ChatGroupPo> doInBackground(Void... params) {
@@ -222,15 +239,19 @@ public class ChatShareMsgActivity extends ImBaseActivity implements View.OnClick
         reqMap.put("msgId",msgId);
         reqMap.put("gid",groupId);
         reqMap.put("index",0);
-        mDialog.show();
+        if (mDialog!=null) {
+            mDialog.show();
+        }
         Response.Listener<String> listener=new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
                 EmptyResult result= JSON.parseObject(s,EmptyResult.class);
-                mDialog.dismiss();
+                if (mDialog!=null){
+                    mDialog.dismiss();
+                }
                 if(result.resultCode==1){
                     ToastUtil.showToast(mThis,"转发成功");
-                    finish();
+                    CallIntent.startMainActivity(ChatShareMsgActivity.this);
                 }else{
                     ToastUtil.showToast(mThis,result.detailMsg);
                 }
@@ -242,7 +263,9 @@ public class ChatShareMsgActivity extends ImBaseActivity implements View.OnClick
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 ToastUtil.showErrorNet(mThis);
-                mDialog.dismiss();
+                if (mDialog!=null){
+                    mDialog.dismiss();
+                }
             }
         };
         StringRequest req = new ImCommonRequest(PollingURLs.forwardMsg(),reqMap,listener,errorListener);
@@ -250,4 +273,9 @@ public class ChatShareMsgActivity extends ImBaseActivity implements View.OnClick
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mDialog = null;
+    }
 }

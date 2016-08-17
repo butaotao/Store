@@ -25,9 +25,23 @@
         android:textColor="@color/color_3cbaff"
         android:textSize="16sp"
         android:layout_marginLeft="15dp"/>
-
+        <RelativeLayout
+            android:layout_width="15dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:id="@+id/line_top"
+            android:layout_below="@+id/iv_cir"
+            android:layout_alignLeft="@+id/iv_cir"
+            android:layout_alignStart="@+id/iv_cir">
+            <RelativeLayout
+                android:layout_width="1dp"
+                android:layout_height="67dp"
+                android:layout_centerHorizontal="true"
+                android:background="@color/color_dividerline"></RelativeLayout>
+        </RelativeLayout>
 
     <ImageView
+        android:layout_marginTop="5dp"
         android:layout_width="15dp"
         android:layout_height="15dp"
         android:background="@drawable/cirrecord"

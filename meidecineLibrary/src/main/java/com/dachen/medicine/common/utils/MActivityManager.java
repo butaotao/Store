@@ -98,11 +98,20 @@ public class MActivityManager {
 			activity = null;
 		}
 	}
+	public final void removeActivitys(Activity activity) {
+		if (activity != null) {
+			if (sActivityStack.contains(activity)){
+				sActivityStack.remove(activity);
+				activity = null;
+			}
 
+		}
+	}
 	public final void finishAppointActivity(Class<?> cls) {
 		for (Activity activity : sActivityStack) {
 			if (activity.getClass().equals(cls)) {
 				finishActivity(activity);
+				break;
 			}
 		}
 	}
