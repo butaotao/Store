@@ -3,7 +3,6 @@ package com.dachen.dgroupdoctorcompany.activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -13,7 +12,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
@@ -24,14 +22,9 @@ import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.CameraPosition;
-import com.amap.api.maps.model.CircleOptions;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
-import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyTrafficStyle;
-import com.amap.api.services.core.PoiItem;
-import com.amap.api.services.poisearch.PoiResult;
-import com.amap.api.services.poisearch.PoiSearch;
 import com.dachen.common.utils.ToastUtil;
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.app.CompanyApplication;
@@ -44,13 +37,11 @@ import com.dachen.dgroupdoctorcompany.utils.CommonUitls;
 import com.dachen.dgroupdoctorcompany.utils.DataUtils.GetUserDepId;
 import com.dachen.dgroupdoctorcompany.utils.JsonMananger;
 import com.dachen.dgroupdoctorcompany.views.RadarViewGroup;
-import com.dachen.medicine.common.utils.MActivityManager;
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
 import com.dachen.medicine.entity.Result;
 import com.dachen.medicine.net.HttpManager;
 import com.dachen.medicine.net.Params;
 import com.dachen.medicine.view.CustomDialog;
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
@@ -614,7 +605,7 @@ public class SelectVisitPeople extends BaseActivity implements HttpManager.OnHtt
         }
 
         if (MODE_ADD == mMode){
-            MActivityManager.getInstance().finishAppointActivity(VisitListActivity.class);
+            //MActivityManager.getInstance().finishAppointActivity(VisitListActivity.class);
         }
         finish();
     }
