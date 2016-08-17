@@ -73,7 +73,7 @@ public class Configs implements CallApplicationInterface {
 
     @Override
     public void showUpdateDilog(Context context,String s) {
-        CommonUiTools.appVersionUpdate(context, s);
+        CommonUiTools.getInstance().appVersionUpdate(context, s);
         closeDialog(context);
     }
     @Override

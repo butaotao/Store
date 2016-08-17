@@ -73,7 +73,7 @@ public class AppImUtils {
             @Override
             public boolean onUpdateVersionErr(String msg) {
                 if(MainActivity.getInstance()!=null){
-                    CommonUiTools.appVersionUpdate(MainActivity.getInstance(),msg);
+                    CommonUiTools.getInstance().appVersionUpdate(MainActivity.getInstance(),msg);
                 }
                 return true;
             }
