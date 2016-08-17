@@ -3,7 +3,6 @@ package com.dachen.dgroupdoctorcompany.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -430,6 +429,7 @@ public class SelectAddressActivity extends BaseActivity implements LocationSourc
             intent.putExtra("time",data.dataList.remainTime);
             intent.putExtra("from",TogetherVisitActivity.MODE_FROM_SIGN);
             startActivity(intent);
+            finish();
         }
     }
 

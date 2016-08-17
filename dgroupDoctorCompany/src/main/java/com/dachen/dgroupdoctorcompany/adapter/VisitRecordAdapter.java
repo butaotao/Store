@@ -16,6 +16,7 @@ import com.dachen.dgroupdoctorcompany.entity.SignedRecords;
 import com.dachen.dgroupdoctorcompany.entity.TogetherVisit;
 import com.dachen.dgroupdoctorcompany.entity.VistRecorddata;
 import com.dachen.dgroupdoctorcompany.views.HorizontalListView;
+import com.dachen.medicine.common.utils.DisplayUtil;
 import com.dachen.medicine.common.utils.TimeUtils;
 import com.dachen.medicine.net.CustomImagerLoader;
 
@@ -184,6 +185,7 @@ public class VisitRecordAdapter extends BaseExpandableListAdapter {
             TextView tv_gowork = (TextView) view.findViewById(R.id.tv_gowork);
             TextView tv_place = (TextView) view.findViewById(R.id.tv_place);
             RelativeLayout line3 = (RelativeLayout) view.findViewById(R.id.line3);
+            RelativeLayout line_top = (RelativeLayout) view.findViewById(R.id.line_top);
             RelativeLayout rl_line1 = (RelativeLayout) view.findViewById(R.id.rl_line1);
             if (!TextUtils.isEmpty(s.time)){
                 tv_time.setText(s.time);
@@ -196,10 +198,14 @@ public class VisitRecordAdapter extends BaseExpandableListAdapter {
                 tv_gowork.setVisibility(View.VISIBLE);
             }else {
                 tv_gowork.setVisibility(View.GONE);
+                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) tv_place.getLayoutParams();
+                params.topMargin = DisplayUtil.dip2px(context.getApplicationContext(),3);
+                tv_place.setLayoutParams(params);
             }
 
             rl_line1.setVisibility(View.GONE);
             if (childPosition==0){
+                line_top.setVisibility(View.INVISIBLE);
                 rl_line1.setVisibility(View.VISIBLE);
             }
             line3.setVisibility(View.GONE);
@@ -219,8 +225,10 @@ public class VisitRecordAdapter extends BaseExpandableListAdapter {
             RelativeLayout rl = (RelativeLayout) view.findViewById(R.id.rl_horizon);
             RelativeLayout rl_line1 = (RelativeLayout) view.findViewById(R.id.rl_line1);
             RelativeLayout line2 = (RelativeLayout) view.findViewById(R.id.line2);
+            RelativeLayout line_top = (RelativeLayout) view.findViewById(R.id.line_top);
             rl_line1.setVisibility(View.GONE);
             if (childPosition==0){
+                line_top.setVisibility(View.INVISIBLE);
                 rl_line1.setVisibility(View.VISIBLE);
             }
             itemline.setVisibility(View.GONE);
