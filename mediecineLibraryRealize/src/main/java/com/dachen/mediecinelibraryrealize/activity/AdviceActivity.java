@@ -41,7 +41,7 @@ public class AdviceActivity extends BaseActivity  implements OnClickListener, On
 	RelativeLayout rl_back;
 	TextView tv_title;
 	Button open;
-	boolean flagOpen;
+	boolean flagOpen = true;
 	View view;
 	ViewStub stub;
 	String patientid;

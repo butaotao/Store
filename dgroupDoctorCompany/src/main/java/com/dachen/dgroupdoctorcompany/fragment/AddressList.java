@@ -21,6 +21,7 @@ import com.dachen.dgroupdoctorcompany.activity.CompanyContactListActivity;
 import com.dachen.dgroupdoctorcompany.activity.DoctorDetailActivity;
 import com.dachen.dgroupdoctorcompany.activity.DoctorFriendActivity;
 import com.dachen.dgroupdoctorcompany.activity.EidtColleagueActivity;
+import com.dachen.dgroupdoctorcompany.activity.ManagerColleagueActivity;
 import com.dachen.dgroupdoctorcompany.activity.SearchContactActivity;
 import com.dachen.dgroupdoctorcompany.adapter.AdapterOftenContact;
 import com.dachen.dgroupdoctorcompany.adapter.DepManagerAdapter;
@@ -117,6 +118,8 @@ public class AddressList extends BaseFragment implements View.OnClickListener{
 					deptId = dept.orgId;
 					Intent intent = new Intent(mActivity, EidtColleagueActivity.class);
 					startActivityForResult(intent, 200);
+				/*	Intent intent = new Intent(mActivity, ManagerColleagueActivity.class);
+					startActivityForResult(intent, 200);*/
 				}else{
 					ToastUtils.showToast(mActivity,"通讯录初始化中...");
 				}
@@ -295,6 +298,8 @@ public class AddressList extends BaseFragment implements View.OnClickListener{
 				if (CompareDatalogic.isInitContact()) {
 					showLoadingDialog();
 					deptId = "-1";
+					/*intent = new Intent(mActivity, CompanyContactListActivity.class);
+					startActivity(intent);*/
 					intent = new Intent(mActivity, CompanyContactListActivity.class);
 					startActivity(intent);
 				} else {

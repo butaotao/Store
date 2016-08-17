@@ -32,11 +32,15 @@ public class AddVisitGroup extends Result {
             public String headPic;
             public int remainTime;
             public List<String> userGroups;
-            public List<GoodsGroups> goodsGroups;
-            public class GoodsGroups{
-                public String id;
-                public String name;
-            }
+
+
+
+        }
+        public List<GoodsGroups> groupDetails;
+        public class GoodsGroups{
+            public String id;
+            public String name;
+            public String headPic;
         }
     }
 }

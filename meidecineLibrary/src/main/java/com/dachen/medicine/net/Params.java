@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
+import com.dachen.medicine.common.utils.SystemUtils;
 import com.dachen.medicine.config.UserInfo;
 
 import java.util.HashMap;
@@ -307,10 +308,10 @@ public class Params {
 		params.put("telephone", phoneNum);
 		params.put("password", password);
 		params.put("userType", userType);
-		params.put("serial",
-				SharedPreferenceUtil.getString(context, "mRegId", ""));
 /*		params.put("serial",
-				SystemUtils.getDeviceId(context));*/
+				SharedPreferenceUtil.getString(context, "mRegId", ""));*/
+ 		params.put("serial",
+				SystemUtils.getDeviceId(context));
 		SharedPreferenceUtil.getString(context, "mRegId", "");
 		params.put("model", "android");
 		return params;

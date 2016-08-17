@@ -7,7 +7,8 @@
     android:background="@drawable/btn_bulk_gray3"
      >
  <RelativeLayout android:layout_width="fill_parent"
-     android:layout_height="42dp"
+     android:layout_height="52dp"
+     android:id="@+id/rl_ercode"
      >
 
 
@@ -21,38 +22,47 @@
          android:background="@color/head_bg_color"
          android:id="@+id/iv_color"
          />
+     <ImageView
+         android:layout_width="25dp"
+         android:layout_height="25dp"
+         android:layout_alignParentRight="true"
+         android:layout_marginLeft="10dp"
+         android:layout_centerVertical="true"
+         android:layout_marginRight="8dp"
+         android:id="@+id/imge_ercode"
+         android:background="@drawable/ercode" />
      <TextView
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
-         android:layout_centerVertical="true"
          android:text="@string/null_info"
-         android:layout_toRightOf="@+id/iv_color"
-         android:layout_toLeftOf="@id/tv_time"
-         android:layout_marginLeft="7dp"
          android:singleLine="true"
          android:ellipsize="end"
+         android:layout_marginTop="7dp"
          android:textColor="@color/color_333333"
          android:textSize="16dp"
-         android:id="@+id/tv_name" />
-
-   <TextView
-      android:id="@+id/tv_time"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignBaseline="@+id/tv_name"
-      android:layout_alignBottom="@+id/tv_name"
-      android:layout_alignParentRight="true"
-        android:layout_marginLeft="10dp"
-      android:text="@string/null_info"
-      android:textColor="@color/color_aaaaaa"
-      android:textSize="12dp" />
+         android:id="@+id/tv_name"
+         android:layout_alignLeft="@+id/tv_time"
+         android:layout_alignStart="@+id/tv_time" />
 
 
+     <TextView
+         android:id="@+id/tv_time"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginLeft="10dp"
+         android:layout_marginTop="3dp"
+         android:layout_below="@+id/tv_name"
+         android:text="@string/null_info"
+         android:textColor="@color/color_aaaaaa"
+         android:textSize="12dp" />
 
- </RelativeLayout>   
+
+ </RelativeLayout>
+
 <View android:layout_width="fill_parent"
     android:layout_height="0.5dp"
     android:layout_marginLeft="10dp"
+    android:layout_marginTop="3dp"
     android:background="@color/color_grayline1dp"/>
 <RelativeLayout android:layout_width="fill_parent"
     android:layout_height="wrap_content"
@@ -104,14 +114,7 @@
     android:layout_centerVertical="true"
     android:background="@drawable/irr" />
 
-<ImageView
-    android:layout_width="25dp"
-    android:layout_height="25dp"
-    android:layout_alignTop="@+id/tv_total_des2"
-    android:layout_toLeftOf="@+id/iv_irr"
-    android:layout_centerVertical="true"
-    android:layout_marginRight="8dp"
-    android:background="@drawable/ercode" />
+
 
 <ImageView
     android:id="@+id/iv_havebuy"
@@ -147,12 +150,14 @@
 </RelativeLayout>
 <View android:layout_width="fill_parent"
     android:layout_height="0.5dp"
+    android:visibility="gone"
     android:layout_marginLeft="10dp"
     android:background="@color/color_grayline1dp"/>
 
 <RelativeLayout android:layout_width="fill_parent"
     android:layout_height="45dp"
     android:paddingLeft="10dp"
+    android:visibility="gone"
     android:id="@+id/rl_detail">
     <TextView android:layout_width="wrap_content"
         android:layout_height="wrap_content"

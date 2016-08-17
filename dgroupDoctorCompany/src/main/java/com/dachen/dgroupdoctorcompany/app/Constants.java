@@ -182,6 +182,7 @@ public class Constants {
     public static String JOIN_VISIT_GROUP = "visit/addSynergGroup";
     //取消协同拜访组(创建者)
     public static String DELETE_VISIT_GROUP = "visit/deleteSynergGroup";
+    public static String GET_ALL_VISIT = "visit/getSynergVisitGroup";
     //取消协同拜访组(成员)
     public static String CANCEL_VISIT_GROUP = "visit/cancelSynergGroup";
     //创建者确定协同组

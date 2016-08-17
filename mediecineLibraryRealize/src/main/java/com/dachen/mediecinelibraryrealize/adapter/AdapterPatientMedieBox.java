@@ -66,6 +66,7 @@ public class AdapterPatientMedieBox extends BaseAdapter {
             holder.iv_havebuy = (ImageView) view.findViewById(R.id.iv_havebuy);
             holder.tv_advice = (TextView) view.findViewById(R.id.tv_advice);
             holder.iv_color = (ImageView) view.findViewById(R.id.iv_color);
+            holder.rl_ercode = (RelativeLayout) view.findViewById(R.id.rl_ercode);
             view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();
@@ -121,7 +122,7 @@ public class AdapterPatientMedieBox extends BaseAdapter {
         }
         String time = com.dachen.medicine.common.utils.TimeUtils.getTime(Long.parseLong(info.date));
         holder.tv_time.setText(time);
-        holder.tv_total_des.setText(info.species_number+"");
+        holder.tv_total_des.setText(info.species_number + "");
 
         holder.iv_havebuy.setVisibility(View.GONE);
         if (null != info.buyStatus ) {
@@ -129,16 +130,32 @@ public class AdapterPatientMedieBox extends BaseAdapter {
                 holder.iv_havebuy.setVisibility(View.VISIBLE);
             }
         }
-        holder.rl_showlist.setOnClickListener(new OnClickListener() {
-
+        holder.rl_ercode.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View arg0) {
-                // TODO Auto-generated method stub
+            public void onClick(View v) {
                 Intent intent = new Intent(context, ErcordingProductActivity.class);
                 intent.putExtra("ercode", info.id);
                 context.startActivity(intent);
             }
         });
+        holder.rl_showlist.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                // TODO Auto-generated method stub
+                Intent intent = new Intent(context, AdviceActivity.class);
+                intent.putExtra("recipe_id", info.id);
+                intent.putExtra("patient", id);
+                if (null != info.doctor) {
+                    intent.putExtra("name", info.doctor.name);
+                } else {
+                    intent.putExtra("name", "");
+                }
+
+                context.startActivity(intent);
+            }
+        });
+
         holder.rl_recomend.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -166,12 +183,12 @@ public class AdapterPatientMedieBox extends BaseAdapter {
                 context.startActivity(intent);
             }
         });
-        holder.rl_detail.setOnClickListener(new OnClickListener() {
+        /*holder.rl_detail.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
                 // TODO Auto-generated method stub
-                Intent intent = new Intent(context, AdviceActivity.class);
+               *//* Intent intent = new Intent(context, AdviceActivity.class);
                 intent.putExtra("recipe_id", info.id);
                 intent.putExtra("patient", id);
                 if (null != info.doctor) {
@@ -180,9 +197,9 @@ public class AdapterPatientMedieBox extends BaseAdapter {
                     intent.putExtra("name", "");
                 }
 
-                context.startActivity(intent);
+                context.startActivity(intent);*//*
             }
-        });
+        });*/
         // TODO Auto-generated method stub
         return view;
     }
@@ -199,5 +216,6 @@ public class AdapterPatientMedieBox extends BaseAdapter {
         ImageView iv_havebuy;
         TextView tv_advice;
         ImageView iv_color;
+        RelativeLayout rl_ercode;
     }
 }

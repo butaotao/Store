@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.dachen.dgroupdoctorcompany"
-    android:versionCode="181"
-    android:versionName="1.3.2">
+    android:versionCode="182"
+    android:versionName="1.4.0.16081701">
 <!--
     android:versionCode="161"
     android:versionName="1.4070706.161">-->
@@ -229,6 +229,10 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.SelectVisitPeople"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".activity.ManagerColleagueActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTop"/>
         <activity
