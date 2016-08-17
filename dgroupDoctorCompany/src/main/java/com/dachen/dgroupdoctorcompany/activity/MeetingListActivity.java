@@ -18,6 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.dachen.common.adapter.CommonAdapter;
+import com.dachen.common.toolbox.DCommonRequest;
 import com.dachen.common.utils.Logger;
 import com.dachen.common.utils.ToastUtil;
 import com.dachen.common.utils.VolleyUtil;
@@ -25,16 +26,15 @@ import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.adapter.MeetingListAdapter;
 import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
-import com.dachen.dgroupdoctorcompany.entity.*;
-import com.dachen.dgroupdoctorcompany.entity.Void;
+import com.dachen.dgroupdoctorcompany.entity.ArrayWrapObject;
+import com.dachen.dgroupdoctorcompany.entity.Meeting;
+import com.dachen.dgroupdoctorcompany.entity.MettingUsers;
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
-import com.dachen.medicine.common.utils.ToastUtils;
 import com.dachen.medicine.config.AppConfig;
 import com.dachen.medicine.config.UserInfo;
 import com.dachen.medicine.entity.Result;
 import com.dachen.medicine.net.HttpManager;
 import com.dachen.medicine.volley.custom.ObjectResult;
-import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
@@ -129,7 +129,7 @@ public class MeetingListActivity extends BaseActivity {
         final String reqTag = "getMeetingList";
         RequestQueue queue = VolleyUtil.getQueue(mThis);
         queue.cancelAll(reqTag);
-        StringRequest request = new StringRequest(Request.Method.POST, AppConfig.getUrl(Constants.MEETING_LIST, 3),
+        StringRequest request = new DCommonRequest(Request.Method.POST, AppConfig.getUrl(Constants.MEETING_LIST, 3),
                 new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
