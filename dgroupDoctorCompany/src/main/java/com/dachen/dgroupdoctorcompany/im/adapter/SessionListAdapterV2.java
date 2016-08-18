@@ -69,7 +69,7 @@ public class SessionListAdapterV2 extends BaseCustomAdapter<ChatGroupPo> {
 //		}
 	}
 	/**
-	 * 设置名称 
+	 * 设置名称
 	 */
 	protected void setNickName(ViewHolder holder, String text) {
 		holder.session_message_nick_name.setText( text );

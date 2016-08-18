@@ -14,9 +14,7 @@ import java.util.List;
 import butterknife.ButterKnife;
 
 /**
- * 
  * @author WANG
- * 
  * @param <T>
  *            T是实体类的泛型
  */
@@ -61,7 +59,7 @@ public abstract class BaseCustomAdapter<T> extends BaseAdapter {
 	/**
 	 * Returns the context associated with this array adapter. The context is
 	 * used to create views from the resource passed to the constructor.
-	 * 
+	 *
 	 * @return The Context associated with this adapter.
 	 */
 	public Context getContext() {
@@ -94,7 +92,7 @@ public abstract class BaseCustomAdapter<T> extends BaseAdapter {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param position
 	 * @param convertView
 	 * @param parent

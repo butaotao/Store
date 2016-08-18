@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.HeaderViewListAdapter;
 import android.widget.ListView;
 
 import com.dachen.common.utils.Logger;
@@ -34,7 +35,6 @@ import de.greenrobot1.event.EventBus;
 
 /**
  * 会话列表
- *
  */
 public class SessionListViewV2 extends ListView {
 
@@ -43,8 +43,9 @@ public class SessionListViewV2 extends ListView {
     protected Context context;
     protected Activity ui = null;
     private ChatGroupDao mDao;
-    private ArrayList<ChatGroupPo> mList=new ArrayList<>();
+    private ArrayList<ChatGroupPo> mList = new ArrayList<>();
     private SessionListAdapterV2 mAdapter;
+    boolean isAddHeaderView = false;
 
     public SessionListViewV2(Context context) {
         super(context);
@@ -91,9 +92,10 @@ public class SessionListViewV2 extends ListView {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.w(TAG, "onItemLongClick():position:" + position + ",id:" + id);
-                if (view == null  ) {
+                if (view == null) {
                     return true;
                 }
+                position = getHeaderViewPosition(position);
                 ChatGroupPo messageDB = mList.get(position);
                 __onLongClick(messageDB);
                 return true;
@@ -209,13 +211,23 @@ public class SessionListViewV2 extends ListView {
 //		ObserverManager.getInstance().notifyNewMsg(null, true);
         EventBus.getDefault().post(new NewMsgEvent(this));
         item.unreadCount = 0;
-        BaseAdapter ada = (BaseAdapter) getAdapter();
+
+        //当有头的时候得到HeaderViewListAdapter,再强转BaseAdapter,如果添加过头,直接用HeaderViewListAdapter
+        BaseAdapter ada;
+        if (isAddHeaderView || getHeaderViewsCount() > 0) {
+            HeaderViewListAdapter listAdapter = (HeaderViewListAdapter) getAdapter();
+            ada = (BaseAdapter) listAdapter.getWrappedAdapter();
+            isAddHeaderView = true;
+        } else {
+            ada = (BaseAdapter) getAdapter();
+        }
         ada.notifyDataSetChanged();
 
         // 刷新首页底部未读消息数量 (有三个地方要用到，1)业务轮询；2）刚入首页；3）点击会话列表；)
         int doctor_unread = mDao.getUnreadCount(AppImUtils.getBizTypes());
         // TODO: 2016/2/25
-//		BaseActivity.mObserverUtil.sendObserver(MainActivity.class, MainActivity.observer_msg_what_update_unread_doctor,
+//		BaseActivity.mObserverUtil.sendObserver(MainActivity.class, MainActivity
+// .observer_msg_what_update_unread_doctor,
 //				doctor_unread, 0, null);
 
         Log.w(TAG, "item.groupId:" + item.groupId);
@@ -225,7 +237,8 @@ public class SessionListViewV2 extends ListView {
                 || item.type == ChatGroupPo.TYPE_GUIDE) {
             // 进入聊天界面
             ChatActivityUtilsV2.openUI(context, item);
-        } else if (item.groupId.equals(SessionGroupId.auth_request_doctor) || item.groupId.equals(SessionGroupId.auth_request_patient)) {
+        } else if (item.groupId.equals(SessionGroupId.auth_request_doctor) || item.groupId.equals(SessionGroupId
+                .auth_request_patient)) {
             // 进入好友验证请求界面
 //			SystemNotificationUI.openUI(context, item.groupId);
             Intent i = new Intent(context, NewFriendActivity.class);
@@ -331,8 +344,8 @@ public class SessionListViewV2 extends ListView {
         EventBus.getDefault().unregister(this);
     }
 
-    protected void initData(){
-        mAdapter= (SessionListAdapterV2) __getAdapter(mList);
+    protected void initData() {
+        mAdapter = (SessionListAdapterV2) __getAdapter(mList);
         setAdapter(mAdapter);
         int size = mList.size();
         setEmptyView(size);
@@ -349,12 +362,18 @@ public class SessionListViewV2 extends ListView {
         @Override
         protected void onPostExecute(List<ChatGroupPo> msgList) {
             Logger.d("yehj", "onPostExecute");
-            int size =  msgList.size();
+            int size = msgList.size();
             mList.clear();
             mList.addAll(msgList);
             mAdapter.notifyDataSetChanged();
             // 设置空视图
             setEmptyView(size);
         }
+    }
+
+    //得到去除头的position
+    private int getHeaderViewPosition(int position) {
+        int count = getHeaderViewsCount();
+        return position - count;
     }
 }
