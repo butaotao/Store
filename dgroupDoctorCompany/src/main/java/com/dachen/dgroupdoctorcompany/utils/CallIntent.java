@@ -10,7 +10,6 @@ import com.dachen.dgroupdoctorcompany.activity.MainActivity;
 import com.dachen.dgroupdoctorcompany.activity.SelectPeopleActivity;
 import com.dachen.dgroupdoctorcompany.entity.BaseSearch;
 import com.dachen.dgroupdoctorcompany.entity.CompanyContactListEntity;
-import com.dachen.dgroupdoctorcompany.fragment.AddressList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,8 +71,8 @@ public class CallIntent {
     public static void startMainActivity(final Activity context){
         context.finish();
         Intent intent;
-
         intent = new Intent(context, MainActivity.class);
+        MainActivity.sShowInfomation = true;
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(intent);
         intent = new Intent(MainActivity.action);

@@ -90,6 +90,7 @@ import de.greenrobot1.event.EventBus;
 public class MainActivity extends BaseActivity implements OnHttpListener,
         OnClickListener, GaoDeMapUtils.LocationListener {
     private static MainActivity instance;
+    public static  boolean sShowInfomation = false;
     private long startTime = 0;
     private int fragment_index = 0;
     protected List<Fragment> fragments;
@@ -229,8 +230,17 @@ public class MainActivity extends BaseActivity implements OnHttpListener,
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
+        if (sShowInfomation) {
+            clicks();
+            sShowInfomation = false;
+        }
         UserInfo userInfo = UserInfo.getInstance(this);
       /*  ImSdk.getInstance().initUser(userInfo.getSesstion(),
                 userInfo.getId(), userInfo.getUserName(), userInfo.getNickName(), userInfo.getHeadUrl());*/
