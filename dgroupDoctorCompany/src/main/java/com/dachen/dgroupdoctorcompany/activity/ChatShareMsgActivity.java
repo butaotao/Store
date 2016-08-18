@@ -59,6 +59,7 @@ public class ChatShareMsgActivity extends ImBaseActivity implements View.OnClick
     protected ArchiveItem mItem;
     private boolean inWork;
     String groupIds = "";
+     ChatGroupPo group;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -146,7 +147,7 @@ public class ChatShareMsgActivity extends ImBaseActivity implements View.OnClick
     private AdapterView.OnItemClickListener itemClickListener=new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            final ChatGroupPo group = mList.get(position);
+            group = mList.get(position);
           /*  CustomDialog.Builder builder = new CustomDialog.Builder(ChatShareMsgActivity.this,new CustomDialog.CustomClickEvent(){
 
 
@@ -172,6 +173,7 @@ public class ChatShareMsgActivity extends ImBaseActivity implements View.OnClick
                         forwardMsg(group.groupId);
                         RepresentGroupChatActivity.openUI(mThis, group.name, group.groupId, userList);
                         CallIntent.startMainActivity(ChatShareMsgActivity.this);
+
                     } else {
                        /* HashMap<String, Object> params = new HashMap<>();
                         params.put("share_files", mItem);
@@ -201,6 +203,12 @@ public class ChatShareMsgActivity extends ImBaseActivity implements View.OnClick
         @Override
         public void sendSuccessed(ChatMessagePo msg, String groudId, String msgId, long time) {
             CallIntent.startMainActivity(ChatShareMsgActivity.this);
+            HashMap<String, Object> params = new HashMap<>();
+            params.put("share_files", mItem);
+            if (null!=group){
+                ArrayList<GroupInfo2Bean.Data.UserInfo> userList = ChatActivityUtilsV2.getUserList(group);
+                RepresentGroupChatActivity.openUI(ChatShareMsgActivity.this, group.name, group.groupId, userList);
+            }
         }
 
         @Override

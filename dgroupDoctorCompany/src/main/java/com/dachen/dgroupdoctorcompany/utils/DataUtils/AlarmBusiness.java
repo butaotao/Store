@@ -21,7 +21,10 @@ import java.util.List;
  * Created by Burt on 2016/8/3.
  */
 public class AlarmBusiness {
-    public static void setAlarm(Context context, Reminder alarm) {
+    public static void setAlarm(Context context, Reminder alarm){
+        setAlarm(context, alarm, true);
+    };
+    public static void setAlarm(Context context, Reminder alarm,boolean firstSet) {
 
 
     Intent intent = new Intent("com.dachen.dgrouppatient.receiver.AlarmReceivers");
@@ -39,7 +42,12 @@ public class AlarmBusiness {
         if (alarm.times!=0){
             int day = 0;
             if (isAlarmExpired(alarm)) {// 闹钟已过期则取消
-                day = 1;
+                if (firstSet){
+                    day = 1;
+                }else {
+                    return;
+                }
+
             }
             firstRingTime = firstRingTime+day*24*60*60*1000;
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,

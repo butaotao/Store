@@ -142,7 +142,11 @@ public class AdviceCareAdapter extends BaseAdapter{
 				if (!TextUtils.isEmpty(users.unit)){
 					quantity = quantity+users.unit;
 				}
+				if (users.quantity.equals("0")){
+					quantity = ";适量";
+				}
 			}
+
 /*
 			String day = "";
 			if (TextUtils.isEmpty(su.days)){

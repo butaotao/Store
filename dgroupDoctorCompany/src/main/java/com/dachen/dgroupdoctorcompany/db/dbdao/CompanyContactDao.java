@@ -194,7 +194,7 @@ public class CompanyContactDao {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return new CompanyContactListEntity();
+        return null;
     }
 
 

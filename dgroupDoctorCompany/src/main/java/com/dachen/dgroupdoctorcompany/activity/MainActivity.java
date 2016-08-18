@@ -2,6 +2,7 @@ package com.dachen.dgroupdoctorcompany.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
@@ -45,6 +46,7 @@ import com.dachen.dgroupdoctorcompany.fragment.MyFragment;
 import com.dachen.dgroupdoctorcompany.im.AppImConstants;
 import com.dachen.dgroupdoctorcompany.im.events.UnreadEvent;
 import com.dachen.dgroupdoctorcompany.im.utils.AppImUtils;
+import com.dachen.dgroupdoctorcompany.receiver.ChangeReceiver;
 import com.dachen.dgroupdoctorcompany.receiver.HwPushReceiver;
 import com.dachen.dgroupdoctorcompany.service.CallSmsSafeService;
 import com.dachen.dgroupdoctorcompany.service.VersionUpdateService;
@@ -132,7 +134,8 @@ public class MainActivity extends BaseActivity implements OnHttpListener,
     private String city;//城市
     private String mStrFloor;
     private String mStrAddressName;
-
+    ChangeReceiver receiver;
+    public static String action = "changeFragment";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -172,9 +175,23 @@ public class MainActivity extends BaseActivity implements OnHttpListener,
             SharedPreferenceUtil.putString(this,"showguider","1");
         }
 
-      /*  Intent intent = new Intent(this,GuiderDialogActivity.class);
+     /*  Intent intent = new Intent(this,GuiderDialogActivity.class);
         startActivity(intent);*/
-       // startPhoneService();
+       startPhoneService();
+        receiver = new ChangeReceiver(){
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                super.onReceive(context, intent);
+                int tab = intent.getIntExtra("tab",0);
+                if (tab==0){
+                    clicks();
+                    clicks();
+                }
+            }
+        };;
+        IntentFilter filters= new IntentFilter();
+        filters.addAction(action);
+        registerReceiver(receiver, filters);
     }
 
     public void startPhoneService(){
@@ -196,6 +213,9 @@ public class MainActivity extends BaseActivity implements OnHttpListener,
     protected void onDestroy() {
         EventBus.getDefault().unregister(this);
         instance = null;
+        if (null!=receiver){
+            unregisterReceiver(receiver);
+        }
         super.onDestroy();
     }
 
@@ -243,7 +263,6 @@ public class MainActivity extends BaseActivity implements OnHttpListener,
 
     @OnClick(R.id.infomation_layout)//消息
     public void clicks() {
-        // ToastUtils.showToast("===clickSettings====");
         fragment_index = 0;
         FragmentUtils.changeFragment(getSupportFragmentManager(),
                 R.id.fragment_container, fragments, fragment_index);
@@ -252,14 +271,11 @@ public class MainActivity extends BaseActivity implements OnHttpListener,
 
     @OnClick(R.id.contactlistfragment_layout)//通讯录
     public void clickscontactlayout() {
-        // ToastUtils.showToast("===clickSettings====");
         fragment_index = 1;
         FragmentUtils.changeFragment(getSupportFragmentManager(),
                 R.id.fragment_container, fragments, fragment_index);
         Intent intent = new Intent(AddressList.action);
-
         sendBroadcast(intent);
-
         showItem();
     }
 

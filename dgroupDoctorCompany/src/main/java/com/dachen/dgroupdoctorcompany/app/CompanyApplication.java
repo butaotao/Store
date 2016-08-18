@@ -19,6 +19,7 @@ import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.common.PinyinResource;
 import com.dachen.dgroupdoctorcompany.db.SQLiteHelper;
 import com.dachen.dgroupdoctorcompany.im.utils.AppImUtils;
+import com.dachen.dgroupdoctorcompany.utils.ReminderReminder;
 import com.dachen.dgroupdoctorcompany.utils.UserInfo;
 import com.dachen.imsdk.ImSdk;
 import com.dachen.imsdk.out.ImNetworkReceiver;
@@ -74,6 +75,7 @@ public class CompanyApplication extends MultiDexApplication{
         super.onCreate();
         context = this;
         mAppConfig = ContextConfig.getInstance();
+        ReminderReminder.getReminderReminder().setReminders(this);
         PINYIN_TABLE = PinyinResource.getPinyinResource(this);
         MUTIL_PINYIN_TABLE = PinyinResource.getMutilPinyinResource(this);
         CHINESE_MAP = PinyinResource.getChineseResource(this);

@@ -74,6 +74,7 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
     public static final String INTENT_EXTRA_GROUP_TYPE = "groupType";
     public static final String INTENT_EXTRA_GROUP_ID = "groupId";
     public static final int REQUEST_SEARCH = 1001;
+   public Data data;
     CompanySelectPeopleListAdapter adapter;//R.layout.adapter_companycontactlist
     ListView listview;
     ArrayList<BaseSearch> list;
@@ -557,6 +558,7 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
             if (what == SessionGroup.CREATE) {
                 String gname = data.gname;
                 String gid = data.gid;
+                SelectPeopleActivity.this.data = data;
 //				ArrayList<UserInfo> uids = CommonUitls.getGroupUserIds(res.getData().getUserList());
                 ArrayList<Data.UserInfo> uids = new ArrayList<>(Arrays.asList(data.userList));
                 ChatGroupDao dao = new ChatGroupDao();
@@ -622,7 +624,15 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
 
         @Override
         public void sendSuccessed(ChatMessagePo msg, String groudId, String msgId, long time) {
+
             CallIntent.startMainActivity(SelectPeopleActivity.this);
+            HashMap<String, Object> params = new HashMap<>();
+            params.put("share_files", mItem);
+            if (data!=null){
+                ArrayList<Data.UserInfo>  users = new ArrayList<>(Arrays.asList(data.userList));
+                RepresentGroupChatActivity.openUI(SelectPeopleActivity.this, data.gname, data.gid, users);
+            }
+
         }
 
         @Override

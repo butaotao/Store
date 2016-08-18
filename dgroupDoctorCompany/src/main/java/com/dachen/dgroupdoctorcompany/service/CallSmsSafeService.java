@@ -28,6 +28,7 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds.Email;
@@ -43,6 +44,9 @@ import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.db.dbdao.CompanyContactDao;
 import com.dachen.dgroupdoctorcompany.entity.CompanyContactListEntity;
+import com.dachen.dgroupdoctorcompany.utils.UserInfo;
+import com.dachen.medicine.common.utils.SharedPreferenceUtil;
+import com.dachen.medicine.net.CustomImagerLoader;
 
 
 public class CallSmsSafeService extends Service {
@@ -58,7 +62,7 @@ public class CallSmsSafeService extends Service {
 	 * 归属地显示的view对象
 	 */
 	private View view;
-
+	String userId;
 	@Override
 	public IBinder onBind(Intent intent) {
 		return null;
@@ -77,6 +81,7 @@ public class CallSmsSafeService extends Service {
 		IntentFilter filter = new IntentFilter();
 		filter.addAction("android.intent.action.NEW_OUTGOING_CALL");
 		registerReceiver(receiver, filter);
+		userId = UserInfo.getInstance(CallSmsSafeService.this).getId();
 		super.onCreate();
 	}
 
@@ -89,25 +94,27 @@ public class CallSmsSafeService extends Service {
 						//监视呼叫记录的生成，如果呼叫记录产生了。删除呼叫记录。
 
 					CompanyContactListEntity entity = dao.queryByTelephone(incomingNumber);
-					if (!TextUtils.isEmpty(entity.telephone)){
+					if (null!=entity&&!TextUtils.isEmpty(entity.telephone)){
 						getContentResolver().registerContentObserver(url, true,
 								new CallLogObserver(new Handler(),entity));
 						// 立刻把电话挂断了。  但是呼叫记录的生成 并不是一个同步的代码。 是一个异步代码
 
-						showMyToast(entity.name+"--"+entity.department+"--"+entity.position+"--" + incomingNumber);
+						showMyToast(entity);
 					}
 
 					break;
 				case TelephonyManager.CALL_STATE_IDLE:// 空闲状体
-					if (view != null) {
-						wm.removeView(view);
-						view = null;
-					}
+					dismissView();
 					break;
 			}
 		}
 	}
-
+	void dismissView(){
+		if (view != null) {
+			wm.removeView(view);
+			view = null;
+		}
+	}
 	private class CallLogObserver extends ContentObserver{
 		private CompanyContactListEntity entity;
 		public CallLogObserver(Handler handler, CompanyContactListEntity entity) {
@@ -119,7 +126,7 @@ public class CallSmsSafeService extends Service {
 		public void onChange(boolean selfChange) {
 			super.onChange(selfChange);
 			getContentResolver().unregisterContentObserver(this);
-			updateCalllog(this.entity);
+			//updateCalllog(this.entity);
 		}
 	}
 
@@ -174,30 +181,105 @@ public class CallSmsSafeService extends Service {
 			if (!TextUtils.isEmpty(phone)){
 				CompanyContactListEntity entity = dao.queryByTelephone(phone);
 				getContentResolver().registerContentObserver(url, true,
-						new CallLogObserver(new Handler(),entity));
-				showMyToast(entity.name+"--"+entity.department+"--"+entity.position+"--" + phone);
+						new CallLogObserver(new Handler(), entity));
+				if (entity!=null){
+					showMyToast(entity);
+				}
+
 			}
 
 		}
 	}
-	public void showMyToast(String address) {
+	public void showMyToast(CompanyContactListEntity entity) {
 		// 直接利用窗体管理器 添加一个view对象到整个手机系统的窗体上
 		view = View.inflate(this, R.layout.toast_address, null);
+		view.setOnTouchListener(new View.OnTouchListener() {
+			int startX;
+			int startY;
 
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				switch (event.getAction()) {
+					case MotionEvent.ACTION_DOWN:
+						startX = (int) event.getRawX();
+						startY = (int) event.getRawY();
+						break;
+					case MotionEvent.ACTION_MOVE:
+						int newX = (int) event.getRawX();
+						int newY = (int) event.getRawY();
+						int dx = newX - startX;
+						int dy = newY - startY;
+						params.x +=dx;
+						params.y +=dy;
+						if(params.x<0){
+							params.x = 0;
+						}
+						if(params.y<0){
+							params.y = 0;
+						}
+						if(params.x > wm.getDefaultDisplay().getWidth()-view.getWidth()){
+							params.x  = wm.getDefaultDisplay().getWidth()-view.getWidth();
+						}
+						if(params.y > wm.getDefaultDisplay().getHeight()-view.getHeight()){
+							params.y  = wm.getDefaultDisplay().getHeight()-view.getHeight();
+						}
+						wm.updateViewLayout(view, params);
+						//重新初始化手指的位置
+						startX = (int) event.getRawX();
+						startY = (int) event.getRawY();
+						break;
+					case MotionEvent.ACTION_UP:
+
+						SharedPreferenceUtil.putInt(CallSmsSafeService.this, userId+"lastx", params.x);
+						SharedPreferenceUtil.putInt(CallSmsSafeService.this,userId+"lasty", params.y);
+						break;
+				}
+				return true;
+			}
+		});
 		//view.setBackgroundResource(bgs[which]);
-		TextView tv = (TextView) view.findViewById(R.id.tv_location);
-		tv.setText(address);
+		TextView tv = (TextView) view.findViewById(R.id.tv_name);
+		TextView tv_position = (TextView) view.findViewById(R.id.tv_position);
+		TextView tv_phone = (TextView) view.findViewById(R.id.tv_phone);
+		ImageView imageView = (ImageView) view.findViewById(R.id.iv_icon);
+		CustomImagerLoader.getInstance().loadImage(imageView,entity.url);
+		if (!TextUtils.isEmpty(entity.name)){
+			tv.setText(entity.name);
+			tv_position.setVisibility(View.VISIBLE);
+		}else {
+			tv.setVisibility(View.GONE);
+		}
+		if (!TextUtils.isEmpty(entity.position)){
+			tv_position.setText(entity.position);
+			tv_position.setVisibility(View.VISIBLE);
+		}else {
+			tv_position.setVisibility(View.GONE);
+		}
+		if (!TextUtils.isEmpty(entity.telephone)){
+			tv_phone.setText(entity.telephone+"来自药企圈");
+			tv_phone.setVisibility(View.VISIBLE);
+		}else {
+			tv_phone.setVisibility(View.GONE);
+		}
+		view.findViewById(R.id.rl_delete).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				dismissView();
+			}
+		});
 		params = new WindowManager.LayoutParams();
 		params.gravity = Gravity.TOP + Gravity.LEFT;
-		params.x = 0;
-		params.y =0;
+
+		params.x = SharedPreferenceUtil.getInt(CallSmsSafeService.this,userId+"lastx", 0);
+		params.y = SharedPreferenceUtil.getInt(CallSmsSafeService.this,userId+"lasty", 0);
 		params.height = WindowManager.LayoutParams.WRAP_CONTENT;
 		params.width = WindowManager.LayoutParams.WRAP_CONTENT;
 		params.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
 				| WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
 		params.format = PixelFormat.TRANSLUCENT;
 		// 窗体的类型。
-		params.type = WindowManager.LayoutParams.TYPE_PRIORITY_PHONE;
+		//params.type = WindowManager.LayoutParams.TYPE_PRIORITY_PHONE;
+		params.type = WindowManager.LayoutParams.TYPE_TOAST;
 		wm.addView(view, params);
 	}
 

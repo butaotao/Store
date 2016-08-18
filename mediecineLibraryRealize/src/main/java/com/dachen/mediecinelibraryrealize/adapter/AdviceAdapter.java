@@ -154,6 +154,9 @@ public class AdviceAdapter extends BaseAdapter{
 				if (!TextUtils.isEmpty(users.doseUnitName)){
 					quantity = quantity+users.doseUnitName;
 				}
+				if (users.quantity.equals("0")){
+					quantity = ""+"适量";
+				}
 			}
 
 
