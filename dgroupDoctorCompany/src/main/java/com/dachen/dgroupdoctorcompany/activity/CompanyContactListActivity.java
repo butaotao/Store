@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.dachen.common.utils.Logger;
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.adapter.CompanyContactListAdapter;
+import com.dachen.dgroupdoctorcompany.adapter.CompanyListGuide;
 import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.dgroupdoctorcompany.db.dbdao.CompanyContactDao;
@@ -28,6 +29,7 @@ import com.dachen.dgroupdoctorcompany.fragment.AddressList;
 import com.dachen.dgroupdoctorcompany.utils.CommonUitls;
 import com.dachen.dgroupdoctorcompany.utils.DataUtils.CompanyContactDataUtils;
 import com.dachen.dgroupdoctorcompany.utils.GetAllDoctor;
+import com.dachen.dgroupdoctorcompany.views.HorizontalListView;
 import com.dachen.dgroupdoctorcompany.views.NoScrollerListView;
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
 import com.dachen.medicine.config.UserInfo;
@@ -39,14 +41,17 @@ import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.ButterKnife;
 
 /**
  * Created by Burt on 2016/2/26.
  */
-public class CompanyContactListActivity extends BaseActivity implements HttpManager.OnHttpListener, AdapterView.OnItemLongClickListener {
+public class CompanyContactListActivity extends BaseActivity implements HttpManager.OnHttpListener, AdapterView
+        .OnItemLongClickListener, AdapterView.OnItemClickListener {
     CompanyContactListAdapter adapter;
     NoScrollerListView listview;
     ArrayList<BaseSearch> list;
@@ -64,7 +69,7 @@ public class CompanyContactListActivity extends BaseActivity implements HttpMana
     TextView tv;
     LinearLayout layout_line;
     TextView tv_des;
-    LinearLayout empteyll;
+    RelativeLayout empteyll;
     String firstLevelId = "";
     int frontOrBack = 0;
     int p;
@@ -73,6 +78,14 @@ public class CompanyContactListActivity extends BaseActivity implements HttpMana
     private int mPullIndex;
     private int mPageSize = 50;
     private String mParentId;
+    /*-----------------------------------------zxy start-----------------------------------------*/
+    private HorizontalListView mCp_listguilde;
+    private List<String> mListGuide;
+    private CompanyListGuide mListGuideAdapter;
+    Map<Integer, String> listGuideMap = new LinkedHashMap<>();
+    int currentPosition = 0;
+    boolean isEmpty = false;
+    /*-----------------------------------------zxy end -----------------------------------------*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +101,7 @@ public class CompanyContactListActivity extends BaseActivity implements HttpMana
         listsHorizon.clear();
         p = 0;
         GetAllDoctor.getInstance().getPeople(CompanyContactListActivity.this);
-        empteyll = (LinearLayout) findViewById(R.id.empteyll);
+        empteyll = (RelativeLayout) findViewById(R.id.empteyll);
         empteyll.setVisibility(View.GONE);
         setTitle("企业通讯录");
         manager = false;
@@ -100,6 +113,15 @@ public class CompanyContactListActivity extends BaseActivity implements HttpMana
         tv_des = (TextView) findViewById(R.id.tv_des);
         View view = stub.inflate(this, R.layout.stub_viewtext, rl);
         tv = (TextView) view.findViewById(R.id.tv_search);
+        /*-----------------------------------------zxy start-----------------------------------------*/
+        mCp_listguilde = (HorizontalListView) findViewById(R.id.cp_listguilde);
+        mListGuide = new ArrayList<>();
+        mListGuide.add("通讯录");
+        listGuideMap.put(currentPosition++, "通讯录");
+        mListGuideAdapter = new CompanyListGuide(this, mListGuide);
+        mCp_listguilde.setOnItemClickListener(this);
+        mCp_listguilde.setAdapter(mListGuideAdapter);
+        /*-----------------------------------------zxy end -----------------------------------------*/
         tv.setOnClickListener(this);
         tv.setText("管理");
         tv.setVisibility(View.GONE);
@@ -183,9 +205,16 @@ public class CompanyContactListActivity extends BaseActivity implements HttpMana
                     title.parentDept = c1.name;
                     listsTitle.put(c1.id, title);
                     setTitles(c1.name);
+                    /*-----------------------------------------zxy start-----------------------------------------*/
+                    mListGuide.add(c1.name);
+                    listGuideMap.put(currentPosition++, c1.id);
+                    /*-----------------------------------------zxy end -----------------------------------------*/
                     frontOrBack = 1;
                     if (c1 != null) {
                         idDep = c1.id;
+                        /*-----------------------------------------zxy start-----------------------------------------*/
+                        mListGuideAdapter.notifyDataSetChanged();
+                        /*-----------------------------------------zxy end -----------------------------------------*/
                         getOrganization();
                     }
 
@@ -202,7 +231,8 @@ public class CompanyContactListActivity extends BaseActivity implements HttpMana
             public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
                 if (mUserIdList != null) {
                     if (mUserIdList.size() > (mPullIndex + 1) * mPageSize) {
-                        List<Integer> integers = mUserIdList.subList(mPullIndex * mPageSize, (mPullIndex + 1) * mPageSize);
+                        List<Integer> integers = mUserIdList.subList(mPullIndex * mPageSize, (mPullIndex + 1) *
+                                mPageSize);
                         mPullIndex++;
                         List<CompanyContactListEntity> queryList = companyContactDao.queryAndSortByUserIds(integers);
                         list.addAll(queryList);
@@ -250,8 +280,22 @@ public class CompanyContactListActivity extends BaseActivity implements HttpMana
     }
 
     void backtofront() {
+        /*-----------------------------------------zxy start-----------------------------------------*/
+        if (mListGuide.size() - 1 >= 0) {       //列表导航数据更新
+            mListGuide.remove(mListGuide.get(mListGuide.size() - 1));
+            mListGuideAdapter.notifyDataSetChanged();
+        }
+        if (isEmpty) {      //空页面时返回
+            if (null != listsTitle.get(pareid)) {
+                setTitle(listsTitle.get(pareid).parentDept);
+            } else {
+                setTitle("企业通讯录");
+            }
+            idDep = pareid;
+        }
+        /*-----------------------------------------zxy end -----------------------------------------*/
         CompanyDepment.Data.Depaments entity;
-        if (list != null && list.size() > 0 && list.get(0) instanceof CompanyDepment.Data.Depaments) {
+        if (list != null && list.size() > 0 && list.get(0) instanceof CompanyDepment.Data.Depaments && !isEmpty) {
             entity = (CompanyDepment.Data.Depaments) list.get(0);
             // idDep = entity.parentId;
             if (null != listsTitle.get(entity.parentId)) {
@@ -260,8 +304,6 @@ public class CompanyContactListActivity extends BaseActivity implements HttpMana
             } else {
                 idDep = null;
             }
-
-
         } else {
             if (null != listsTitle.get(pareid)) {
                 setTitle(listsTitle.get(pareid).parentDept);
@@ -276,6 +318,7 @@ public class CompanyContactListActivity extends BaseActivity implements HttpMana
             return;
         }
         frontOrBack = 2;
+        isEmpty = false;
         getOrganization();
     }
 
@@ -303,7 +346,8 @@ public class CompanyContactListActivity extends BaseActivity implements HttpMana
         if (response != null && response.resultCode == 1) {
             if (response instanceof CompanyDepment) {
                 CompanyDepment companyDepment = (CompanyDepment) (response);
-                if (null != companyDepment.data && null != companyDepment.data.departments && companyDepment.data.departments.size() > 0) {
+                if (null != companyDepment.data && null != companyDepment.data.departments && companyDepment.data
+                        .departments.size() > 0) {
                     haveDep = true;
                     list.clear();
 
@@ -318,7 +362,7 @@ public class CompanyContactListActivity extends BaseActivity implements HttpMana
                     if (p == 1) {
                         checkUndefine(companyDepment.data.departments);
                         firstLevelId = companyDepment.data.departments.get(0).id;
-                        if (list.size()==0){
+                        if (list.size() == 0) {
                             haveDep = false;
                             idDep = "0";
                             pareid = null;
@@ -339,14 +383,16 @@ public class CompanyContactListActivity extends BaseActivity implements HttpMana
                     tv_des.setText("关闭");
                     tv_des.setVisibility(View.VISIBLE);
                 }
-                if (null != companyDepment.data && null != companyDepment.data.users && companyDepment.data.users.size() > 0) {
+                if (null != companyDepment.data && null != companyDepment.data.users && companyDepment.data.users
+                        .size() > 0) {
                     havecolleage = true;
                     List<CompanyContactListEntity> lists = new ArrayList<>();
                     if (companyDepment.data.users != null) {
                         if (companyDepment.data.users.size() > mPageSize) {
                             mPullIndex = 0;
                             mUserIdList = companyDepment.data.users;
-                            List<Integer> integers = mUserIdList.subList(mPullIndex * mPageSize, (mPullIndex + 1) * mPageSize);
+                            List<Integer> integers = mUserIdList.subList(mPullIndex * mPageSize, (mPullIndex + 1) *
+                                    mPageSize);
                             mPullIndex++;
                             lists = companyContactDao.queryAndSortByUserIds(integers);
                             mPullToRefreshScrollView.setMode(PullToRefreshBase.Mode.PULL_FROM_END);
@@ -362,7 +408,8 @@ public class CompanyContactListActivity extends BaseActivity implements HttpMana
                             list.clear();
                         }
 
-                        List<DepAdminsList> adminlists = CompanyContactDataUtils.getManagerDep(CompanyContactListActivity.this);
+                        List<DepAdminsList> adminlists = CompanyContactDataUtils.getManagerDep
+                                (CompanyContactListActivity.this);
                         for (int i = 0; i < adminlists.size(); i++) {
                             if (null != lists.get(0) && adminlists.get(i).orgId.equals(lists.get(0).id)) {
                                 tv.setVisibility(View.VISIBLE);
@@ -374,26 +421,24 @@ public class CompanyContactListActivity extends BaseActivity implements HttpMana
                         list.addAll(lists);
                         adapter.notifyDataSetChanged();
                     } else {
-                        if (!haveDep &&!idDep.equals("0")) {
-                            Intent intent = new Intent(CompanyContactListActivity.this, CompanyContactListNoPeopleActivity.class);
-                            if (null != listsTitle.get(idDep) && !TextUtils.isEmpty(listsTitle.get(idDep).parentDept)) {
-                                intent.putExtra("dept", listsTitle.get(idDep).parentDept);
-                            }
-                            startActivity(intent);
-                        }else if (!haveDep && idDep.equals("0")) {
+                        if (!haveDep) {
+                            isEmpty = true;
                             empteyll.setVisibility(View.VISIBLE);
                         }
                     }
 
                 } else {
-                    if (!haveDep && !idDep.equals("0")) {
-                        Intent intent = new Intent(CompanyContactListActivity.this, CompanyContactListNoPeopleActivity.class);
+                    /*if (!haveDep && !idDep.equals("0")) {
+                        Intent intent = new Intent(CompanyContactListActivity.this,
+                                CompanyContactListNoPeopleActivity.class);
                         if (null != listsTitle.get(idDep) && !TextUtils.isEmpty(listsTitle.get(idDep).parentDept)) {
                             intent.putExtra("dept", listsTitle.get(idDep).parentDept);
                         }
-
                         startActivity(intent);
-                    } else if (!haveDep && idDep.equals("0")) {
+                        toNoPeople(); //先保留空页面
+                    } else*/
+                    if (!haveDep /*&& idDep.equals("0")*/) {
+                        isEmpty = true;
                         empteyll.setVisibility(View.VISIBLE);
                     }
                     mPullToRefreshScrollView.setMode(PullToRefreshBase.Mode.DISABLED);
@@ -402,20 +447,21 @@ public class CompanyContactListActivity extends BaseActivity implements HttpMana
             }
         }
 
-        if(adapter.getCount() == 0){
+        if (adapter.getCount() == 0) {
             layout_line.setVisibility(View.GONE);
-        }else {
+        } else {
             layout_line.setVisibility(View.VISIBLE);
         }
         closeLoadingDialog();
         Logger.d("onItemClick", "success-----------" + System.currentTimeMillis());
     }
 
-    public void checkUndefine(ArrayList<CompanyDepment.Data.Depaments> departments){
-        for(CompanyDepment.Data.Depaments depament:departments){
-            if (!TextUtils.isEmpty(depament.name)&&depament.name.equals("未分配")){
+
+    public void checkUndefine(ArrayList<CompanyDepment.Data.Depaments> departments) {
+        for (CompanyDepment.Data.Depaments depament : departments) {
+            if (!TextUtils.isEmpty(depament.name) && depament.name.equals("未分配")) {
                 List<CompanyContactListEntity> entities = companyContactDao.queryByDepID(depament.id);
-                if (entities==null||entities.size()==0){
+                if (entities == null || entities.size() == 0) {
                     list.remove(depament);
                 }
                 break;
@@ -423,6 +469,7 @@ public class CompanyContactListActivity extends BaseActivity implements HttpMana
 
         }
     }
+
     public void setTitles(String name) {
         List<CompanyContactListEntity> entities
                 = companyContactDao.queryByParentId(pareid);
@@ -465,7 +512,7 @@ public class CompanyContactListActivity extends BaseActivity implements HttpMana
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode){
+        switch (requestCode) {
             case 100:
                 if (!idDep.equals("-1")) {
                     if (TextUtils.isEmpty(mParentId)) {
@@ -481,11 +528,40 @@ public class CompanyContactListActivity extends BaseActivity implements HttpMana
             default:
                 if (resultCode == 300) {
 
-                }else if (!idDep.equals("-1")) {
+                } else if (!idDep.equals("-1")) {
                     GetAllDoctor.getInstance().getPeople();
                     getOrganization();
                 }
                 break;
         }
     }
+
+    /**
+     * zxy  导航列表条目点击事件
+     */
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        mCp_listguilde.setLastPosition();
+        if (position == 0) {
+            finish();
+            listGuideMap.clear();
+            listGuideMap = null;
+            mListGuide.clear();
+            mListGuide = null;
+            return;
+        }
+        if (position == mListGuide.size() - 1) {
+            return;
+        }
+        idDep = listGuideMap.get(position);
+        //更新数据
+        for (int i = 0; i < currentPosition - position - 1; i++) {
+            listGuideMap.remove(--currentPosition);
+            mListGuide.remove(mListGuide.get(currentPosition));
+        }
+        mListGuideAdapter.notifyDataSetChanged();
+
+        getOrganization();
+    }
+
 }

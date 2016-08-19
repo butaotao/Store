@@ -11,16 +11,11 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"/>
     <com.dachen.dgroupdoctorcompany.views.HorizontalListView
-        android:background="@color/color_background"
         android:id="@+id/cp_listguilde"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
 
     </com.dachen.dgroupdoctorcompany.views.HorizontalListView>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
 
     <com.handmark.pulltorefresh.library.PullToRefreshScrollView
@@ -74,27 +69,33 @@
                     android:divider="@color/color_dividerline"
                     android:dividerHeight="0.5dp"
                     android:scrollbars="none"/>
+
+                <LinearLayout
+                    android:id="@+id/empteyll"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/color_background"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="该部门没有成员"
+                            android:gravity="center"
+                            android:drawableTop="@drawable/address_book"
+                            android:textColor="@color/color_aaaaaa"
+                            android:textSize="17sp"/>
+                    </RelativeLayout>
+                </LinearLayout>
             </RelativeLayout>
         </LinearLayout>
     </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
-    <RelativeLayout
-        android:visibility="gone"
-        android:id="@+id/empteyll"
-        android:background="@color/color_background"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="该部门没有成员"
-            android:gravity="center"
-            android:drawableTop="@drawable/address_book"
-            android:textColor="@color/color_aaaaaa"
-            android:textSize="17sp"/>
-    </RelativeLayout>
-    </FrameLayout>
 </LinearLayout>
 
 
