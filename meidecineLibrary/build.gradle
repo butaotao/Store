@@ -32,5 +32,5 @@ dependencies {
 
 //    compile 'com.dachen.library:dCommonLibrary:1.0.1'
     compile project(':dCommonLibrary')
-    compile 'com.squareup.okhttp3:okhttp:3.2.0'
+
 }
