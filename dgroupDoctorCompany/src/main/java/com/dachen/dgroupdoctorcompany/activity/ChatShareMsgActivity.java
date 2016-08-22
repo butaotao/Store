@@ -164,7 +164,18 @@ public class ChatShareMsgActivity extends ImBaseActivity implements View.OnClick
             }).setTitle("确定发送给").setMessage(group.name).setNegative("取消").setPositive("确定");
             builder.create().show();*/
             final com.dachen.medicine.view.CustomDialog dialog = new com.dachen.medicine.view.CustomDialog(ChatShareMsgActivity.this);
-            dialog.showDialog("确定发送给", group.name, new View.OnClickListener() {
+            dialog.showDialog("确定发送给", group.name,R.string.cancel,R.string.sure, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dimissDialog();
+                    //ImUtils.closeChat(groupIds);
+                   // finish();
+                   //
+//                CallIntent.getSelectData.getData(listsHorizon);
+
+
+                }
+            }, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     dialog.dimissDialog();
@@ -181,17 +192,6 @@ public class ChatShareMsgActivity extends ImBaseActivity implements View.OnClick
                         RepresentGroupChatActivity.openUI(mThis,  group.name, group.groupId,userList);*/
                         ImRequestManager.sendArchive(mItem, group.groupId, new ShareItemFileListener());
                     }
-                    //ImUtils.closeChat(groupIds);
-                   // finish();
-                   //
-//                CallIntent.getSelectData.getData(listsHorizon);
-
-
-                }
-            }, new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialog.dimissDialog();
                 }
             });
 

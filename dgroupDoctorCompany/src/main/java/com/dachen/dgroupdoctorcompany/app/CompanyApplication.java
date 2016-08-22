@@ -3,6 +3,7 @@ package com.dachen.dgroupdoctorcompany.app;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -19,6 +20,7 @@ import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.common.PinyinResource;
 import com.dachen.dgroupdoctorcompany.db.SQLiteHelper;
 import com.dachen.dgroupdoctorcompany.im.utils.AppImUtils;
+import com.dachen.dgroupdoctorcompany.service.CallSmsSafeService;
 import com.dachen.dgroupdoctorcompany.utils.ReminderReminder;
 import com.dachen.dgroupdoctorcompany.utils.UserInfo;
 import com.dachen.imsdk.ImSdk;
@@ -138,12 +140,18 @@ public class CompanyApplication extends MultiDexApplication{
 //        String sha1 = CommonUitls.sHA1(context);
 //        System.out.print(sha1);
         mImNetworkReceiver=ImNetworkReceiver.registerReceiver(this);
+        startPhoneService();
     }
     public static int getInitContactList(){
         return initContactList;
     }
     public static void setInitContactList(int initContact){
         initContactList = initContact;
+    }
+
+    public void startPhoneService(){
+        Intent callSmsSafeIntent = new Intent(this,CallSmsSafeService.class);
+        startService(callSmsSafeIntent);
     }
     @Override
     public void onTerminate() {

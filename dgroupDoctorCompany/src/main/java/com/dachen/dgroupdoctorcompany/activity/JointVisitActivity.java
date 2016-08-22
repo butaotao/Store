@@ -74,7 +74,6 @@ public class JointVisitActivity extends BaseActivity implements View.OnClickList
 
     private RelativeLayout rl_back;
     private TextView tv_title_save;
-    private TextView tv_title;
     private TextView tvWeek;
     private TextView tvDate;
     private TextView tv_time_location;
@@ -122,11 +121,11 @@ public class JointVisitActivity extends BaseActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collaborative_visit);
         //初始化
-        initView();
+        initViews();
         initDate();
     }
 
-    public void initView() {
+    public void initViews() {
         TelephonyManager TelephonyMgr = (TelephonyManager)getSystemService(TELEPHONY_SERVICE);
         deviceId = TelephonyMgr.getDeviceId();
         orginId = GetUserDepId.getUserDepId(this);
@@ -138,11 +137,12 @@ public class JointVisitActivity extends BaseActivity implements View.OnClickList
         tv_title_save = getViewById(R.id.tv_title_save);
         tv_title_save.setOnClickListener(this);
         tv_title_save.setVisibility(View.VISIBLE);
-        tv_title = getViewById(R.id.tv_title);
+        setTitle("客户拜访");
         if(MODE_FROM_VIST_LIST_ITEM == mMode){
-            tv_title.setText("拜访详情");
+            setTitle("拜访详情");
         }else if(MODE_FROM_SIGN == mMode || MODE_FROM_SIGN_LIST == mMode){
-        tv_title.setText("客户拜访");}
+            setTitle("客户拜访");
+        }
         tvWeek = getViewById(R.id.tvWeek);
         tvDate = getViewById(R.id.tvDate);
         ll_showmapdes = getViewById(R.id.ll_showmapdes);

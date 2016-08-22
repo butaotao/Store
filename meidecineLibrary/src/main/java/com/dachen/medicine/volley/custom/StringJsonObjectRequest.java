@@ -9,6 +9,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.zip.GZIPInputStream;
@@ -137,21 +138,24 @@ public class StringJsonObjectRequest<T> extends Request<String> {
 	public Map<String, String> getHeaders() throws AuthFailureError {
 		//System.err.println("header");
 		String useragent = HttpManager.getHeaderAgent(context);
-
+		Map<String, String> headers = super.getHeaders();
+		if (headers == null || headers.equals(Collections.emptyMap())) {
+			headers = new HashMap<String, String>();
+		}
 		if (mGzipEnable) {
-			Map<String, String> headers = new HashMap<String, String>();
+			/*Map<String, String> headers = new HashMap<String, String>();
 			headers.put("Charset", "UTF-8");
 			headers.put("Content-Type", "application/x-javascript");
-			headers.put("Accept-Encoding", "gzip,deflate");
+			headers.put("Accept-Encoding", "gzip,deflate");*/
 			if (!TextUtils.isEmpty(useragent)){
 				headers.put("User-Agent",useragent);
 			}
 			return headers;
 		} else {
-			Map<String, String> headers = new HashMap<String, String>();
+		/*	Map<String, String> headers = new HashMap<String, String>();
 			headers.put("Charset", "UTF-8");
 			//headers.put("content-length", "100000000"); 
-			headers.put("Content-Type", "application/x-www-form-urlencoded");
+			headers.put("Content-Type", "application/x-www-form-urlencoded");*/
 			if (!TextUtils.isEmpty(useragent)){
 				headers.put("User-Agent",useragent);
 			}

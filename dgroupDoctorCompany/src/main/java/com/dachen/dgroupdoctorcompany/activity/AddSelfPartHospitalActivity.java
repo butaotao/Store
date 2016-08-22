@@ -105,7 +105,7 @@ public class AddSelfPartHospitalActivity extends BaseActivity implements HttpMan
             }
         }
         rl_sure.setVisibility(View.VISIBLE);
-        Collections.sort(data, new PinyinComparator());
+       // Collections.sort(data, new PinyinComparator());
         adapter = new AddSelfPartHospitaAdapter(this,issure, data, new RefreshData() {
             @Override
             public void Refreshdata(int size) {
@@ -123,7 +123,7 @@ public class AddSelfPartHospitalActivity extends BaseActivity implements HttpMan
             ShowAddSelfPartHospitalsData datas = (ShowAddSelfPartHospitalsData) response;
             if (datas.data != null) {
                 data = AddSelfPartHospitalTrans.getHospital(datas.data.pageData);
-                Collections.sort(data, new PinyinComparator());
+                //Collections.sort(data, new PinyinComparator());
                 adapter = new AddSelfPartHospitaAdapter(this, issure, data, new RefreshData() {
                     @Override
                     public void Refreshdata(int size) {
@@ -236,6 +236,8 @@ public void refreshdata(int size){
         HashMap<String, String> maps = new HashMap<>();
         maps.put("access_token", UserInfo.getInstance(this).getSesstion());
         maps.put("userId", SharedPreferenceUtil.getString(this, "id", ""));
+        maps.put("pageSize","1000");
+        maps.put("pageIndex","0");
         if (!TextUtils.isEmpty(groupId)) {
             maps.put("goodsGroupId", groupId);
             new HttpManager().post(this, s, ShowAddSelfPartHospitalsData.class,
@@ -258,6 +260,7 @@ public void refreshdata(int size){
                         public void onSuccess(Result response) {
                             closeLoadingDialog();
                             if (response.resultCode == 1) {
+                                ToastUtil.showToast(AddSelfPartHospitalActivity.this, "取消品种分管关系成功");
                                 finish();
                             }
                         }

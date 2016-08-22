@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:background="@color/color_background"
@@ -13,19 +13,22 @@
     <com.dachen.dgroupdoctorcompany.views.HorizontalListView
         android:background="@color/color_background"
         android:id="@+id/cp_listguilde"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_below="@+id/layout_titlebar"
+        android:layout_height="50dp">
 
     </com.dachen.dgroupdoctorcompany.views.HorizontalListView>
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/cp_listguilde">
 
 
     <com.handmark.pulltorefresh.library.PullToRefreshScrollView
         android:id="@+id/refresh_scroll_view"
         android:layout_width="match_parent"
+        android:layout_above="@+id/btn_addpeople"
         android:layout_height="match_parent">
 
         <LinearLayout
@@ -40,12 +43,7 @@
                 android:background="@color/color_background"
                 android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/btn_addpeople"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_alignParentBottom="true"
-                    android:visibility="gone"/>
+
 
                 <LinearLayout
                     android:id="@+id/layout_line"
@@ -69,7 +67,6 @@
                     android:id="@+id/listview"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_above="@+id/btn_addpeople"
                     android:layout_below="@id/layout_line"
                     android:divider="@color/color_dividerline"
                     android:dividerHeight="0.5dp"
@@ -95,6 +92,13 @@
             android:textSize="17sp"/>
     </RelativeLayout>
     </FrameLayout>
-</LinearLayout>
+    <Button
+        android:id="@+id/btn_addpeople"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"/>
+</RelativeLayout>
+
 
 

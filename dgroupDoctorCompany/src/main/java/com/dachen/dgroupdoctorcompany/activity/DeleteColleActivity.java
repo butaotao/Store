@@ -113,7 +113,7 @@ public class DeleteColleActivity extends BaseActivity implements View.OnClickLis
         if (null != response) {
             if (response.resultCode == 1) {
                 companyContactDao.deleteByid(entity.userId);
-                Intent intent = new Intent(this, EidtColleagueActivity.class);
+                Intent intent = new Intent(this, ManagerColleagueActivity.class);
                 intent.putExtra("position", mPosition);
                 setResult(1001, intent);
                 finish();

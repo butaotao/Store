@@ -178,15 +178,16 @@ public class MainActivity extends BaseActivity implements OnHttpListener,
 
      /*  Intent intent = new Intent(this,GuiderDialogActivity.class);
         startActivity(intent);*/
-       startPhoneService();
+
         receiver = new ChangeReceiver(){
             @Override
             public void onReceive(Context context, Intent intent) {
                 super.onReceive(context, intent);
                 int tab = intent.getIntExtra("tab",0);
                 if (tab==0){
+                    fragment_index = 0;
                     clicks();
-                    clicks();
+                    showItem();
                 }
             }
         };;
@@ -195,10 +196,7 @@ public class MainActivity extends BaseActivity implements OnHttpListener,
         registerReceiver(receiver, filters);
     }
 
-    public void startPhoneService(){
-       Intent callSmsSafeIntent = new Intent(this,CallSmsSafeService.class);
-        startService(callSmsSafeIntent);
-    }
+
     public static String getVersionName(Context context) {
         PackageManager manager = context.getPackageManager();
         try {
@@ -253,6 +251,7 @@ public class MainActivity extends BaseActivity implements OnHttpListener,
         AddressList addressList = new AddressList();
         CompanyCenterFragment companyCenterFragment = new CompanyCenterFragment();
         MyFragment myFragment = new MyFragment();
+        fragments.clear();
         fragments.add(infomationFragment);
         fragments.add(addressList);
         fragments.add(companyCenterFragment);

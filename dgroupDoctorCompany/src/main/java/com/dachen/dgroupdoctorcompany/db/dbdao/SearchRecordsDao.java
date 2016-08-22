@@ -50,6 +50,7 @@ public class SearchRecordsDao {
         QueryBuilder<SearchRecords, Integer> builder = articleDao.queryBuilder();
         try {
             Where<SearchRecords, Integer> where = builder.where();
+            builder.orderBy("_id", false);
             where.eq("userloginid", SharedPreferenceUtil.getString(context, "id", "")).and().eq("serchtype", serchtype);
             return builder.query();
         } catch (SQLException e) {
@@ -62,6 +63,8 @@ public class SearchRecordsDao {
         QueryBuilder<SearchRecords, Integer> builder = articleDao.queryBuilder();
         try {
             Where<SearchRecords, Integer> where = builder.where();
+            builder.orderBy("_id", true);
+
             where .eq("searchresult", content).and().eq("userloginid",SharedPreferenceUtil.getString(context, "id", ""))
             .and().eq("serchtype",serchtype);
             return builder.query();

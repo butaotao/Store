@@ -116,10 +116,10 @@ public class AddressList extends BaseFragment implements View.OnClickListener{
 				if (CompareDatalogic.isInitContact()) {
 					DepAdminsList dept = (DepAdminsList) depManagerAdapter.getItem(position);
 					deptId = dept.orgId;
-					Intent intent = new Intent(mActivity, EidtColleagueActivity.class);
-					startActivityForResult(intent, 200);
-				/*	Intent intent = new Intent(mActivity, ManagerColleagueActivity.class);
+					/*Intent intent = new Intent(mActivity, EidtColleagueActivity.class);
 					startActivityForResult(intent, 200);*/
+				  	Intent intent = new Intent(mActivity, ManagerColleagueActivity.class);
+					startActivityForResult(intent, 200);
 				}else{
 					ToastUtils.showToast(mActivity,"通讯录初始化中...");
 				}

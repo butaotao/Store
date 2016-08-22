@@ -1,6 +1,7 @@
 package com.dachen.medicine.net;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,6 +16,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.android.library.R;
+import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.Request;
@@ -489,9 +491,18 @@ public class HttpManager<T> {
 		             
 		    @Override
 		    public Map<String, String> getHeaders() {
-		        HashMap<String, String> headers = new HashMap<String, String>();
+				Map<String, String> headers = null;
+				try {
+					headers = super.getHeaders();
+				} catch (AuthFailureError authFailureError) {
+					authFailureError.printStackTrace();
+				}
+				if (headers == null || headers.equals(Collections.emptyMap())) {
+					headers = new HashMap<String, String>();
+				}
+		  /*      HashMap<String, String> headers = new HashMap<String, String>();
 		        headers.put("Accept", "application/json");
-		        headers.put("Content-Type", "application/json; charset=UTF-8");
+		        headers.put("Content-Type", "application/json; charset=UTF-8");*/
 				String agent = getHeaderAgent(context);
 				if (!TextUtils.isEmpty(agent)){
 						headers.put("User-Agent",agent);

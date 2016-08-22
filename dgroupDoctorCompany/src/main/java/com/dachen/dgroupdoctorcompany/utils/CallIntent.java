@@ -78,5 +78,9 @@ public class CallIntent {
         intent = new Intent(MainActivity.action);
         intent.putExtra("tab", 0);
         context.sendBroadcast(intent);
+        intent = new Intent(context, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        context.startActivity(intent);
+
     }
 }

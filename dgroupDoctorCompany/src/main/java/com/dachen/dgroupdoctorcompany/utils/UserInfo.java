@@ -34,6 +34,9 @@ public class UserInfo {
 	public  String getId(){
 		return SharedPreferenceUtil.getString(context,"id","");
 	}
+	public  String getCompanyId(){
+		return SharedPreferenceUtil.getString(context,"enterpriseId","");
+	}
 	public  String getUserType(){
 		return sp.getString(KEY_USERTYPE, "");
 	}
