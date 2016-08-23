@@ -39,10 +39,13 @@ public class CustomImagerLoader {
 		return mImageLoader;
 	}
 	public void loadImage(final View viewHolder, final String imageUrl){
-		 loadImage(viewHolder,imageUrl,true);
+		 loadImage(viewHolder,imageUrl,true,10);
+	}
+	public void loadImage(final View viewHolder, final String imageUrl,boolean iscircle){
+		loadImage(viewHolder,imageUrl,true,90);
 	}
 	@SuppressWarnings("deprecation")
-	public void loadImage(final View viewHolder,final String imageUrl,boolean small) {
+	public void loadImage(final View viewHolder,final String imageUrl,boolean small,int dushu) {
 		 final DisplayImageOptions options;
 		 
 		 options =  new DisplayImageOptions.Builder()
@@ -54,13 +57,13 @@ public class CustomImagerLoader {
 			.cacheInMemory(true) 
 			.considerExifParams(true)
 			.delayBeforeLoading(1)
-			.displayer(new RoundedBitmapDisplayer(10))
+			.displayer(new RoundedBitmapDisplayer(dushu))
 			.imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
 			.build();
 	    ImageSize mImageSize = new ImageSize(32, 32);
 		String image = imageUrl;
 		if (small) {
-			if (image != null && image.startsWith("http")) {
+			if (image != null && (image.startsWith("http")||image.startsWith("https"))) {
 				image += "-small1";
 			}
 		}

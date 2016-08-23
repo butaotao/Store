@@ -43,7 +43,7 @@ public class CompanyContactListAdapter extends BaseCustomAdapter<BaseSearch> {
     }
 
     @Override
-    protected void fillValues(BaseViewHolder baseViewHolder, int position) {
+    protected void fillValues(BaseViewHolder baseViewHolder, final int position) {
         ViewHolder holder = (ViewHolder) baseViewHolder;
         final BaseSearch contact = getItem(position);
         CompanyContactListEntity c2 = null;
@@ -62,6 +62,8 @@ public class CompanyContactListAdapter extends BaseCustomAdapter<BaseSearch> {
         if (position == depSize - 1 && depSize != getCount()) {
             holder.view_add.setVisibility(View.VISIBLE);
         }
+        final CompanyContactListActivity finalActivity = activity;
+        final CompanyDepment.Data.Depaments finalC = c1;
         if (c2 != null) {
 
             if (activity.getContent()==0||activity.getContent()==1){
@@ -92,6 +94,8 @@ public class CompanyContactListAdapter extends BaseCustomAdapter<BaseSearch> {
                     holder.mTvStatus.setVisibility(View.GONE);
                     holder.iv_edit.setVisibility(View.VISIBLE);
                 }
+                final CompanyContactListEntity finalC1 = c2;
+
             }
         } else if (c1 != null) {
             holder.rl_depart.setVisibility(View.VISIBLE);
@@ -107,12 +111,14 @@ public class CompanyContactListAdapter extends BaseCustomAdapter<BaseSearch> {
                     holder. btn_radio.setChecked(false);
                 }
                 holder.btn_radio.setVisibility(View.VISIBLE);
-                final CompanyContactListActivity finalActivity = activity;
-                final CompanyDepment.Data.Depaments finalC = c1;
-            holder.tv_depart.setOnClickListener(new View.OnClickListener() {
+
+                holder.tv_depart.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    finalActivity.getDepment(finalC,false);
+                    if (contact instanceof CompanyDepment.Data.Depaments) {
+                        finalActivity.getDepment(finalC, false);
+                    }
+
                 }
             });
                 holder.btn_radio.setOnClickListener(new View.OnClickListener() {

@@ -2,16 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/btn_blue_all_3cbaff"
-    android:gravity="center_vertical"
+    android:background="@drawable/callphonebackground"
     android:layout_marginTop="20dp"
-    android:layout_marginRight="20dp"
-    android:layout_marginLeft="20dp"
+    android:paddingBottom="20dp"
     android:orientation="horizontal" >
 
     <ImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="83dp"
+        android:layout_height="83dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:id="@+id/iv_icon"  />
@@ -27,9 +25,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
-            android:layout_marginTop="2dp"
 
-            android:src="@android:drawable/ic_delete" />
+            android:background="@drawable/callphonedialogclose" />
     </RelativeLayout>
 
     <TextView
@@ -39,27 +36,40 @@
         android:text="@string/null_info"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/iv_icon"
-        android:textColor="#FFFFFF"
-        android:layout_marginTop="6dp"
-        android:textSize="20sp" />
+        android:textColor="@color/white"
+        android:layout_marginTop="10dp"
+        android:textSize="17sp" />
     <TextView
         android:id="@+id/tv_position"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/null_info"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="15dp"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/tv_name"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/color_cccccc"
+
+        android:textSize="20sp" />
+    <TextView
+        android:id="@+id/tv_comefrom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="来自药企圈"
+        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/tv_position"
+        android:textColor="@color/color_cccccc"
+
         android:textSize="20sp" />
     <TextView
         android:id="@+id/tv_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/null_info"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/tv_position"
+        android:layout_below="@+id/tv_comefrom"
         android:textColor="#FFFFFF"
         android:textSize="20sp" />
 </RelativeLayout>

@@ -23,6 +23,7 @@ import android.telephony.PhoneStateListener;
 import android.telephony.SmsMessage;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -242,21 +243,31 @@ public class CallSmsSafeService extends Service {
 		TextView tv_position = (TextView) view.findViewById(R.id.tv_position);
 		TextView tv_phone = (TextView) view.findViewById(R.id.tv_phone);
 		ImageView imageView = (ImageView) view.findViewById(R.id.iv_icon);
-		CustomImagerLoader.getInstance().loadImage(imageView,entity.url);
+		CustomImagerLoader.getInstance().loadImage(imageView,entity.url,true);
 		if (!TextUtils.isEmpty(entity.name)){
 			tv.setText(entity.name);
 			tv_position.setVisibility(View.VISIBLE);
 		}else {
 			tv.setVisibility(View.GONE);
 		}
-		if (!TextUtils.isEmpty(entity.position)){
-			tv_position.setText(entity.position);
+		String peopledes ="";
+		if (!TextUtils.isEmpty(entity.department)&&TextUtils.isEmpty(entity.position)){
+			peopledes = entity.department;
+		}
+		if (TextUtils.isEmpty(peopledes)&&!TextUtils.isEmpty(entity.position)){
+			peopledes =  entity.position;
+		}
+		if (!TextUtils.isEmpty(peopledes)&&!TextUtils.isEmpty(entity.position)){
+			peopledes = entity.department +" | "+entity.position;
+		}
+		if (!TextUtils.isEmpty(peopledes)){
+			tv_position.setText(peopledes);
 			tv_position.setVisibility(View.VISIBLE);
 		}else {
 			tv_position.setVisibility(View.GONE);
 		}
 		if (!TextUtils.isEmpty(entity.telephone)){
-			tv_phone.setText(entity.telephone+"来自药企圈");
+			tv_phone.setText(entity.telephone);
 			tv_phone.setVisibility(View.VISIBLE);
 		}else {
 			tv_phone.setVisibility(View.GONE);
@@ -267,13 +278,16 @@ public class CallSmsSafeService extends Service {
 				dismissView();
 			}
 		});
+		DisplayMetrics metric = new DisplayMetrics();
 		params = new WindowManager.LayoutParams();
-		params.gravity = Gravity.TOP + Gravity.LEFT;
+		params.gravity = Gravity.TOP + Gravity.CENTER_HORIZONTAL;
 
 		params.x = SharedPreferenceUtil.getInt(CallSmsSafeService.this,userId+"lastx", 0);
 		params.y = SharedPreferenceUtil.getInt(CallSmsSafeService.this,userId+"lasty", 0);
 		params.height = WindowManager.LayoutParams.WRAP_CONTENT;
 		params.width = WindowManager.LayoutParams.WRAP_CONTENT;
+		/*params.width = (int) (metric.widthPixels);; // 宽度
+		params.height = (int) (metric.heightPixels);; // 高度*//**/
 		params.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
 				| WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
 		params.format = PixelFormat.TRANSLUCENT;

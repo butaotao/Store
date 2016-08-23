@@ -1,5 +1,7 @@
 package com.dachen.dgroupdoctorcompany.activity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -70,7 +72,6 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
     //0为公司组织架构，1为管理者进入的界面
     int showContent = 0;
     boolean manager;
-    TextView tv;
     LinearLayout layout_line;
     TextView tv_des;
     RelativeLayout empteyll;
@@ -95,12 +96,16 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
     boolean isEmpty = false;
     public String departName="";
     String parentId;
+    View layoutView;
+    Activity context;
     /*-----------------------------------------zxy end -----------------------------------------*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_companycontactlist);
+        layoutView = View.inflate(this, R.layout.activity_companycontactlist, null);
+        setContentView(layoutView);
+        context = this;
         listview = (NoScrollerListView) findViewById(R.id.listview);
         layout_line = (LinearLayout) findViewById(R.id.layout_line);
         mPullToRefreshScrollView = (PullToRefreshScrollView) findViewById(R.id.refresh_scroll_view);
@@ -120,13 +125,6 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
         ViewStub stub = (ViewStub) findViewById(R.id.vstub_title);
         tv_des = (TextView) findViewById(R.id.tv_des);
         View view = stub.inflate(this, R.layout.stub_viewtext, rl);
-        tv = (TextView) view.findViewById(R.id.tv_search);
-        tv.setOnClickListener(this);
-        tv.setText("管理");
-        tv.setVisibility(View.GONE);
-        tv_des.setOnClickListener(this);
-        idDep = AddressList.deptId;
-        companyid = AddressList.deptId;
         /*-----------------------------------------zxy start-----------------------------------------*/
         mCp_listguilde = (HorizontalListView) findViewById(R.id.cp_listguilde);
         mListGuide.add("联系人");
@@ -145,17 +143,21 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
         mCp_listguilde.setOnItemClickListener(this);
         mCp_listguilde.setAdapter(mListGuideAdapter);
         /*-----------------------------------------zxy end -----------------------------------------*/
+        //tv.setOnClickListener(this);
+        //tv.setText("管理");
+        //tv.setVisibility(View.GONE);
+        tv_des.setOnClickListener(this);
+        idDep = AddressList.deptId;
+        companyid= AddressList.deptId;;
         if (!idDep.equals("-1")) {
-            companyContactDao.queryAll();
             manager = true;
 
         } else {
             idDep = "0";
             companyid = "0";
         }
-        setDepartmen("企业通讯录", idDep);
+        setDepartmen("企业通讯录",idDep);
         getOrganization(idDep);
-        listGuideMap.put(currentPosition++,idDep);
         ButterKnife.bind(this);
         listsTitle = new HashMap<>();
         findViewById(R.id.rl_back).setOnClickListener(new View.OnClickListener() {
@@ -174,6 +176,7 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
         list = new ArrayList<>();
         adapter = new CompanyContactListAdapter(this, R.layout.adapter_companycontactlist, list, 0);
         listview.setAdapter(adapter);
+        getOrganization(idDep);
         listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -202,46 +205,10 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                BaseSearch contact = (BaseSearch) adapter.getItem(position);
-                CompanyContactListEntity c2 = null;
-                CompanyDepment.Data.Depaments c1 = null;
-
-                if (contact instanceof CompanyContactListEntity) {
-                    c2 = (CompanyContactListEntity) (contact);
-                    onColleagueEdit(c2, position);
-                } else if (contact instanceof CompanyDepment.Data.Depaments) {
-                    c1 = (CompanyDepment.Data.Depaments) (contact);
-                    CompanysTitle title = new CompanysTitle();
-                    title.id = c1.parentId;
-                    title.parentDept = c1.name;
-                    listsTitle.put(c1.id, title);
-                    setTitles(c1.name);
-                    /*-----------------------------------------zxy start-----------------------------------------*/
-                    mListGuide.add(c1.name);
-                    departList.put(currentPosition, copyToNewList(mListGuide));
-                    listGuideMap.put(currentPosition++, c1.id);
-                    Log.d("zxy", "onCreate: currentPosition = " + currentPosition + ", idDep = " + c1.id);
-                    parentId = c1.parentId;
-                    setDepartmen(c1.name, c1.id);
-                    /*-----------------------------------------zxy end -----------------------------------------*/
-
-                    if (c1 != null) {
-                        idDep = c1.id;
-                        departmentId.add(c1);
-                        getOrganization(idDep);
-
-                        /*-----------------------------------------zxy start-----------------------------------------*/
-                        mListGuideAdapter.notifyDataSetChanged();
-                        oldPosition = mListGuideAdapter.getCount() - 1;
-                        /*-----------------------------------------zxy end -----------------------------------------*/
-
-                        //RadioButton btn_radio = (RadioButton) view.findViewById(R.id.btn_radio);
-                        boolean add = false;
-                        if (parent.getSelectedItemId() == R.id.btn_radio) {
-                            add = true;
-                        }
-                        //getDepment(contact, add);
-                    }
+                if (adapter.getItem(position) instanceof CompanyContactListEntity) {
+                    onColleagueEdit((CompanyContactListEntity) adapter.getItem(position), position);
+                }else  if (adapter.getItem(position) instanceof CompanyDepment.Data.Depaments) {
+                    getDepment(adapter.getItem(position), false);
                 }
             }
         });
@@ -273,7 +240,6 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
             }
         });
     }
-
     public void getDepment(BaseSearch contact ,boolean clickRadio){
         CompanyDepment.Data.Depaments  c1 = (CompanyDepment.Data.Depaments) (contact);
         CompanysTitle title = new CompanysTitle();
@@ -282,12 +248,13 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
         title.parentDept = c1.name;
         listsTitle.put(c1.id, title);
         setTitles(c1.name);
-
-                    /*-----------------------------------------zxy start-----------------------------------------*/
-   /*     mListGuide.add(c1.name);
-        parentId = c1.parentId;
+        mListGuide.add(c1.name);
+        departList.put(currentPosition, copyToNewList(mListGuide));
         listGuideMap.put(currentPosition++, c1.id);
-        setDepartmen(c1.name,  c1.id);*/
+        Log.d("zxy", "onCreate: currentPosition = " + currentPosition + ", idDep = " + c1.id);
+        parentId = c1.parentId;
+        setDepartmen(c1.name, c1.id);
+                    /*-----------------------------------------zxy start-----------------------------------------*/
                     /*-----------------------------------------zxy end -----------------------------------------*/
         if (c1 != null) {
             idDep = c1.id;
@@ -392,7 +359,7 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
 
     @Override
     public void onSuccess(Result response) {
-        tv.setVisibility(View.GONE);
+        //tv.setVisibility(View.GONE);
         empteyll.setVisibility(View.GONE);
         boolean haveDep = false;
         p++;
@@ -464,7 +431,7 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
                         List<DepAdminsList> adminlists = CompanyContactDataUtils.getManagerDep(CompanyContactListActivity.this);
                         for (int i = 0; i < adminlists.size(); i++) {
                             if (null != lists.get(0) && adminlists.get(i).orgId.equals(lists.get(0).id)) {
-                                tv.setVisibility(View.VISIBLE);
+                                //tv.setVisibility(View.VISIBLE);
                                 AddressList.deptId = adminlists.get(i).orgId;
                                 break;
                             }

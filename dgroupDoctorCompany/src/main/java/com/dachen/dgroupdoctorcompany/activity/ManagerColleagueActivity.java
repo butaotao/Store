@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
@@ -30,7 +31,7 @@ public class ManagerColleagueActivity extends CompanyContactListActivity impleme
     String idDep;
     String companyId;
     CompanyContactListEntity entity;
-    Button btn_addpeople;
+    RelativeLayout rl_addpeople;
     private Handler mHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -48,9 +49,9 @@ public class ManagerColleagueActivity extends CompanyContactListActivity impleme
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        btn_addpeople = (Button) findViewById(R.id.btn_addpeople);
-        btn_addpeople.setOnClickListener(this);
-        btn_addpeople.setVisibility(View.VISIBLE);
+        rl_addpeople = (RelativeLayout) findViewById(R.id.rl_addpeople);
+        rl_addpeople.setOnClickListener(this);
+        rl_addpeople.setVisibility(View.VISIBLE);
         companyContactDao = new CompanyContactDao(ManagerColleagueActivity.this);
         List<CompanyContactListEntity> lists = companyContactDao.queryAll();
         idDep = AddressList.deptId;
@@ -83,7 +84,7 @@ public class ManagerColleagueActivity extends CompanyContactListActivity impleme
     public void onClick(View v) {
         super.onClick(v);
        switch (v.getId()){
-            case R.id.btn_addpeople:
+            case R.id.rl_addpeople:
                 Intent intent = new Intent(this, FriendsContactsActivity.class);
                 startActivityForResult(intent, 200);
                 break;

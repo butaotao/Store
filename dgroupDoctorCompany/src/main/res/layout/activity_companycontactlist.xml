@@ -18,17 +18,44 @@
         android:layout_height="50dp">
 
     </com.dachen.dgroupdoctorcompany.views.HorizontalListView>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+
+        android:background="@color/white"
+        android:id="@+id/rl_addpeople"
+
+        android:visibility="visible">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:background="@color/divide_line_color"></RelativeLayout>
+        <TextView
+            android:id="@+id/btn_addpeople"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="20dp"
+            android:gravity="center"
+            android:layout_marginRight="20dp"
+            android:text="添加成员"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_blue_all_3cbaff"
+            />
+    </RelativeLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/rl_addpeople"
         android:layout_below="@+id/cp_listguilde">
 
 
     <com.handmark.pulltorefresh.library.PullToRefreshScrollView
         android:id="@+id/refresh_scroll_view"
         android:layout_width="match_parent"
-        android:layout_above="@+id/btn_addpeople"
+        android:scrollbars="none"
         android:layout_height="match_parent">
 
         <LinearLayout
@@ -92,12 +119,7 @@
             android:textSize="17sp"/>
     </RelativeLayout>
     </FrameLayout>
-    <Button
-        android:id="@+id/btn_addpeople"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_alignParentBottom="true"
-        android:visibility="gone"/>
+
 </RelativeLayout>
 
 
