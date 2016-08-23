@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,6 @@ import com.dachen.dgroupdoctorcompany.activity.ColleagueDetailActivity;
 import com.dachen.dgroupdoctorcompany.activity.CompanyContactListActivity;
 import com.dachen.dgroupdoctorcompany.activity.DoctorDetailActivity;
 import com.dachen.dgroupdoctorcompany.activity.DoctorFriendActivity;
-import com.dachen.dgroupdoctorcompany.activity.EidtColleagueActivity;
 import com.dachen.dgroupdoctorcompany.activity.ManagerColleagueActivity;
 import com.dachen.dgroupdoctorcompany.activity.SearchContactActivity;
 import com.dachen.dgroupdoctorcompany.adapter.AdapterOftenContact;
@@ -89,7 +89,7 @@ public class AddressList extends BaseFragment implements View.OnClickListener{
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+	public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		mRootView = LayoutInflater.from(mActivity).inflate(R.layout.activity_addresslist, null);
 		depDao = new DepAdminsListDao(mActivity);
 		lists = new ArrayList<>();
@@ -119,6 +119,9 @@ public class AddressList extends BaseFragment implements View.OnClickListener{
 					/*Intent intent = new Intent(mActivity, EidtColleagueActivity.class);
 					startActivityForResult(intent, 200);*/
 				  	Intent intent = new Intent(mActivity, ManagerColleagueActivity.class);
+					if (!TextUtils.isEmpty(dept.orgName)) {
+						intent.putExtra("depName",getDepName(dept.orgName));//传递部门信息
+					}
 					startActivityForResult(intent, 200);
 				}else{
 					ToastUtils.showToast(mActivity,"通讯录初始化中...");
@@ -362,4 +365,11 @@ public class AddressList extends BaseFragment implements View.OnClickListener{
     public void onEventMainThread(NewMsgEvent event) {
         refreshOftenContact();
     }
+
+
+	private String  getDepName(String orgName) {
+		Log.d("zxy", "getDepName: orgName = "+orgName+"~~~~~~");
+		String[] strings = orgName.split("/");
+		return strings[strings.length-1];
+	}
 }

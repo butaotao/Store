@@ -132,8 +132,14 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
         mListGuide.add("联系人");
         departList.put(currentPosition, copyToNewList(mListGuide));
         listGuideMap.put(currentPosition++, "联系人");
-        String companyName = SharedPreferenceUtil.getString(CompanyApplication.getInstance(), "enterpriseName", "");
-        mListGuide.add(companyName);
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {//如果部门存在,显示部门,不存在直接显示公司名
+            String depName = extras.getString("depName");//得到部门名字
+            mListGuide.add(depName);
+        }else {
+            String companyName = SharedPreferenceUtil.getString(CompanyApplication.getInstance(), "enterpriseName", "");
+            mListGuide.add(companyName);
+        }
         departList.put(currentPosition, copyToNewList(mListGuide));
         mListGuideAdapter = new CompanyListGuide(this, mListGuide);
         mCp_listguilde.setOnItemClickListener(this);
