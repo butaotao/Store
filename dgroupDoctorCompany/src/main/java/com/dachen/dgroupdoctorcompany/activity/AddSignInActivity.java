@@ -455,7 +455,7 @@ public class AddSignInActivity extends BaseActivity implements HttpManager.OnHtt
                                 public void onClick(View v) {
                                     MActivityManager.getInstance().finishActivity(SelectAddressActivity.class);
                                     Intent intentAddress = new Intent(AddSignInActivity.this,SelectAddressActivity.class);
-                                    intentAddress.putExtra("poi","地名地址信息|医疗保健服务|商务住宅|交通设施服务|公司企业|公共设施");
+                                    intentAddress.putExtra("poi",SelectAddressActivity.POI);
                                     intentAddress.putExtra("distance","250");
                                     intentAddress.putExtra("latitude",latitude1);
                                     intentAddress.putExtra("longitude",longitude1);

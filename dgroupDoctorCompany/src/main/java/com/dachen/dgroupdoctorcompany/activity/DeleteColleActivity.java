@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dachen.common.utils.ToastUtil;
@@ -35,7 +36,6 @@ public class DeleteColleActivity extends BaseActivity implements View.OnClickLis
     CompanyContactDao companyContactDao;
     Button btn_delete;
     private String mPosition;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +54,8 @@ public class DeleteColleActivity extends BaseActivity implements View.OnClickLis
         tv_departdes.setText(entity.department);
         tv_positiondes.setText(entity.position);
         tv_phonedes.setText(entity.telephone);
+         findViewById(R.id.rl_editdept).setOnClickListener(this);
+
         companyContactDao = new CompanyContactDao(DeleteColleActivity.this);
         enableBack();
         showBtn();
@@ -77,6 +79,10 @@ public class DeleteColleActivity extends BaseActivity implements View.OnClickLis
         switch (v.getId()){
             case R.id.btn_delete:
                 showCustomerDialog();
+                break;
+            case R.id.rl_editdept:
+                Intent intent  = new Intent(this,EditColleageDepartmentActivity.class);
+                startActivity(intent);
                 break;
         }
     }

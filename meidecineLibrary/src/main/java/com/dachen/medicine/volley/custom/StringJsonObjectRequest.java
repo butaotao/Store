@@ -145,7 +145,7 @@ public class StringJsonObjectRequest<T> extends Request<String> {
 		if (mGzipEnable) {
 			/*Map<String, String> headers = new HashMap<String, String>();
 			headers.put("Charset", "UTF-8");
-			headers.put("Content-Type", "application/x-javascript");
+			headers.put("Content-Type", "application/x-www-form-urlencoded");
 			headers.put("Accept-Encoding", "gzip,deflate");*/
 			if (!TextUtils.isEmpty(useragent)){
 				headers.put("User-Agent",useragent);
@@ -156,6 +156,7 @@ public class StringJsonObjectRequest<T> extends Request<String> {
 			headers.put("Charset", "UTF-8");
 			//headers.put("content-length", "100000000"); 
 			headers.put("Content-Type", "application/x-www-form-urlencoded");*/
+
 			if (!TextUtils.isEmpty(useragent)){
 				headers.put("User-Agent",useragent);
 			}

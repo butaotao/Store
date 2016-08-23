@@ -8,6 +8,7 @@ import android.view.ViewStub;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -82,6 +83,7 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
     private int mPageSize = 50;
     private String mParentId;
     public static int isManager = 1;
+    public static int editColleageDep = 2;
     public String companyid;
     /*-----------------------------------------zxy start-----------------------------------------*/
     private HorizontalListView mCp_listguilde;
@@ -90,6 +92,7 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
     Map<Integer, Object> listGuideMap = new LinkedHashMap<>();
     int currentPosition = 0;
     boolean isEmpty = false;
+    public String departName="";
     String parentId;
     /*-----------------------------------------zxy end -----------------------------------------*/
 
@@ -163,7 +166,7 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
         listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                BaseSearch contact = adapter.getItem(position);
+                BaseSearch contact = (BaseSearch) adapter.getItem(position);
                 CompanyContactListEntity c2 = null;
                 CompanyDepment.Data.Depaments c1 = null;
                 if (contact instanceof CompanyContactListEntity) {
@@ -188,8 +191,7 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Logger.d("onItemClick", "onItemClick-----------" + System.currentTimeMillis());
-                BaseSearch contact = adapter.getItem(position);
+                BaseSearch contact = (BaseSearch) adapter.getItem(position);
                 CompanyContactListEntity c2 = null;
                 CompanyDepment.Data.Depaments c1 = null;
 
@@ -197,28 +199,14 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
                     c2 = (CompanyContactListEntity) (contact);
                     onColleagueEdit(c2,position);
                 } else if (contact instanceof CompanyDepment.Data.Depaments) {
-                    c1 = (CompanyDepment.Data.Depaments) (contact);
-                    CompanysTitle title = new CompanysTitle();
-                    title.id = c1.parentId;
-                    title.parentDept = c1.name;
-                    listsTitle.put(c1.id, title);
-                    setTitles(c1.name);
-                    /*-----------------------------------------zxy start-----------------------------------------*/
-                    mListGuide.add(c1.name);
-                    parentId = c1.parentId;
-                    listGuideMap.put(currentPosition++, c1);
-                    setDepartmen(c1.name,  c1.id);
-                    /*-----------------------------------------zxy end -----------------------------------------*/
-                    if (c1 != null) {
-                        idDep = c1.id;
-                        getOrganization(idDep);
-                        /*-----------------------------------------zxy start-----------------------------------------*/
-                        mListGuideAdapter.notifyDataSetChanged();
-                        /*-----------------------------------------zxy end -----------------------------------------*/
-
+                    //RadioButton btn_radio = (RadioButton) view.findViewById(R.id.btn_radio);
+                    boolean add = false;
+                    if (parent.getSelectedItemId() == R.id.btn_radio){
+                        add = true;
                     }
-
+                    getDepment(contact,add);
                 }
+
             }
         });
         mPullToRefreshScrollView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ScrollView>() {
@@ -249,6 +237,32 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
             }
         });
     }
+    public void getDepment(BaseSearch contact ,boolean clickRadio){
+        CompanyDepment.Data.Depaments  c1 = (CompanyDepment.Data.Depaments) (contact);
+        CompanysTitle title = new CompanysTitle();
+        title.id = c1.parentId;
+        departName = c1.name;
+        title.parentDept = c1.name;
+        listsTitle.put(c1.id, title);
+        setTitles(c1.name);
+
+                    /*-----------------------------------------zxy start-----------------------------------------*/
+        mListGuide.add(c1.name);
+        parentId = c1.parentId;
+        listGuideMap.put(currentPosition++, c1);
+        setDepartmen(c1.name,  c1.id);
+                    /*-----------------------------------------zxy end -----------------------------------------*/
+        if (c1 != null) {
+            idDep = c1.id;
+            getOrganization(idDep);
+            adapter.notifyDataSetChanged();
+                        /*-----------------------------------------zxy start-----------------------------------------*/
+            mListGuideAdapter.notifyDataSetChanged();
+                        /*-----------------------------------------zxy end -----------------------------------------*/
+
+        }
+
+    }
     public void setDepartmen(String name,String idDep){
         CompanyDepment depment = new CompanyDepment();
         CompanyDepment.Data data = depment.new Data();
@@ -274,9 +288,6 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
         if (manager && !idDep.equals("-1")&&getContent()!=1) {
             getOrganization(idDep);
         }
-    }
-    public interface ShowContent{
-        public int showcontent();
     }
     @Override
     public void onClick(View v) {
@@ -346,7 +357,6 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
                         .departments.size() > 0) {
                     haveDep = true;
                     list.clear();
-
                     idDep = companyDepment.data.departments.get(0).id;
                     mParentId = companyDepment.data.departments.get(0).parentId;
 
@@ -364,12 +374,13 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
                             pareid = null;
                         }
                     }
-
-
-                } else {
+                } else if (getContent()!=editColleageDep){
                     mParentId = "";
                     adapter.setSize(0);
                     haveDep = false;
+                }else if (getContent()==editColleageDep){
+
+                    setTitle(departName);
                 }
                 if (firstLevelId.equals(idDep) || idDep.equals("0")) {
                     tv_des.setText("");
@@ -379,7 +390,8 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
                     tv_des.setText("关闭");
                     tv_des.setVisibility(View.VISIBLE);
                 }
-                if (null != companyDepment.data && null != companyDepment.data.users && companyDepment.data.users.size() > 0) {
+                if (getContent()!=editColleageDep&&null != companyDepment.data &&
+                        null != companyDepment.data.users && companyDepment.data.users.size() > 0) {
 
                     List<CompanyContactListEntity> lists = new ArrayList<>();
                     if (companyDepment.data.users != null) {
@@ -397,7 +409,7 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
                     }
 
                     if (lists != null && lists.size() > 0) {
-                        if (!haveDep) {
+                        if (!haveDep&&getContent()!=editColleageDep) {
                             adapter.setSize(0);
                             list.clear();
                         }
@@ -414,23 +426,14 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
                         list.addAll(lists);
                         adapter.notifyDataSetChanged();
                     } else {
-                        if (!haveDep) {
+                        if (!haveDep&&getContent()!=editColleageDep) {
                             isEmpty = true;
                             empteyll.setVisibility(View.VISIBLE);
                         }
                     }
 
                 } else {
-                    /*if (!haveDep && !idDep.equals("0")) {
-                        Intent intent = new Intent(CompanyContactListActivity.this,
-                                CompanyContactListNoPeopleActivity.class);
-                        if (null != listsTitle.get(idDep) && !TextUtils.isEmpty(listsTitle.get(idDep).parentDept)) {
-                            intent.putExtra("dept", listsTitle.get(idDep).parentDept);
-                        }
-                        startActivity(intent);
-                        toNoPeople(); //先保留空页面
-                    } else*/
-                    if (!haveDep /*&& idDep.equals("0")*/) {
+                    if (!haveDep &&getContent()!=editColleageDep) {
                         isEmpty = true;
                         empteyll.setVisibility(View.VISIBLE);
                     }
@@ -446,7 +449,6 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
             layout_line.setVisibility(View.VISIBLE);
         }
         closeLoadingDialog();
-        Logger.d("onItemClick", "success-----------" + System.currentTimeMillis());
     }
 
 
@@ -571,4 +573,22 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
     public  int  getContent(){
         return 0;
     };
+    public void checkDepChecked(BaseSearch contact){
+        for (int i=0;i<list.size();i++){
+            if (list.get(i) instanceof CompanyDepment.Data.Depaments ){
+                CompanyDepment.Data.Depaments depaments = (CompanyDepment.Data.Depaments)list.get(i);
+                depaments.check = false;
+                list.set(i,depaments);
+            }
+
+        }
+        if (contact instanceof CompanyDepment.Data.Depaments) {
+            CompanyDepment.Data.Depaments depaments = (CompanyDepment.Data.Depaments)contact;
+            depaments.check = true;
+            int position = list.indexOf(contact);
+            list.set(position,contact);
+        }
+        adapter.notifyDataSetChanged();
+        mListGuideAdapter.notifyDataSetChanged();
+    }
 }

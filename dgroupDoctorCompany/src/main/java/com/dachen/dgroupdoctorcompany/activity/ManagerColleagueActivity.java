@@ -10,7 +10,9 @@ import android.widget.Button;
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.dgroupdoctorcompany.db.dbdao.CompanyContactDao;
+import com.dachen.dgroupdoctorcompany.entity.BaseSearch;
 import com.dachen.dgroupdoctorcompany.entity.CompanyContactListEntity;
+import com.dachen.dgroupdoctorcompany.entity.CompanyDepment;
 import com.dachen.dgroupdoctorcompany.fragment.AddressList;
 import com.dachen.dgroupdoctorcompany.utils.DataUtils.CompanyContactDataUtils;
 import com.dachen.dgroupdoctorcompany.utils.UserInfo;
@@ -44,12 +46,7 @@ public class ManagerColleagueActivity extends CompanyContactListActivity impleme
     };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        new ShowContent() {
-            @Override
-            public int showcontent() {
-                return 1;
-            }
-        };
+
         super.onCreate(savedInstanceState);
         btn_addpeople = (Button) findViewById(R.id.btn_addpeople);
         btn_addpeople.setOnClickListener(this);
@@ -62,7 +59,7 @@ public class ManagerColleagueActivity extends CompanyContactListActivity impleme
 
     @Override
     public int getContent() {
-        return CompanyContactListActivity.isManager;
+        return isManager;
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -100,5 +97,21 @@ public class ManagerColleagueActivity extends CompanyContactListActivity impleme
         intent.putExtra("colleage", bundle);
         intent.putExtra("position",position+"");
         startActivityForResult(intent, 300);
+    }
+    public void checkDepChecked(BaseSearch contact){
+        for (int i=0;i<list.size();i++){
+            if (list.get(i) instanceof CompanyDepment.Data.Depaments ){
+                CompanyDepment.Data.Depaments depaments = (CompanyDepment.Data.Depaments)list.get(i);
+                depaments.check = false;
+                list.set(i,contact);
+            }
+
+        }
+         if (contact instanceof CompanyDepment.Data.Depaments) {
+             CompanyDepment.Data.Depaments depaments = (CompanyDepment.Data.Depaments)contact;
+             depaments.check = true;
+             int position = list.indexOf(contact);
+             list.set(position,contact);
+        }
     }
 }

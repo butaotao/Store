@@ -23,12 +23,23 @@
         android:id="@+id/rl_depart"
         android:layout_width="match_parent"
         android:layout_height="54dp">
-
+        <RadioButton
+            android:id="@+id/btn_radio"
+            android:layout_marginLeft="10dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/selector_btn_radio"
+            android:button="@null"
+            android:clickable="false"
+            android:focusable="false" />
         <TextView
             android:id="@+id/tv_depart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/btn_radio"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_centerVertical="true"
+            android:gravity="center_vertical"
             android:ellipsize="end"
             android:maxEms="14"
             android:paddingLeft="16dp"
@@ -66,25 +77,17 @@
         android:layout_height="70dp"
         android:paddingLeft="10dp">
 
-        <RadioButton
-            android:id="@+id/btn_radio"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginLeft="10dip"
-            android:button="@drawable/selector_btn_radio"
-            android:clickable="false"
-            android:focusable="false"
-            android:visibility="gone" />
+
+
 
         <ImageView
             android:id="@+id/head_icon"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_centerVertical="true"
-            android:layout_marginRight="5dip"
-            android:layout_toLeftOf="@+id/btn_radio"
-            android:src="@drawable/head_icons" />
-
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/head_icon" />
         <TextView
             android:id="@+id/tv_name_leader"
             android:layout_width="wrap_content"
@@ -141,5 +144,16 @@
             android:textColor="@color/color_aaaaaa"
             android:textSize="14sp"
             android:visibility="gone" />
+        <ImageView
+            android:id="@+id/iv_edit"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:textSize="14sp"
+            android:layout_width="20dp"
+            android:layout_height="25dp"
+            android:visibility="gone"
+            android:background="@drawable/editcustomer"
+             />
     </RelativeLayout>
 </LinearLayout>

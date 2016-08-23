@@ -169,7 +169,7 @@ public class ChoiceMedieaActivity extends BaseActivity implements HttpManager.On
             case R.id.vAddress:
                 intent = new Intent(ChoiceMedieaActivity.this,SelectAddressActivity.class);
                 intent.putExtra("select_mode",SelectAddressActivity.MODE_SELECT_ADDRESS);
-                intent.putExtra("poi","地名地址信息|医疗保健服务|商务住宅|交通设施服务|公司企业|公共设施");
+                intent.putExtra("poi",SelectAddressActivity.POI);
                 intent.putExtra("distance",250);
                 intent.putExtra("latitude",latitude);
                 intent.putExtra("longitude",longitude);

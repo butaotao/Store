@@ -303,7 +303,7 @@ public class SelfVisitActivity extends BaseActivity implements View.OnClickListe
             case R.id.location_ray:
                 Intent intentAddress = new Intent(this, SelectAddressActivity.class);
                 intentAddress.putExtra("select_mode", SelectAddressActivity.MODE_SELECT_ADDRESS);
-                intentAddress.putExtra("poi", "地名地址信息|医疗保健服务|商务住宅|交通设施服务|公司企业|公共设施");
+                intentAddress.putExtra("poi", SelectAddressActivity.POI);
                 intentAddress.putExtra("distance", 250);
                 intentAddress.putExtra("latitude", latitude);
                 intentAddress.putExtra("longitude", longitude);

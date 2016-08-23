@@ -229,8 +229,7 @@ public class AdviceAdapter extends BaseAdapter{
 			holder.tv_target_patient_get_des.setVisibility(View.VISIBLE);
 			holder.tv_target_patient_get.setVisibility(View.VISIBLE);
 			holder.tv_target_patient_get_des.setText("【获兑" + buyNum+unit+"药】") ;
-
-				holder.tv_target_patient_get.setText("使用您"+su.data1.num_syjf+"积分可免费兑换"+buyNum+unit+"药");
+			holder.tv_target_patient_get.setText("使用您"+su.data1.num_syjf+"积分可免费兑换"+buyNum+unit+"药");
 		}
 		
 		}

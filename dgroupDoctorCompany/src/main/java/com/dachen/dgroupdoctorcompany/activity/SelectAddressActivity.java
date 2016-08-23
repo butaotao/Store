@@ -68,7 +68,7 @@ public class SelectAddressActivity extends BaseActivity implements LocationSourc
     public static final int MODE_SELECT_ADDRESS = 11;//选择地点之后当前页面finish，返回地点
     public static final int MODE_SELECT = 12;//选择地点之后，跳到添加签到页面
     private int mSelectedMode;
-    public  String POI = "地名地址信息|医疗保健服务|商务住宅|交通设施服务|公司企业|公共设施";//poi搜索类型
+    public static  String POI = "地名地址信息|医疗保健服务|商务住宅|交通设施服务|公司企业|生活服务";//poi搜索类型
     private ClearEditText et_search;
     private PullToRefreshListView lvAddress;
     private AMap                        mAMap;

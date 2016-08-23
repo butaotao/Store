@@ -31,7 +31,7 @@ public class CompanyDepment extends Result {
             public String parentId;
             //0已分配，1未分配
             public String type;
-
+            public boolean check;
         }
 
     }
