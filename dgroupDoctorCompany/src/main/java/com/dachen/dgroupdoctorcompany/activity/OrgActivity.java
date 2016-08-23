@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -14,7 +15,9 @@ import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.adapter.OrgSelectAdapter;
 import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
+import com.dachen.dgroupdoctorcompany.entity.CompanyDepment;
 import com.dachen.dgroupdoctorcompany.entity.OrgEntity;
+import com.dachen.dgroupdoctorcompany.utils.GetAllDoctor;
 import com.dachen.medicine.common.utils.MActivityManager;
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
 import com.dachen.medicine.entity.Result;
@@ -24,6 +27,7 @@ import com.dachen.medicine.net.Params;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * Created by weiwei on 2016/5/20.
@@ -31,14 +35,17 @@ import java.util.List;
 public class OrgActivity extends BaseActivity implements HttpManager.OnHttpListener{
     private ListView listview;
     private TextView mTvSave;
+    Stack<CompanyDepment.Data.Depaments> departmentId = new Stack<>();
     private List<OrgEntity.Data> mDepamentsList = new ArrayList<>();
     private OrgSelectAdapter mOrgSelectAdapter;
     private String orgId;
     private int count=0;//打开了多少次当前页面
+    View layoutView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_org);
+        layoutView = View.inflate(this,R.layout.activity_org,null);
+        setContentView(layoutView);
         initView();
         initData();
     }
@@ -87,11 +94,13 @@ public class OrgActivity extends BaseActivity implements HttpManager.OnHttpListe
                             }
                         }
                         mOrgSelectAdapter.update(mDepamentsList);
+                        setDepartmen(depaments.name,orgId);
                     }else{
                         Intent intent = new Intent(OrgActivity.this,OrgActivity.class);
                         intent.putExtra("title",depaments.name);
                         intent.setExtrasClassLoader(OrgEntity.Data.class.getClassLoader());
                         intent.putParcelableArrayListExtra("list",depaments.subList);
+
                         count++;
                         intent.putExtra("count",count);
                         startActivity(intent);
@@ -146,10 +155,12 @@ public class OrgActivity extends BaseActivity implements HttpManager.OnHttpListe
                  OrgEntity.Data data = new OrgEntity.Data(orgEntity.data.get(0).creatorDate,orgEntity.data.get(0).desc,orgEntity.data.get(0).enterpriseId,
                          orgEntity.data.get(0).id,orgEntity.data.get(0).name+"(根目录)",orgEntity.data.get(0).parentId,new ArrayList<OrgEntity.Data>(),
                          orgEntity.data.get(0).updator,orgEntity.data.get(0).updatorDate,orgEntity.data.get(0).creator,false);
-                 mDepamentsList.add(0,data);
+                 mDepamentsList.add(0, data);
                  mDepamentsList.addAll(orgEntity.data.get(0).subList);
                  mOrgSelectAdapter.update(mDepamentsList);
+
             }else{
+                 GetAllDoctor.getInstance().getPeople(OrgActivity.this);
                  ToastUtil.showToast(OrgActivity.this,"修改成功");
                  for(int i=0;i<count;i++){
                      MActivityManager.getInstance().finishActivity(OrgActivity.class);
@@ -195,5 +206,23 @@ public class OrgActivity extends BaseActivity implements HttpManager.OnHttpListe
             }
             mOrgSelectAdapter.update(mDepamentsList);
         }
+    }
+    public int getContent() {
+        return 0;
+    }
+    public void setDepartmen(String name,String idDep){
+        CompanyDepment depment = new CompanyDepment();
+        CompanyDepment.Data data = depment.new Data();
+
+        CompanyDepment.Data.Depaments c1 = data.new Depaments();
+        c1.id = idDep;
+        c1.name = name;
+        if (departmentId.size()>1&&departmentId.get(departmentId.size()-1).id.equals(idDep)){
+            return;
+        }
+        departmentId.add(c1);
+    }
+    public void backtofront() {
+
     }
 }

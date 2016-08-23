@@ -12,6 +12,8 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.ImageSize;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
+
+
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -42,7 +44,7 @@ public class CustomImagerLoader {
 		 loadImage(viewHolder,imageUrl,true,10);
 	}
 	public void loadImage(final View viewHolder, final String imageUrl,boolean iscircle){
-		loadImage(viewHolder,imageUrl,true,90);
+		loadImage(viewHolder,imageUrl,true,360);
 	}
 	@SuppressWarnings("deprecation")
 	public void loadImage(final View viewHolder,final String imageUrl,boolean small,int dushu) {
@@ -52,8 +54,8 @@ public class CustomImagerLoader {
 			.showImageOnLoading(R.drawable.image_download_fail_icon)
 			.showImageForEmptyUri(R.drawable.image_download_fail_icon)
 			.showImageOnFail(R.drawable.image_download_fail_icon)
-			 .bitmapConfig(Bitmap.Config.RGB_565)    
-			.cacheOnDisk(true)  
+			 .bitmapConfig(Bitmap.Config.RGB_565)
+				 .cacheOnDisk(true)
 			.cacheInMemory(true) 
 			.considerExifParams(true)
 			.delayBeforeLoading(1)

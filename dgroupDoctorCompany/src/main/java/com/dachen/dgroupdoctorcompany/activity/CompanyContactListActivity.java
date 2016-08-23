@@ -274,6 +274,9 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
         CompanyDepment.Data.Depaments c1 = data.new Depaments();
         c1.id = idDep;
         c1.name = name;
+        if (departmentId.size()>1&&departmentId.get(departmentId.size()-1).id.equals(idDep)){
+            return;
+        }
         departmentId.add(c1);
     }
     public void onColleagueEdit(CompanyContactListEntity c2,int position){
@@ -599,24 +602,7 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
     public  int  getContent(){
         return 0;
     };
-    public void checkDepChecked(BaseSearch contact){
-        for (int i=0;i<list.size();i++){
-            if (list.get(i) instanceof CompanyDepment.Data.Depaments ){
-                CompanyDepment.Data.Depaments depaments = (CompanyDepment.Data.Depaments)list.get(i);
-                depaments.check = false;
-                list.set(i,depaments);
-            }
 
-        }
-        if (contact instanceof CompanyDepment.Data.Depaments) {
-            CompanyDepment.Data.Depaments depaments = (CompanyDepment.Data.Depaments)contact;
-            depaments.check = true;
-            int position = list.indexOf(contact);
-            list.set(position,contact);
-        }
-        adapter.notifyDataSetChanged();
-        mListGuideAdapter.notifyDataSetChanged();
-    }
 
     /**
      * 将集合拷贝到一个新集合中
