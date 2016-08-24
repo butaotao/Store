@@ -118,15 +118,9 @@ public class CompanyContactListAdapter extends BaseCustomAdapter<BaseSearch> {
                     if (contact instanceof CompanyDepment.Data.Depaments) {
                         finalActivity.getDepment(finalC, false);
                     }
-
                 }
             });
-                holder.btn_radio.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        finalActivity.checkDepChecked(finalC);
-                    }
-                });
+
             }else {
                 holder. btn_radio.setVisibility(View.GONE);
             }

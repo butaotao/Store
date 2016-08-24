@@ -13,6 +13,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.database.ContentObserver;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.PixelFormat;
 import android.net.Uri;
 import android.os.Handler;
@@ -42,12 +44,15 @@ import android.provider.ContactsContract.RawContacts;
 
 
 import com.dachen.dgroupdoctorcompany.R;
+import com.dachen.dgroupdoctorcompany.app.CompanyApplication;
 import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.db.dbdao.CompanyContactDao;
 import com.dachen.dgroupdoctorcompany.entity.CompanyContactListEntity;
+import com.dachen.dgroupdoctorcompany.utils.CommonUitls;
 import com.dachen.dgroupdoctorcompany.utils.UserInfo;
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
 import com.dachen.medicine.net.CustomImagerLoader;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 
 public class CallSmsSafeService extends Service {
@@ -243,7 +248,18 @@ public class CallSmsSafeService extends Service {
 		TextView tv_position = (TextView) view.findViewById(R.id.tv_position);
 		TextView tv_phone = (TextView) view.findViewById(R.id.tv_phone);
 		ImageView imageView = (ImageView) view.findViewById(R.id.iv_icon);
-		CustomImagerLoader.getInstance().loadImage(imageView,entity.url,true);
+		//CustomImagerLoader.getInstance().loadImage(,entity.url,true);
+
+
+
+		if(!TextUtils.isEmpty(entity.url)){
+			ImageLoader.getInstance().displayImage(entity.url, imageView, CompanyApplication.mAvatarCircleImageOptions);
+		}else{
+			Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.head_icon);
+			Bitmap circleBitMap = CommonUitls.getRoundedCornerBitmap(bitmap);
+			imageView.setImageBitmap(circleBitMap);
+		}
+
 		if (!TextUtils.isEmpty(entity.name)){
 			tv.setText(entity.name);
 			tv_position.setVisibility(View.VISIBLE);
@@ -285,7 +301,7 @@ public class CallSmsSafeService extends Service {
 		params.x = SharedPreferenceUtil.getInt(CallSmsSafeService.this,userId+"lastx", 0);
 		params.y = SharedPreferenceUtil.getInt(CallSmsSafeService.this,userId+"lasty", 0);
 		params.height = WindowManager.LayoutParams.WRAP_CONTENT;
-		params.width = WindowManager.LayoutParams.WRAP_CONTENT;
+		params.width = WindowManager.LayoutParams.MATCH_PARENT;
 		/*params.width = (int) (metric.widthPixels);; // 宽度
 		params.height = (int) (metric.heightPixels);; // 高度*//**/
 		params.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
