@@ -108,7 +108,6 @@ public class OrgActivity extends BaseActivity implements HttpManager.OnHttpListe
                         mOrgSelectAdapter.update(mDepamentsList);
                         mDepamentsStack.add(copyToNewList(mDepamentsList));
                         mStackCount++;
-                        Log.d("zxy", "onItemClick listView: mStackCount = "+mStackCount);
                         /*Intent intent = new Intent(OrgActivity.this,OrgActivity.class);
                         intent.putExtra("title",depaments.name);
                         intent.setExtrasClassLoader(OrgEntity.Data.class.getClassLoader());

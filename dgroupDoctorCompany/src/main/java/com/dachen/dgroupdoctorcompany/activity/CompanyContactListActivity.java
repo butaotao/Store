@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.AdapterView;
@@ -30,7 +29,7 @@ import com.dachen.dgroupdoctorcompany.fragment.AddressList;
 import com.dachen.dgroupdoctorcompany.utils.CommonUitls;
 import com.dachen.dgroupdoctorcompany.utils.DataUtils.CompanyContactDataUtils;
 import com.dachen.dgroupdoctorcompany.utils.GetAllDoctor;
-import com.dachen.dgroupdoctorcompany.views.HorizontalListView;
+import com.dachen.dgroupdoctorcompany.views.GuiderHListView;
 import com.dachen.dgroupdoctorcompany.views.NoScrollerListView;
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
 import com.dachen.medicine.config.UserInfo;
@@ -85,7 +84,7 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
     public static int editColleageDep = 2;
     public String companyid;
     /*-----------------------------------------zxy start-----------------------------------------*/
-    private HorizontalListView mCp_listguilde;
+    private GuiderHListView mCp_listguilde;
     private ArrayList<String> mListGuide = new ArrayList<>();               //导航Listview数据
     private Map<Integer,ArrayList<String>> departList = new LinkedHashMap<>();   //导航Listview数据任务栈
     private CompanyListGuide mListGuideAdapter;
@@ -125,22 +124,23 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
         tv_des = (TextView) findViewById(R.id.tv_des);
         View view = stub.inflate(this, R.layout.stub_viewtext, rl);
         /*-----------------------------------------zxy start-----------------------------------------*/
-        mCp_listguilde = (HorizontalListView) findViewById(R.id.cp_listguilde);
-        mListGuide.add("联系人");
+        mCp_listguilde = (GuiderHListView) findViewById(R.id.cp_listguilde);
+        /*mListGuide.add("联系人");
         departList.put(currentPosition, copyToNewList(mListGuide));
-        listGuideMap.put(currentPosition++, "联系人");
+        listGuideMap.put(currentPosition++, "联系人");*/
+        mCp_listguilde.addTask("联系人","联系人");
         Bundle extras = getIntent().getExtras();
+        String depName;
         if (extras != null) {//如果部门存在,显示部门,不存在直接显示公司名
-            String depName = extras.getString("depName");//得到部门名字
-            mListGuide.add(depName);
+            depName = extras.getString("depName");//得到部门名字
+           // mListGuide.add(depName);
         }else {
-            String companyName = SharedPreferenceUtil.getString(CompanyApplication.getInstance(), "enterpriseName", "");
-            mListGuide.add(companyName);
+            depName = SharedPreferenceUtil.getString(CompanyApplication.getInstance(), "enterpriseName", "");
+           // mListGuide.add(depName);
         }
-        departList.put(currentPosition, copyToNewList(mListGuide));
-        mListGuideAdapter = new CompanyListGuide(this, mListGuide);
+        //departList.put(currentPosition, copyToNewList(mListGuide));
+
         mCp_listguilde.setOnItemClickListener(this);
-        mCp_listguilde.setAdapter(mListGuideAdapter);
         /*-----------------------------------------zxy end -----------------------------------------*/
         //tv.setOnClickListener(this);
         //tv.setText("管理");
@@ -156,7 +156,9 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
             companyid = "0";
         }
         setDepartmen("企业通讯录",idDep);
-        listGuideMap.put(currentPosition++, idDep);
+        mCp_listguilde.addTask(depName,idDep);
+        mCp_listguilde.setAdapter();
+       // listGuideMap.put(currentPosition++, idDep);
         ButterKnife.bind(this);
         listsTitle = new HashMap<>();
         findViewById(R.id.rl_back).setOnClickListener(new View.OnClickListener() {
@@ -247,18 +249,18 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
         title.parentDept = c1.name;
         listsTitle.put(c1.id, title);
         setTitles(c1.name);
-        mListGuide.add(c1.name);
+        /*mListGuide.add(c1.name);
         departList.put(currentPosition, copyToNewList(mListGuide));
-        listGuideMap.put(currentPosition++, c1.id);
+        listGuideMap.put(currentPosition++, c1.id);*/
+        mCp_listguilde.addTask(c1.name,c1.id);
+        mCp_listguilde.notifyDataSetChanged();
+        mCp_listguilde.setOldPosition(mCp_listguilde.getAdapter().getCount()-1);
         parentId = c1.parentId;
         setDepartmen(c1.name, c1.id);
         if (c1 != null) {
             idDep = c1.id;
             getOrganization(idDep);
             adapter.notifyDataSetChanged();
-            mListGuideAdapter.notifyDataSetChanged();
-            oldPosition = mListGuideAdapter.getCount() - 1;
-
         }
 
     }
@@ -310,34 +312,18 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
 
     public void backtofront() {
 
-        int position = currentPosition-2;//当前任务栈id数
-        Log.d("zxy", "backtofront: currentPosition = "+currentPosition);
+        int position = mCp_listguilde.getCurrentPosition()-2;//当前任务栈id数
         if (position == 0) {   //只剩联系人了,直接返回,  清空数据释放缓存
-            Log.d("zxy", "backtofront: listGuideMap.size() = "+listGuideMap.size()+"finish");
-            listGuideMap.clear();
-            listGuideMap = null;
-            mListGuide.clear();
-            mListGuide = null;
-            departList.clear();
-            departList = null;
+            mCp_listguilde.clearData();
             finish();
             return;
         }if (position == 1) {  //公司页面
             setTitle("企业通讯录");
-            idDep = listGuideMap.get(position);//得到任务栈的前一个任务id
-            mListGuide.clear();
-            mListGuide.addAll(departList.get(position));    //得到前一个任务栈导航列表数据集合
-            listGuideMap.remove(position+1);//移除当前任务
-            departList.remove(position+1);//移除
+            idDep =  mCp_listguilde.reMoveTask();
         }else{//返回
-            idDep = listGuideMap.get(position);//得到任务栈的前一个任务id
-            mListGuide.clear();
-            mListGuide.addAll(departList.get(position));  //得到前一个任务栈导航列表数据集合
-            listGuideMap.remove(position+1);//移除
-            departList.remove(position+1);//移除
+            idDep =  mCp_listguilde.reMoveTask();
         }
-        --currentPosition;//栈任务数减1
-        mListGuideAdapter.notifyDataSetChanged();
+        mCp_listguilde.notifyDataSetChanged();
         getOrganization(idDep);
     }
 
@@ -555,16 +541,11 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         mCp_listguilde.setLastPosition();
         if (position == 0) {
+            mCp_listguilde.clearData();
             finish();
-            listGuideMap.clear();
-            listGuideMap = null;
-            mListGuide.clear();
-            mListGuide = null;
-            departList.clear();
-            departList = null;
             return;
         }
-        if (position == mListGuide.size() - 1) {
+        if (position == mCp_listguilde.getAdapter().getCount() - 1) {
             return;
         }
 
@@ -577,20 +558,8 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
                 listGuideMap.remove(--currentPosition);
                 mListGuide.remove(mListGuide.get(currentPosition));
             }*/
-        int forCount = oldPosition - position;
-        Log.d("zxy", "onItemClick: oldPosition = "+oldPosition+", position = "+position);
-        for (int i = 0; i < forCount; i++) {
-            Log.d("zxy", "onItemClick: remove");
-            mListGuide.remove(oldPosition -i);
-        }
-        departList.put(currentPosition,copyToNewList(mListGuide));
-        listGuideMap.put(currentPosition++, listGuideMap.get(position));
-        idDep = listGuideMap.get(position);
-        Log.d("zxy", "onItemClick: currentPosition = "+currentPosition+", idDep = "+listGuideMap.get(position)+", mListGuide"+mListGuide);
-        mListGuideAdapter.notifyDataSetChanged();
+        idDep = mCp_listguilde.addBackTask(position);
         getOrganization(idDep);
-        oldPosition = position;
-        //更新数据
 
     }
 

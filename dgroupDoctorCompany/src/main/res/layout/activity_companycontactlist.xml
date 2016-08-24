@@ -10,11 +10,11 @@
         layout="@layout/layout_parent_titlebar_groupcompany"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"/>
-    <com.dachen.dgroupdoctorcompany.views.HorizontalListView
+    <com.dachen.dgroupdoctorcompany.views.GuiderHListView
         style="@style/DepartGuiderListView"
         android:id="@+id/cp_listguilde"
         android:layout_below="@+id/layout_titlebar">
-    </com.dachen.dgroupdoctorcompany.views.HorizontalListView>
+    </com.dachen.dgroupdoctorcompany.views.GuiderHListView>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
