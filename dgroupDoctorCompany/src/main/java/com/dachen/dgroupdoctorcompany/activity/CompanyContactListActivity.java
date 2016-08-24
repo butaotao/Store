@@ -1,7 +1,6 @@
 package com.dachen.dgroupdoctorcompany.activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -157,7 +156,7 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
             companyid = "0";
         }
         setDepartmen("企业通讯录",idDep);
-        getOrganization(idDep);
+        listGuideMap.put(currentPosition++, idDep);
         ButterKnife.bind(this);
         listsTitle = new HashMap<>();
         findViewById(R.id.rl_back).setOnClickListener(new View.OnClickListener() {
@@ -251,18 +250,14 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
         mListGuide.add(c1.name);
         departList.put(currentPosition, copyToNewList(mListGuide));
         listGuideMap.put(currentPosition++, c1.id);
-        Log.d("zxy", "onCreate: currentPosition = " + currentPosition + ", idDep = " + c1.id);
         parentId = c1.parentId;
         setDepartmen(c1.name, c1.id);
-                    /*-----------------------------------------zxy start-----------------------------------------*/
-                    /*-----------------------------------------zxy end -----------------------------------------*/
         if (c1 != null) {
             idDep = c1.id;
             getOrganization(idDep);
             adapter.notifyDataSetChanged();
-                        /*-----------------------------------------zxy start-----------------------------------------*/
             mListGuideAdapter.notifyDataSetChanged();
-                        /*-----------------------------------------zxy end -----------------------------------------*/
+            oldPosition = mListGuideAdapter.getCount() - 1;
 
         }
 

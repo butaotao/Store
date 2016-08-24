@@ -36,6 +36,10 @@
         android:textColor="@color/gray_333333"
         android:textSize="16sp"
         android:background="@color/background"/>
+    <com.dachen.dgroupdoctorcompany.views.GuiderHListView
+        style="@style/DepartGuiderListView"
+        android:id="@+id/org_listguilde">
+    </com.dachen.dgroupdoctorcompany.views.GuiderHListView>
 
     <ListView
         android:id="@+id/lvOrg"
