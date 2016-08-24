@@ -20,7 +20,6 @@
         android:layout_below="@id/layout_titlebar"
         android:gravity="center">
 
-
         <TextView
             android:id="@+id/et_search"
             android:layout_width="wrap_content"
@@ -37,13 +36,17 @@
             android:textSize="14sp" />
 
     </LinearLayout>
-
+    <com.dachen.dgroupdoctorcompany.views.GuiderHListView
+        android:layout_below="@id/layout_search"
+        style="@style/DepartGuiderListView"
+        android:id="@+id/org_listguilde">
+    </com.dachen.dgroupdoctorcompany.views.GuiderHListView>
 
     <com.handmark.pulltorefresh.library.PullToRefreshScrollView
         android:id="@+id/refresh_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/layout_search">
+        android:layout_below="@id/org_listguilde">
 
         <LinearLayout
             android:layout_width="match_parent"

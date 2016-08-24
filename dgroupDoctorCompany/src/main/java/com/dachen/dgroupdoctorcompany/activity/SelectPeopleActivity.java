@@ -18,6 +18,7 @@ import com.dachen.common.utils.ToastUtil;
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.adapter.CircleCreateGroupAdapter;
 import com.dachen.dgroupdoctorcompany.adapter.CompanySelectPeopleListAdapter;
+import com.dachen.dgroupdoctorcompany.app.CompanyApplication;
 import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.archive.ArchiveUtils;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
@@ -35,6 +36,7 @@ import com.dachen.dgroupdoctorcompany.utils.CallIntent;
 import com.dachen.dgroupdoctorcompany.utils.CommonUitls;
 import com.dachen.dgroupdoctorcompany.utils.CompareDatalogic;
 import com.dachen.dgroupdoctorcompany.utils.GetAllDoctor;
+import com.dachen.dgroupdoctorcompany.views.GuiderHListView;
 import com.dachen.dgroupdoctorcompany.views.HorizontalListView;
 import com.dachen.imsdk.adapter.MsgMenuAdapter;
 import com.dachen.imsdk.archive.entity.ArchiveItem;
@@ -66,7 +68,7 @@ import de.greenrobot1.event.EventBus;
 /**
  * Created by Burt on 2016/2/26.
  */
-public class SelectPeopleActivity extends BaseActivity implements HttpManager.OnHttpListener, AdapterView.OnItemLongClickListener, View.OnClickListener {
+public class SelectPeopleActivity extends BaseActivity implements HttpManager.OnHttpListener, AdapterView.OnItemLongClickListener, View.OnClickListener, AdapterView.OnItemClickListener {
     public static final String INTENT_EXTRA_GROUP_USERS = "groupUsers";
     public static final String INTENT_EXTRA_GROUP_TYPE = "groupType";
     public static final String INTENT_EXTRA_GROUP_ID = "groupId";
@@ -105,12 +107,12 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
     private String msgId;
     ArchiveItem mItem;
     private String groupIds;
+    private GuiderHListView mListGuider;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selectpeople);
-
-
         mShare = getIntent().getBooleanExtra("share", false);
         msgId = getIntent().getStringExtra(MsgMenuAdapter.INTENT_EXTRA_MSG_ID);
         mItem = (ArchiveItem) getIntent().getSerializableExtra(ArchiveUtils.INTENT_KEY_ARCHIVE_ITEM);
@@ -242,6 +244,9 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
                     //   listsTitle.put(c1.id, c1.parentId);
                     listsTitle.put(c1.id, c1);
                     if (c1 != null) {
+                        mListGuider.addTask(c1.name,c1.id);
+                        mListGuider.setOldPosition(mListGuider.getListGuideAdapter().getCount()-1);
+                        mListGuider.notifyDataSetChanged();
                         idDep = c1.id;
                         getOrganization();
                     }
@@ -272,8 +277,33 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
                 mPullToRefreshScrollView.onRefreshComplete();
             }
         });
+        /*-----------------------------------------zxy start-----------------------------------------*/
+        mListGuider = (GuiderHListView) findViewById(R.id.org_listguilde);
+        mListGuider.setOnItemClickListener(this);
+        mListGuider.addTask("联系人","联系人");
+        String companyName = SharedPreferenceUtil.getString(CompanyApplication.getInstance(), "enterpriseName", "");
+        mListGuider.addTask(companyName,idDep);
+        mListGuider.setAdapter();
+        mListGuider.notifyDataSetChanged();
+        /*-----------------------------------------zxy end -----------------------------------------*/
 
-
+        getOrganization();
+    }
+    //水平导航条目点击事件
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        if (position == 0) {
+            mListGuider.clearData();
+            finish();
+            return;
+        }
+        if (position == mListGuider.getListGuide().size() - 1) {
+            return;
+        }
+        idDep = mListGuider.addBackTask(position);
+        mListGuider.notifyDataSetChanged();
+        String title = mListGuider.getListGuide().get(mListGuider.getListGuide().size()-1);
+        setTitle(title);
         getOrganization();
     }
 
@@ -295,7 +325,7 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
     }
 
     void backtofront() {
-        if (list != null && list.size() > 0 && list.get(0) instanceof CompanyDepment.Data.Depaments) {
+       /* if (list != null && list.size() > 0 && list.get(0) instanceof CompanyDepment.Data.Depaments) {
             CompanyDepment.Data.Depaments entity = (CompanyDepment.Data.Depaments) list.get(0);
             // idDep = entity.parentId;
             if (null != listsTitle.get(entity.parentId) && null != listsTitle.get(entity.parentId).parentId) {
@@ -314,7 +344,20 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
             idDep = "0";
             finish();
             return;
+        }*/
+        int position = mListGuider.getCurrentPosition()-2;//当前任务栈id数
+        if (position == 0) {   //只剩联系人了,直接返回,  清空数据释放缓存
+            mListGuider.clearData();
+            finish();
+            return;
+        }if (position == 1) {  //公司页面
+            setTitle("企业通讯录");
+            idDep = mListGuider.reMoveTask();
+        }else{//返回
+            idDep = mListGuider.reMoveTask();
         }
+        mListGuider.getCurrentPosition();//栈任务数减1
+        mListGuider.notifyDataSetChanged();
         getOrganization();
     }
 

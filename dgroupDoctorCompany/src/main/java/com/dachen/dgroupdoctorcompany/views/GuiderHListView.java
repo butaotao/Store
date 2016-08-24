@@ -2,7 +2,6 @@ package com.dachen.dgroupdoctorcompany.views;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 
 import com.dachen.dgroupdoctorcompany.adapter.CompanyListGuide;
 
@@ -13,7 +12,7 @@ import java.util.Map;
 /**
  * @项目名 MedicineProject
  * @Author: zxy on 16/8/23下午7:40.
- * @描述 TODO
+ * @描述 水平导航列表
  */
 public class GuiderHListView extends HorizontalListView {
     Context mContext;
@@ -38,24 +37,37 @@ public class GuiderHListView extends HorizontalListView {
         listGuideMap = new LinkedHashMap<>();
     }
 
-
+    /**
+     * 设置外部Adapter
+     */
     public void setAdapter(CompanyListGuide adapter){
         mListGuideAdapter = adapter;
         mHListView.setAdapter(mListGuideAdapter);
     }
+
+    /**
+     * 设置内置Adapter
+     */
     public void setAdapter(){
         mListGuideAdapter = new CompanyListGuide(mContext,mListGuide);
         mHListView.setAdapter(mListGuideAdapter);
     }
 
-
-
+    /**
+     * 添加新的任务到任务栈
+     * @param departName 名字
+     * @param departId 数据id
+     */
     public void addTask(String departName,String departId){
         mListGuide.add(departName);
         departList.put(currentPosition, copyToNewList(mListGuide));
         listGuideMap.put(currentPosition++, departId);
     }
 
+    /**
+     * 移除最后任务
+     * @return
+     */
     public String reMoveTask(){
         int position = currentPosition-2;//当前任务栈id数
        String  idDep = listGuideMap.get(position);//得到任务栈的前一个任务id
@@ -68,19 +80,26 @@ public class GuiderHListView extends HorizontalListView {
         return idDep;
     }
     int oldPosition;
-    public void addBackTask(int position){
+
+    /**
+     * 跳到指定任务栈
+     * @param position
+     */
+    public String addBackTask(int position){
 
         int forCount = oldPosition - position;
-        Log.d("zxy", "onItemClick: oldPosition = "+oldPosition+", position = "+position);
+       // Log.d("zxy", "onItemClick: oldPosition = "+oldPosition+", position = "+position);
         for (int i = 0; i < forCount; i++) {
-            Log.d("zxy", "onItemClick: remove");
+         //   Log.d("zxy", "onItemClick: remove");
                 mListGuide.remove(oldPosition -i);
         }
         departList.put(currentPosition,copyToNewList(mListGuide));
+
         listGuideMap.put(currentPosition++, listGuideMap.get(position));
         String idDep = listGuideMap.get(position);
-        Log.d("zxy", "onItemClick: currentPosition = "+currentPosition+", idDep = "+listGuideMap.get(position)+", mListGuide"+mListGuide);
+        //Log.d("zxy", "onItemClick: currentPosition = "+currentPosition+", idDep = "+listGuideMap.get(position)+", mListGuide"+mListGuide);
         oldPosition = position;
+        return idDep;
     }
 
     public void setOldPosition(int oldPosition){
@@ -102,6 +121,9 @@ public class GuiderHListView extends HorizontalListView {
         return arrayList;
     }
 
+    /**
+     * 清空说有数据
+     */
     public void clearData(){
         listGuideMap.clear();
         listGuideMap = null;
@@ -122,5 +144,9 @@ public class GuiderHListView extends HorizontalListView {
 
     public CompanyListGuide getListGuideAdapter() {
         return mListGuideAdapter;
+    }
+
+    public int getCurrentPosition() {
+        return currentPosition;
     }
 }

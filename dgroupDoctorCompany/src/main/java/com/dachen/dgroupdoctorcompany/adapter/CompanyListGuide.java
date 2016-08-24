@@ -35,11 +35,11 @@ public class CompanyListGuide extends BaseAdapter<String> {
             holder = (ViewHolder) convertView.getTag();
         }
         if (position == dataSet.size()-1) {
-            holder.icptext.setTextColor(Color.parseColor("#666666"));
+            holder.icptext.setTextColor(Color.parseColor("#555555"));
             holder.icptext.setClickable(false);
         }else {
             holder.icptext.setClickable(true);
-            holder.icptext.setTextColor(Color.parseColor("#3333ff"));
+            holder.icptext.setTextColor(Color.parseColor("#3cbaff"));
         }
         String text = dataSet.get(position);
         holder.icptext.setText(text);
@@ -52,6 +52,7 @@ public class CompanyListGuide extends BaseAdapter<String> {
 
         public ViewHolder(View root) {
             icptext = (TextView) root.findViewById(R.id.i_cp_text);
+            //  icptext.setTextSize(DisplayUtil.pixelToDp(mContext,34));
             this.root = root;
         }
     }
