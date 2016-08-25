@@ -3,8 +3,12 @@ package com.dachen.dgroupdoctorcompany.service;
 import java.lang.reflect.Method;
 import java.util.Random;
 
+import android.app.Notification;
 import android.app.Service;
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -17,6 +21,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.PixelFormat;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.provider.Contacts;
@@ -63,7 +68,9 @@ public class CallSmsSafeService extends Service {
 	private WindowManager wm;
 	private OutCallReceiver receiver;
 	CompanyContactDao dao;
+	public int GRAY_SERVICE_ID = 10000;
 	Uri url = Uri.parse("content://call_log/calls");
+	JobScheduler	mJobScheduler;
 	/**
 	 * 归属地显示的view对象
 	 */
@@ -143,7 +150,23 @@ public class CallSmsSafeService extends Service {
 		receiver = null;
 		tm.listen(listener, PhoneStateListener.LISTEN_NONE);
 		listener = null;
-		super.onDestroy();
+		try {//判断是否有闹钟，没有则关闭闹钟服务
+
+
+		/*	if (!alarm.equals("[]")) {
+				if (daemonService != -1) {*/
+			startService(new Intent(this, CallSmsSafeService.class));
+			/*	}
+			} else {
+				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+					mJobScheduler.cancel(GRAY_SERVICE_ID);
+				}
+
+			}
+			unbindService(mConnection); //解除绑定服务。*/
+		} catch (Exception e) {
+
+		}
 	}
 
 	/**
@@ -188,7 +211,7 @@ public class CallSmsSafeService extends Service {
 				CompanyContactListEntity entity = dao.queryByTelephone(phone);
 				getContentResolver().registerContentObserver(url, true,
 						new CallLogObserver(new Handler(), entity));
-				if (entity!=null){
+				if (entity!=null&&!"6".equals(entity.userStatus+"")){
 					showMyToast(entity);
 				}
 
@@ -252,8 +275,8 @@ public class CallSmsSafeService extends Service {
 
 
 
-		if(!TextUtils.isEmpty(entity.url)){
-			ImageLoader.getInstance().displayImage(entity.url, imageView, CompanyApplication.mAvatarCircleImageOptions);
+		if(!TextUtils.isEmpty(entity.headPicFileName)){
+			ImageLoader.getInstance().displayImage(entity.headPicFileName, imageView, CompanyApplication.mAvatarCircleImageOptions);
 		}else{
 			Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.head_icon);
 			Bitmap circleBitMap = CommonUitls.getRoundedCornerBitmap(bitmap);
@@ -311,6 +334,35 @@ public class CallSmsSafeService extends Service {
 		//params.type = WindowManager.LayoutParams.TYPE_PRIORITY_PHONE;
 		params.type = WindowManager.LayoutParams.TYPE_TOAST;
 		wm.addView(view, params);
+	}
+	@Override
+	public int onStartCommand(Intent intent, int flags, int startId) {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+			mJobScheduler = (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
+			JobInfo.Builder builder = new JobInfo.Builder(GRAY_SERVICE_ID,
+					new ComponentName(getPackageName(), CallSmsSafeService.class.getName()));
+
+			builder.setPeriodic(1 * 1000); //每隔60秒运行一次
+			builder.setRequiresCharging(true);
+			builder.setPersisted(true); //设置设备重启后，是否重新执行任务
+			builder.setRequiresDeviceIdle(true);
+/*
+			if (mJobScheduler.schedule(builder.build()) <= 0) {
+				//If something goes wrong
+			}*/
+		}
+
+		startForeground(GRAY_SERVICE_ID, new Notification());
+		return super.onStartCommand(intent, flags, startId);
+	}
+
+	public void checkAlarms(){
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+
+			}
+		}).start();
 	}
 
 }

@@ -105,6 +105,10 @@ public class AlarmReceivers extends BroadcastReceiver {
         calendar.setTimeInMillis(time);
         int dayInWeek = calendar.get(Calendar.DAY_OF_WEEK);
         RemindDao dao = new RemindDao(context);
+        dayInWeek = dayInWeek-1;
+        if (dayInWeek==0){
+            dayInWeek = 7;
+        }
         Reminder reminder = dao.queryByUserCreateTime(alarm2.createTime);
         boolean show = false;
         String session = SharedPreferenceUtil.getString(context,"session","");
@@ -121,6 +125,8 @@ public class AlarmReceivers extends BroadcastReceiver {
         if (show==false){
             if (reminder.times==0){
                 show = true;
+                reminder.isOpen = 0;
+                dao.addRemind(reminder);
             }
         }
         if (show){
@@ -169,6 +175,7 @@ public class AlarmReceivers extends BroadcastReceiver {
                 .getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancel(alarm._id);
         notificationManager.notify(alarm._id, builder.build());
+
     }
 
     private WakeLock getWakeLock(Context context) {

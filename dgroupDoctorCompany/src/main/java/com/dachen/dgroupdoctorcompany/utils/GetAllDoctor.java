@@ -73,11 +73,11 @@ public class GetAllDoctor {
         final String userId = com.dachen.dgroupdoctorcompany.utils.UserInfo.getInstance(CompanyApplication.context).getId();
         final String update = SharedPreferenceUtil.getString(CompanyApplication.context,
                 userId + "_update", "0");
-        if (update.equals("0")) {
+        if (!update.equals("2")) {
             SharedPreferenceUtil.putString(CompanyApplication.context,
                     userId + "_time", "0");
             SharedPreferenceUtil.putString(CompanyApplication.context,
-                    userId + "_update", "1");
+                    userId + "_update", "2");
         }
         final String time = SharedPreferenceUtil.getString(CompanyApplication.context,
                 userId + "_time", "0");

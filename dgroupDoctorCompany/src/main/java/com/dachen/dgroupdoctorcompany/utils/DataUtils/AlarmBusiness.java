@@ -42,11 +42,11 @@ public class AlarmBusiness {
         if (alarm.times!=0){
             int day = 0;
             if (isAlarmExpired(alarm)) {// 闹钟已过期则取消
-                if (firstSet){
+                //if (firstSet){
                     day = 1;
-                }else {
+               /* }else {
                     return;
-                }
+                }*/
 
             }
             firstRingTime = firstRingTime+day*24*60*60*1000;
@@ -54,10 +54,20 @@ public class AlarmBusiness {
                     firstRingTime,
                     24*60*60*1000+(int)(Math.random()*1000*30), pendingIntents);
         }else {
-            if (isAlarmExpired(alarm)) {// 闹钟已过期则取消
+          /*  if (isAlarmExpired(alarm)) {// 闹钟已过期则取消
                // cancelAlarm(context, alarm) ;
                 return;
+            }*/
+            int day = 0;
+            if (isAlarmExpired(alarm)) {// 闹钟已过期则取消
+                //if (firstSet){
+                    day = 1;
+               /* }else {
+                    return;
+                }*/
+
             }
+            firstRingTime = firstRingTime+day*24*60*60*1000;
             alarmManager.set(AlarmManager.RTC_WAKEUP,
                     firstRingTime,
                     pendingIntents);

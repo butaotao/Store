@@ -9,6 +9,7 @@ import com.dachen.common.utils.ToastUtil;
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
+import com.dachen.dgroupdoctorcompany.utils.GetAllDoctor;
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
 import com.dachen.medicine.entity.Result;
 import com.dachen.medicine.net.HttpManager;
@@ -23,7 +24,8 @@ import java.util.ArrayList;
 public class UpdateUserInfoActivity extends BaseActivity implements HttpManager.OnHttpListener {
     public static final int MODE_UPDATE_NAME = 1;
     public static final int MODE_UPDATE_JOB_TITLE = 2;
-
+    public static final int MODE_UPDATE_NAME_MANAGER = 3;
+    public static final int MODE_UPDATE_JOB_TITLE_MANAGER = 4;
     private ClearEditText mEtUserName;
     private TextView mTvSave;
     private String mStrUserName="";
@@ -31,7 +33,7 @@ public class UpdateUserInfoActivity extends BaseActivity implements HttpManager.
     private String mStrOrgId="";
     private int mMode;
     private String mStrGroupName="";
-
+    private String id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,13 +52,28 @@ public class UpdateUserInfoActivity extends BaseActivity implements HttpManager.
 
     private void initDate(){
         mMode = this.getIntent().getIntExtra("mode",MODE_UPDATE_NAME);
+        String name = this.getIntent().getStringExtra("name");
         if(MODE_UPDATE_NAME == mMode){
             setTitle("修改姓名");
-            String name = SharedPreferenceUtil.getString(UpdateUserInfoActivity.this,"username", "");
+             name = SharedPreferenceUtil.getString(UpdateUserInfoActivity.this,"username", "");
+            id = SharedPreferenceUtil.getString(this, "id", "");
             mEtUserName.setHint("输入姓名");
             mEtUserName.setText(name);
         }else if(MODE_UPDATE_JOB_TITLE == mMode){
             setTitle("我的职位");
+            mStrJobTitle = this.getIntent().getStringExtra("job_title");
+            mStrOrgId = this.getIntent().getStringExtra("part");
+            mEtUserName.setHint("输入职位名称");
+            mEtUserName.setText(mStrJobTitle);
+        }else if (MODE_UPDATE_NAME_MANAGER == mMode){
+            setTitle("修改姓名");
+
+            mEtUserName.setHint("输入姓名");
+            mEtUserName.setText(name);
+            id = getIntent().getStringExtra("id");
+        }else if (MODE_UPDATE_JOB_TITLE_MANAGER == mMode){
+            setTitle("修改职位");
+            id = getIntent().getStringExtra("id");
             mStrJobTitle = this.getIntent().getStringExtra("job_title");
             mStrOrgId = this.getIntent().getStringExtra("part");
             mEtUserName.setHint("输入职位名称");
@@ -70,27 +87,33 @@ public class UpdateUserInfoActivity extends BaseActivity implements HttpManager.
         switch (v.getId()){
             case R.id.tvSave:
                 if(MODE_UPDATE_NAME == mMode){
-                    updateName();
+
+                    updateName(id);
                 }else if(MODE_UPDATE_JOB_TITLE == mMode){
-                    updateJobTitle();
+                    updateJobTitle(id);
+                }else if (MODE_UPDATE_NAME_MANAGER == mMode){
+                    updateName(id);
+                }else if(MODE_UPDATE_JOB_TITLE_MANAGER == mMode){
+                    updateJobTitle(id);
                 }
 
                 break;
         }
     }
 
-    private void updateName(){
+    private void updateName(String id){
         mStrUserName = mEtUserName.getText().toString().trim();
         if(TextUtils.isEmpty(mStrUserName)){
             ToastUtil.showToast(UpdateUserInfoActivity.this,"请输入姓名");
             return;
         }
+
         showLoadingDialog();
         new HttpManager().post(this, Constants.UPDATE_USER_NAME,Result.class, Params
-                .updateUserName(UpdateUserInfoActivity.this,mStrUserName),this,false,1);
+                .updateUserName(UpdateUserInfoActivity.this,mStrUserName,id),this,false,1);
     }
 
-    private void updateJobTitle(){
+    private void updateJobTitle(String id){
         mStrJobTitle = mEtUserName.getText().toString().trim();
         if(TextUtils.isEmpty(mStrJobTitle)){
             ToastUtil.showToast(UpdateUserInfoActivity.this,"请输入职位名称");
@@ -98,7 +121,7 @@ public class UpdateUserInfoActivity extends BaseActivity implements HttpManager.
         }
         showLoadingDialog();
         new HttpManager().post(this, Constants.UPDATE_JOB_TITLE,Result.class, Params
-                .updateJobTitle(UpdateUserInfoActivity.this,mStrOrgId,mStrJobTitle),this,false,1);
+                .updateJobTitle(UpdateUserInfoActivity.this,mStrOrgId,mStrJobTitle,id),this,false,1);
     }
 
     @Override
@@ -109,8 +132,11 @@ public class UpdateUserInfoActivity extends BaseActivity implements HttpManager.
                 if(MODE_UPDATE_NAME == mMode){
                     SharedPreferenceUtil.putString(UpdateUserInfoActivity.this,"username",mStrUserName);
                 }
+                GetAllDoctor.getInstance().getPeople(this);
                 ToastUtil.showToast(UpdateUserInfoActivity.this,"修改成功");
                 finish();
+            }else {
+                ToastUtil.showToast(this,response.resultMsg);
             }
         }
 

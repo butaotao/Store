@@ -21,12 +21,12 @@ public class EditColleageDepartmentActivity extends OrgActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         AddressList.deptId = "-1";
         super.onCreate(savedInstanceState);
-        TitleManager.showText(this, layoutView, new View.OnClickListener() {
+      /*  TitleManager.showText(this, layoutView, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             }
-        }, "保存");
+        }, "保存");*/
     }
 
     @Override

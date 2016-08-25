@@ -9,9 +9,12 @@ public class CustomUtils {
 		if (haveBuy==0 && 0!= nowBuy) {
 			return  nowBuy -  needBuy;
 		}else if(0 == nowBuy && 0!=haveBuy){
+			if ((needBuy-haveBuy)<=0){
+				return 0;
+			}
 		return	needBuy-haveBuy;
-		}else if(0 == nowBuy && 0==haveBuy){
-			return  needBuy;
+		}else if(0 == nowBuy && 0==haveBuy&&needBuy!=0){
+			return  -needBuy;
 		}
 		return  nowBuy - (needBuy-haveBuy);
 	} 

@@ -26,6 +26,7 @@ if (null!=gives){
             info.goods$general_name = gives.data.generalName;
             info.goods$pack_specification = gives.data.packSpecification;
             info.goods$specification = gives.data.specification;
+            info.patient = gives.data.patientId;
             unit.name = gives.data.packUnitText;
             info.goods$unit = unit;
             info.goods$manufacturer = gives.data.manufacturer+"";
@@ -48,7 +49,6 @@ if (null!=gives){
             info.zsmdwypxhjfs = gives.data.consumePointsNum;
         }
         info.goods = goods;
-
         return info;
 
     }

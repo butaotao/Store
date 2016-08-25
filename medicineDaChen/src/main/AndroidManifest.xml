@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
           package="com.dachen.medicine"
-          android:versionCode="62"
-          android:versionName="1.071401.62">
+          android:versionCode="66"
+          android:versionName="1.082502.66">
 <!--       android:versionCode="59"
     android:versionName="1.070401.59-->
     <uses-sdk

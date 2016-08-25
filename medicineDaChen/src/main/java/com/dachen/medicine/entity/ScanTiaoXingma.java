@@ -12,4 +12,5 @@ public class ScanTiaoXingma {
     public String packUnitText;
     public String isExists;
     public String isUsed;
+    public String id;
 }

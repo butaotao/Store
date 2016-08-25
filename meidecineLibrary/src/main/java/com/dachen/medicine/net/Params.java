@@ -167,27 +167,27 @@ public class Params {
 		return params;
 	}
 
-	public static Map<String,String>updateJobTitle(Context context,String orgId,String newTitle){
+	public static Map<String,String>updateJobTitle(Context context,String orgId,String newTitle,String userid){
 		Map<String, String> params = getMapInstance();
 		params.put("access_token", SharedPreferenceUtil.getString(context, "session", ""));
-		params.put("userId", SharedPreferenceUtil.getString(context, "id", ""));
+		params.put("userId", userid);
 		params.put("orgId", orgId);
 		params.put("newTitle", newTitle);
 		return params;
 	}
 
-	public static Map<String,String>updateOrg(Context context,String newOrgId){
+	public static Map<String,String>updateOrg(Context context,String newOrgId,String userid){
 		Map<String, String> params = getMapInstance();
 		params.put("access_token", SharedPreferenceUtil.getString(context, "session", ""));
-		params.put("userId", SharedPreferenceUtil.getString(context, "id", ""));
+		params.put("userId", userid);
 		params.put("newOrgId", newOrgId);
 		return params;
 	}
 
-	public static Map<String,String>updateUserName(Context context,String newName){
+	public static Map<String,String>updateUserName(Context context,String newName,String userId){
 		Map<String, String> params = getMapInstance();
 		params.put("access_token", SharedPreferenceUtil.getString(context, "session", ""));
-		params.put("userId", SharedPreferenceUtil.getString(context, "id", ""));
+		params.put("userId", userId);
 		params.put("newName", newName);
 		return params;
 	}

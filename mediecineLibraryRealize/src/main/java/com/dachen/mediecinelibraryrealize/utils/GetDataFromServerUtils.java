@@ -14,6 +14,7 @@ import com.dachen.mediecinelibraryrealize.activity.SetAlertActivity;
 import com.dachen.mediecinelibraryrealize.entity.AlarmBusiness;
 import com.dachen.mediecinelibraryrealize.entity.AlarmDao;
 import com.dachen.mediecinelibraryrealize.entity.AlarmInfo;
+import com.dachen.mediecinelibraryrealize.entity.AlarmsinfoData;
 import com.dachen.mediecinelibraryrealize.entity.DrugRemindDao;
 
 import java.util.ArrayList;
@@ -41,18 +42,22 @@ public class GetDataFromServerUtils {
             idq = idq.replace("]", "");
             params.put("id", idq);
             params.put("access_token",UserInfo.getInstance(context).getSesstion());
-            final String names = "org/drugReminder/getDoseReminderById";
+                final String names = "org/drugReminder/getDoseReminderById";
           /*  String data = "web/api/data/"+session;
             String url = AppConfig.getUrlByParams(data, names);*/
             new HttpManager().post(context,
                     names,
-                    AlarmInfo.class,
+                    AlarmsinfoData.class,
                     params,
                     new HttpManager.OnHttpListener<Result>() {
                         @Override
                         public void onSuccess(Result response) {
-                            if ((response instanceof AlarmInfo)&&response.resultCode ==1) {
-                                processData(context, (AlarmInfo) response, false);
+                            if ((response instanceof AlarmsinfoData)&&response.resultCode ==1) {
+                                AlarmsinfoData data = (AlarmsinfoData)response;
+                                if (null!=data.data){
+                                    processData(context, data.data, false);
+                                }
+
                             }
                         }
 
@@ -65,7 +70,7 @@ public class GetDataFromServerUtils {
                         public void onFailure(Exception e, String errorMsg, int s) {
 
                         }
-                    }, false, 2);
+                    }, false, 1);
         }
 
     }
@@ -108,12 +113,18 @@ public class GetDataFromServerUtils {
             remind.repeatPeriodIndex = info.days_remind_jg;
             remind.id = info.id;
             remind.soundDesc = info.remind_ly;
-            remind.createTime = Long.parseLong(info.number);
-            for (int j = 0; j < SetAlertActivity.mSoundDescs.size(); j++) {
-                if (SetAlertActivity.mSoundDescs.get(j).contains(info.remind_ly)) {
-                    remind.soundName = SetAlertActivity.mSoundNames.get(j);
-                    remind.soundIndex = j;
-                    break;
+
+            if(!TextUtils.isEmpty(info.number)){
+                remind.createTime = Long.parseLong(info.number);
+            }
+
+            if(SetAlertActivity.mSoundDescs != null){
+                for (int j = 0; j < SetAlertActivity.mSoundDescs.size(); j++) {
+                    if (SetAlertActivity.mSoundDescs.get(j).contains(info.remind_ly)) {
+                        remind.soundName = SetAlertActivity.mSoundNames.get(j);
+                        remind.soundIndex = j;
+                        break;
+                    }
                 }
             }
             Collection<Alarm> alarms = new ArrayList<Alarm>();

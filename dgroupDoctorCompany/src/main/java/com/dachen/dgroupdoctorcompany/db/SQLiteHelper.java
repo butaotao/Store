@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.dachen.common.utils.Logger;
+import com.dachen.dgroupdoctorcompany.app.CompanyApplication;
 import com.dachen.dgroupdoctorcompany.db.dbdao.RemindDao;
 import com.dachen.dgroupdoctorcompany.db.dbentity.DepAdminsList;
 import com.dachen.dgroupdoctorcompany.db.dbentity.Doctor;
@@ -13,6 +14,7 @@ import com.dachen.dgroupdoctorcompany.db.dbentity.SearchRecords;
 import com.dachen.dgroupdoctorcompany.db.dbentity.WeekSinger;
 import com.dachen.dgroupdoctorcompany.entity.CompanyContactListEntity;
 import com.dachen.dgroupdoctorcompany.entity.Role;
+import com.dachen.medicine.common.utils.SharedPreferenceUtil;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
@@ -24,7 +26,7 @@ import java.sql.SQLException;
  */
 public class SQLiteHelper  extends OrmLiteSqliteOpenHelper {
     public static final String DATABASE_NAME = "dachen_company.db";
-    private static final int DATABASE_VERSION = 13;
+    private static final int DATABASE_VERSION = 14;
 
     private Context context = null;
 
@@ -79,7 +81,11 @@ public class SQLiteHelper  extends OrmLiteSqliteOpenHelper {
 
 
           }
+          if (oldVersion < 14) {
+              TableUtils.dropTable(connSource, CompanyContactListEntity.class, true);
+             
 
+          }
             onCreate(db, connSource);
 
          } catch (SQLException e) {
