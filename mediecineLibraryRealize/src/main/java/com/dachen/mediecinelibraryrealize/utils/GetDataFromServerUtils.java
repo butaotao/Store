@@ -65,7 +65,7 @@ public class GetDataFromServerUtils {
                         public void onFailure(Exception e, String errorMsg, int s) {
 
                         }
-                    }, false, 2);
+                    }, false, 1);
         }
 
     }
@@ -108,14 +108,20 @@ public class GetDataFromServerUtils {
             remind.repeatPeriodIndex = info.days_remind_jg;
             remind.id = info.id;
             remind.soundDesc = info.remind_ly;
-            remind.createTime = Long.parseLong(info.number);
-            for (int j = 0; j < SetAlertActivity.mSoundDescs.size(); j++) {
-                if (SetAlertActivity.mSoundDescs.get(j).contains(info.remind_ly)) {
-                    remind.soundName = SetAlertActivity.mSoundNames.get(j);
-                    remind.soundIndex = j;
-                    break;
+            if(!TextUtils.isEmpty(info.number)){
+                remind.createTime = Long.parseLong(info.number);
+            }
+
+            if(SetAlertActivity.mSoundDescs != null){
+                for (int j = 0; j < SetAlertActivity.mSoundDescs.size(); j++) {
+                    if (SetAlertActivity.mSoundDescs.get(j).contains(info.remind_ly)) {
+                        remind.soundName = SetAlertActivity.mSoundNames.get(j);
+                        remind.soundIndex = j;
+                        break;
+                    }
                 }
             }
+
             Collection<Alarm> alarms = new ArrayList<Alarm>();
             Alarm alar1 = addAlarm(context, info.reminderTime1, remind, 1);
             if (alar1.add){
