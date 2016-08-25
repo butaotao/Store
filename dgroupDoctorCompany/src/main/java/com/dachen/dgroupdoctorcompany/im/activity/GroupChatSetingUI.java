@@ -176,6 +176,8 @@ public class GroupChatSetingUI extends ImBaseActivity {
     LinearLayout mGroupSettingLayout;
     @Bind(R.id.iv_avatar)
     ImageView iv_avatar;
+    @Bind(R.id.layout_avatar)
+    ImageView layout_avatar;
 
     UISwitchButton im_group_chat_ui_setting_messge_remind;
     UISwitchButton im_group_chat_ui_setting_fav;
@@ -838,7 +840,11 @@ public class GroupChatSetingUI extends ImBaseActivity {
         setMessgeRemind(notify);
         boolean isFav = ChatGroupPo.getStateOnPos(data.status, 1) == 1;
         setFav(isFav);
+        switchTopChat.setChecked(data.top==1,false);
         // 设置“退出多人聊天”控件的可见性
+        if(data.type==SessionType.session_multi){
+            layout_avatar.setVisibility(View.VISIBLE);
+        }
         setExitMultipleChatVisibility(data.type);
     }
 

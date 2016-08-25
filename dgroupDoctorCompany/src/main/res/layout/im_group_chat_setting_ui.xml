@@ -197,6 +197,7 @@
                     android:background="#D6D6D6" />
 
                 <RelativeLayout
+                    android:visibility="gone"
                     android:id="@+id/layout_avatar"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
