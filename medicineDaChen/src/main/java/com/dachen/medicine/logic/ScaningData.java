@@ -200,7 +200,7 @@ public class ScaningData {
 						id.quantity =  listmedies.get(i).lists.size()+"";
 						ids.add(id);
 						if (ScaningData.sCanFlag == 5&&isgive){
-							idgive.add(listmedies.get(i).id);
+							idgive.add(listmedies.get(i).scanCode);
 						}
 					}
 
@@ -210,7 +210,15 @@ public class ScaningData {
 
 		Gson s = new Gson();
 		String json1 = "" + s.toJson(ids);
-		String jsonGive = s.toJson(idgive);
+		//String jsonGive = s.toJson(idgive);;
+		String jsonGive = "";
+		for (int i=0;i<idgive.size();i++){
+			if (i==0){
+				jsonGive+=idgive.get(i);
+			}else {
+				jsonGive+=","+idgive.get(i);
+			}
+		}
 
 
 		if (ScaningData.sCanFlag == 5&&isgive) {
@@ -287,7 +295,7 @@ public class ScaningData {
 								SubmitInfo patientinfo = (SubmitInfo) response;
 								if (patientinfo.resultCode!=1) {
 
-									ToastUtils.showToast(context.getResources().getString(R.string.toast_submit_fail));
+									ToastUtils.showToast(/*context.getResources().getString(R.string.toast_submit_fail)*/response.resultMsg);
 									return;
 								}
 									MedicineApplication.flag = true;

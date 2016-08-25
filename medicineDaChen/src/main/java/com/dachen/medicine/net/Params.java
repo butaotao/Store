@@ -199,7 +199,7 @@ public class Params {
         params.put("quantity", buynum);
         params.put("goodsId", goodsid);
         params.put("access_token",SharedPreferenceUtil.getString("session",""));
-        params.put("c_drug_codes", c_drug_codes);
+        params.put("drugCodes", c_drug_codes);
         return (HashMap<String, String>) params;
     }
 

@@ -7,14 +7,24 @@
     android:layout_height="wrap_content"
     layout="@layout/layout_parent_titlebar_groupcompany"
     android:id="@+id/layout_parent_titlebar_groupcompany"></include>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_below="@+id/layout_parent_titlebar_groupcompany"
+        android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+
+        android:background="@color/color_background">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_below="@+id/layout_parent_titlebar_groupcompany"
+
         android:background="@color/white"
         android:id="@+id/ll_des"
-        android:layout_marginTop="15dp">
+        android:layout_marginTop="10dp">
 <View
     android:layout_width="match_parent"
     android:layout_height="0.5dp"
@@ -25,6 +35,7 @@
     android:layout_width="match_parent"
     android:layout_height="45dp"
     android:paddingLeft="15dp"
+    android:id="@+id/rl_editname"
     android:paddingRight="15dp">
     <TextView
         android:layout_width="wrap_content"
@@ -142,6 +153,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:paddingLeft="15dp"
+            android:id="@+id/rl_position"
             android:paddingRight="15dp">
             <TextView
                 android:layout_width="wrap_content"
@@ -175,15 +187,43 @@
 
             android:id="@+id/divider2"></View>
     </LinearLayout>
+
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="60dp"
+        android:text="设置为医药代表"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/ll_des"
+        android:textColor="@color/white"
+        android:id="@+id/btn_setmanager"
+        android:background="@drawable/btn_blue_all_39cf78"
+         />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:text="设置为部门主管"
+        android:textColor="@color/white"
+        android:layout_below="@+id/btn_setmanager"
+        android:id="@+id/btn_setrepresent"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/btn_blue_all_3cbaff"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:text="离职该员工"
         android:textColor="@color/white"
         android:id="@+id/btn_delete"
+        android:layout_marginTop="10dp"
         android:background="@drawable/btn_red_all_f95442"
-        android:layout_below="@+id/ll_des"/>
+        android:layout_below="@+id/btn_setrepresent"/>
+    </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

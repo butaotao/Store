@@ -61,7 +61,6 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
     public String ids;
     String title = "";
     public String idDep = "0";
-    HashMap<String, CompanysTitle> listsTitle;
     CompanyContactDao companyContactDao;
     RoleDao roleDao;
     List<BaseSearch> listsHorizon;
@@ -160,7 +159,6 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
         mCp_listguilde.setAdapter();
        // listGuideMap.put(currentPosition++, idDep);
         ButterKnife.bind(this);
-        listsTitle = new HashMap<>();
         findViewById(R.id.rl_back).setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -240,14 +238,10 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
                 mPullToRefreshScrollView.onRefreshComplete();
             }
         });
+        setShowContent();
     }
     public void getDepment(BaseSearch contact ,boolean clickRadio){
         CompanyDepment.Data.Depaments  c1 = (CompanyDepment.Data.Depaments) (contact);
-        CompanysTitle title = new CompanysTitle();
-        title.id = c1.parentId;
-        departName = c1.name;
-        title.parentDept = c1.name;
-        listsTitle.put(c1.id, title);
         setTitles(c1.name);
         /*mListGuide.add(c1.name);
         departList.put(currentPosition, copyToNewList(mListGuide));
@@ -575,5 +569,13 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
         ArrayList<String > arrayList = new ArrayList<>();
         arrayList.addAll(list);
         return arrayList;
+    }
+    public void setShowContent(){
+        RelativeLayout rl_addpeople = (RelativeLayout) findViewById(R.id.rl_addpeople);
+        if (getContent()==0||getContent()==editColleageDep){
+            rl_addpeople.setVisibility(View.GONE);
+        }else if (getContent()==isManager){
+            rl_addpeople.setVisibility(View.VISIBLE);
+        }
     }
 }

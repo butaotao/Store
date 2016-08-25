@@ -42,9 +42,18 @@ public class CompanyContactListEntity extends BaseSearch implements Serializable
     @DatabaseField(columnName="userloginid")
     public String userloginid;
     //用户是否激活
+    @DatabaseField(columnName="ismanager")
+    public String ismanager;
+
+    @DatabaseField(columnName="ispresent")
+    public String ispresent;
+    @DatabaseField(columnName="simpinyin")
+    public String simpinyin;
+    @DatabaseField(columnName="allpinyin")
+    public String allpinyin;
+
     @DatabaseField(columnName="userStatus")
     public String userStatus;
-
 
     @ForeignCollectionField(eager = true)
     public Collection<Role> role;

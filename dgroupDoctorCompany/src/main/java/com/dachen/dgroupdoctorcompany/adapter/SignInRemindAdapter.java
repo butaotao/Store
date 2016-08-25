@@ -19,6 +19,7 @@ import com.dachen.dgroupdoctorcompany.activity.SigninRemindActivity;
 import com.dachen.dgroupdoctorcompany.db.dbdao.RemindDao;
 import com.dachen.dgroupdoctorcompany.db.dbentity.Reminder;
 import com.dachen.dgroupdoctorcompany.db.dbentity.SearchRecords;
+import com.dachen.dgroupdoctorcompany.utils.DataUtils.AlarmBusiness;
 
 import java.util.List;
 
@@ -97,12 +98,17 @@ public class SignInRemindAdapter extends BaseAdapter{
 					info.isOpen = 1;
 					holder.rl_item.setBackgroundColor(context.getResources().getColor(R.color.white));
 					ToastUtil.showToast(context,"开启提醒");
-
+					if (info.times==0){
+						info.updateTime = System.currentTimeMillis();
+						AlarmBusiness.cancelAlarm(context, info);
+						AlarmBusiness.setAlarm(context,info);
+					}
 					//holder.open.setChecked(false);
 				}
 				listSelected.set(arg0, info);
 				/*notifyDataSetChanged();*/
 				dao.addRemind(info);
+
 				//notifyDataSetChanged();
 			}
 		});

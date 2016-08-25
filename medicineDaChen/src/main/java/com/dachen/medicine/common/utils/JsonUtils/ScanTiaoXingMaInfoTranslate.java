@@ -19,6 +19,7 @@ public class ScanTiaoXingMaInfoTranslate {
         item.unit = unit;
         item.manufacturer = info.manufacturer;
         item.pack_specification = info.packSpecification;
+        item.id = info.id;
         if (!TextUtils.isEmpty(info.isExists)&&info.isExists.equals("1")){
             item.is_exists = "true";
         }else {

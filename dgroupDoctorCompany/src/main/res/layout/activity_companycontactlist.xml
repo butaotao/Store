@@ -26,7 +26,7 @@
         android:visibility="visible">
 <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="1dp"
+    android:layout_height="1dp" 
     android:background="@color/divide_line_color"></RelativeLayout>
         <TextView
             android:id="@+id/btn_addpeople"

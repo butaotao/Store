@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.dachen.dgroupdoctorcompany"
-    android:versionCode="182"
-    android:versionName="1.4.0.16081701">
+    android:versionCode="186"
+    android:versionName="1.4.0.16082402">
 <!--
     android:versionCode="161"
     android:versionName="1.4070706.161">-->
@@ -30,7 +30,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL"/>
-
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
     <!-- //定位包、导航包需要的额外权限（注：基础权限也需要）-->
     <!--用于访问GPS定位-->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />

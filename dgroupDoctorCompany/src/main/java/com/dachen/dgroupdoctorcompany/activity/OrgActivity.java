@@ -44,6 +44,7 @@ public class OrgActivity extends BaseActivity implements HttpManager.OnHttpListe
     private String orgId;
     private int count=0;//打开了多少次当前页面
     View layoutView;
+    private String userId = "";
     private GuiderHListView mOrgListGuilde;
 
     @Override
@@ -138,14 +139,14 @@ public class OrgActivity extends BaseActivity implements HttpManager.OnHttpListe
 
     }
 
-    private void updateOrg(){
+    private void updateOrg(String id){
         if(TextUtils.isEmpty(orgId)){
             ToastUtil.showToast(OrgActivity.this,"请先选择要修改的部门");
             return;
         }
         showLoadingDialog();
         new HttpManager().post(this, Constants.UPDATE_ORG,Result.class, Params
-                .updateOrg(OrgActivity.this,orgId),this,false,1);
+                .updateOrg(OrgActivity.this,orgId,id),this,false,1);
     }
 
     private void getOrganization(){
@@ -305,6 +306,9 @@ public class OrgActivity extends BaseActivity implements HttpManager.OnHttpListe
                 break;
             case R.id.rl_back:
                 backtofront();
+                break;
+            case R.id.tvSave:
+                updateOrg(userId);
                 break;
         }
     }
