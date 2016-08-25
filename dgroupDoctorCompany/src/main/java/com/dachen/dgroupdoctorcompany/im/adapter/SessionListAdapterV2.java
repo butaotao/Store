@@ -136,6 +136,11 @@ public class SessionListAdapterV2 extends BaseCustomAdapter<ChatGroupPo> {
 			holder.layout_line1.setVisibility(View.GONE);
 		}
 
+        if(group.top==0){
+            holder.layout_item.setBackgroundResource(R.drawable.selector_list_item_bg);
+        }else{
+            holder.layout_item.setBackgroundResource(R.drawable.selector_chat_top_item_bg);
+        }
 		holder.tvAt.setVisibility(View.GONE);
 		ChatGroupNotifyParam notifyP= JSON.parseObject(group.notifyParam,ChatGroupNotifyParam.class);
 		if(notifyP==null)return;
@@ -169,6 +174,8 @@ public class SessionListAdapterV2 extends BaseCustomAdapter<ChatGroupPo> {
 
 		@Bind(R.id.layout_line1)
 		public View layout_line1; // AT
+		@Bind(R.id.layout_item)
+		public View layout_item; // AT
 	}
 
 }
