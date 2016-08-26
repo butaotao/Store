@@ -219,11 +219,12 @@ public class PointDetailActivity extends BaseActivity implements OnHttpListener,
                             unit.title = pageData.packUnitText;
                             potient.goods$unit = unit;
                             potient.num_dh = pageData.goodsNum;
-
                             potientList.add(potient);
                         }
-
                         p.info_list = potientList;
+                        if (index2==0){
+                            patientpoints2.clear();
+                        }
                         patientpoints2.addAll(p.info_list);
                        // Collections.reverse(patientpoints2);
                        /* Collections.sort(patientpoints2, new Comparator<Potient>() {
@@ -288,6 +289,9 @@ public class PointDetailActivity extends BaseActivity implements OnHttpListener,
                 p.info_list = pointList;
                 if (null != p.info_list && p.info_list.size() > 0) {
                     listview1.onRefreshComplete();
+                    if (index==0){
+                        patientpoints1.clear();
+                    }
                         patientpoints1.addAll(p.info_list);
                         /*Collections.sort(patientpoints1, new Comparator<Point>() {
                             @Override
@@ -314,9 +318,13 @@ public class PointDetailActivity extends BaseActivity implements OnHttpListener,
                         listview1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                Point p = (Point) adaper1.getItem(position);
-                                if (!p.is_receive) {
-                                    getPointForUser(p.id);
+                                int po = (int)id;
+                                if (po>=0&&po<patientpoints1.size()){
+                                    Point p = (Point) adaper1.getItem(po);
+                                    if (!p.is_receive) {
+                                        getPointForUser(p.id);
+                                    }
+
                                 }
 
                             }
@@ -325,6 +333,7 @@ public class PointDetailActivity extends BaseActivity implements OnHttpListener,
 
             } else  {
                 if (arg0.getResultCode()==1) {
+                    index = 0 ;
                     getPointInfo_page1(id,index);
                 }else{
                     String msg = TextUtils.isEmpty(arg0.getResultMsg())?"数据异常":arg0.getResultMsg();
