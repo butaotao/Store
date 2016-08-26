@@ -2,6 +2,8 @@ package com.dachen.dgroupdoctorcompany.activity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -15,9 +17,11 @@ import com.dachen.dgroupdoctorcompany.adapter.OrgSelectAdapter;
 import com.dachen.dgroupdoctorcompany.app.CompanyApplication;
 import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
+import com.dachen.dgroupdoctorcompany.entity.CompanyContactListEntity;
 import com.dachen.dgroupdoctorcompany.entity.CompanyDepment;
 import com.dachen.dgroupdoctorcompany.entity.OrgEntity;
 import com.dachen.dgroupdoctorcompany.utils.GetAllDoctor;
+import com.dachen.dgroupdoctorcompany.utils.UserInfo;
 import com.dachen.dgroupdoctorcompany.views.GuiderHListView;
 import com.dachen.medicine.common.utils.MActivityManager;
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
@@ -36,6 +40,7 @@ import java.util.Stack;
 public class OrgActivity extends BaseActivity implements HttpManager.OnHttpListener, AdapterView.OnItemClickListener {
     private ListView listview;
     private TextView mTvSave;
+    CompanyContactListEntity entity;
     Stack<CompanyDepment.Data.Depaments> departmentId = new Stack<>();
     ArrayList<ArrayList<OrgEntity.Data>> mDepamentsStack  =  new ArrayList<>();
     int mStackCount = 0;
@@ -44,13 +49,29 @@ public class OrgActivity extends BaseActivity implements HttpManager.OnHttpListe
     private String orgId;
     private int count=0;//打开了多少次当前页面
     View layoutView;
-    private String userId = "";
+    public String userId = "";
     private GuiderHListView mOrgListGuilde;
-
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 1100:
+                    closeLoadingDialog();
+                    ToastUtil.showToast(OrgActivity.this,"修改成功");
+                    for(int i=0;i<count;i++){
+                        MActivityManager.getInstance().finishActivity(OrgActivity.class);
+                    }
+                    finish();
+                    break;
+            }
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         layoutView = View.inflate(this,R.layout.activity_org,null);
+        userId = UserInfo.getInstance(this).getId();
         setContentView(layoutView);
         initView();
         initData();
@@ -68,7 +89,8 @@ public class OrgActivity extends BaseActivity implements HttpManager.OnHttpListe
 
 
     private void initData(){
-        mOrgSelectAdapter = new MyAdapter(OrgActivity.this,mDepamentsList);
+        entity = (CompanyContactListEntity) getIntent().getSerializableExtra("user");
+        mOrgSelectAdapter = new MyAdapter(OrgActivity.this,mDepamentsList,entity);
         listview.setAdapter(mOrgSelectAdapter);
         mOrgListGuilde.addTask("选择部门","选择部门");
         String companyName = SharedPreferenceUtil.getString(CompanyApplication.getInstance(), "enterpriseName", "");
@@ -138,15 +160,21 @@ public class OrgActivity extends BaseActivity implements HttpManager.OnHttpListe
         }
 
     }
-
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if(hasFocus){
+            mOrgListGuilde.setSelection(mOrgListGuilde.getCurrentPosition());
+        }
+    }
     private void updateOrg(String id){
         if(TextUtils.isEmpty(orgId)){
             ToastUtil.showToast(OrgActivity.this,"请先选择要修改的部门");
             return;
         }
         showLoadingDialog();
-        new HttpManager().post(this, Constants.UPDATE_ORG,Result.class, Params
-                .updateOrg(OrgActivity.this,orgId,id),this,false,1);
+        new HttpManager().post(this, Constants.UPDATE_ORG, Result.class, Params
+                .updateOrg(OrgActivity.this, orgId, id), this, false, 1);
     }
 
     private void getOrganization(){
@@ -164,9 +192,10 @@ public class OrgActivity extends BaseActivity implements HttpManager.OnHttpListe
 
     @Override
     public void onSuccess(Result response) {
-        closeLoadingDialog();
+
         if(response!=null&&response.resultCode==1){
              if(response instanceof OrgEntity){
+                 closeLoadingDialog();
                 OrgEntity orgEntity =(OrgEntity)(response);
                  mDepamentsList.clear();
                  OrgEntity.Data data = new OrgEntity.Data(orgEntity.data.get(0).creatorDate,orgEntity.data.get(0).desc,orgEntity.data.get(0).enterpriseId,
@@ -180,13 +209,11 @@ public class OrgActivity extends BaseActivity implements HttpManager.OnHttpListe
                  mStackCount++;
                 Log.d("zxy", "onSuccess: mStackCount = "+mStackCount);
             }else{
-                 GetAllDoctor.getInstance().getPeople(OrgActivity.this);
-                 ToastUtil.showToast(OrgActivity.this,"修改成功");
-                 for(int i=0;i<count;i++){
-                     MActivityManager.getInstance().finishActivity(OrgActivity.class);
-                 }
-                 finish();
+                 GetAllDoctor.getInstance().getPeople(OrgActivity.this, handler);
+
              }
+        }else {
+            closeLoadingDialog();
         }
 
     }
@@ -202,8 +229,8 @@ public class OrgActivity extends BaseActivity implements HttpManager.OnHttpListe
     }
 
     private class MyAdapter extends OrgSelectAdapter{
-        public MyAdapter(Context context, List<OrgEntity.Data> data) {
-            super(context, data);
+        public MyAdapter(Context context, List<OrgEntity.Data> data,CompanyContactListEntity entity) {
+            super(context, data,entity);
         }
 
         @Override

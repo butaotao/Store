@@ -30,7 +30,10 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Created by Burt on 2016/3/5.
@@ -38,7 +41,7 @@ import java.util.List;
 public class GetAllDoctor {
     public static final int DATALENGTH = 3;
     public static GetAllDoctor doctors;
-
+    public static Set<CompanyContactListEntity> changeContact=new HashSet<>();
     public static GetAllDoctor getInstance() {
         if (null == doctors) {
             doctors = new GetAllDoctor();
@@ -139,11 +142,19 @@ public class GetAllDoctor {
                                 }else{
                                     if(addCompanyContactListEntity.size()>0){
                                         for (CompanyContactListEntity entity: addCompanyContactListEntity){
+                                            if (changeContact.contains(entity)){
+                                                changeContact.remove(entity);
+                                            }
+                                            changeContact.add(entity);
                                             companyContactDao.addCompanyContact(entity);
                                         }
                                     }
                                     if(deleteCompanyContactListEntity.size()>0){
                                         for (CompanyContactListEntity entity: deleteCompanyContactListEntity){
+                                            if (changeContact.contains(entity)){
+                                                changeContact.remove(entity);
+                                            }
+                                            changeContact.add(entity);
                                             companyContactDao.deleteByid(entity.userId);
                                         }
                                     }

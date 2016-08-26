@@ -79,4 +79,24 @@ public class CompanyContactListEntity extends BaseSearch implements Serializable
         return flag;
     }
 
+    @Override
+    public int hashCode() {
+        return this.userId.hashCode();
+    }
+    /* @Override
+    public int compareTo(Object o) {
+        int flag = 0;
+        if (o instanceof  CompanyContactListEntity){
+            CompanyContactListEntity  other = (CompanyContactListEntity)o;
+            if (!TextUtils.isEmpty(this.userId)&&!TextUtils.isEmpty(other.userId)){
+                if (other.userId.equals(this.userId)){
+                    flag = 0;
+                }
+            }else {
+                flag=  1;
+            }
+        }
+
+        return flag;
+    }*/
 }

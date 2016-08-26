@@ -8,6 +8,7 @@ import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.dgroupdoctorcompany.entity.CompanyContactListEntity;
 import com.dachen.dgroupdoctorcompany.entity.CompanyDepment;
 import com.dachen.dgroupdoctorcompany.fragment.AddressList;
+import com.dachen.dgroupdoctorcompany.utils.GetAllDoctor;
 import com.dachen.dgroupdoctorcompany.utils.TitleManager;
 
 import java.util.Stack;
@@ -21,6 +22,8 @@ public class EditColleageDepartmentActivity extends OrgActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         AddressList.deptId = "-1";
         super.onCreate(savedInstanceState);
+       // GetAllDoctor.changeContact.clear();
+        userId = getIntent().getStringExtra("userid");
       /*  TitleManager.showText(this, layoutView, new View.OnClickListener() {
             @Override
             public void onClick(View v) {

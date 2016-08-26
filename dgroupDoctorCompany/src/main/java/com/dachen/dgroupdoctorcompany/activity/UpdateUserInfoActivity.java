@@ -1,6 +1,8 @@
 package com.dachen.dgroupdoctorcompany.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -34,6 +36,19 @@ public class UpdateUserInfoActivity extends BaseActivity implements HttpManager.
     private int mMode;
     private String mStrGroupName="";
     private String id;
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 1100:
+                    closeLoadingDialog();
+                    ToastUtil.showToast(UpdateUserInfoActivity.this,"修改成功");
+                    finish();
+                    break;
+            }
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -126,16 +141,17 @@ public class UpdateUserInfoActivity extends BaseActivity implements HttpManager.
 
     @Override
     public void onSuccess(Result response) {
-        closeLoadingDialog();
+
         if(null != response){
             if(response.getResultCode() == 1){
                 if(MODE_UPDATE_NAME == mMode){
                     SharedPreferenceUtil.putString(UpdateUserInfoActivity.this,"username",mStrUserName);
                 }
-                GetAllDoctor.getInstance().getPeople(this);
-                ToastUtil.showToast(UpdateUserInfoActivity.this,"修改成功");
-                finish();
+
+                GetAllDoctor.getInstance().getPeople(this, handler);
+
             }else {
+                closeLoadingDialog();
                 ToastUtil.showToast(this,response.resultMsg);
             }
         }

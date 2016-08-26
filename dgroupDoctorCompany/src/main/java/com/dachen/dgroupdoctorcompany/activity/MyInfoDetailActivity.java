@@ -183,7 +183,10 @@ public class MyInfoDetailActivity extends BaseActivity implements HttpManager.On
                 startActivity(intent);
                 break;
             case R.id.rl_part:
-                intent.setClass(MyInfoDetailActivity.this,OrgActivity.class);
+                intent.setClass(MyInfoDetailActivity.this, OrgActivity.class);
+                CompanyContactListEntity entity = new CompanyContactListEntity();
+                entity.id = mStrOrgId;
+                intent.putExtra("user",entity);
                 startActivity(intent);
                 break;
         }

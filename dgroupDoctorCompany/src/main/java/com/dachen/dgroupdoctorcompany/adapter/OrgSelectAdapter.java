@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dachen.dgroupdoctorcompany.R;
+import com.dachen.dgroupdoctorcompany.entity.CompanyContactListEntity;
 import com.dachen.dgroupdoctorcompany.entity.OrgEntity;
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
 
@@ -21,10 +22,12 @@ import java.util.List;
 public abstract class OrgSelectAdapter extends android.widget.BaseAdapter {
     private Context mContext;
     private List<OrgEntity.Data>mDepamentsList = new ArrayList<>();
-
-    public OrgSelectAdapter(Context context,List<OrgEntity.Data>data){
+    int actor;
+    CompanyContactListEntity entity;
+    public OrgSelectAdapter(Context context,List<OrgEntity.Data>data,CompanyContactListEntity entity){
         this.mContext = context;
         this.mDepamentsList.clear();
+        this.entity = entity;
         this.mDepamentsList.addAll(data);
     }
 
@@ -74,8 +77,8 @@ public abstract class OrgSelectAdapter extends android.widget.BaseAdapter {
                 viewHolder.mIvFlag.setVisibility(View.VISIBLE);
             }
 
-            String department = SharedPreferenceUtil.getString(mContext,"department","");
-            if(department.equals(depaments.name)){
+
+            if(entity.id .equals( depaments.id)){
                 viewHolder.mCheckBox.setChecked(true);
                 viewHolder.mCheckBox.setBackgroundResource(R.drawable.icon_pay_disable);
                 viewHolder.mCheckBox.setClickable(false);

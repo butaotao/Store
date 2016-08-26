@@ -15,6 +15,7 @@ import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.dgroupdoctorcompany.db.dbdao.CompanyContactDao;
 import com.dachen.dgroupdoctorcompany.entity.CompanyContactListEntity;
 import com.dachen.dgroupdoctorcompany.entity.CompanyDepment;
+import com.dachen.dgroupdoctorcompany.utils.GetAllDoctor;
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
 import com.dachen.medicine.config.UserInfo;
 import com.dachen.medicine.entity.Result;
@@ -23,6 +24,7 @@ import com.dachen.medicine.view.CustomDialog;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  * Created by Burt on 2016/5/25.
@@ -59,7 +61,7 @@ public class DeleteColleActivity extends BaseActivity implements View.OnClickLis
 
         rl_editdept = (RelativeLayout) findViewById(R.id.rl_editdept);
         rl_editdept.setOnClickListener(this);
-
+        //GetAllDoctor.changeContact.clear();
         rl_position = (RelativeLayout) findViewById(R.id.rl_position);
         rl_position.setOnClickListener(this);
         setTitle("编辑员工");
@@ -82,6 +84,30 @@ public class DeleteColleActivity extends BaseActivity implements View.OnClickLis
         showBtn();
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (GetAllDoctor.changeContact!=null&&GetAllDoctor.changeContact.size()>0){
+         //   CompanyContactListEntity entityNew = new CompanyContactListEntity();
+           // entityNew.userId = entity.userId;
+             //   GetAllDoctor.changeContact.contains(entityNew);
+                Iterator<CompanyContactListEntity> entityIterator =GetAllDoctor.changeContact.iterator();
+                while (entityIterator.hasNext()){
+                    CompanyContactListEntity entitye =entityIterator.next();
+                    if ((entity.userId+"").equals(entitye.userId)){
+                        tv_namedes.setText(entitye.name);
+                        tv_departdes.setText(entitye.department);
+                        tv_positiondes.setText(entitye.position);
+                        tv_phonedes.setText(entitye.telephone);
+                        entity = entitye;
+                        break;
+                    }
+                }
+        }
+
+    }
+
     public void showBtn(){
         String userid = SharedPreferenceUtil.getString(this,"id","");
         if (userid.equals(entity.userId)){
@@ -123,6 +149,8 @@ public class DeleteColleActivity extends BaseActivity implements View.OnClickLis
                 break;
             case R.id.rl_editdept:
                 intent  = new Intent(this,EditColleageDepartmentActivity.class);
+                intent.putExtra("userid",entity.userId);
+                intent.putExtra("user",entity);
                 startActivity(intent);
                 break;
             case R.id.rl_editname:
