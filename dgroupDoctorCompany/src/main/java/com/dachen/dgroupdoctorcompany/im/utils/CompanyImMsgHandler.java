@@ -60,6 +60,7 @@ public class CompanyImMsgHandler extends ImMsgHandler{
         final String url = mpt.url;
         Intent intent = new Intent(mContext, WebActivityForCompany.class);
         intent.putExtra("url", url).putExtra(WebActivityForCompany.INTENT_SHOW_TITLE,true);
+        intent.putExtra("title","玄关健康团队");
 //        intent.putExtra(WebActivity.INTENT_CHECK_404,true);
         intent.putExtra(WebActivityForCompany.INTENT_NO_CACHE, true);
         mContext.startActivity(intent);
