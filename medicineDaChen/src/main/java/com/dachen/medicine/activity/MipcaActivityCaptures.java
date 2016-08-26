@@ -138,7 +138,8 @@ public class MipcaActivityCaptures extends  BaseActivity implements
 				break;
 			case 1:
 				if (!TextUtils.isEmpty(scandCode)&&scandCode.length()<20){
-					ToastUtils.showToast("药监码识别失败，请从新扫描");
+					//ToastUtils.showToast("药监码识别失败，请从新扫描");
+					ToastUtils.showToast("无效药监码，请确认是否扫描成普通商品条码");
 					return;
 				}
 				boolean isScaning = false;
@@ -236,7 +237,7 @@ public class MipcaActivityCaptures extends  BaseActivity implements
 				break;
 			case 5:
 				continuePreview();
-				ToastUtils.showToast("无效药监码，请确认是否扫描成普通商品条码");
+				ToastUtils.showToast("未找到该购药清单");
 				break;
 			case 6:
 				continuePreview();

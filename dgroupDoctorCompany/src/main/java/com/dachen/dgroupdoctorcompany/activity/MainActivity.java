@@ -170,11 +170,11 @@ public class MainActivity extends BaseActivity implements OnHttpListener,
         mGaoDeMapUtils = new GaoDeMapUtils(this.getApplicationContext(), this);
 
         getVersion();
-        if (SharedPreferenceUtil.getString(this,"showguider","0").equals("0")){
+       /* if (SharedPreferenceUtil.getString(this,"showguider","0").equals("0")){
             GuiderDialog dialog = new GuiderDialog(this);
             dialog.showDialog();
             SharedPreferenceUtil.putString(this,"showguider","1");
-        }
+        }*/
 
      /*  Intent intent = new Intent(this,GuiderDialogActivity.class);
         startActivity(intent);*/

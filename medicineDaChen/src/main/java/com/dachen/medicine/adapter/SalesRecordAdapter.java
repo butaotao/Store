@@ -50,7 +50,7 @@ public class SalesRecordAdapter extends BaseCustomAdapter<Info> {
 			holder.rl_infodeail.setVisibility(View.VISIBLE);
 			holder.tv_data.setText(media.calendar[2]);
 			holder.tv_week.setText("周" + media.calendar[3]);
-			if (media.type==1) {
+			if (media.buyType==1) {
 				holder.tv_selled.setText("赠送");
 			}else {
 				holder.tv_selled.setText("售出");

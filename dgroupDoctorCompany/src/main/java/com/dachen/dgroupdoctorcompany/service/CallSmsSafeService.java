@@ -107,7 +107,7 @@ public class CallSmsSafeService extends Service {
 						//监视呼叫记录的生成，如果呼叫记录产生了。删除呼叫记录。
 
 					CompanyContactListEntity entity = dao.queryByTelephone(incomingNumber);
-					if (null!=entity&&!TextUtils.isEmpty(entity.telephone)){
+					if (null!=entity&&!TextUtils.isEmpty(entity.telephone)&&UserInfo.getInstance(CallSmsSafeService.this).isLogin()){
 						getContentResolver().registerContentObserver(url, true,
 								new CallLogObserver(new Handler(),entity));
 						// 立刻把电话挂断了。  但是呼叫记录的生成 并不是一个同步的代码。 是一个异步代码
@@ -211,7 +211,7 @@ public class CallSmsSafeService extends Service {
 				CompanyContactListEntity entity = dao.queryByTelephone(phone);
 				getContentResolver().registerContentObserver(url, true,
 						new CallLogObserver(new Handler(), entity));
-				if (entity!=null&&!"6".equals(entity.userStatus+"")){
+				if (entity!=null&&!"6".equals(entity.userStatus+"")&&UserInfo.getInstance(context).isLogin()){
 					showMyToast(entity);
 				}
 

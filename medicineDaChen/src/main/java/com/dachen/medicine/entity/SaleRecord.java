@@ -20,7 +20,7 @@ public class SaleRecord {
             "salesTime": 1464939553723,
             "state": 0,
             "tradeName": "sdf"*/
-    public String buyType;
+    public int buyType;
     public String companyId;
     public String companyName;
     public String drugStoreId;

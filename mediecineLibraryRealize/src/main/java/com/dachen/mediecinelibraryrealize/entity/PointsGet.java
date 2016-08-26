@@ -17,7 +17,7 @@ public class PointsGet extends Result{
 		public String number;
 		public Goods goods;
 		public String id;
-
+		public long createtime;
 		public static class Goods{
 			public String title;
 		}

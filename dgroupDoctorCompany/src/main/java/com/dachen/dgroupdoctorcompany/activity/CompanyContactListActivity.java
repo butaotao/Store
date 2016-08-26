@@ -120,10 +120,10 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
         setTitle("企业通讯录");
         manager = false;
         //有管理权限的管理者跳转过来，管理人员
-        RelativeLayout rl = (RelativeLayout) this.findViewById(R.id.ll_sub);
-        ViewStub stub = (ViewStub) findViewById(R.id.vstub_title);
+      /* RelativeLayout rl = (RelativeLayout) this.findViewById(R.id.ll_sub);
+        ViewStub stub = (ViewStub) findViewById(R.id.vstub_title);*/
         tv_des = (TextView) findViewById(R.id.tv_des);
-        View view = stub.inflate(this, R.layout.stub_viewtext, rl);
+        //View view = stub.inflate(this, R.layout.stub_viewtext, rl);
         /*-----------------------------------------zxy start-----------------------------------------*/
         mCp_listguilde = (GuiderHListView) findViewById(R.id.cp_listguilde);
         /*mListGuide.add("联系人");
@@ -146,7 +146,7 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
         //tv.setOnClickListener(this);
         //tv.setText("管理");
         //tv.setVisibility(View.GONE);
-        tv_des.setOnClickListener(this);
+//        tv_des.setOnClickListener(this);
         idDep = AddressList.deptId;
         companyid= AddressList.deptId;;
         if (!idDep.equals("-1")) {

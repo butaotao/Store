@@ -50,8 +50,11 @@ public class PolicyAdapter extends BaseCustomAdapter{
 		holder.tv_company.setText(info.goodsCompanyId);
 		String start_date = TimeUtils.getTime(info.startDate);
 		String end_date = TimeUtils.getTime(info.endDate);
-		holder.tv_time.setText(start_date+"至"+end_date);
-		holder.tv_money.setText(info.money+"");
+		holder.tv_time.setText(start_date + "至" + end_date);
+		java.text.DecimalFormat   df=new   java.text.DecimalFormat("0.00");
+
+		holder.tv_money.setText(df.format(info.money/100)+"");
+
 	}
 	public class ViewHolder extends BaseViewHolder{
 		@Bind(R.id.tv_name)

@@ -23,4 +23,5 @@ dependencies {
     compile project(':pickerView_Library')
     compile project(':numberPickerLibrary')
     compile project(':mediecineLibraryRealizeDoctor')
+    compile project(':pullToRefreshViewsLibrary')
 }

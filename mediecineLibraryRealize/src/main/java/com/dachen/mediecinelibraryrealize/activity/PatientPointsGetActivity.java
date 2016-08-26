@@ -39,6 +39,7 @@ public class PatientPointsGetActivity extends BaseActivity implements OnHttpList
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_patientpoints);
 		listview = (ListView) findViewById(R.id.listview);
+
 		patientpoints = new ArrayList<Potient>();
 		adaper = new AdapterPatientPoint(this,patientpoints);
 		id = getIntent().getStringExtra("id");
@@ -60,15 +61,6 @@ public class PatientPointsGetActivity extends BaseActivity implements OnHttpList
 		rl_plus.setOnClickListener(this);
 
 
-	}
-	public void getPointInfo(String id){
-		HashMap<String, String> interfaces = new HashMap<String, String>();
-		interfaces.put("patient", id);
-		new HttpManager().get (this,
-				Params.getInterface("invoke", "c_JFHDMX.select"),
-				PatientPoints.class,
-				interfaces,
-				this,false, 2);
 	}
 	@Override
 	public void onFailure(Exception arg0, String arg1, int arg2) {

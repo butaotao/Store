@@ -3,10 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    <ListView android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+    <com.handmark.pulltorefresh.library.PullToRefreshListView android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:id="@+id/listview2"
         android:divider="@color/color_grayline1dp"
-        android:dividerHeight="0.5dp"></ListView>
+        android:dividerHeight="0.5dp"></com.handmark.pulltorefresh.library.PullToRefreshListView>
 
 </LinearLayout>

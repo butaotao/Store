@@ -16,6 +16,7 @@ public class PatientPoints extends Result{
 		public String num_dh;
 		public Unit goods$unit;
 		public String created_time;
+		public long createtime;
 	}
 
 }

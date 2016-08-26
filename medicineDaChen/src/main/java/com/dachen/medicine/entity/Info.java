@@ -31,9 +31,8 @@ public class Info {
 	public String drug$general_name;
 	public String[] calendar;
 	public State state;
-	@Expose
-	@SerializedName("buyType")
-	public int type;
+
+	public int buyType;
     public class State{
     	public String value;
     	public String title;

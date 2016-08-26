@@ -2,6 +2,7 @@ package com.dachen.dgroupdoctorcompany.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.text.TextUtils;
 
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
 
@@ -45,6 +46,12 @@ public class UserInfo {
 	}
 	public String getSesstion(){
 		return SharedPreferenceUtil.getString(context,"session","");
+	}
+	public boolean isLogin(){
+		if (TextUtils.isEmpty(SharedPreferenceUtil.getString(context,"session",""))){
+			return false;
+		}
+		return true;
 	}
 	public String getNickName(){
 

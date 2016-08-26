@@ -89,9 +89,6 @@ public class DeleteColleActivity extends BaseActivity implements View.OnClickLis
     protected void onResume() {
         super.onResume();
         if (GetAllDoctor.changeContact!=null&&GetAllDoctor.changeContact.size()>0){
-         //   CompanyContactListEntity entityNew = new CompanyContactListEntity();
-           // entityNew.userId = entity.userId;
-             //   GetAllDoctor.changeContact.contains(entityNew);
                 Iterator<CompanyContactListEntity> entityIterator =GetAllDoctor.changeContact.iterator();
                 while (entityIterator.hasNext()){
                     CompanyContactListEntity entitye =entityIterator.next();
@@ -126,13 +123,7 @@ public class DeleteColleActivity extends BaseActivity implements View.OnClickLis
             btn_delete.setClickable(true);
         }
 
-    }/*
-    public void showSetPresent(){
-        btn_setrepresent.setVisibility(View.VISIBLE);
     }
-    public void showSetManager(){
-        btn_setmanager.setVisibility(View.VISIBLE);
-    }*/
     @Override
     public void onClick(View v) {
         super.onClick(v);

@@ -21,12 +21,14 @@ public class SaleRecordTranslate {
                 info.drug$trade_name = record.tradeName;
                 info.id = record.goodsId;
                 info.quantity = record.quantity;
+                info.buyType = record.buyType;
                 Info.DrugUnit unit = info.new DrugUnit();
                 unit.title = record.packUnitText;
                 info.drug$unit = unit;
                 Info.State state =info.new State();
                 state.value = record.state;
                 info.state = state;
+
                 infos.add(info);
             }
         }
