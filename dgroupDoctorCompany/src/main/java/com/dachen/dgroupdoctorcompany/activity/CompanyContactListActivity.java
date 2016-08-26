@@ -41,6 +41,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -102,6 +103,7 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
         super.onCreate(savedInstanceState);
         layoutView = View.inflate(this, R.layout.activity_companycontactlist, null);
         setContentView(layoutView);
+        GetAllDoctor.changeContact.clear();
         context = this;
         listview = (NoScrollerListView) findViewById(R.id.listview);
         layout_line = (LinearLayout) findViewById(R.id.layout_line);
@@ -206,7 +208,7 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (adapter.getItem(position) instanceof CompanyContactListEntity) {
                     onColleagueEdit((CompanyContactListEntity) adapter.getItem(position), position);
-                }else  if (adapter.getItem(position) instanceof CompanyDepment.Data.Depaments) {
+                } else if (adapter.getItem(position) instanceof CompanyDepment.Data.Depaments) {
                     getDepment(adapter.getItem(position), false);
                 }
             }
@@ -239,6 +241,14 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
             }
         });
         setShowContent();
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if(hasFocus){
+            mCp_listguilde.setSelection(mCp_listguilde.getCurrentPosition());
+        }
     }
     public void getDepment(BaseSearch contact ,boolean clickRadio){
         CompanyDepment.Data.Depaments  c1 = (CompanyDepment.Data.Depaments) (contact);
@@ -286,6 +296,44 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
         if (manager && !idDep.equals("-1")&&getContent()!=1) {
             getOrganization(idDep);
         }
+        if (GetAllDoctor.changeContact!=null&&GetAllDoctor.changeContact.size()>0){
+            Iterator<CompanyContactListEntity> entityIterator =GetAllDoctor.changeContact.iterator();
+            while (entityIterator.hasNext()){
+                CompanyContactListEntity entitye =entityIterator.next();
+                boolean find = false;
+                for (int i=0;i<list.size();i++){
+                    if(list.get(i) instanceof  CompanyContactListEntity){
+                        CompanyContactListEntity entity = (CompanyContactListEntity) list.get(i);
+                        if ((entity.userId+"").equals(entitye.userId)
+
+                                 ){
+                            if ((entity.id+"").equals(entitye.id)){
+                                if (entity.status.equals("1")){
+                                    list.set(i,entitye);
+                                    find = true;
+                                }else {
+                                    list.remove(entitye);
+                                    find = true;
+                                }
+                                break;
+                            }else {
+                                if (entity.status.equals("1")){
+                                    list.remove(entity);
+                                    find = true;
+                                }else {
+                                    list.remove(entitye);
+                                    find = true;
+                                }
+                                break;
+                            }
+
+                        }
+                    }
+                }
+            }
+            adapter.notifyDataSetChanged();
+        }
+
     }
     @Override
     public void onClick(View v) {
