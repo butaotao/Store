@@ -1,7 +1,13 @@
 package com.dachen.dgroupdoctorcompany.fragment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,11 +21,11 @@ import android.widget.TextView;
 
 import com.dachen.common.utils.ToastUtil;
 import com.dachen.dgroupdoctorcompany.R;
+import com.dachen.dgroupdoctorcompany.activity.QRCodeScannerUI;
 import com.dachen.dgroupdoctorcompany.im.view.SessionListViewV2;
 import com.dachen.dgroupdoctorcompany.utils.CallIntent;
 import com.dachen.dgroupdoctorcompany.utils.CompareDatalogic;
 import com.dachen.dgroupdoctorcompany.utils.UserInfo;
-import com.dachen.dgroupdoctorcompany.views.NetworkErrorView;
 import com.dachen.imsdk.net.ImPolling;
 import com.dachen.medicine.common.utils.NetUtil;
 import com.dachen.medicine.entity.Result;
@@ -36,9 +42,12 @@ public class InfomationFragment extends BaseFragment implements OnChildClickList
     TextView tv_login_title;
     private SessionListViewV2 lv;
     private ImageButton ibAdd;
+    private ImageButton mQRLogin;
     private PopupWindow popWindow;
     private View cover;
-    private NetworkErrorView mNetworkErrorView;
+    //private NetworkErrorView mNetworkErrorView;
+    private LocalBroadcastManager mBroadcastManager;
+    private BroadcastReceiver mMItemViewListClickReceiver;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,12 +56,21 @@ public class InfomationFragment extends BaseFragment implements OnChildClickList
         ButterKnife.bind(mActivity);
         tv_login_title = (TextView) mRootView.findViewById(R.id.tv_title);
         lv = (SessionListViewV2) mRootView.findViewById(R.id.list_view);
+       /* if (mNetworkErrorView == null) {
+            mNetworkErrorView = new NetworkErrorView(mActivity);
+            LinearLayout ll = new LinearLayout(mActivity);
+            ll.addView(mNetworkErrorView);
+            lv.addHeaderView(ll);
+        }*/
         lv.setUI(mActivity);
         lv.setEmptyView(mRootView.findViewById(R.id.empty_view));
         tv_login_title.setText("消息");
         ibAdd = (ImageButton) mRootView.findViewById(R.id.btn_add);
+        mQRLogin = (ImageButton) mRootView.findViewById(R.id.btn_scannerLogin);
         ibAdd.setOnClickListener(this);
+        mQRLogin.setOnClickListener(this);
         cover = mRootView.findViewById(R.id.v_cover);
+        registerBroadCast();
         return mRootView;
     }
 
@@ -73,6 +91,7 @@ public class InfomationFragment extends BaseFragment implements OnChildClickList
     @Override
     public void onDestroy() {
         super.onDestroy();
+        getActivity().unregisterReceiver(mMItemViewListClickReceiver);
         lv.unregisterEventBus();
     }
 
@@ -81,6 +100,10 @@ public class InfomationFragment extends BaseFragment implements OnChildClickList
         switch (v.getId()) {
             case R.id.btn_add:
                 showAddPop();
+                break;
+            case R.id.btn_scannerLogin: //扫一扫登入工作台
+                Intent QRintent = new Intent(mActivity,QRCodeScannerUI.class);
+                startActivity(QRintent);
                 break;
             default:
                 break;
@@ -161,15 +184,31 @@ public class InfomationFragment extends BaseFragment implements OnChildClickList
     }
     //是否显示网络连接异常头View
     private void showNetWorkErr() {
-        if (mNetworkErrorView == null) {
-            mNetworkErrorView = new NetworkErrorView(mActivity);
-        }
+
         boolean enable = NetUtil.checkNetworkEnable(mActivity);
         if (enable) {
-            lv.removeHeaderView(mNetworkErrorView);
-        } else if (lv.getHeaderViewsCount() == 0) {
-            lv.addHeaderView(mNetworkErrorView);
+            Log.d("zxy", "showNetWorkErr: GONE");
+            lv.getNetworkErrorView().setVisibility(View.GONE);
+            //lv.removeHeaderView(mNetworkErrorView);
+        } else  {
+            Log.d("zxy", "showNetWorkErr: VISIBLE ");
+            //lv.addHeaderView(mNetworkErrorView);
+            lv.getNetworkErrorView().setVisibility(View.VISIBLE);
         }
     }
 
+    //注册网络状态广播监听
+    private void registerBroadCast() {
+
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
+        mMItemViewListClickReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent){
+                Log.d("zxy", "onReceive: ");
+                showNetWorkErr();
+            }
+        };
+        getActivity().registerReceiver(mMItemViewListClickReceiver, intentFilter);
+    }
 }

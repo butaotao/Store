@@ -15,6 +15,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.HeaderViewListAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.dachen.common.async.SimpleResultListenerV2;
@@ -28,6 +29,7 @@ import com.dachen.dgroupdoctorcompany.im.adapter.ChatGroupMenuAdapter;
 import com.dachen.dgroupdoctorcompany.im.adapter.SessionListAdapterV2;
 import com.dachen.dgroupdoctorcompany.im.utils.AppImUtils;
 import com.dachen.dgroupdoctorcompany.im.utils.ChatActivityUtilsV2;
+import com.dachen.dgroupdoctorcompany.views.NetworkErrorView;
 import com.dachen.imsdk.consts.SessionGroupId;
 import com.dachen.imsdk.db.dao.ChatGroupDao;
 import com.dachen.imsdk.db.po.ChatGroupPo;
@@ -57,6 +59,7 @@ public class SessionListViewV2 extends ListView {
     private SessionListAdapterV2 mAdapter;
     boolean isAddHeaderView = false;
     private Dialog menuDialog;
+    private NetworkErrorView mNetworkErrorView;
 
     public SessionListViewV2(Context context) {
         super(context);
@@ -71,6 +74,10 @@ public class SessionListViewV2 extends ListView {
     public SessionListViewV2(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs, defStyleAttr);
+    }
+
+    public NetworkErrorView getNetworkErrorView() {
+        return mNetworkErrorView;
     }
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -116,6 +123,12 @@ public class SessionListViewV2 extends ListView {
 
         // 加入通知
         EventBus.getDefault().register(this);
+
+        //添加头
+        mNetworkErrorView = new NetworkErrorView(context);
+        LinearLayout ll = new LinearLayout(context);
+        ll.addView(mNetworkErrorView);
+        addHeaderView(ll);
 
         // 更新视图
         initData();

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.dachen.dgroupdoctorcompany"
     android:versionCode="186"
-    android:versionName="1.4.0.16082601">
+    android:versionName="1.4.0.16082602">
 <!--
     android:versionCode="161"
     android:versionName="1.4070706.161">-->
@@ -742,6 +742,14 @@
             android:enabled="true"
             android:exported="true">
         </service>
+
+        <!--二维码扫描-->
+        <activity android:name=".activity.QRCodeScannerUI"/>
+        <!--扫一扫登入web工作台-->
+        <activity android:name=".activity.WebQRLoginActivity"/>
+        <!--轻应用界面-->
+        <activity android:name=".activity.LitterAppActivity"/>
+
     </application>
 
 </manifest>
