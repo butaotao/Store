@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
@@ -83,7 +84,6 @@ public class MyInfoDetailActivity extends BaseActivity implements HttpManager.On
     CompanyContactDao companyContactDao;
     RoleDao roleDao;
     private String mStrOrgId="";
-
     private class MyHandler extends Handler{
         @Override
         public void handleMessage(Message msg){
@@ -132,7 +132,7 @@ public class MyInfoDetailActivity extends BaseActivity implements HttpManager.On
         tv_company = (TextView) findViewById(R.id.tv_company);
         tv_part = (TextView) findViewById(R.id.tv_part);
         tv_position = (TextView) findViewById(R.id.tv_position);
-
+        findViewById(R.id.rl_contactmethod).setOnClickListener(this);
         tv_contactmethod.setText(telephones+"");
         companyContactDao = new CompanyContactDao(this);
         roleDao = new RoleDao(this);
@@ -189,6 +189,11 @@ public class MyInfoDetailActivity extends BaseActivity implements HttpManager.On
                 intent.putExtra("user",entity);
                 startActivity(intent);
                 break;
+            case R.id.rl_contactmethod:
+                intent = new Intent(this,EditTelActivity.class);
+                startActivity(intent);
+                break;
+         //
         }
     }
 

@@ -3,6 +3,7 @@ package com.dachen.dgroupdoctorcompany.utils;
 import android.app.Activity;
 import android.view.View;
 import android.view.ViewStub;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -19,5 +20,13 @@ public class TitleManager {
         TextView tv = (TextView) view.findViewById(R.id.tv_search);
         tv.setOnClickListener(listener);
         tv.setText(title);
+    }
+    public static void showImage(Activity context,View viewlayout,View.OnClickListener listener,String title,int id){
+        RelativeLayout rl = (RelativeLayout) viewlayout.findViewById(R.id.ll_sub);
+        ViewStub stub = (ViewStub) viewlayout.findViewById(R.id.vstub_title);
+        View view = stub.inflate(context,  R.layout.stub_viewimage, rl);
+        ImageView tv = (ImageView) view.findViewById(R.id.iv_stub);
+        tv.setBackgroundResource(id);
+        tv.setOnClickListener(listener);
     }
 }

@@ -1,7 +1,19 @@
 <resources>
 
     <style name="AppTheme" parent="android:Theme.Holo.Light.NoActionBar"/>
-
+    <style name="AppThemes" parent="AppBaseTheme">
+         <!-- Status Bar -->
+         <item name="android:windowTranslucentStatus">true</item>
+        <!-- Navigation Bar -->
+         <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:background">#00ffff</item>
+    </style>
+        <style name="title_bg" parent="android:Theme">
+            <item name="android:windowTitleBackgroundStyle">@style/Titleground</item>
+        </style>
+        <style name="Titleground">
+            <item name="android:background">#ff8f26</item>
+        </style>
     <style name="Width_Height_MAT">
 
         <item name="android:layout_width">match_parent</item>

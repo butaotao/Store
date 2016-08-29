@@ -52,7 +52,10 @@ public class AddSignInActivity extends BaseActivity implements HttpManager.OnHtt
     public static final int            REQUEST_ADDRESS = 1200;
 
     public static final int            MODE_WORKING = 0;//上班打卡
+    public static final int            SIGN_OFFWORKING = 2;//上班打卡
+    public static final int            SIGN_WORKING = 1;//上班打卡
     public static final int            MODE_VISIT = 1;//拜访客户
+    public int mSignMode;
     private int                        mMode;
     private RelativeLayout             vSelect;
     private TextView                   mTvAddress;
@@ -137,9 +140,10 @@ public class AddSignInActivity extends BaseActivity implements HttpManager.OnHtt
     private void initData(){
         mGaoDeMapUtils = new GaoDeMapUtils(this.getApplicationContext(),this);
         mSoundPool = new SoundPool(1, AudioManager.STREAM_SYSTEM, 0);
-        mSoundId = mSoundPool.load(AddSignInActivity.this,R.raw.sign_add,1);
+        mSoundId = mSoundPool.load(AddSignInActivity.this, R.raw.sign_add, 1);
         lastClickTime = System.currentTimeMillis();
-        mMode = this.getIntent().getIntExtra("mode",MODE_WORKING);
+        mMode = this.getIntent().getIntExtra("mode", MODE_WORKING);
+        mSignMode = this.getIntent().getIntExtra("singmode",-1);
         if(mMode == MODE_WORKING){
             setTitle("考勤打卡");
             vSelect.setVisibility(View.GONE);
@@ -325,7 +329,11 @@ public class AddSignInActivity extends BaseActivity implements HttpManager.OnHtt
         String address = mTvAddress.getText().toString();
         TelephonyManager TelephonyMgr = (TelephonyManager)getSystemService(TELEPHONY_SERVICE);
         String deviceId = TelephonyMgr.getDeviceId();
-
+        if (mSignMode == SIGN_WORKING ){
+            mListLable.add("上班");
+        }else if(mSignMode == SIGN_OFFWORKING){
+            mListLable.add("下班");
+        }
         String signLable = "";
         if(null != mListLable){
             for(int i=0;i<mListLable.size();i++){
@@ -340,16 +348,11 @@ public class AddSignInActivity extends BaseActivity implements HttpManager.OnHtt
                 }
             }
         }
-
-
         String orgId = GetUserDepId.getUserDepId(this);
         showLoadingDialog();
         new HttpManager().post(this, Constants.CREATE_OR_UPDATA_SIGIN_IN, Result.class,
-                Params.getWorkingParams(AddSignInActivity.this,deviceId,remark,mId,coordinate,address,signLable,orgId),
+                Params.getWorkingParams(AddSignInActivity.this, deviceId, remark, mId, coordinate, address, signLable, orgId),
                 this,false,4);
-//        String url = "http://192.168.3.7:8082/signed/createOrUpdateSigned";
-//        new HttpManager().requestBase(Request.Method.GET,url,this,Result.class, Params
-//                .getWorkingParams(AddSignInActivity.this,remark,mId,coordinate,address),this,false,1);
     }
 
     @Override

@@ -340,16 +340,30 @@
                 android:textColor="@color/color_666666"
                 android:textSize="16sp" />
 
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="15dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_right_arrow"
+                android:id="@+id/arrow_5"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_gravity="center_vertical"
-                android:layout_alignParentRight="true"
+                android:layout_toLeftOf="@+id/arrow_5"
                 android:layout_marginRight="15dp"
                 android:contentDescription="@null"
                 android:singleLine="true"
                 android:maxEms="12"
+                android:text=""
                 android:id="@+id/tv_contactmethod"
                 android:ellipsize="end"
                 android:textColor="@color/text_grey"

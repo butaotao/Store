@@ -45,6 +45,7 @@ import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.dgroupdoctorcompany.entity.JoinVisitGroup;
 import com.dachen.dgroupdoctorcompany.utils.DataUtils.GetUserDepId;
+import com.dachen.dgroupdoctorcompany.utils.DataUtils.SinUtils;
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
 import com.dachen.medicine.entity.Result;
 import com.dachen.medicine.net.HttpManager;
@@ -68,6 +69,7 @@ public class SelectAddressActivity extends BaseActivity implements LocationSourc
     public static final int MODE_SELECT_ADDRESS = 11;//选择地点之后当前页面finish，返回地点
     public static final int MODE_SELECT = 12;//选择地点之后，跳到添加签到页面
     private int mSelectedMode;
+    public static int singmode;
     public static  String POI = "地名地址信息|医疗保健服务|商务住宅|交通设施服务|公司企业|生活服务";//poi搜索类型
     private ClearEditText et_search;
     private PullToRefreshListView lvAddress;
@@ -169,6 +171,7 @@ public class SelectAddressActivity extends BaseActivity implements LocationSourc
        if(ndistance>0){
            distance = ndistance;
        }
+       singmode = this.getIntent().getIntExtra("singmode",-1);
        mlatitude = this.getIntent().getDoubleExtra("latitude",0);
        mlongitude = this.getIntent().getDoubleExtra("longitude",0);
        lp = new LatLonPoint(mlatitude,mlongitude);
@@ -193,11 +196,15 @@ public class SelectAddressActivity extends BaseActivity implements LocationSourc
                }
                mAdapter.notifyDataSetChanged();
                PoiItem poiItem = (PoiItem) parent.getAdapter().getItem(position);
+               String name = poiItem.getTitle();
+               double longitude = poiItem.getLatLonPoint().getLongitude();
+               double latitude = poiItem.getLatLonPoint().getLatitude();
+               String  coordinate = latitude+","+longitude;
 
                if(mSelectType==1){
-                   String name = poiItem.getTitle();
-                   double longitude = poiItem.getLatLonPoint().getLongitude();
-                   double latitude = poiItem.getLatLonPoint().getLatitude();
+                    name = poiItem.getTitle();
+                    longitude = poiItem.getLatLonPoint().getLongitude();
+                    latitude = poiItem.getLatLonPoint().getLatitude();
                    String city = poiItem.getCityName();
                    String address = poiItem.getAdName();
                    String snippet = poiItem.getSnippet();
@@ -209,9 +216,9 @@ public class SelectAddressActivity extends BaseActivity implements LocationSourc
                    finish();
                }else {
                    if (mSelectedMode == MODE_SELECT) {
-                       String name = poiItem.getTitle();
-                       double longitude = poiItem.getLatLonPoint().getLongitude();
-                       double latitude = poiItem.getLatLonPoint().getLatitude();
+                        name = poiItem.getTitle();
+                        longitude = poiItem.getLatLonPoint().getLongitude();
+                        latitude = poiItem.getLatLonPoint().getLatitude();
                        String city = poiItem.getCityName();
                        String address = poiItem.getAdName();
                        String snippet = poiItem.getSnippet();
@@ -250,12 +257,12 @@ public class SelectAddressActivity extends BaseActivity implements LocationSourc
 
                    } else if (mSelectedMode == MODE_SELECT_ADDRESS) {
                        Intent intent = new Intent();
-                       String name = poiItem.getTitle();
+                        name = poiItem.getTitle();
                        String city = poiItem.getCityName();
                        String address = poiItem.getAdName();
                        String snippet = poiItem.getSnippet();
-                       double longitude = poiItem.getLatLonPoint().getLongitude();
-                       double latitude = poiItem.getLatLonPoint().getLatitude();
+                        longitude = poiItem.getLatLonPoint().getLongitude();
+                        latitude = poiItem.getLatLonPoint().getLatitude();
                        intent.putExtra("longitude", longitude);
                        intent.putExtra("latitude", latitude);
                        intent.putExtra("floor", name);
