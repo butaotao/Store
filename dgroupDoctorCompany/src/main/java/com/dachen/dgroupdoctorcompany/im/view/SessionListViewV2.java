@@ -24,6 +24,7 @@ import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.activity.NewFriendActivity;
 import com.dachen.dgroupdoctorcompany.adapter.BaseCustomAdapter;
 import com.dachen.dgroupdoctorcompany.im.activity.FeedbackChatActivity;
+import com.dachen.dgroupdoctorcompany.im.activity.PublicNotifyActivity;
 import com.dachen.dgroupdoctorcompany.im.adapter.ChatGroupMenuAdapter;
 import com.dachen.dgroupdoctorcompany.im.adapter.SessionListAdapterV2;
 import com.dachen.dgroupdoctorcompany.im.utils.AppImUtils;
@@ -85,11 +86,9 @@ public class SessionListViewV2 extends ListView {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.w(TAG, "onItemClick():position:" + position + ",id:" + id);
-                if (view == null) { //||!(view.getTag() instanceof ViewHolder)
+                if (view == null) {
                     return;
                 }
-//				ViewHolder holder=(ViewHolder)view.getTag();
-//				ChatGroupPo messageDB=(ChatGroupPo)holder.getObject();
                 ChatGroupPo po = (ChatGroupPo) getItemAtPosition(position);
                 __onItemClick(po);
 
@@ -263,8 +262,6 @@ public class SessionListViewV2 extends ListView {
         mDao.setUnreadZero(item.groupId);
         EventBus.getDefault().post(new NewMsgEvent(this));
         item.unreadCount = 0;
-
-        //当有头的时候得到HeaderViewListAdapter,再强转BaseAdapter,如果添加过头,直接用HeaderViewListAdapter
         BaseAdapter ada;
         if (isAddHeaderView || getHeaderViewsCount() > 0) {
             HeaderViewListAdapter listAdapter = (HeaderViewListAdapter) getAdapter();
@@ -275,14 +272,6 @@ public class SessionListViewV2 extends ListView {
         }
         ada.notifyDataSetChanged();
 
-        // 刷新首页底部未读消息数量 (有三个地方要用到，1)业务轮询；2）刚入首页；3）点击会话列表；)
-//        int doctor_unread = mDao.getUnreadCount(AppImUtils.getBizTypes());
-        // TODO: 2016/2/25
-//		BaseActivity.mObserverUtil.sendObserver(MainActivity.class, MainActivity
-// .observer_msg_what_update_unread_doctor,
-//				doctor_unread, 0, null);
-
-        Log.w(TAG, "item.groupId:" + item.groupId);
         Log.w(TAG, "item.toString:" + item.toString());
 
         if (item.type == ChatGroupPo.TYPE_DOUBLE || item.type == ChatGroupPo.TYPE_MULTI
@@ -298,6 +287,8 @@ public class SessionListViewV2 extends ListView {
             context.startActivity(i);
         } else if (item.bizType.equals("pub_customer")) {
             FeedbackChatActivity.openUI(context, item.name, item.groupId, null);
+        } else if (item.bizType.equals("pub_org")) {
+            PublicNotifyActivity.openUI(context, item.name, item.groupId);
         }
 
     }

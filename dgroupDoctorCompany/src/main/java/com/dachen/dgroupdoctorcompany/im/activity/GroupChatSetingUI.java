@@ -177,7 +177,7 @@ public class GroupChatSetingUI extends ImBaseActivity {
     @Bind(R.id.iv_avatar)
     ImageView iv_avatar;
     @Bind(R.id.layout_avatar)
-    ImageView layout_avatar;
+    View layout_avatar;
 
     UISwitchButton im_group_chat_ui_setting_messge_remind;
     UISwitchButton im_group_chat_ui_setting_fav;

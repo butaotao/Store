@@ -80,6 +80,6 @@ public class AppImUtils {
         });
     }
     public static String[] getBizTypes(){
-        return  new String[]{"3_3","3_10","10","pub_customer"};
+        return  new String[]{"3_3","3_10","10","pub_customer","pub_org"};
     }
 }
