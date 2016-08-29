@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout style="@style/ActionBar_Container" >
+
+        <Button
+            android:layout_marginLeft="5dp"
+            android:id="@+id/ui_qrcode_scanner_back"
+            android:text="@string/返回"
+            android:textColor="#333333"
+            android:drawableLeft="@drawable/arrow_left"
+            style="@style/ActionBar_BackBtn"  />
+
+        <TextView
+            android:id="@+id/ui_qrcode_scanner_title"
+            style="@style/ActionBar_Title"
+            android:textColor="#333333"
+            android:text="扫一扫" />
+
+        <ImageButton
+            android:visibility="gone"
+            android:id="@+id/ui_qrcode_scanner_choose_from_photo"
+            style="@style/ActionBar_RightBtn"
+            android:src="@drawable/qrcode_photo" />
+    </RelativeLayout>
+
+    <me.dm7.barcodescanner.zxing.ZXingScannerView
+        android:id="@+id/ui_qrcode_scanner_ZXingScannerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+    </me.dm7.barcodescanner.zxing.ZXingScannerView>
+
+</LinearLayout>

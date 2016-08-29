@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dachen.dgroupdoctorcompany.R;
@@ -36,10 +37,12 @@ public class CompanyListGuide extends BaseAdapter<String> {
         }
         if (position == dataSet.size()-1) {
             holder.icptext.setTextColor(Color.parseColor("#555555"));
+            holder.icparrow.setVisibility(View.GONE);
             holder.icptext.setClickable(false);
         }else {
             holder.icptext.setClickable(true);
             holder.icptext.setTextColor(Color.parseColor("#3cbaff"));
+            holder.icparrow.setVisibility(View.VISIBLE);
         }
         String text = dataSet.get(position);
         holder.icptext.setText(text);
@@ -47,11 +50,13 @@ public class CompanyListGuide extends BaseAdapter<String> {
     }
 
     public class ViewHolder {
-        public final TextView icptext;
-        public final View root;
+        public  TextView icptext;
+        public  ImageView icparrow;
+        public  View root;
 
         public ViewHolder(View root) {
             icptext = (TextView) root.findViewById(R.id.i_cp_text);
+            icparrow = (ImageView) root.findViewById(R.id.i_cp_arrow);
             //  icptext.setTextSize(DisplayUtil.pixelToDp(mContext,34));
             this.root = root;
         }
