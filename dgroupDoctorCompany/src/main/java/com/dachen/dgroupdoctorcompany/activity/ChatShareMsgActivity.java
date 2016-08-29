@@ -38,7 +38,6 @@ import com.dachen.imsdk.net.ImCommonRequest;
 import com.dachen.imsdk.net.MessageSenderV2;
 import com.dachen.imsdk.net.PollingURLs;
 import com.dachen.imsdk.service.ImRequestManager;
-import com.dachen.imsdk.utils.ImUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -181,9 +180,10 @@ public class ChatShareMsgActivity extends ImBaseActivity implements View.OnClick
                     dialog.dimissDialog();
                     ArrayList<GroupInfo2Bean.Data.UserInfo> userList = ChatActivityUtilsV2.getUserList(group);
                     if (null != msgId) {
-                        forwardMsg(group.groupId);
-                        RepresentGroupChatActivity.openUI(mThis, group.name, group.groupId, userList);
-                        CallIntent.startMainActivity(ChatShareMsgActivity.this);
+                        forwardMsg(group.groupId,userList);
+                        //RepresentGroupChatActivity.openUI(mThis, group.name, group.groupId, userList);
+                        //CallIntent.startMainActivity(ChatShareMsgActivity.this);
+                        //ImRequestManager.sendArchive(mItem, group.groupId, new ShareItemFileListener());
 
                     } else {
                        /* HashMap<String, Object> params = new HashMap<>();
@@ -230,7 +230,7 @@ public class ChatShareMsgActivity extends ImBaseActivity implements View.OnClick
         }
     }
 
-    private void forwardMsg(String groupId){
+    private void forwardMsg(String groupId, final ArrayList<GroupInfo2Bean.Data.UserInfo> userList){
         Map<String,Object> reqMap=new HashMap<>();
     /*    if (msgId==null&&null!=mItem){
             if (null!=mItem.po&& !TextViewUtils.isEmpty(mItem.po.msgId)){
@@ -260,6 +260,7 @@ public class ChatShareMsgActivity extends ImBaseActivity implements View.OnClick
                 if(result.resultCode==1){
                     ToastUtil.showToast(mThis,"转发成功");
                     CallIntent.startMainActivity(ChatShareMsgActivity.this);
+                    RepresentGroupChatActivity.openUI(mThis, group.name, group.groupId, userList);
                 }else{
                     ToastUtil.showToast(mThis,result.detailMsg);
                 }

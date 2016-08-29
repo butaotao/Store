@@ -1,15 +1,5 @@
 package com.dachen.medicine.activity;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.EnumMap;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Map;
-
-import me.dm7.barcodescanner.zxing.ZXingScannerView;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -32,14 +22,26 @@ import com.google.zxing.RGBLuminanceSource;
 import com.google.zxing.Result;
 import com.google.zxing.common.HybridBinarizer;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.EnumMap;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Map;
+
+import me.dm7.barcodescanner.zxing.ZXingScannerView;
+
 /**
  * 二维码扫描界面
- * 
+ *
  * @author lmc
- * 
+ *
  */
 public class QRCodeScannerUI extends Activity implements
-		ZXingScannerView.ResultHandler {
+		ZXingScannerView.ResultHandler{
 
 	private static final String TAG = QRCodeScannerUI.class.getSimpleName();
 
@@ -47,9 +49,6 @@ public class QRCodeScannerUI extends Activity implements
 	// protected int findUserType = UserType.NotKnow;
 	Context context;
 
-	// @Nullable
-	// @Bind(R.id.ui_qrcode_scanner_ZXingScannerView)
-	// ZXingScannerView ui_qrcode_scanner_ZXingScannerView;
 
 	@Override
 	public void onCreate(Bundle state) {
@@ -59,10 +58,6 @@ public class QRCodeScannerUI extends Activity implements
 		context = this;
 		// @Bind不行，所以用这个
 		mScannerView = (ZXingScannerView) findViewById(R.id.ui_qrcode_scanner_ZXingScannerView);
-
-		Intent i = getIntent();
-		// findUserType = i.getExtras().getInt("userTpye");
-
 		init();
 	}
 
@@ -72,11 +67,11 @@ public class QRCodeScannerUI extends Activity implements
 		mScannerView.setFormats(formats);
 	}
 
-	void onClick_ui_qrcode_scanner_back() {
+	private void onClick_ui_qrcode_scanner_back() {
 		finish();
 	}
 
-	void onClick_ui_qrcode_scanner_choose_from_photo() {
+	private void onClick_ui_qrcode_scanner_choose_from_photo() {
 		// 从相册选择图片
 		CameraUtil.pickImageSimple(this, REQUEST_CODE_PICK_CROP_PHOTO);
 	}
@@ -96,7 +91,7 @@ public class QRCodeScannerUI extends Activity implements
 
 	/*
 	 * (non-Javadoc) 二维码扫描结果回调
-	 * 
+	 *
 	 * @see
 	 * me.dm7.barcodescanner.zxing.ZXingScannerView.ResultHandler#handleResult
 	 * (com.google.zxing.Result)
@@ -106,45 +101,19 @@ public class QRCodeScannerUI extends Activity implements
 
 		if (rawResult != null) {
 			Log.w(TAG, "handleResult():getText:" + rawResult.getText());
-			Log.w(TAG, "handleResult():toString:" + rawResult.toString());
+			Log.w(TAG, "handleResult():getTimestamp:" + rawResult.getTimestamp());
+			Log.w(TAG, "handleResult():getResultPoints:" + Arrays.toString(rawResult.getResultPoints()));
 			handleResult(rawResult.getText());
 		}
-
-		// Toast.makeText(this, "Contents = " + rawResult.getText() +
-		// ", Format = " + rawResult.getBarcodeFormat().toString(),
-		// Toast.LENGTH_SHORT).show();
-		// mScannerView.startCamera();
-
-		// if (rawResult != null) {
-		// Log.w(TAG, "handleResult():"+rawResult.getText());
-		// Log.w(TAG, "handleResult():"+rawResult.toString());
-		// }
-		//
-		// try {
-		// Uri notification =
-		// RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-		// Ringtone r = RingtoneManager.getRingtone(getApplicationContext(),
-		// notification);
-		// r.play();
-		// } catch (Exception e) {
-		// e.printStackTrace();
-		// }
-		//
-		// // showMessageDialog("Contents = " + rawResult.getText() +
-		// ", Format = "
-		// // + rawResult.getBarcodeFormat().toString());
-		//
-		// executeTask(rawResult.getText());
 
 	}
 
 	/**
 	 * 回调结果
-	 * 
+	 *
 	 * @param text
 	 */
 	public void handleResult(String text) {
-
 		// Toast.makeText(this, "Contents = " + rawResult.getText() +
 		// ", Format = " + rawResult.getBarcodeFormat().toString(),
 		// Toast.LENGTH_SHORT).show();
@@ -154,7 +123,6 @@ public class QRCodeScannerUI extends Activity implements
 		Log.w(TAG, "handleResult():text:" + text);
 		// Log.w(TAG, "handleResult():"+rawResult.toString());
 		// }
-
 		try {
 			Uri notification = RingtoneManager
 					.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -164,10 +132,8 @@ public class QRCodeScannerUI extends Activity implements
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		// showMessageDialog("Contents = " + rawResult.getText() + ", Format = "
 		// + rawResult.getBarcodeFormat().toString());
-
 		executeTask(text);
 
 	}
@@ -179,20 +145,20 @@ public class QRCodeScannerUI extends Activity implements
 
 		/*
 		 * Log.w(TAG, "executeTask():scanResult:"+scanResult);
-		 * 
+		 *
 		 * //String scanResultUrl = scanResult+"&access_token="+
 		 * UserSp.getInstance
 		 * (DApplication.getUniqueInstance()).getAccessToken(""); Log.w(TAG,
 		 * "executeTask():scanResultUrl:"+scanResultUrl);
-		 * 
+		 *
 		 * VolleyUtil.getQueue(this).cancelAll(this); StringRequest req = new
 		 * StringRequest(scanResultUrl, new Listener<String>() {
-		 * 
+		 *
 		 * @Override public void onResponse(String response) { Log.w(TAG,
 		 * "result:"+response);
-		 * 
+		 *
 		 * try {
-		 * 
+		 *
 		 * QRCodeScanner2Bean bean = GJson.parseObject(response,
 		 * QRCodeScanner2Bean.class); if (bean != null) { if
 		 * (HttpErrorCode.successed == bean.resultCode) { // 以前的旧代码 JSONObject
@@ -219,14 +185,14 @@ public class QRCodeScannerUI extends Activity implements
 		 * //ToastUtil.showToast(context, bean.resultMsg); } } } catch
 		 * (JSONException e) { e.printStackTrace(); }catch (Exception e) {
 		 * e.printStackTrace(); } }
-		 * 
+		 *
 		 * }, new ErrorListener() {
-		 * 
+		 *
 		 * @Override public void onErrorResponse(VolleyError error) { //
 		 * showErrorMessage("错误："+error.getMessage()); }
-		 * 
+		 *
 		 * });
-		 * 
+		 *
 		 * req.setTag(this); req.setRetryPolicy(new DefaultRetryPolicy(10000, 0,
 		 * 0)); VolleyUtil.getQueue(this).add(req);
 		 */
@@ -341,5 +307,4 @@ public class QRCodeScannerUI extends Activity implements
 		return new BinaryBitmap(new HybridBinarizer(new RGBLuminanceSource(
 				lWidth, lHeight, lPixels)));
 	}
-
 }
