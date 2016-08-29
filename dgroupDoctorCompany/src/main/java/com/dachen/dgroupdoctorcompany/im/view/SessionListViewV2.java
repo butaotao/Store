@@ -34,6 +34,7 @@ import com.dachen.dgroupdoctorcompany.views.NetworkErrorView;
 import com.dachen.imsdk.consts.SessionGroupId;
 import com.dachen.imsdk.db.dao.ChatGroupDao;
 import com.dachen.imsdk.db.po.ChatGroupPo;
+import com.dachen.imsdk.entity.event.GroupSettingEvent;
 import com.dachen.imsdk.entity.event.NewMsgEvent;
 import com.dachen.imsdk.service.ImRequestManager;
 
@@ -240,6 +241,7 @@ public class SessionListViewV2 extends ListView {
             @Override
             public void onSuccess(String data) {
                 ToastUtil.showToast(context,"请求成功");
+                EventBus.getDefault().post(new GroupSettingEvent(po.groupId,GroupSettingEvent.TYPE_TOP));
                 mDao.setTopFlag(po.groupId,act);
                 updateView();
             }

@@ -40,6 +40,7 @@ import com.dachen.dgroupdoctorcompany.utils.UserInfo;
 import com.dachen.imsdk.consts.SessionType;
 import com.dachen.imsdk.db.dao.ChatGroupDao;
 import com.dachen.imsdk.db.po.ChatGroupPo;
+import com.dachen.imsdk.entity.event.GroupSettingEvent;
 import com.dachen.imsdk.entity.event.NewMsgEvent;
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
 import com.dachen.medicine.common.utils.ToastUtils;
@@ -364,6 +365,11 @@ public class AddressList extends BaseFragment implements View.OnClickListener{
 	}
     public void onEventMainThread(NewMsgEvent event) {
         refreshOftenContact();
+    }
+    public void onEventMainThread(GroupSettingEvent event) {
+		if(event.type==GroupSettingEvent.TYPE_TOP){
+			refreshOftenContact();
+		}
     }
 
 

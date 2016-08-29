@@ -312,6 +312,7 @@ public class GroupChatSetingUI extends ImBaseActivity {
                     @Override
                     public void onSuccess(String data) {
                         dao.setTopFlag(groupId,act);
+                        EventBus.getDefault().post(new GroupSettingEvent(groupId,GroupSettingEvent.TYPE_TOP));
                         mDialog.dismiss();
                     }
 
