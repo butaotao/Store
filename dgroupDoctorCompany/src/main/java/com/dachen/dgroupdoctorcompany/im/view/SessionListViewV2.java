@@ -240,7 +240,7 @@ public class SessionListViewV2 extends ListView {
         ImRequestManager.topChatGroup(po.groupId, act, new SimpleResultListenerV2() {
             @Override
             public void onSuccess(String data) {
-                ToastUtil.showToast(context,"请求成功");
+//                ToastUtil.showToast(context,"请求成功");
                 EventBus.getDefault().post(new GroupSettingEvent(po.groupId,GroupSettingEvent.TYPE_TOP));
                 mDao.setTopFlag(po.groupId,act);
                 updateView();
