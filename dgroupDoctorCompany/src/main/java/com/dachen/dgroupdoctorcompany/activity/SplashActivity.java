@@ -2,12 +2,14 @@ package com.dachen.dgroupdoctorcompany.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 
+import com.dachen.common.utils.ToastUtil;
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
@@ -42,6 +44,7 @@ public class SplashActivity extends BaseActivity implements HttpManager.OnHttpLi
         super.onCreate(savedInstanceState);
         View view = View.inflate(this, R.layout.splash_company, null);
         setContentView(view);
+        startActivitys();
         dao = new DoctorDao(this);
         companyContactDao = new CompanyContactDao(this);
         roleDao = new RoleDao(this);
@@ -72,7 +75,10 @@ public class SplashActivity extends BaseActivity implements HttpManager.OnHttpLi
     protected void onPause() {
         super.onPause();
     }
-
+    public void startActivitys(){
+        Uri uridata = this.getIntent().getData();
+        ToastUtil.showToast(this,uridata+"");
+    }
     public void autoLogin() {
         SharedPreferences preferences = getSharedPreferences(
                 SHAREDPREFERENCES_NAME, MODE_PRIVATE);

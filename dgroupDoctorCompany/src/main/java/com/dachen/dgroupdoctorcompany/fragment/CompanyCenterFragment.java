@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.activity.MeetingListActivity;
+import com.dachen.dgroupdoctorcompany.activity.MenuWithFABActivity;
 import com.dachen.dgroupdoctorcompany.activity.RecordActivity;
 import com.dachen.dgroupdoctorcompany.activity.SignInActivity;
 import com.dachen.dgroupdoctorcompany.activity.VisitListActivity;
@@ -106,7 +107,9 @@ public class CompanyCenterFragment extends BaseFragment implements ExpandableLis
                 showLoadingDialog();
                /* GuiderDialog dialog = new GuiderDialog(mActivity);
                 dialog.show();*/
-                Intent signIntent = new Intent(mActivity,SignInActivity.class);
+              /*  Intent signIntent = new Intent(mActivity,SignInActivity.class);
+                startActivity(signIntent);*/
+                Intent signIntent = new Intent(mActivity,MenuWithFABActivity.class);
                 startActivity(signIntent);
                 break;
             case R.id.rl_singrecord:

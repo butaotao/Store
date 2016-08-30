@@ -44,8 +44,8 @@ public class SignInActivity extends BaseActivity implements HttpManager.OnHttpLi
     private TextView            mTvSignAll;
     private ImageView           mIvChecking;
     private ImageView           mIvVisit;
-    private String              POI;
-    private int                 distance = -1;
+    public String              POI;
+    public int                 distance = -1;
     private LinearLayout vSignin;
     private LinearLayout vVisit;
     private LinearLayout vTogetherVisit;
@@ -55,7 +55,7 @@ public class SignInActivity extends BaseActivity implements HttpManager.OnHttpLi
     private AMapLocationClientOption locationOption = null;
     public double                     latitude;//纬度
     public double                     longitude;//经度
-    private String                     city;//城市
+    public String                     city;//城市
     ArrayList<OftenSinPlace> pageData;
     AMapLocation aMapLocation;
     public static String address;
@@ -76,7 +76,7 @@ public class SignInActivity extends BaseActivity implements HttpManager.OnHttpLi
         showLoadingDialog();
         oftenSignPlaceDao = new OftenSignPlaceDao(this);
         lengh = -1;
-        initView();
+        initViews();
         initData();
         Intent intent = new Intent(this,GaoDeService.class);
         startService(intent);
@@ -100,9 +100,7 @@ public class SignInActivity extends BaseActivity implements HttpManager.OnHttpLi
         registerReceiver(receiver, filter);
     }
 
-    @Override
-    public void initView() {
-        super.initView();
+    public void initViews() {
         setTitle("选择签到类型");
         mTvSignAll = (TextView) findViewById(R.id.tvSignAll);
         mIvChecking = (ImageView) findViewById(R.id.ivChecking);

@@ -217,7 +217,7 @@
                 android:layout_marginBottom="8dp"
                 android:layout_marginLeft="10dip"
                 android:layout_marginTop="15dp"
-                android:text="最近联系人"
+                android:text="常用联系人"
                 android:textColor="@color/color_888888" />
 
             <View

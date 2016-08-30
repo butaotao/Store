@@ -1,16 +1,20 @@
 package com.dachen.dgroupdoctorcompany.base;
 
+import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.graphics.drawable.AnimationDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dachen.dgroupdoctorcompany.R;
+import com.dachen.dgroupdoctorcompany.utils.SystemBarTintManager;
 import com.dachen.imsdk.net.ImPolling;
 import com.dachen.medicine.common.utils.MActivityManager;
 import com.umeng.analytics.MobclickAgent;
@@ -27,6 +31,7 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
     RelativeLayout rl_back;
     private AnimationDrawable mAnimationDrawable;
     public boolean isActive=true;
+    boolean changeTitlebarColor;
     public void showLoadingDialog() {
         /*
         if (mLoadingView == null) {
@@ -70,7 +75,9 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         MActivityManager.getInstance().pushActivity(this);
         initProgressDialog();
+
     }
+
     private void initProgressDialog(){
         mDialog = new ProgressDialog(this, R.style.IMDialog);
         //		mDialog.setCancelable(true);
@@ -150,10 +157,13 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
     protected void onResume() {
         super.onResume();
         isActive=true;
+
         MobclickAgent.onResume(this);
         ImPolling.getInstance().onResume();
     }
-
+    public void setChangeTitlebarColor(boolean changeTitlebarColor){
+        this.changeTitlebarColor = changeTitlebarColor;
+    }
     @Override
     protected void onPause() {
         super.onPause();
@@ -166,5 +176,26 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
         super.onBackPressed();
         finish();
         // this.mApplication.getActivityManager().finishActivity(this.getClass());
+    }
+    public void changerTitleBar(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            setTranslucentStatus(true);
+        }
+
+        SystemBarTintManager tintManager = new SystemBarTintManager(this);
+        tintManager.setStatusBarTintEnabled(true);
+        tintManager.setStatusBarTintResource(R.color.color_3cbaff);
+    }
+    @TargetApi(19)
+    private void setTranslucentStatus(boolean on) {
+        Window win = getWindow();
+        WindowManager.LayoutParams winParams = win.getAttributes();
+        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+        if (on) {
+            winParams.flags |= bits;
+        } else {
+            winParams.flags &= ~bits;
+        }
+        win.setAttributes(winParams);
     }
 }
