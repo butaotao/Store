@@ -42,7 +42,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/color_e1f2fb"
+                android:textColor="#e1f2fb"
                 android:textSize="14sp"
                 android:text="@string/null_info"
                 android:id="@+id/tv_time"

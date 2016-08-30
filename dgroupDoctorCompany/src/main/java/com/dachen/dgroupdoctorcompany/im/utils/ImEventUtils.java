@@ -15,16 +15,20 @@ import com.dachen.dgroupdoctorcompany.db.dbdao.DoctorDao;
 import com.dachen.dgroupdoctorcompany.entity.VisitPeople;
 import com.dachen.dgroupdoctorcompany.utils.GetAllDoctor;
 import com.dachen.imsdk.consts.EventType;
+import com.dachen.imsdk.db.dao.ChatGroupDao;
 import com.dachen.imsdk.entity.EventPL;
 import com.dachen.imsdk.entity.GroupInfo2Bean.Data.UserInfo;
 import com.dachen.imsdk.entity.VChatCallerCancelParam;
 import com.dachen.imsdk.entity.VChatInviteParam;
 import com.dachen.imsdk.entity.VChatRejectParam;
+import com.dachen.imsdk.entity.event.NewMsgEvent;
 import com.dachen.imsdk.net.ImPolling;
 import com.dachen.imsdk.vchat.VChatManager;
 import com.dachen.imsdk.vchat.activity.VChatActivity;
 import com.dachen.imsdk.vchat.activity.VChatInvitedActivity;
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
+
+import de.greenrobot1.event.EventBus;
 
 /**
  * Created by Mcp on 2016/5/3.
@@ -75,6 +79,11 @@ public class ImEventUtils {
             handleVisitDelete(event);
         }else if((EventType.VISIT_CANCEL + "").equals(event.eventType)){//取消协同拜访(参与者)
             handleVisitCancel(event);
+        } else if (event.eventType.equalsIgnoreCase(EventType.group_user_exit)) {
+            String id = event.param.get("groupId");
+            ChatGroupDao dao = new ChatGroupDao();
+            dao.deleteById(id);
+            EventBus.getDefault().post(new NewMsgEvent());
         }
     }
 

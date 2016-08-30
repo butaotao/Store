@@ -35,6 +35,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.dachen.common.async.SimpleResultListenerV2;
 import com.dachen.common.json.GJson;
+import com.dachen.common.utils.CommonUtils;
 import com.dachen.common.utils.QiNiuUtils;
 import com.dachen.common.utils.ToastUtil;
 import com.dachen.common.utils.UIHelper;
@@ -1177,7 +1178,10 @@ public class GroupChatSetingUI extends ImBaseActivity {
             @Override
             public void onUploadFailure(String msg) {
                 mDialog.dismiss();
-                ToastUtil.showToast(mThis,"头像上传失败");
+                if(!CommonUtils.checkNetworkEnable(mThis)){
+                    ToastUtil.showToast(mThis,"无网络可用，请检查连接或设置");
+                }else
+                    ToastUtil.showToast(mThis,"头像上传失败");
             }
         };
         UploadEngine7Niu.uploadFileCommon(path,callBack, QiNiuUtils.BUCKET_GROUP_AVATAR,null);
