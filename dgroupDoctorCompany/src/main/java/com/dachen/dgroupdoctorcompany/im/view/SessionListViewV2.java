@@ -199,10 +199,8 @@ public class SessionListViewV2 extends ListView {
         dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM,WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
         View v= LayoutInflater.from(context).inflate(R.layout.msg_menu,null);
         List<String> items=new ArrayList<>();
-        if(po.top==0){
-            items.add(ITEM_TOP);
-        }else{
-            items.add(ITEM_NO_TOP);
+        if (!SessionGroupId.auth_request_doctor.equals(po.bizType)) {
+            items.add(po.top==0?ITEM_TOP:ITEM_NO_TOP);
         }
         items.add(ITEM_DEL);
         ListView lv = (ListView) v.findViewById(R.id.list_view);
