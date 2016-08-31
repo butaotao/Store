@@ -11,6 +11,7 @@ include ':pickerView_Library'
 include ':dgroupDoctorCompany'
 include ':dCommonLibrary'
 include ':ImSdk'
+include ':ionLibrary'
 include ':vitamioLibrary'
 include ':rTRoutineLib'
 include ':cmsLiveLibrary'
@@ -28,6 +29,7 @@ project(':pullToRefreshViewsLibrary').projectDir = new File(rootDir, "../CommonL
 project(':numberPickerLibrary').projectDir = new File(rootDir, "../CommonLibraryProject/numberPickerLibrary")
 project(':pickerView_Library').projectDir = new File(rootDir, "../CommonLibraryProject/pickerView_Library")
 project(':ImSdk').projectDir = new File(rootDir, "../ImSdkProject/ImSdk")
+project(':ionLibrary').projectDir = new File(rootDir, "../ImSdkProject/ionLibrary")
 project(':dCommonLibrary').projectDir = new File(rootDir, "../CommonLibraryProject/dCommonLibrary")
 project(':rTRoutineLib').projectDir = new File(rootDir, "../CommonLibraryProject/rTRoutineLib")
 project(':cmsLiveLibrary').projectDir = new File(rootDir, "../CommonLibraryProject/cmsLiveLibrary")
