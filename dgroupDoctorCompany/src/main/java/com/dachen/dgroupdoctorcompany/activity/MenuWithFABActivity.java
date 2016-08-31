@@ -104,6 +104,12 @@ public class MenuWithFABActivity extends SignInActivity implements View.OnClickL
         }
         mAdapter = new SingnTodayAdapter(this);
         refreshScrollView.setAdapter(mAdapter);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         getListData();
     }
 
@@ -213,4 +219,16 @@ public class MenuWithFABActivity extends SignInActivity implements View.OnClickL
             }
         }
     };
+    public void choicePlaceSign(int type,String tabid){
+        Intent intent = new Intent(this,SelectAddressActivity.class);
+        intent.putExtra("mode",AddSignInActivity.MODE_WORKING);
+        intent.putExtra("poi",POI);
+        intent.putExtra("singmode",type);
+        intent.putExtra("tabid",tabid);
+        intent.putExtra("distance",distance);
+        intent.putExtra("latitude",latitude);
+        intent.putExtra("longitude",longitude);
+        intent.putExtra("city",city);
+        startActivity(intent);
+    }
 }

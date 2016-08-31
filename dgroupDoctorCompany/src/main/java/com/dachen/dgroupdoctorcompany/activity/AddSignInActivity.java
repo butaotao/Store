@@ -86,6 +86,7 @@ public class AddSignInActivity extends BaseActivity implements HttpManager.OnHtt
     private int                        mSoundId;
     private List<String>               mListLable = new ArrayList<>();
     boolean allow;
+    private String tabid;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -144,6 +145,12 @@ public class AddSignInActivity extends BaseActivity implements HttpManager.OnHtt
         lastClickTime = System.currentTimeMillis();
         mMode = this.getIntent().getIntExtra("mode", MODE_WORKING);
         mSignMode = this.getIntent().getIntExtra("singmode",-1);
+        tabid = this.getIntent().getStringExtra("tabid");
+        if (mSignMode ==  AddSignInActivity.SIGN_OFFWORKING){
+            mListLable.add("下班");
+        }else if(mSignMode ==  AddSignInActivity.SIGN_WORKING){
+            mListLable.add("上班");
+        }
         if(mMode == MODE_WORKING){
             setTitle("考勤打卡");
             vSelect.setVisibility(View.GONE);
@@ -236,7 +243,7 @@ public class AddSignInActivity extends BaseActivity implements HttpManager.OnHtt
     }
 
     private void initSignLable(){
-        if(TextUtils.isEmpty(mId)){
+        if(TextUtils.isEmpty(mId)&&mSignMode==-1){
             new HttpManager().get(this, Constants.GET_SIGNED_LABLE, SignLable.class,
                     Params.getInfoParams(AddSignInActivity.this),
                     this,false,4);
@@ -329,12 +336,8 @@ public class AddSignInActivity extends BaseActivity implements HttpManager.OnHtt
         String address = mTvAddress.getText().toString();
         TelephonyManager TelephonyMgr = (TelephonyManager)getSystemService(TELEPHONY_SERVICE);
         String deviceId = TelephonyMgr.getDeviceId();
-        if (mSignMode == SIGN_WORKING ){
-            mListLable.add("上班");
-        }else if(mSignMode == SIGN_OFFWORKING){
-            mListLable.add("下班");
-        }
-        String signLable = "";
+
+        String signLable = tabid+"";
         if(null != mListLable){
             for(int i=0;i<mListLable.size();i++){
                 String singedTag = mListLable.get(i);

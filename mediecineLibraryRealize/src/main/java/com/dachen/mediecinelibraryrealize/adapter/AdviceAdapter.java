@@ -117,6 +117,7 @@ public class AdviceAdapter extends BaseAdapter{
 		Uses users;
 		String method="";
 		String des ="";
+		String patient = "";
 		if (su.c_drug_usage_list.size()>0) {
 			users = su.c_drug_usage_list.get(0);
 			String times;
@@ -131,24 +132,16 @@ public class AdviceAdapter extends BaseAdapter{
 			}
 			String quantity = "";
 
-			String period = "";
 			String eatinterval ="";
 			Uses.Period p = users.period;
-			if (null!=p&&!TextUtils.isEmpty(p.number)){
+			if (!TextUtils.isEmpty(users.patients)){
+				patient = users.patients+",";
+			}
+
+			if (null!=p&&!TextUtils.isEmpty(p.number)&&!times.equals("0")&&!p.number.equals("0")){
 				eatinterval = ",每"+p.text+times + "次,";
 			}
 
-			if (!TextUtils.isEmpty(users.method)&&!times.equals("0")){
-				if (null==list) {
-					if (TextUtils.isEmpty(method)) {
-						period = users.method ;
-					} else {
-						period = "," + users.method+",";
-					}
-				}else {
-					period = users.method +  ",";
-				}
-			}
 			if (!TextUtils.isEmpty(users.quantity)&&!users.quantity.equals("null")){
 				quantity = ""+"每次"+users.quantity;
 				if (!TextUtils.isEmpty(users.doseUnitName)){
@@ -161,9 +154,9 @@ public class AdviceAdapter extends BaseAdapter{
 
 
 			if (null!=list){
-				des = method +eatinterval +quantity;
+				des =patient+ method +eatinterval +quantity;
 			}else {
-				des = method+eatinterval+quantity;
+				des =patient+ method+eatinterval+quantity;
 			}
 			if (TextUtils.isEmpty(des)){
 				holder.tv_target_patient_type.setVisibility(View.GONE);
