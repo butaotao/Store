@@ -206,7 +206,7 @@ public class MeetingListActivity extends BaseActivity {
         HashMap<String,String> params = new HashMap<>();
         params.put("access_token",UserInfo.getInstance(mThis).getSesstion());
         params.put("userIds",s);
-        new HttpManager().post(this, Constants.DRUG+"user/getUsersByIds",
+        new HttpManager().post(this, Constants.DRUG+"companyUser/getMajorUserListByIds",
                 MettingUsers.class, params, new HttpManager.OnHttpListener<Result>() {
                     @Override
                     public void onSuccess(Result result) {

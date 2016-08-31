@@ -11,6 +11,7 @@ import java.util.HashMap;
 public class UserInfo {
 	private static final String SP_NAME = "login_user_info";// FILE_NAME 
 	private static final String KEY_ACCESS_TOKEN = "access_token";
+	private static final String KEY_CONTEXT_TOKEN = "context_token";
 	public static final String KEY_USER_ID = "user_id";
 	public static final String KEY_NAME = "user_name";
 	public static final String KEY_USERTYPE = "user_type";
@@ -66,6 +67,13 @@ public class UserInfo {
 	}
 	public void setSession(String token){
 		sp.edit().putString(KEY_ACCESS_TOKEN, token).commit();
+	}
+	public void setContextSession(String access_context){
+
+		sp.edit().putString(KEY_CONTEXT_TOKEN, access_context).commit();
+	}
+	public String getContextToken(){
+		return  sp.getString(KEY_CONTEXT_TOKEN,"");
 	}
 	public void setIp(String num){
 		sp.edit().putString(KEY_HISTORY_IP,num).commit();

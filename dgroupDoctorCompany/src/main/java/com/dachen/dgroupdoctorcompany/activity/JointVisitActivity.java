@@ -434,11 +434,11 @@ public class JointVisitActivity extends BaseActivity implements View.OnClickList
                     }
                     if(MODE_FROM_VIST_LIST_ITEM == mMode){
                     }else if(MODE_FROM_SIGN == mMode || MODE_FROM_SIGN_LIST == mMode){
-                        Intent intent = new Intent(this,SignInActivity.class);
+                        Intent intent = new Intent(this,MenuWithFABActivity.class);
                         startActivity(intent);
 
                         Intent broad_intent=new Intent();
-                        broad_intent.setAction("action.to.signlist");
+                        broad_intent.setAction("action.to.signlisttoday");
                         sendBroadcast(broad_intent);
                     }else{
                         Intent intent = new Intent(this,VisitListActivity.class);
@@ -607,7 +607,7 @@ public class JointVisitActivity extends BaseActivity implements View.OnClickList
     private void goBackMethod() {
         if(MODE_FROM_VIST_LIST_ITEM == mMode){
         }else if(MODE_FROM_SIGN == mMode){
-            Intent intent = new Intent(this,SignInActivity.class);
+            Intent intent = new Intent(this,MenuWithFABActivity.class);
             startActivity(intent);
         }else if(MODE_FROM_SIGN_LIST == mMode){
             finish();

@@ -462,13 +462,13 @@ public class HttpManager<T> {
 						};
 		    		try {
 		    			result = (com.dachen.medicine.entity.Result) gson.fromJson(response.toString(),
-		    					tClass); 
+		    					tClass);
 		    		} catch (Exception e) {
-		    			onHttpListener.onFailure(new VolleyError(new NetworkError()), "", 4); 
+		    			onHttpListener.onFailure(new VolleyError(new NetworkError()), "", 4);
 		    			// TODO: handle exception
 		    			return;
 		    		}
-		    		if (null== result) { 
+		    		if (null== result) {
 		    			showErrToast(context,1);
 		    			onHttpListener.onFailure(null,"",1);
 		    			return;

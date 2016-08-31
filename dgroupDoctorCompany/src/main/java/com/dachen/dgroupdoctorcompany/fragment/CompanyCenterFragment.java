@@ -107,7 +107,7 @@ public class CompanyCenterFragment extends BaseFragment implements ExpandableLis
                 showLoadingDialog();
                /* GuiderDialog dialog = new GuiderDialog(mActivity);
                 dialog.show();*/
-              /*  Intent signIntent = new Intent(mActivity,SignInActivity.class);
+                /*Intent signIntent = new Intent(mActivity,SignInActivity.class);
                 startActivity(signIntent);*/
                 Intent signIntent = new Intent(mActivity,MenuWithFABActivity.class);
                 startActivity(signIntent);

@@ -174,7 +174,7 @@ public class OrgActivity extends BaseActivity implements HttpManager.OnHttpListe
         }
         showLoadingDialog();
         new HttpManager().post(this, Constants.UPDATE_ORG, Result.class, Params
-                .updateOrg(OrgActivity.this, orgId, id), this, false, 1);
+                .updateOrg(OrgActivity.this, orgId, id,entity.employeeId), this, false, 1);
     }
 
     private void getOrganization(){

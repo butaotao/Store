@@ -470,13 +470,21 @@
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-
-                    android:scheme="DGroupBusiness" />
+             <!--   <data
+                    android:pathPrefix="/v/vvvv"
+                    android:host="www.123"
+                    android:scheme="dgroupbusiness" />-->
+                <data android:pathPrefix="/a" android:host="www.qq.com" android:scheme="http"/>
             </intent-filter>
+
+
+
+
+
+
         </activity>
         <!--
              ATTENTION: This was auto-generated to add Google Play services to your project for

@@ -11,6 +11,7 @@ import android.widget.*;
 
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.entity.SignInList;
+import com.dachen.dgroupdoctorcompany.entity.SignTodayInList;
 import com.dachen.dgroupdoctorcompany.views.DialogEditorText;
 import com.dachen.medicine.common.utils.TimeUtils;
 import com.dachen.medicine.view.CustomDialog;
@@ -23,11 +24,11 @@ import java.util.List;
  */
 public class SingnTodayAdapter extends android.widget.BaseAdapter{
     Context context;
-     List<SignInList.Data.DataList.ListVisitVo> mDataLists = new ArrayList<>();
+     List<SignTodayInList.Data.DataList> mDataLists = new ArrayList<>();
     public  SingnTodayAdapter(Context context){
         this.context = context;
     }
-    public void addData(List<SignInList.Data.DataList.ListVisitVo> dataLists,boolean refresh){
+    public void addData(List<SignTodayInList.Data.DataList> dataLists,boolean refresh){
         if(refresh){
             mDataLists.clear();
             mDataLists.addAll(dataLists);
@@ -55,7 +56,7 @@ public class SingnTodayAdapter extends android.widget.BaseAdapter{
     public View getView(int position, View convertView, ViewGroup parent) {
         ChildHolder childHolder;
         //   if(null == convertView){
-        SignInList.Data.DataList.ListVisitVo listVisitVo = mDataLists.get(position);
+        SignTodayInList.Data.DataList listVisitVo = mDataLists.get(position);
         childHolder  = new ChildHolder();
         convertView = LayoutInflater.from(context).inflate(R.layout.item_sign_in_child_today,null);
         childHolder.iv_editor = (ImageView) convertView.findViewById(R.id.iv_editor);
@@ -64,13 +65,13 @@ public class SingnTodayAdapter extends android.widget.BaseAdapter{
         childHolder.tvAddress = (TextView) convertView.findViewById(R.id.tvAddress);
         convertView.setTag(childHolder);
 
-        String address = listVisitVo.addressName;
+        String address = listVisitVo.time;
         if(TextUtils.isEmpty(address)){
             address = listVisitVo.address;
         }
-        if (null!=listVisitVo.singedTag&&listVisitVo.singedTag.size()>0){
+        if (null!=listVisitVo.tag&&listVisitVo.tag.length>0){
             String des = "";
-            String text = listVisitVo.singedTag.get(0);
+            String text = listVisitVo.tag[0];
             if (!TextUtils.isEmpty(text)&&text.length()>0){
                 for (int i = 0;i<text.length();i++){
                     if (i!=text.length()-1){
@@ -85,8 +86,8 @@ public class SingnTodayAdapter extends android.widget.BaseAdapter{
         }else {
             childHolder.tvName.setText("");
         }
-        if (0!=listVisitVo.time){
-            childHolder.tvTime.setText(TimeUtils.getTimesHourMinute(listVisitVo.time));
+        if (0!=listVisitVo.longTime){
+            childHolder.tvTime.setText(TimeUtils.getTimesHourMinute(listVisitVo.longTime));
         }else {
             childHolder.tvTime.setText("");
         }

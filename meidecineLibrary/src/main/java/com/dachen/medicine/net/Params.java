@@ -156,6 +156,7 @@ public class Params {
 	public static Map<String,String>getList(Context context,String type,String state,int pageIndex,int pageSize){
 		Map<String, String> params = getMapInstance();
 		params.put("access_token", SharedPreferenceUtil.getString(context, "session", ""));
+		params.put("companyId", SharedPreferenceUtil.getString(context, "enterpriseId", ""));
 		if(!TextUtils.isEmpty(type)){
 			params.put("type",type);
 		}
@@ -167,7 +168,7 @@ public class Params {
 		return params;
 	}
 
-	public static Map<String,String>updateJobTitle(Context context,String orgId,String newTitle,String userid){
+	public static Map<String,String>updateJobTitle(Context context,String orgId,String newTitle,String userid,String employeeId){
 		Map<String, String> params = getMapInstance();
 		params.put("access_token", SharedPreferenceUtil.getString(context, "session", ""));
 		params.put("userId", userid);
@@ -176,19 +177,25 @@ public class Params {
 		return params;
 	}
 
-	public static Map<String,String>updateOrg(Context context,String newOrgId,String userid){
+	public static Map<String,String>updateOrg(Context context,String newOrgId,String userid,String employeeId){
 		Map<String, String> params = getMapInstance();
 		params.put("access_token", SharedPreferenceUtil.getString(context, "session", ""));
 		params.put("userId", userid);
+		params.put("drugCompanyId",
+				 SharedPreferenceUtil.getString(context, "enterpriseId", "") );
 		params.put("newOrgId", newOrgId);
+		params.put("employeeId",employeeId);
 		return params;
 	}
 
-	public static Map<String,String>updateUserName(Context context,String newName,String userId){
+	public static Map<String,String>updateUserName(Context context,String newName,String userId,String employeeId){
 		Map<String, String> params = getMapInstance();
 		params.put("access_token", SharedPreferenceUtil.getString(context, "session", ""));
 		params.put("userId", userId);
-		params.put("newName", newName);
+		params.put("name", newName);
+		params.put("employeeId",employeeId);
+		params.put("drugCompanyId",
+				 SharedPreferenceUtil.getString(context, "enterpriseId", "") );
 		return params;
 	}
 
@@ -244,6 +251,8 @@ public class Params {
 	public static Map<String, String> getInfoParams(Context context) {
 		Map<String, String> params = getMapInstance();
 		params.put("access_token", SharedPreferenceUtil.getString(context, "session", ""));
+		params.put("userId",SharedPreferenceUtil.getString(context, "id", ""));
+		params.put("drugCompanyId",SharedPreferenceUtil.getString(context, "enterpriseId", ""));
 		return params;
 	}
 	public static Map<String, String> getSinOftenPlace(Context context,String drugCompanyId) {

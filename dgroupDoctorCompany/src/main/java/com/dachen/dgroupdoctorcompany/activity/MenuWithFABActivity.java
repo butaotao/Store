@@ -2,9 +2,13 @@ package com.dachen.dgroupdoctorcompany.activity;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +24,7 @@ import com.dachen.dgroupdoctorcompany.adapter.SingnTodayAdapter;
 import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.dgroupdoctorcompany.entity.SignInList;
+import com.dachen.dgroupdoctorcompany.entity.SignTodayInList;
 import com.dachen.dgroupdoctorcompany.utils.TitleManager;
 import com.dachen.dgroupdoctorcompany.views.CustomButtonFragment;
 import com.dachen.dgroupdoctorcompany.views.FloatingActionButton;
@@ -41,7 +46,7 @@ public class MenuWithFABActivity extends SignInActivity implements View.OnClickL
     PullToRefreshListView refreshScrollView;
     int pageIndex = 0;
     private int pageSize = 20;
-    private List<SignInList.Data.DataList.ListVisitVo> mDataLists = new ArrayList<>();
+    public List<SignTodayInList.Data.DataList> mDataLists = new ArrayList<>();
     SingnTodayAdapter mAdapter;
     TextView tv_week;
     TextView tv_time;
@@ -63,7 +68,7 @@ public class MenuWithFABActivity extends SignInActivity implements View.OnClickL
         iv_back = (ImageView) findViewById(R.id.iv_back);
         iv_back.setBackgroundResource(R.drawable.icon_back_n);
         findViewById(R.id.line_titlebar).setVisibility(View.GONE);
-        TitleManager.showImage(this,view,this,"",R.drawable.notice);
+        TitleManager.showImage(this, view, this, "", R.drawable.notice);
         changerTitleBar();
         findViewById(R.id.btn_sinrecord).setOnClickListener(this);
         tv_week = (TextView) findViewById(R.id.tv_week);
@@ -76,6 +81,9 @@ public class MenuWithFABActivity extends SignInActivity implements View.OnClickL
         refreshScrollView.setFocusable(false);
         CustomButtonFragment fragment = new CustomButtonFragment();
         fragment.setActivity(this);
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("action.to.signlisttoday");
+        registerReceiver(hasMessageReceiver, filter);
         refreshScrollView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
@@ -100,9 +108,9 @@ public class MenuWithFABActivity extends SignInActivity implements View.OnClickL
     }
 
     private void getListData() {
-        showLoadingDialog();
+        showLoadingDialog();//signed/getTodaySignedList
         String type = "";
-        new HttpManager().get(this, Constants.GET_VISIT_LIST, SignInList.class,
+        new HttpManager().get(this, Constants.GET_VISIT_LIST_TODAY, SignTodayInList.class,
                 Params.getList(MenuWithFABActivity.this, type, "", pageIndex, pageSize),
                 this, false, 4);
     }
@@ -122,16 +130,16 @@ public class MenuWithFABActivity extends SignInActivity implements View.OnClickL
         closeLoadingDialog();
         refreshScrollView.onRefreshComplete();
         if(null!=response){
-            if (response instanceof SignInList){
-                SignInList signInList = (SignInList) response;
-                SignInList.Data data = signInList.data;
+            if (response instanceof SignTodayInList){
+                SignTodayInList signInList = (SignTodayInList) response;
+                SignTodayInList.Data data = signInList.data;
                 if(null != data ){
                     int beforeSize = mDataLists.size();
-                    if(null != data.dataList && data.dataList.size()>0){
+                    if(null != data.signedList && data.signedList.size()>0){
                         if (pageIndex==0){
                             mDataLists.clear();
                         }
-                        mDataLists.addAll(data.dataList.get(0).listVisitVo);
+                        mDataLists.addAll(data.signedList);
 //                    findViewById(R.id.empty_view).setVisibility(View.GONE);
                     }else{
 //                    if(pageIndex == 0){
@@ -167,7 +175,7 @@ public class MenuWithFABActivity extends SignInActivity implements View.OnClickL
 
     @Override
     public void onFailure(Exception e, String errorMsg, int s) {
-
+        closeLoadingDialog();
     }
 
     @Override
@@ -184,4 +192,25 @@ public class MenuWithFABActivity extends SignInActivity implements View.OnClickL
                 break;
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (null!=hasMessageReceiver){
+            unregisterReceiver(hasMessageReceiver);
+        }
+    }
+
+    BroadcastReceiver hasMessageReceiver = new BroadcastReceiver(){
+        @Override
+        public void onReceive(Context arg0, Intent intent) {
+            String command = intent.getAction();
+            if(!TextUtils.isEmpty(command)){
+                if("action.to.signlisttoday".equals(command)){
+                    pageIndex = 0;
+                    getListData();
+                }
+            }
+        }
+    };
 }

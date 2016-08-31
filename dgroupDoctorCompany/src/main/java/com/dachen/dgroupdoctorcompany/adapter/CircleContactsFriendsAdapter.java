@@ -159,13 +159,14 @@ public class CircleContactsFriendsAdapter extends BaseAdapter<ContactsInfo>imple
             return;
         }
         String finalPhone=contactsInfo.getPhone();
-        if(finalPhone.startsWith("+86")){
-            finalPhone=finalPhone.replace("+86","");
+        if(!TextUtils.isEmpty(finalPhone)&&finalPhone.startsWith("+86")){
+            finalPhone=finalPhone.replace("+86","").replace(" ","");
         }
+
         HashMap<String ,String > maps = new HashMap<>();
         maps.put("access_token", UserInfo.getInstance(mContext).getSesstion());
         maps.put("drugCompanyId", SharedPreferenceUtil.getString(mContext, "enterpriseId", ""));
-        maps.put("id",""+ AddressList.deptId);
+        maps.put("orgId",""+ AddressList.deptId);
         maps.put("telephone",finalPhone);
         maps.put("addSource","1");
         String userName = "";
@@ -173,7 +174,7 @@ public class CircleContactsFriendsAdapter extends BaseAdapter<ContactsInfo>imple
             userName = contactsInfo.getName();
         }
         maps.put("name",userName);
-        new HttpManager().post(mContext, Constants.DRUG+"drugCompany/dept/addEnterUser", CompanyDepment.class,
+        new HttpManager().post(mContext, Constants.DRUG+"companyUser/addMajorUser", CompanyDepment.class,
                 maps, new HttpManager.OnHttpListener<Result>() {
                     @Override
                     public void onSuccess(Result response) {

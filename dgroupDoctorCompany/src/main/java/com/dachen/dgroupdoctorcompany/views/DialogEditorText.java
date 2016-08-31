@@ -42,7 +42,7 @@ public class DialogEditorText extends Dialog implements View.OnClickListener,Scr
         Window window = getWindow();
         WindowManager.LayoutParams lp = window.getAttributes();
         window.setGravity(Gravity.BOTTOM);
-        window.setWindowAnimations(R.style.Umengstyle2);
+        window.setWindowAnimations(R.style.Umengstyle);
         setCancelable(true);
         this.setCanceledOnTouchOutside(false);
 

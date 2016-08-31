@@ -139,7 +139,7 @@ public class AddFriendByPhone extends BaseActivity implements HttpManager.OnHttp
         }
         showLoadingDialog();
         maps.put("name",userName);
-        new HttpManager().post(this, Constants.DRUG+"drugCompany/dept/addEnterUser", Result.class,
+        new HttpManager().post(this, Constants.ADDCONTACT, Result.class,
                 maps, new HttpManager.OnHttpListener<Result>() {
                     @Override
                     public void onSuccess(Result response) {

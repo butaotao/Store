@@ -47,7 +47,7 @@ public class EidtColleagueAdapter extends BaseCustomAdapter<BaseSearch> {
 
             final CompanyContactListEntity entity = (CompanyContactListEntity) getItem(position);
             if (null!=entity){
-                String url =entity.url;
+                String url =entity.headPicFileName;
                 if (TextUtils.isEmpty(url)){
                     url = "";
                 }
