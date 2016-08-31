@@ -39,6 +39,7 @@ public class SomeBox extends Result{
 		public Data1 data1;
 		public String units;
 		public String specification;
+		public String patients;
 		public class Data{
 	    	  public int bptydxsdphdjfs;
 	    	  public int qtqdxsdphdjfs;

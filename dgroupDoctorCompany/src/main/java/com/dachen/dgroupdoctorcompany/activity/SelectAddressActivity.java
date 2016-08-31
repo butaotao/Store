@@ -107,6 +107,7 @@ public class SelectAddressActivity extends BaseActivity implements LocationSourc
     private int mSelectType;
     private String address_name;
     private String fromActivity;
+    private String tabid;
     long nowtime;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -173,8 +174,9 @@ public class SelectAddressActivity extends BaseActivity implements LocationSourc
            distance = ndistance;
        }
        singmode = this.getIntent().getIntExtra("singmode",-1);
-       mlatitude = this.getIntent().getDoubleExtra("latitude",0);
-       mlongitude = this.getIntent().getDoubleExtra("longitude",0);
+       mlatitude = this.getIntent().getDoubleExtra("latitude", 0);
+       mlongitude = this.getIntent().getDoubleExtra("longitude", 0);
+       tabid = this.getIntent().getStringExtra("tabid");
        lp = new LatLonPoint(mlatitude,mlongitude);
        city = this.getIntent().getStringExtra("city");
        mAdapter = new AddressListAdapter(SelectAddressActivity.this,new ArrayList<PoiItem>());
@@ -228,7 +230,8 @@ public class SelectAddressActivity extends BaseActivity implements LocationSourc
                              /*  (final Activity activity, final String address,
                                final String longitude, final String latitude, final String city, final String snippet, final String defaltsignLable,
                                final boolean finish)*/
-                               SinUtils.signDefaultvisit(SelectAddressActivity.this,name,  longitude ,latitude, city,snippet, "拜访", true);
+                               SinUtils.signDefaultvisit(SelectAddressActivity.this,name,
+                                       longitude ,latitude, city,snippet, "拜访", true);
                              /*  Intent intent = new Intent(SelectAddressActivity.this, SelfVisitActivity.class);
                                intent.putExtra("address", name);
                                intent.putExtra("longitude", longitude);
@@ -257,6 +260,8 @@ public class SelectAddressActivity extends BaseActivity implements LocationSourc
                            intent.putExtra("longitude", longitude);
                            intent.putExtra("latitude", latitude);
                            intent.putExtra("mode", mMode);
+                           intent.putExtra("singmode",singmode);
+                           intent.putExtra("tabid",tabid);
                            startActivity(intent);
                        }
 

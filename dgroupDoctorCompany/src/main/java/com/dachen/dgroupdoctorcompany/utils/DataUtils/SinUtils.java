@@ -29,7 +29,7 @@ public class SinUtils {
     public static Map<String,String> mapLable2Id = new HashMap<>();
     public static void signDefault(final Activity activity, final String address,
                                    final String coordinate, final String defaltsignLable,
-    final boolean finish){
+    final boolean finish, final int type){
 
         if (activity instanceof BaseActivity){
             BaseActivity activity1 = (BaseActivity)activity;
@@ -51,7 +51,16 @@ public class SinUtils {
                                         String strLableId = signLableItem.id;
                                         mapLable2Id.put(strLable, strLableId);
                                     }
-                                    sign(activity, address, coordinate, mapLable2Id.get(defaltsignLable), finish);
+                                    if (type==-1){
+                                        sign(activity, address, coordinate, mapLable2Id.get(defaltsignLable),defaltsignLable, finish);
+                                    }else {
+                                        if (activity instanceof MenuWithFABActivity){
+                                            MenuWithFABActivity activity1 = (MenuWithFABActivity)activity;
+                                            activity1.choicePlaceSign(type, mapLable2Id.get(defaltsignLable));
+                                        }
+
+                                    }
+
                                 }
                             } else {
                                 ToastUtil.showToast(activity, response.getResultMsg());
@@ -72,7 +81,8 @@ public class SinUtils {
                     }
                 }, false, 4);
     }
-    public static void sign(final Activity activity, final String address, String coordinate, String signLable, final boolean finish){
+    public static void sign(final Activity activity, final String address,
+                            String coordinate, String signLable,String signLabletab, final boolean finish){
         String orgId = GetUserDepId.getUserDepId(activity);
         TelephonyManager TelephonyMgr = (TelephonyManager)activity.getSystemService(activity.TELEPHONY_SERVICE);
         String deviceId = TelephonyMgr.getDeviceId();
@@ -122,7 +132,8 @@ public class SinUtils {
 
 
     public static void signDefaultvisit(final Activity activity, final String address,
-                                   final double longitude, final double latitude, final String city, final String snippet, final String defaltsignLable,
+                                   final double longitude, final double latitude,
+                                        final String city, final String snippet, final String defaltsignLable,
                                    final boolean finish){
 
         if (activity instanceof BaseActivity){
@@ -145,7 +156,8 @@ public class SinUtils {
                                         String strLableId = signLableItem.id;
                                         mapLable2Id.put(strLable, strLableId);
                                     }
-                                    signvisit(activity, address, longitude,latitude,city,snippet, mapLable2Id.get(defaltsignLable), finish);
+                                    signvisit(activity, address, longitude,latitude,city,snippet,
+                                            mapLable2Id.get(defaltsignLable),defaltsignLable, finish);
                                 }
                             } else {
                                 ToastUtil.showToast(activity, response.getResultMsg());
@@ -167,7 +179,8 @@ public class SinUtils {
                 }, false, 4);
     }
     public static void signvisit(final Activity activity, final String address, final double longitude,
-                                 final double latitude, final String city, final String snippet,String signLable, final boolean finish){
+                                 final double latitude, final String city, final String snippet,
+                                 String signLable, String signLabletab,final boolean finish){
         String orgId = GetUserDepId.getUserDepId(activity);
         TelephonyManager TelephonyMgr = (TelephonyManager)activity.getSystemService(activity.TELEPHONY_SERVICE);
         String deviceId = TelephonyMgr.getDeviceId();

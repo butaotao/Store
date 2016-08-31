@@ -150,6 +150,7 @@ public class AdviceCareActivity extends BaseActivity  implements OnClickListener
 					u.periodUnit = info.usage.periodUnit;
 					u.method = info.usage.remarks;
 					u.periodNum = info.usage.periodNum;
+					u.patients = info.usage.patients;
 				}else {
 					u.patients	 = "";
 					u.period = null;

@@ -135,7 +135,8 @@ public class CustomButtonFragment  extends Fragment {
                 }
             }else if(v  == b){
                 if (activity.lengh<=activity.allowDistance&&activity.lengh>=0&&!TextUtils.isEmpty(activity.address)){
-                    SinUtils.signDefault(activity, activity.address, activity.latitude + "," + activity.longitude, "拜访", true);
+                    SinUtils.signDefault(activity, activity.address,
+                            activity.latitude + "," + activity.longitude, "拜访", true,-1);
                 }else {
                    // SinUtils.signDefault(activity, activity.address, activity.latitude + "," + activity.longitude, "拜访", false);
                     choicePlace();
@@ -155,19 +156,13 @@ public class CustomButtonFragment  extends Fragment {
     public void workSing(String work,int type){
         if (activity.lengh<=activity.allowDistance&&activity.lengh>=0&&!TextUtils.isEmpty(activity.address)){
 
-            SinUtils.signDefault(activity,activity.address,activity.latitude+","+activity.longitude,work,true);
+            SinUtils.signDefault(activity,activity.address,activity.latitude+","+activity.longitude,work,true,-1);
         }else {
-            Intent intent = new Intent(activity,SelectAddressActivity.class);
-            intent.putExtra("mode",AddSignInActivity.MODE_WORKING);
-            intent.putExtra("poi",activity.POI);
-            intent.putExtra("singmode",type);
-            intent.putExtra("distance",activity.distance);
-            intent.putExtra("latitude",activity.latitude);
-            intent.putExtra("longitude",activity.longitude);
-            intent.putExtra("city",activity.city);
-            startActivity(intent);
+            SinUtils.signDefault(activity, activity.address, activity.latitude + "," + activity.longitude,
+                    work, true, type);
         }
     }
+
     public void choicePlace(){
         Intent intent2 = new Intent(activity,SelectAddressActivity.class);
         intent2.putExtra("mode",AddSignInActivity.MODE_VISIT);
