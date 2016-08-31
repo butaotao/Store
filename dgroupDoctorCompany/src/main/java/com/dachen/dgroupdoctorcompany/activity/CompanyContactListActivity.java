@@ -374,7 +374,8 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
         HashMap<String, String> maps = new HashMap<>();
         maps.put("access_token", UserInfo.getInstance(this).getSesstion());
         maps.put("drugCompanyId", SharedPreferenceUtil.getString(this, "enterpriseId", ""));
-        maps.put("id", idDep);
+        maps.put("orgId", idDep);
+        maps.put("hideUnassign","1");
 
 
         new HttpManager().post(this, Constants.DEPSTRUCT, CompanyDepment.class,

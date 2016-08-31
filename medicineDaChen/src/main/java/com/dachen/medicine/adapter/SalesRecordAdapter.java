@@ -3,6 +3,7 @@ package com.dachen.medicine.adapter;
 import java.util.List;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -63,7 +64,7 @@ public class SalesRecordAdapter extends BaseCustomAdapter<Info> {
 			String name  = "";
 			if (isopen.equals("1")) {
 				name = media.drug$general_name;
-				if (name.equals("")) {
+				if (TextUtils.isEmpty(name)) {
 					name = 	media.drug$trade_name;
 				}
 			}else {
@@ -82,7 +83,7 @@ public class SalesRecordAdapter extends BaseCustomAdapter<Info> {
 				//holder.tv_num.setText(media.quantity + " " + media.drug$unit.title);
 				String showmessage;
 				showmessage = media.quantity+"";
-				if (null!=media.drug$unit){
+				if (null!=media.drug$unit&&!TextUtils.isEmpty(media.drug$unit.title)){
 					showmessage = showmessage+ media.drug$unit.title;
 				}
 				holder.tv_num.setText(showmessage);

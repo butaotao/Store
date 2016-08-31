@@ -23,6 +23,7 @@ import com.dachen.dgroupdoctorcompany.activity.SignInActivity;
 import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.utils.DataUtils.GetUserDepId;
 import com.dachen.dgroupdoctorcompany.utils.DataUtils.SinUtils;
+import com.dachen.dgroupdoctorcompany.utils.HtmlTextViewEdit;
 import com.dachen.medicine.entity.Result;
 import com.dachen.medicine.net.HttpManager;
 import com.dachen.medicine.net.Params;
@@ -37,6 +38,7 @@ public class CustomButtonFragment  extends Fragment {
     TextView d;
     MenuWithFABActivity activity;
     public FloatingActionMenu circleMenu;
+    TextView tv_alertnotsign;
     public void setActivity(MenuWithFABActivity activity) {
             this.activity = activity;
     }
@@ -47,7 +49,8 @@ public class CustomButtonFragment  extends Fragment {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_menu_with_custom_action_button, container, false);
-
+            tv_alertnotsign = (TextView) rootView.findViewById(R.id.tv_alertnotsign);
+            tv_alertnotsign.setText(HtmlTextViewEdit.getNotSignAlert());
             // Our action button is this time just a regular view!
             final Button centerActionButton = (Button) rootView.findViewById(R.id.centerActionButton);
 
@@ -56,15 +59,15 @@ public class CustomButtonFragment  extends Fragment {
             a.setBackgroundResource(R.drawable.other_icon);
              b = new TextView(getActivity()); b.setGravity(Gravity.CENTER);
             b.setBackgroundResource(R.drawable.visit_icon);
-             c = new TextView(getActivity()); c.setGravity(Gravity.CENTER);
-            c.setBackgroundResource(R.drawable.class_icon);
+            // c = new TextView(getActivity()); c.setGravity(Gravity.CENTER);
+          //  c.setBackgroundResource(R.drawable.class_icon);
              d = new TextView(getActivity()); d.setGravity(Gravity.CENTER);
             d.setBackgroundResource(R.drawable.work_icon);
             int blueSubActionButtonSize = getResources().getDimensionPixelSize(R.dimen.blue_sub_action_button_size);
               FrameLayout.LayoutParams tvParams = new FrameLayout.LayoutParams(blueSubActionButtonSize, blueSubActionButtonSize);
             a.setLayoutParams(tvParams);
             b.setLayoutParams(tvParams);
-            c.setLayoutParams(tvParams);
+         // c.setLayoutParams(tvParams);
             d.setLayoutParams(tvParams);
 
             int blueSubActionButtonContentMargin = getResources().getDimensionPixelSize(R.dimen.blue_sub_action_button_content_margin);
@@ -72,20 +75,23 @@ public class CustomButtonFragment  extends Fragment {
             SubActionButton.Builder subBuilder = new SubActionButton.Builder(getActivity());
 
             circleMenu = new FloatingActionMenu.Builder(getActivity())
-                    .setStartAngle(-180) // A whole circle!
-                    .setEndAngle(0)
+                    .setStartAngle(-160) // A whole circle!
+                    .setEndAngle(-20)
                     .setRadius(getResources().getDimensionPixelSize(R.dimen.radius_large))
                     .addSubActionView(a)
-                    .addSubActionView(b)
-                    .addSubActionView(c)
                     .addSubActionView(d)
+                    .addSubActionView(b)
                     .attachTo(centerActionButton)
                     .build();
             circleMenu.setStateChangeListener(new FloatingActionMenu.MenuStateChangeListener() {
                 @Override
                 public void onMenuOpened(FloatingActionMenu menu) {
                     centerActionButton.setBackgroundResource(R.drawable.sing_close);
-
+                    if (activity.mDataLists.size()>0){
+                        d.setBackgroundResource(R.drawable.class_icon);
+                    }else {
+                        d.setBackgroundResource(R.drawable.work_icon);
+                    }
                 }
 
                 @Override
@@ -95,8 +101,8 @@ public class CustomButtonFragment  extends Fragment {
                 }
             });
             a.setOnClickListener(new myOnclickListener());
-            b.setOnClickListener(new myOnclickListener());
-            c.setOnClickListener(new myOnclickListener());
+             b.setOnClickListener(new myOnclickListener());
+           // c.setOnClickListener(new myOnclickListener());
             d.setOnClickListener(new myOnclickListener());
             return rootView;
         }
@@ -129,47 +135,48 @@ public class CustomButtonFragment  extends Fragment {
                 }
             }else if(v  == b){
                 if (activity.lengh<=activity.allowDistance&&activity.lengh>=0&&!TextUtils.isEmpty(activity.address)){
-
-                    SinUtils.signDefault(activity, activity.address, activity.latitude + "," + activity.longitude, "出差", true);
+                    SinUtils.signDefault(activity, activity.address, activity.latitude + "," + activity.longitude, "拜访", true);
                 }else {
-
-                    SinUtils.signDefault(activity, activity.address, activity.latitude + "," + activity.longitude, "出差", false);
-
-
+                   // SinUtils.signDefault(activity, activity.address, activity.latitude + "," + activity.longitude, "拜访", false);
+                    choicePlace();
                 }
-            }else  if(v==c){
-                    if (activity.lengh<=activity.allowDistance&&activity.lengh>=0&&!TextUtils.isEmpty(activity.address)){
-                        SinUtils.signDefault(activity,activity.address,activity.latitude+","+activity.longitude,"上班",true);
-                    }else {
-                        Intent intent = new Intent(activity,SelectAddressActivity.class);
-                        intent.putExtra("mode",AddSignInActivity.MODE_WORKING);
-                        intent.putExtra("poi",activity.POI);
-                        intent.putExtra("singmode",AddSignInActivity.SIGN_WORKING);
-                        intent.putExtra("distance",activity.distance);
-                        intent.putExtra("latitude",activity.latitude);
-                        intent.putExtra("longitude",activity.longitude);
-                        intent.putExtra("city",activity.city);
-                        startActivity(intent);
-                    }
-                }else  if(v  == d){
-                    if (activity.lengh<=activity.allowDistance&&activity.lengh>=0&&!TextUtils.isEmpty(activity.address)){
-
-                        SinUtils.signDefault(activity,activity.address,activity.latitude+","+activity.longitude,"下班",true);
-                    }else {
-                        Intent intent = new Intent(activity,SelectAddressActivity.class);
-                        intent.putExtra("mode",AddSignInActivity.MODE_WORKING);
-                        intent.putExtra("poi",activity.POI);
-                        intent.putExtra("singmode",AddSignInActivity.SIGN_OFFWORKING);
-                        intent.putExtra("distance",activity.distance);
-                        intent.putExtra("latitude",activity.latitude);
-                        intent.putExtra("longitude",activity.longitude);
-                        intent.putExtra("city",activity.city);
-                        startActivity(intent);
-                    }
+            }else  if(v  == d){
+                if (activity.mDataLists.size()>0){
+                    tv_alertnotsign.setVisibility(View.VISIBLE);
+                    workSing("下班", AddSignInActivity.SIGN_OFFWORKING);
+                }else {
+                    workSing("上班",AddSignInActivity.MODE_WORKING);
+                }
                 }
             circleMenu.close(true);
             }
 
         }
+    public void workSing(String work,int type){
+        if (activity.lengh<=activity.allowDistance&&activity.lengh>=0&&!TextUtils.isEmpty(activity.address)){
 
+            SinUtils.signDefault(activity,activity.address,activity.latitude+","+activity.longitude,work,true);
+        }else {
+            Intent intent = new Intent(activity,SelectAddressActivity.class);
+            intent.putExtra("mode",AddSignInActivity.MODE_WORKING);
+            intent.putExtra("poi",activity.POI);
+            intent.putExtra("singmode",type);
+            intent.putExtra("distance",activity.distance);
+            intent.putExtra("latitude",activity.latitude);
+            intent.putExtra("longitude",activity.longitude);
+            intent.putExtra("city",activity.city);
+            startActivity(intent);
+        }
+    }
+    public void choicePlace(){
+        Intent intent2 = new Intent(activity,SelectAddressActivity.class);
+        intent2.putExtra("mode",AddSignInActivity.MODE_VISIT);
+        intent2.putExtra("type","signle");
+        intent2.putExtra("poi",activity.POI);
+        intent2.putExtra("distance",activity.distance);
+        intent2.putExtra("latitude",activity.latitude);
+        intent2.putExtra("longitude",activity.longitude);
+        intent2.putExtra("city",activity.city);
+        startActivity(intent2);
+    }
 }

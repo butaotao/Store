@@ -198,7 +198,7 @@
         android:layout_marginTop="10dp"
         android:layout_below="@+id/ll_des"
         android:textColor="@color/white"
-        android:id="@+id/btn_setmanager"
+        android:id="@+id/btn_setrepresent"
         android:background="@drawable/btn_blue_all_39cf78"
          />
     <Button
@@ -208,8 +208,8 @@
         android:layout_marginRight="20dp"
         android:text="设置为部门主管"
         android:textColor="@color/white"
-        android:layout_below="@+id/btn_setmanager"
-        android:id="@+id/btn_setrepresent"
+        android:layout_below="@+id/btn_setrepresent"
+        android:id="@+id/btn_setmanager"
         android:layout_marginTop="10dp"
         android:background="@drawable/btn_blue_all_3cbaff"
         />
@@ -223,7 +223,7 @@
         android:id="@+id/btn_delete"
         android:layout_marginTop="10dp"
         android:background="@drawable/btn_red_all_f95442"
-        android:layout_below="@+id/btn_setrepresent"/>
+        android:layout_below="@+id/btn_setmanager"/>
     </RelativeLayout>
     </ScrollView>
 </RelativeLayout>

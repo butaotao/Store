@@ -502,9 +502,14 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
         }
         showLoadingDialog();
         HashMap<String, String> maps = new HashMap<>();
+    /*    maps.put("access_token", UserInfo.getInstance(this).getSesstion());
+        maps.put("drugCompanyId", SharedPreferenceUtil.getString(this, "enterpriseId", ""));
+        maps.put("id", idDep);*/
+
         maps.put("access_token", UserInfo.getInstance(this).getSesstion());
         maps.put("drugCompanyId", SharedPreferenceUtil.getString(this, "enterpriseId", ""));
-        maps.put("id", idDep);
+        maps.put("orgId", idDep);
+        maps.put("hideUnassign","1");
         //"org/enterprise/dept/getDepartmentsByParentIdAndEId"
         new HttpManager().get(this, Constants.DEPSTRUCT, CompanyDepment.class,
                 maps, this,

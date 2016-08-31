@@ -11,6 +11,7 @@ import com.dachen.common.utils.ToastUtil;
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
+import com.dachen.dgroupdoctorcompany.entity.CompanyContactListEntity;
 import com.dachen.dgroupdoctorcompany.utils.GetAllDoctor;
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
 import com.dachen.medicine.entity.Result;
@@ -36,6 +37,7 @@ public class UpdateUserInfoActivity extends BaseActivity implements HttpManager.
     private int mMode;
     private String mStrGroupName="";
     private String id;
+    public CompanyContactListEntity entity;
     Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -67,6 +69,7 @@ public class UpdateUserInfoActivity extends BaseActivity implements HttpManager.
 
     private void initDate(){
         mMode = this.getIntent().getIntExtra("mode",MODE_UPDATE_NAME);
+        entity = (CompanyContactListEntity) this.getIntent().getSerializableExtra("entity");
         String name = this.getIntent().getStringExtra("name");
         if(MODE_UPDATE_NAME == mMode){
             setTitle("修改姓名");
@@ -122,10 +125,15 @@ public class UpdateUserInfoActivity extends BaseActivity implements HttpManager.
             ToastUtil.showToast(UpdateUserInfoActivity.this,"请输入姓名");
             return;
         }
-
+        String employeeId = "";
+        if (null!=entity){
+            employeeId = entity.employeeId;
+        }else {
+            employeeId =  SharedPreferenceUtil.getString(this, "employeeId", "");
+        }
         showLoadingDialog();
         new HttpManager().post(this, Constants.UPDATE_USER_NAME,Result.class, Params
-                .updateUserName(UpdateUserInfoActivity.this,mStrUserName,id),this,false,1);
+                .updateUserName(UpdateUserInfoActivity.this,mStrUserName,id,employeeId),this,false,1);
     }
 
     private void updateJobTitle(String id){
@@ -134,9 +142,16 @@ public class UpdateUserInfoActivity extends BaseActivity implements HttpManager.
             ToastUtil.showToast(UpdateUserInfoActivity.this,"请输入职位名称");
             return;
         }
+        String employeeId = "";
+        if (null!=entity){
+            employeeId = entity.employeeId;
+        }else {
+            employeeId  =  SharedPreferenceUtil.getString(this, "employeeId", "");
+        }
+
         showLoadingDialog();
         new HttpManager().post(this, Constants.UPDATE_JOB_TITLE,Result.class, Params
-                .updateJobTitle(UpdateUserInfoActivity.this,mStrOrgId,mStrJobTitle,id),this,false,1);
+                .updateJobTitle(UpdateUserInfoActivity.this,mStrOrgId,mStrJobTitle,id,employeeId),this,false,1);
     }
 
     @Override

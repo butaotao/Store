@@ -46,7 +46,9 @@ public class UserLoginc {
                    logins.data.getAccess_token());
            UserInfo.getInstance(mThis).setSession(logins.data.getAccess_token());
        }
-
+        UserInfo.getInstance(mThis).setContextSession(logins.data.access_context);
+        SharedPreferenceUtil.putString(mThis, "context_token",
+                logins.data.access_context);
         UserInfo.getInstance(mThis).setPackageName(mThis, "com.dachen.dgroupdoctorcompany");
         UserInfo.getInstance(mThis).setUserType(Constants.USER_TYPE);
         UserInfo.getInstance(mThis).setId(logins.data.getUser().getUserId());
@@ -108,6 +110,7 @@ public class UserLoginc {
         SharedPreferenceUtil.putString(CompanyApplication.getInstance(), "id", logins.data.userId);
         SharedPreferenceUtil.putString(CompanyApplication.getInstance(),"telephone", logins.data.telephone);
         SharedPreferenceUtil.putString(CompanyApplication.getInstance(), "username", logins.data.userName);
+        SharedPreferenceUtil.putString(CompanyApplication.getInstance(),"employeeId",logins.data.employeeId);
         ArrayList<Company> companys = logins.data.companys;
         getCompanyInfo(companys,mThis);
         String url = logins.data.logo;

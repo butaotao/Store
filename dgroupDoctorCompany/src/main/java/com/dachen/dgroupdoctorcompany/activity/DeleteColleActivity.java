@@ -2,6 +2,8 @@ package com.dachen.dgroupdoctorcompany.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -45,6 +47,16 @@ public class DeleteColleActivity extends BaseActivity implements View.OnClickLis
     RelativeLayout rl_editname;
     RelativeLayout rl_editdept;
     RelativeLayout rl_position;
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            Intent intent = new Intent(DeleteColleActivity.this, ManagerColleagueActivity.class);
+            intent.putExtra("position", mPosition);
+            setResult(1001, intent);
+            finish();
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,6 +133,29 @@ public class DeleteColleActivity extends BaseActivity implements View.OnClickLis
             btn_delete.setBackgroundColor(getResources().getColor(R.color.red_f95442));
             btn_delete.setFocusable(true);
             btn_delete.setClickable(true);
+
+            if (entity.ispresent ==2){
+               /* btn_setmanager.setBackgroundColor(getResources().getColor(R.color.color_9ddcff));
+                btn_setmanager.setFocusable(false);
+                btn_setmanager.setClickable(false);*/
+                btn_setrepresent.setText("设置为医药代表");
+            }else {
+                btn_setrepresent.setText("取消医药代表");
+               /* btn_setmanager.setBackgroundColor(getResources().getColor(R.color.color_39cf78));
+                btn_setmanager.setFocusable(true);
+                btn_setmanager.setClickable(true);*/
+            }
+            if (entity.deptManager==2){
+                btn_setmanager.setText("设置为部门主管");
+               /* btn_setrepresent.setBackgroundColor(getResources().getColor(R.color.color_8839cf78));
+                btn_setrepresent.setFocusable(false);
+                btn_setrepresent.setClickable(false);*/
+            }else {
+                btn_setmanager.setText("取消部门主管角色");
+                /*btn_setrepresent.setBackgroundColor(getResources().getColor(R.color.color_39cf78));
+                btn_setrepresent.setFocusable(true);
+                btn_setrepresent.setClickable(true);*/
+            }
         }
 
     }
@@ -133,10 +168,10 @@ public class DeleteColleActivity extends BaseActivity implements View.OnClickLis
                 showCustomerDialog();
                 break;
             case R.id.btn_setmanager:
-                showCustomerDialogSetManager(isManager);
+                showCustomerDialogSetManager();
                 break;
             case R.id.btn_setrepresent:
-                showCustomerDialogSetPresent(isPresent);
+                showCustomerDialogSetPresent();
                 break;
             case R.id.rl_editdept:
                 intent  = new Intent(this,EditColleageDepartmentActivity.class);
@@ -148,6 +183,7 @@ public class DeleteColleActivity extends BaseActivity implements View.OnClickLis
                 intent.setClass(DeleteColleActivity.this, UpdateUserInfoActivity.class);
                 intent.putExtra("name", entity.name);
                 intent.putExtra("id",entity.userId);
+                intent.putExtra("entity",entity);
                 intent.putExtra("mode",UpdateUserInfoActivity.MODE_UPDATE_NAME_MANAGER);
                 startActivity(intent);
                 break;
@@ -156,6 +192,7 @@ public class DeleteColleActivity extends BaseActivity implements View.OnClickLis
                 intent.putExtra("mode", UpdateUserInfoActivity.MODE_UPDATE_JOB_TITLE_MANAGER);//
                 intent.putExtra("job_title",entity.position);
                 intent.putExtra("part",entity.id);
+                intent.putExtra("entity",entity);
                 intent.putExtra("id",entity.userId);
                 startActivity(intent);
                 break;
@@ -170,7 +207,37 @@ public class DeleteColleActivity extends BaseActivity implements View.OnClickLis
         //组织id
         maps.put("orgId",entity.id);//orgId
         maps.put("userId",entity.userId);
-        new HttpManager().post(this, Constants.DRUG + "drugCompany/dept/departEmployee", CompanyDepment.class,
+        new HttpManager().post(this, Constants.DRUG + "companyUser/quitMajorUser", CompanyDepment.class,
+                maps, this,
+                false, 1);
+    }
+    //1为是，2位否
+    private void mangagerSet(int isManager) {
+        showLoadingDialog();
+        HashMap<String ,String > maps = new HashMap<>();
+        maps.put("access_token", UserInfo.getInstance(this).getSesstion());
+        maps.put("drugCompanyId", SharedPreferenceUtil.getString(this, "enterpriseId", ""));
+        //组织id
+        maps.put("orgId",entity.id);//orgId
+        maps.put("userId",entity.userId);
+        maps.put("employeeId",entity.employeeId);
+        maps.put("isDeptManager",isManager+"");
+        new HttpManager().post(this, Constants.DRUG + "companyUser/updateMajorUser", CompanyDepment.class,
+                maps, this,
+                false, 1);
+    }
+    //1为是，2位否
+    private void representSet(int drugSales) {
+        showLoadingDialog();
+        HashMap<String ,String > maps = new HashMap<>();
+        maps.put("access_token", UserInfo.getInstance(this).getSesstion());
+        maps.put("drugCompanyId", SharedPreferenceUtil.getString(this, "enterpriseId", ""));
+        //组织id
+        maps.put("orgId",entity.id);//orgId
+        maps.put("userId",entity.userId);
+        maps.put("employeeId",entity.employeeId);
+        maps.put("isDrugSales",drugSales+"");
+        new HttpManager().post(this, Constants.DRUG + "companyUser/updateMajorUser", CompanyDepment.class,
                 maps, this,
                 false, 1);
     }
@@ -189,12 +256,13 @@ public class DeleteColleActivity extends BaseActivity implements View.OnClickLis
             }
         });
     }
-    public void showCustomerDialogSetManager(int addOrCancel){
+    public void showCustomerDialogSetManager(){
         String showmessage = "";
-        //1位加，0位取消
-        if (addOrCancel==0){
+       final int addOrCancel = entity.deptManager;
+        //1位加，2位取消
+        if (addOrCancel==1){
             showmessage = "确定取消当前员工的主管权限?";
-        }else if (addOrCancel ==1 ){
+        }else if (addOrCancel ==2 ){
             showmessage = "确定将当前员工设置为当前部门的主管?";
         }
         final CustomDialog dialog = new CustomDialog(this);
@@ -207,16 +275,23 @@ public class DeleteColleActivity extends BaseActivity implements View.OnClickLis
             @Override
             public void onClick(View v) {
                 dialog.dimissDialog();
-                deletePeople();
+                int num = 1;
+                if (addOrCancel==1){
+                    num = 2;
+                }else {
+                    num = 1;
+                }
+                mangagerSet(num);
             }
         });
     }
-    public void showCustomerDialogSetPresent(int addOrCancel){
+    public void showCustomerDialogSetPresent(){
         String showmessage = "";
-        //1位加，0位取消
-        if (addOrCancel==0){
+        final int addOrCancel = entity.ispresent;
+        //1位加，2位取消
+        if (addOrCancel==1){
             showmessage = "确定取消当前员工的医药代表角色?";
-        }else if (addOrCancel ==1 ){
+        }else if (addOrCancel ==2 ){
             showmessage = "确定将当前员工设置为医药代表角色?";
         }
 
@@ -230,7 +305,13 @@ public class DeleteColleActivity extends BaseActivity implements View.OnClickLis
             @Override
             public void onClick(View v) {
                 dialog.dimissDialog();
-                deletePeople();
+                int num = 1;
+                if (addOrCancel==1){
+                    num = 2;
+                }else {
+                    num = 1;
+                }
+                representSet(num);
             }
         });
     }
@@ -239,11 +320,9 @@ public class DeleteColleActivity extends BaseActivity implements View.OnClickLis
         closeLoadingDialog();
         if (null != response) {
             if (response.resultCode == 1) {
-                companyContactDao.deleteByid(entity.userId);
-                Intent intent = new Intent(this, ManagerColleagueActivity.class);
-                intent.putExtra("position", mPosition);
-                setResult(1001, intent);
-                finish();
+
+                GetAllDoctor.getInstance().getPeople(this, handler);
+
             } else {
                 if (!TextUtils.isEmpty(response.resultMsg)) {
                     ToastUtil.showToast(this, response.resultMsg);

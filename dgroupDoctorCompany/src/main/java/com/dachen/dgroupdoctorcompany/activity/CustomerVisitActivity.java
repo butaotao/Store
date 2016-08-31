@@ -262,7 +262,7 @@ public class CustomerVisitActivity extends BaseActivity implements HttpManager.O
             }
             finish();
             if (MODE_FROM_SIGN == mMode) {
-                MActivityManager.getInstance().finishActivity(SignInActivity.class);
+                MActivityManager.getInstance().finishActivity(MenuWithFABActivity.class);
                 Intent intent = new Intent(CustomerVisitActivity.this, VisitListActivity.class);
                 startActivity(intent);
             }

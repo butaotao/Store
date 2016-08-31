@@ -26,12 +26,19 @@ public class HtmlTextViewEdit {
                         + "<font color=\"#aaaaaa\">" + "添加" + "</font>" );
         return dTimeStr;
     }
-
+    public static Spanned getNotSignAlert( ) {
+        Spanned dTimeStr;
+        dTimeStr = Html.fromHtml(
+                "<font color=\"#444444\">" + "亲,昨天没有下班记录," + "</font>"
+                        + "<font color=\"#3db4ff\">是忘记下班签到了么?"  +  "</font>"
+                         );
+        return dTimeStr;
+    }
     public static Spanned getMettingVistPassword(String  des1,String des2,String des3,String des4,String des5) {
         Spanned dTimeStr;
         dTimeStr = Html.fromHtml(
-                "<font color=\"#333333\">" + des1 + "</font>"+"<br/>"
-                         +"<font color=\"#333333\">"+des2  +  "</font>"+"<br/>"
+                          "<font color=\"#333333\">" + des1 + "</font>"+"<br/>"
+                         +"<font color=\"#333333\">" + des2  +  "</font>"+"<br/>"
                         + "<font color=\"#333333\">" + des3 + "</font>"+"<br/>"
                         + "<font color=\"#3cbaff\">" + des4 + "</font>"+"<br/>"
                         + "<font color=\"#333333\">" + des5 + "</font>");

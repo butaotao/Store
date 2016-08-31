@@ -26,7 +26,7 @@ import java.sql.SQLException;
  */
 public class SQLiteHelper  extends OrmLiteSqliteOpenHelper {
     public static final String DATABASE_NAME = "dachen_company.db";
-    private static final int DATABASE_VERSION = 14;
+    private static final int DATABASE_VERSION = 16;
 
     private Context context = null;
 
@@ -71,17 +71,13 @@ public class SQLiteHelper  extends OrmLiteSqliteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, ConnectionSource connSource, int oldVersion, int newVersion) {
         Logger.d("yehj", "onUpgrade--->db");
       try {
-             if (oldVersion < 4) {
-              TableUtils.dropTable(connSource, CompanyContactListEntity.class, true);
 
-
-            }
           if (oldVersion < 11) {
               TableUtils.dropTable(connSource, DepAdminsList.class, true);
 
 
           }
-          if (oldVersion < 14) {
+          if (oldVersion < 16) {
               TableUtils.dropTable(connSource, CompanyContactListEntity.class, true);
              
 

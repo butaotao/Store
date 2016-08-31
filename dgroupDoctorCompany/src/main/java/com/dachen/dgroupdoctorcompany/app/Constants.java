@@ -30,7 +30,7 @@ public class Constants {
      * 自动登录
      */
     public static String USER_LORGIN_AUTO = DRUG+ "drugCompanyEmployee/login/auto";
-
+    public static String ADDCONTACT = Constants.DRUG+"contacts/getEnterpriseListByTs";
     public static final int HTTP_REQUEST_NOT_LOGIN = 302;
     public static String USER_REGISTER = "user/register";
     /**
@@ -49,6 +49,8 @@ public class Constants {
     public static final String XIAOMIREMOVE = "user/removeDeviceToken";
 
     public static final String COMPANYCONTACTLIST = DRUG+"drugCompany/dept/getEnterpriseListByTs";
+    //
+    public static final String COMPANYCONTACTLISTNet = DRUG+"contacts/getEnterpriseListByTs";
     public static final String COMPANYGETALLCONTACT = DRUG+"drugCompany/dept/getAllEnterUsersByDptId";
     // 注册借口
     public static final String REGISTER = "sms/verify/telephone";
@@ -108,7 +110,7 @@ public class Constants {
     public static String SAVE_FILE = "vpanfile/saveFile";
     public static String IS_IN_MY_FILE_LIST = "vpanfile/isInMyFileList";
     public static String ARCHIVE_LIST = "vpanfile/queryFile";
-    public static String GET_INFO = DRUG+"drugCompany/dept/getEnterUsersByUserId";
+    public static String GET_INFO = DRUG+"companyUser/getMajorUserByUserId";
     public static String GET_VISIT_URL = DRUG+"h5VistUrl/getUrlForH5";
     //直播会议 - 创建会议
     public static String MEETING_CREATE = "meeting/create";
@@ -134,23 +136,24 @@ public class Constants {
     public static String VISIT_DETAIL = "visit/getVisitDetail";
     //获取签到历史记录
     public static String GET_VISIT_LIST = "visit/getList";
+    public static String GET_VISIT_LIST_TODAY = "signed/getTodaySignedList";
     //修改用户名称
-    public static String UPDATE_USER_NAME = DRUG+"user/updateUserName";
+    public static String UPDATE_USER_NAME = DRUG+"companyUser/updateUserName";
     //修改用户职位
     public static String UPDATE_JOB_TITLE = DRUG+"drugCompany/dept/updateUserTitle";
     //删除拜访
     public static String DELETE_VISIT = "visit/deleteVisit";
     //获取用户组织结构
-    public static String GET_ENTER_ORG = DRUG+"drugCompany/dept/getEnterOrg";
+    public static String GET_ENTER_ORG = DRUG+"companyOrg/getOrgTree";
     //修改用户组织部门
-    public static String UPDATE_ORG = DRUG+"drugCompany/dept/updateUserOrg";
+    public static String UPDATE_ORG = DRUG+"companyUser/updateMajorUser";
     //根据部门ID获取部门结构
-    public static String DEPSTRUCT = DRUG+"drugCompany/dept/getDepartmentsByParentIdAndEId";
+    public static String DEPSTRUCT = DRUG+"companyOrg/getOrgListAndUserList";
     public static String MANINDEP = DRUG+"drugCompanyEmployee/getDepartmentByUserId";
     //org/signed/drugCompanyEmployee/getDepartmentSinged
     public static String SIGNEDRECORD = "signed/getDepartmentSigned2";
     public static String GETSINGINFOBYUSERID = "signed/getSignedInfoByUserId";
-    public static String GETVISITPEOPLE = DRUG+"drugCompany/dept/getAllEnterUsersByDptId";
+    public static String GETVISITPEOPLE = DRUG+"companyUser/getUserPageByOrgId";
     public static String VISITDETAIL = "visit/getDepartmentVisitDetail";
     //得到某人的医生好友列表
     public static String FRIENDLIST = DRUG+"saleFriend/search";

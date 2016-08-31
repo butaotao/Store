@@ -363,6 +363,7 @@ public class SignInActivity extends BaseActivity implements HttpManager.OnHttpLi
                 this.aMapLocation =  aMapLocation;
                 latitude = aMapLocation.getLatitude();
                 longitude = aMapLocation.getLongitude();
+                address = aMapLocation.getPoiName();
                 compareDistance(aMapLocation);
                 city = aMapLocation.getCity();
             }

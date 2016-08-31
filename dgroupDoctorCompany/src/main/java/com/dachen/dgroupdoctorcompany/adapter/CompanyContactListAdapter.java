@@ -85,7 +85,7 @@ public class CompanyContactListAdapter extends BaseCustomAdapter<BaseSearch> {
                     R.drawable.head_icons_company, R.drawable.head_icons_company);
             if (activity !=null){
                 if (activity.getContent()==0){
-                    if ("6".equals(c2.userStatus)) {
+                    if ("2".equals(c2.userStatus)) {
                         holder.mTvStatus.setVisibility(View.VISIBLE);//显示未激活
                     } else {
                         holder.mTvStatus.setVisibility(View.GONE);
@@ -101,7 +101,7 @@ public class CompanyContactListAdapter extends BaseCustomAdapter<BaseSearch> {
             holder.rl_depart.setVisibility(View.VISIBLE);
             holder.rl_people.setVisibility(View.GONE);
             holder.tv_depart.setText("" + c1.name);
-            if (!TextUtils.isEmpty(c1.type) && c1.type.equals("1")) {
+            if (!TextUtils.isEmpty(c1.type) && c1.type.equals("3")) {
                 holder.view_add1.setVisibility(View.VISIBLE);
             }
             if (activity.getContent()==activity.editColleageDep){

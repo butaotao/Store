@@ -16,6 +16,7 @@ public class LoginRegisterResult extends Result {
 	public class LoginData {
 		private String _tk;// 登录xmpp的凭证
 		public String access_token;
+		public String access_context;
 		private int expires_in;// 多少秒后过时
 		private String name;// 姓名
 		private String nickname;// 昵称
@@ -27,6 +28,7 @@ public class LoginRegisterResult extends Result {
 		public String telephone;
 		public int age;
 		public int sex;
+		public String employeeId;
 		public int status;
 		public String createTime;
 		public ArrayList<Company> companys;

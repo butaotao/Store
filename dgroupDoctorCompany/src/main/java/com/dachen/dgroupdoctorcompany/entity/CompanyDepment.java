@@ -14,7 +14,12 @@ public class CompanyDepment extends Result {
 
     public class Data {
 
+        @Expose
+        @SerializedName("orgList")
         public ArrayList<Depaments> departments;
+
+        @Expose
+        @SerializedName("userIdList")
         public ArrayList<Integer> users;
 
         public class Depaments extends BaseSearch {
@@ -29,7 +34,8 @@ public class CompanyDepment extends Result {
             public int updator;
             public String updatorDate;
             public String parentId;
-            //0已分配，1未分配
+            public String treePath;
+            //1=普通节点，2=根节点，3=未分配节点
             public String type;
             public boolean check;
         }

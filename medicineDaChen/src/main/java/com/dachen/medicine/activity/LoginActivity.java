@@ -72,6 +72,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 		ButterKnife.bind(this);
+		setTheme(R.style.ActionSheetStyleiOS7);
 		initView();
 	}
 
