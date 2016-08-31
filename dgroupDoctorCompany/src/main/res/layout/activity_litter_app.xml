@@ -28,6 +28,14 @@
             android:layout_centerInParent="true"
             android:text="应用标题"/>
 
+        <Button
+            android:id="@+id/right_menu"
+            android:background="@android:color/transparent"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:text="菜单"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
     </RelativeLayout>
 

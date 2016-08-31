@@ -197,4 +197,7 @@ public class Constants {
 
     //获取版本号
     public static String GET_VERSION = "appService/getVersion";
+
+    public static final String  QR_WEB_LONIN_VERIFY = DRUG+"auth/verify";
+    public static final String  QR_WEB_LONIN_CONFIRM =DRUG+"auth/confirm ";
 }

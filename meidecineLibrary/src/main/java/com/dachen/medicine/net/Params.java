@@ -290,7 +290,7 @@ public class Params {
 
 	public static Map<String, String> getLoginoutParams(Context context, String serial) {
 		Map<String, String> params = getMapInstance();
-		params.put("userKey", ""); // 没有用userKey校验 ，但是这个参数还要传，现在 还没去掉 
+		params.put("userKey", ""); // 没有用userKey校验 ，但是这个参数还要传，现在 还没去掉
 		params.put("access_token", SharedPreferenceUtil.getString(context, "session", ""));
 		params.put("serial", serial);
 		return params;
@@ -465,5 +465,16 @@ public class Params {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("appCode", context.getPackageName());
 		return params;
+	}
+	public static Map<String, String> getQRWebKeyParams(String  key)  {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("key", key);
+		return params;
+	}
+	public static Map<String, String> getQRWebLoginParams(Context context ,String  key)  {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("access_context", SharedPreferenceUtil.getString(context, "context_token", ""));
+		params.put("key", key);
+        return params;
 	}
 }

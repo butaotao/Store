@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- 禁止 Chrome 浏览器中自动提示翻译 -->
+    <meta name="google" value="notranslate">
+    <!-- 禁止百度转码 -->
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>测试</title>
+    <!--  <script type="text/javascript">
+        (function initCordovaJs() {
+        var urls = {
+               iOS: 'DachenJSBridge_iOS',
+            Andriod: 'DachenJSBridge_Andriod'
+            }
+           var url = urls.iOS;
+        var agent = navigator.userAgent.toLowerCase();
+        if (agent.indexOf('iphone') != -1) {
+        url = urls.iOS;
+            } else if (agent.indexOf('android') != -1) {
+                url = urls.Andriod;
+                }
+        // alert(agent);
+        document.write('<script src="cordova/' + url + '.js"><\/script>');
+        })();
+
+        </script>-->
+    <script type="text/javascript" src="index.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript">
+    function setMenuButton() {
+
+        $cordova.call({
+            name: 'setMenuButton',
+            params: {
+                showMenu: '1',
+                menuType: 'singleMenu',
+                singleMenu: {
+                    type: '1',
+                    menuText: '发布'
+                }
+            }
+        }, function(rps) {
+            alert(JSON.stringify(rps));
+        })
+
+    }
+
+    function getPhotos() {
+        $cordova.call({
+            // 必传
+            name: 'getPhotos',
+            params: {}
+        }, function(rps) {
+            alert(JSON.stringify(rps));
+        })
+    }
+
+
+    function callCamera() {
+        $cordova.call({
+            // 必传
+            name: 'callCamera',
+            params: {}
+        }, function(rps) {
+            alert(JSON.stringify(rps));
+        })
+    }
+
+    function get_identity() {
+        $cordova.call({
+            // 必传
+            name: 'get_identity',
+            params: {}
+        }, function(rps) {
+            alert(JSON.stringify(rps));
+        })
+    }
+
+    function setTitle() {
+        $cordova.call({
+            // 必传
+            name: 'setTitle',
+            params: {
+                'title': '公告'
+            }
+        }, function(rps) {
+            alert(JSON.stringify(rps));
+        })
+    }
+
+    function callQRScan() {
+        $cordova.call({
+            // 必传
+            name: 'callQRScan',
+            params: {}
+        }, function(rps) {
+            alert(JSON.stringify(rps));
+        })
+    }
+    </script>
+</head>
+
+<body>
+
+<!-- 必要元素 -->
+<div id="cordova_deviceready" class="blink" style="display:none"></div>
+<div>
+    <button onClick="setMenuButton()">setMenuButton 设置导航栏菜单</button>
+    <button onClick="getPhotos()">getPhotos 获取本地图片</button>
+    <button onClick="callCamera()">callCamera 调用本地相机</button>
+    <button onClick="get_identity()">get_identity 获取身份信息验证</button>
+    <button onClick="setTitle()">setTitle 设置页面标题</button>
+    <button onClick="callQRScan()">callQRScan 打开本地扫一扫</button>
+</div>
+</body>
+
+</html>
