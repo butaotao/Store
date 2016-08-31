@@ -1,20 +1,30 @@
 package com.dachen.dgroupdoctorcompany.activity;
 
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.dachen.dgroupdoctorcompany.R;
+import com.dachen.dgroupdoctorcompany.js.MenuButtonBean;
+import com.dachen.dgroupdoctorcompany.js.TitleBean;
+import com.google.gson.Gson;
 
 import org.apache.cordova.CordovaActivity;
 import org.apache.cordova.engine.SystemWebChromeClient;
 import org.apache.cordova.engine.SystemWebView;
 import org.apache.cordova.engine.SystemWebViewEngine;
+
+import de.greenrobot1.event.EventBus;
 
 /**
  * @项目名 MedicineProject
@@ -25,12 +35,19 @@ public class LitterAppActivity extends CordovaActivity {
     private TextView mTitle;
     private boolean mIsFirstLoadPage = true;//是否是第一次加载页面
     private TextView mClose;
+    private Button mMenu;
+    private PopupWindow popWindow;
+    MenuButtonBean mMenuButtonBean;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        //super.setIntegerProperty("loadUrlTimeoutValue", 60000);
         super.onCreate(savedInstanceState);
         setTheme(R.style.ActionSheetStyleiOS7);
-        String url ="http://192.168.3.46:8081/community/test";
+        EventBus.getDefault().register(this);
+        //String url ="http://192.168.3.46:8081/community/test/";
+        Log.d("zxy", "onCreate: ");
+        String url = "file:///android_asset/www/index.html";
         loadUrl(url);
     }
 
@@ -44,10 +61,19 @@ public class LitterAppActivity extends CordovaActivity {
         initView();
 
     }
+    public void onEventMainThread(TitleBean title){
+        Gson gson = new Gson();
+        TitleBean titleBean = gson.fromJson(title.title, TitleBean.class);
+        mTitle.setText(titleBean.title);
+    }
+    public void onEventMainThread(MenuButtonBean bean){
+        mMenuButtonBean = bean;
+    }
 
     private void initView() {
         mTitle = (TextView) findViewById(R.id.title);
         mClose = (TextView) findViewById(R.id.close);
+        mMenu = (Button) findViewById(R.id.right_menu);
         mClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,6 +89,48 @@ public class LitterAppActivity extends CordovaActivity {
                 } else {
                     finish();
                 }
+            }
+        });
+
+        mMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("zxy", "onClick: ");
+                if (popWindow == null) {
+                    View contentView = View.inflate(LitterAppActivity.this,R.layout.litterapp_popwindow, null);
+                    if (mMenuButtonBean!=null&&"singleMenu".equals(mMenuButtonBean.menuType)) {
+                        TextView textView = new TextView(LitterAppActivity.this);
+                        textView.setText(mMenuButtonBean.singleMenu.menuText);
+                        LinearLayout layout = (LinearLayout) contentView.findViewById(R.id.pop_ll);
+                        layout.addView(textView);
+                    }
+                    popWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.WRAP_CONTENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT);
+                    popWindow.setFocusable(true);
+                    popWindow.setBackgroundDrawable(new BitmapDrawable());
+                    popWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                        @Override
+                        public void onDismiss() {
+                        }
+                    });
+                   /* rlScan.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View arg0) {
+                            if (null != popWindow && popWindow.isShowing()) {
+                                popWindow.dismiss();
+                            }
+
+                        }
+                    });*/
+                   /* rlFind.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View arg0) {
+
+                        }
+                    });*/
+
+                }
+                popWindow.showAsDropDown(mMenu, 0, 10);
             }
         });
 
@@ -118,5 +186,11 @@ public class LitterAppActivity extends CordovaActivity {
             mClose.setVisibility(View.VISIBLE);
         }
         return super.dispatchKeyEvent(event);
+    }
+
+    @Override
+    public void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
     }
 }

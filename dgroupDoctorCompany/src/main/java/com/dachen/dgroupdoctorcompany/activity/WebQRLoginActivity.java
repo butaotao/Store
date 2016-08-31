@@ -1,14 +1,21 @@
 package com.dachen.dgroupdoctorcompany.activity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.dachen.common.utils.ToastUtil;
 import com.dachen.dgroupdoctorcompany.R;
+import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
+import com.dachen.medicine.entity.Result;
+import com.dachen.medicine.net.HttpManager;
+import com.dachen.medicine.net.Params;
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
 
 /**
  * @项目名 MedicineProject
@@ -21,6 +28,7 @@ public class WebQRLoginActivity extends BaseActivity {
     private TextView mWebQrLoginText;
     private Button mWebQrLoginConfirm;
     private TextView mWebQrLoginCancel;
+    private String mScanResult;
 
     private void assignViews() {
         mWebQrLoginBack = (TextView) findViewById(R.id.web_qr_login_back);
@@ -40,8 +48,7 @@ public class WebQRLoginActivity extends BaseActivity {
     }
 
     private void initData() {
-        String scanResult = getIntent().getStringExtra("scanResult");
-        Log.d("zxy", "initData: scanResult = "+scanResult);
+        mScanResult = getIntent().getStringExtra("scanResult");
     }
 
     private void initListener() {
@@ -54,18 +61,43 @@ public class WebQRLoginActivity extends BaseActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.web_qr_login_back:
-            Log.d("zxy", "onClick: web_qr_login_back");
                 finish();
-            break;
+                break;
             case R.id.web_qr_login_confirm:
-            Log.d("zxy", "onClick: 确定登入");
-            break;
+                LoginWeb();
+                break;
             case R.id.web_qr_login_cancel:
-                Log.d("zxy", "onClick: 取消登入");
-            break;
+                finish();
+                break;
             default:
-                Log.d("zxy", "onClick: default");
-             break;
+                break;
         }
+    }
+
+    private void LoginWeb() {
+        Gson gson = new Gson();
+   //     QRWebLogin qrWebLogin = gson.fromJson(mScanResult, QRWebLogin.class);
+        new HttpManager<Result>().post(this, Constants.QR_WEB_LONIN_CONFIRM, Result.class, Params
+                .getQRWebLoginParams(getApplicationContext(), mScanResult), new HttpManager.OnHttpListener<Result>() {
+
+
+            @Override
+            public void onSuccess(Result response) {
+                if (response.resultCode == 1) {
+                    ToastUtil.showToast(getApplicationContext(),"登入成功");
+                    finish();
+                }
+            }
+
+            @Override
+            public void onSuccess(ArrayList<Result> response) {
+            }
+
+            @Override
+            public void onFailure(Exception e, String errorMsg, int s) {
+                ToastUtil.showToast(getApplicationContext(),"网络错误,请重试");
+            }
+        }, false, 1);
+
     }
 }

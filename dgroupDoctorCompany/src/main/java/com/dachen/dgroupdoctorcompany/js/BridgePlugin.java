@@ -11,11 +11,14 @@ import android.util.Log;
 import com.alibaba.fastjson.JSON;
 import com.baoyz.actionsheet.ActionSheet;
 import com.dachen.common.utils.Logger;
+import com.dachen.common.utils.QiNiuUtils;
+import com.dachen.dgroupdoctorcompany.activity.QRCodeScannerUI;
 import com.dachen.gallery.CustomGalleryActivity;
 import com.dachen.gallery.GalleryAction;
 import com.dachen.imsdk.net.UploadEngine7Niu;
 import com.dachen.imsdk.utils.CameraUtil;
 import com.dachen.imsdk.utils.FileUtil;
+import com.google.gson.Gson;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
@@ -24,11 +27,14 @@ import org.apache.cordova.CordovaWebView;
 import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+
+import de.greenrobot1.event.EventBus;
 
 /**
  * @项目名 MedicineProject
@@ -39,8 +45,15 @@ public class BridgePlugin extends CordovaPlugin {
     private static final String TAG = "BridgePlugin";
     private static final int REQUEST_CODE_CAPTURE_PHOTO = 1;
     private static final int REQUEST_CODE_PICK_PHOTO = 2;
+    private static final int REQUEST_CODE_QR = 3;
     private static final String BASE64_HEAD = "data:image/jpeg;base64,";
-    private CallbackContext mCallbackContext;
+    private CallbackContext mCallbackgetIdentity;
+    private CallbackContext mCallbackgetFile;
+    private CallbackContext mCallbackgetgetPhotos;
+    private CallbackContext mCallbackgetcallCamera;
+    private CallbackContext mCallbackcallQRScan;
+    private CallbackContext mCallbacksetMenuButton;
+    private CallbackContext mCallbacksetTitle;
     private CordovaInterface mCordova;
     private Uri mNewPhotoUri;
     private int mUploadingFileCount;
@@ -53,30 +66,35 @@ public class BridgePlugin extends CordovaPlugin {
     }
 
     @Override
-    public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-        Log.d(TAG, "execute action=" + action);
-        mCallbackContext = callbackContext;
+    public boolean execute(String action, JSONArray params, CallbackContext callbackContext) throws JSONException {
+        Log.d("zxy", "execute action = " + action);
+        Log.d("zxy", "execute: params = "+params.toString());
 
-        if (action.equals("getIdentity")) {
-            Log.d("zxy", "execute: ");
+        if ("get_identity".equals(action)) {
+            Log.d("zxy", "execute: getIdentity");
+            mCallbackgetIdentity = callbackContext;
             getIdentity();
             return true;
         } else if (action.equals("setTitle")) {
-            setTitle(args);
+            mCallbacksetTitle = callbackContext;
+            setTitle(params);
             return true;
         } else if (action.equals("setMenuButton")) {
-            setMenuButton();
+            mCallbacksetMenuButton = callbackContext;
+            Log.d("zxy", "execute: setMenuButton");
+            setMenuButton(params);
             return true;
         } else if (action.equals("callQRScan")) {
+            Log.d("zxy", "execute: callQRScan");
+            mCallbackcallQRScan = callbackContext;
             callQRScan();
             return true;
-        } else if (action.equals("setTitle")) {
-            setTitle(args);
-            return true;
-        } else if (action.equals("getPhotos")) {
+        }else if (action.equals("getPhotos")) {
+            mCallbackgetgetPhotos = callbackContext;
             callPhoto();
             return true;
         } else if (action.equals("callCamera")) {
+            mCallbackgetcallCamera = callbackContext;
             callCamera();
             return true;
         } /*else if (action.equals("see_bigPhoto")) {
@@ -88,23 +106,56 @@ public class BridgePlugin extends CordovaPlugin {
         }*/ else {
             return false;
         }
-    }
-    public Object getIdentity() {
-        return mIdentity;
-    }
-
-    private void setMenuButton() {
 
     }
+    //得到个人信息
+    public void getIdentity() {
+        JSONObject json = new JSONObject();
+        try {
+            JSONObject Identity = getIdentityData(json);
+            Log.d("zxy", "getIdentity: "+ JSON.toJSONString(Identity));
+            mCallbackgetIdentity.success(Identity.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+    //设置菜单按钮
+    private void setMenuButton(JSONArray params) {
+        MenuButtonBean bean = null;
+        try {
+            String menu =  (String )params.get(0);
+            Gson gson = new Gson();
+            bean =  gson.fromJson(menu,MenuButtonBean.class);
+            mCallbacksetMenuButton.success("setMenuButton");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        EventBus.getDefault().post(bean);
+    }
 
+    //调用二维码扫描
     private void callQRScan() {
 
+        if (this.cordova != null) {
+            Intent intent = new Intent(mCordova.getActivity(), QRCodeScannerUI.class);
+            this.cordova.startActivityForResult((CordovaPlugin) this, intent, REQUEST_CODE_QR);
+        }
     }
 
+    //设置标题
     private void setTitle(JSONArray args) {
+        Log.d("zxy", "setTitle: ");
+        try {
+            TitleBean titleBean = new TitleBean();
+            titleBean.title =  args.getString(0);
+            EventBus.getDefault().post(titleBean);
+            mCallbacksetTitle.success("setTitle");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
     }
-
+    //调用相册
     private void callPhoto() {
         if (this.cordova != null) {
             Intent intent = new Intent(mCordova.getActivity(), CustomGalleryActivity.class);
@@ -113,7 +164,7 @@ public class BridgePlugin extends CordovaPlugin {
             this.cordova.startActivityForResult((CordovaPlugin) this, intent, REQUEST_CODE_PICK_PHOTO);
         }
     }
-
+    //调用相机
     private void callCamera() {
         if (this.cordova != null) {
             mNewPhotoUri = CameraUtil.getOutputMediaFileUri(mCordova.getActivity(), CameraUtil.MEDIA_TYPE_IMAGE);
@@ -124,14 +175,11 @@ public class BridgePlugin extends CordovaPlugin {
     }
 
     private void selectPicture() {
-
         ActionSheet.createBuilder(mCordova.getActivity(), ((FragmentActivity) mCordova.getActivity()).getSupportFragmentManager()).setCancelButtonTitle("取消")
                 .setOtherButtonTitles("从相册选择", "拍照").setCancelableOnTouchOutside(true).setListener(new ActionSheet.ActionSheetListener() {
             @Override
             public void onDismiss(ActionSheet actionSheet, boolean isCancel) {
-
             }
-
             @Override
             public void onOtherButtonClick(ActionSheet actionSheet, int index) {
                 if(index == 0){
@@ -139,14 +187,9 @@ public class BridgePlugin extends CordovaPlugin {
                 }else if(index == 1){
                     callCamera();
                 }
-
             }
         }).show();
-
     }
-
-
-
 
     class UploadObserver implements UploadEngine7Niu.UploadObserver7Niu {
         private String localPath;
@@ -158,7 +201,6 @@ public class BridgePlugin extends CordovaPlugin {
         @Override
         public void onUploadSuccess(String url) {
             processResultFromUploadFile(localPath, url, true);
-
         }
 
         @Override
@@ -167,11 +209,10 @@ public class BridgePlugin extends CordovaPlugin {
         }
     }
 
-    private void UploadFile(/*FileUploadParams params*/) {
-/*        if (params == null || params.files == null) {
+    private void UploadFile(FileUploadParams params) {
+        if (params == null || params.files == null) {
             return;
         }
-
         if (params.udomain == null) {
             params.udomain = QiNiuUtils.BUCKET_DOCTOR;
         }
@@ -180,7 +221,7 @@ public class BridgePlugin extends CordovaPlugin {
 
         for (String file : params.files) {
             UploadEngine7Niu.uploadFileCommon(file, new UploadObserver(file), params.udomain);
-        }*/
+        }
 
     }
 
@@ -207,24 +248,18 @@ public class BridgePlugin extends CordovaPlugin {
         }else {//上传完成
             pluginResult.setKeepCallback(false);
         }
-        mCallbackContext.sendPluginResult(pluginResult);
-
+        mCallbackgetFile.sendPluginResult(pluginResult);
     }
-
-
-
-
-    private void seeBigPhoto(/*ImageViewerParams params*/) {
-        /*if (params == null) {
+    private void seeBigPhoto(ImageViewerParams params) {
+        if (params == null) {
             return;
         }
-
         if (this.cordova != null) {
             Intent intent = new Intent(mCordova.getActivity(), MultiImageViewerActivity.class);
             intent.putExtra("position", params.page);
             intent.putStringArrayListExtra("imageUrls", (ArrayList<String>) params.files);
             this.cordova.startActivityForResult((CordovaPlugin) this, intent, -1);
-        }*/
+        }
 
     }
 
@@ -247,11 +282,30 @@ public class BridgePlugin extends CordovaPlugin {
                     processResultFromCamera(mNewPhotoUri.getPath());
                 }
             });
+        }else if (requestCode == REQUEST_CODE_QR && resultCode == Activity.RESULT_OK) {// 二维码返回
+            String qrString = intent.getStringExtra("qrString");
+            Log.d("zxy", "onActivityResult: qrString = "+qrString);
+            JSONObject qrJson = getQrJson(qrString);
+            mCallbackcallQRScan.success(qrJson.toString());
         }
+    }
 
+    private JSONObject getQrJson(String qrString) {
+        JSONObject object = new JSONObject();
+        try {
+            object.put("resultCode","1");
+            JSONObject object1= new JSONObject();
+            object1.put("qrString",qrString);
+            object.put("data",object1);
+            object.put("resultMsg","");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return object;
     }
 
     private void processResultFromCamera(String filePath) {
+        Log.d("zxy", "processResultFromCamera: ");
         if (filePath == null) {
             return;
         }
@@ -269,7 +323,7 @@ public class BridgePlugin extends CordovaPlugin {
 
         Logger.d(TAG, "result=" + JSON.toJSONString(jObjectResult));
 
-        mCallbackContext.success(JSON.toJSONString(jObjectResult));
+        mCallbackgetcallCamera.success(JSON.toJSONString(jObjectResult));
     }
 
     private void processResultFromGallery(Intent intent) {
@@ -301,7 +355,7 @@ public class BridgePlugin extends CordovaPlugin {
 
         Logger.d(TAG, "result=" + JSON.toJSONString(jObjectResult));
 
-        mCallbackContext.success(JSON.toJSONString(jObjectResult));
+        mCallbackgetgetPhotos.success(JSON.toJSONString(jObjectResult));
     }
     private static ImageEntity buildImageEntity(File file) {
         byte[] byteCode = FileUtil.getFileByteCode(file);
@@ -310,5 +364,18 @@ public class BridgePlugin extends CordovaPlugin {
         return new ImageEntity(file.getAbsolutePath(), BASE64_HEAD + bitmapBase64);
     }
 
+
+    private JSONObject getIdentityData(JSONObject json) throws JSONException {
+        json.put("resultCode","1");
+        JSONObject jsonData = new JSONObject();
+        jsonData.put("openID","110");
+        jsonData.put("userName","李");
+        jsonData.put("companyID","001");
+        jsonData.put("companyName","公司");
+        jsonData.put("platform","Android");
+        json.put("data",jsonData);
+        json.put("resultMsg","");
+        return jsonData;
+    }
 
 }

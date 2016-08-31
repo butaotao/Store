@@ -77,9 +77,10 @@ public class NetworkErrorView extends RelativeLayout implements View.OnClickList
         // 先判断当前系统版本
         if (android.os.Build.VERSION.SDK_INT > 10) {  // 3.0以上
             intent = new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS);
+            //intent = new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS);
         } else {
             intent = new Intent();
-            intent.setClassName("com.android.settings", "com.android.settings.WirelessSettings");
+            intent.setClassName("com.android.settings", "com.android.settings.WIFI_SETTINGS");
         }
         mContext.startActivity(intent);
 

@@ -1,21 +1,6 @@
 package com.dachen.medicine.volley.custom;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.zip.GZIPInputStream;
-
 import android.content.Context;
-import android.content.Intent;
 import android.text.TextUtils;
 
 import com.android.volley.AuthFailureError;
@@ -27,27 +12,34 @@ import com.android.volley.Response.ErrorListener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.dachen.medicine.common.utils.LogUtils;
-import com.dachen.medicine.common.utils.MActivityManager;
-import com.dachen.medicine.common.utils.MedicineApplication;
-import com.dachen.medicine.common.utils.SharedPreferenceUtil;
-import com.dachen.medicine.common.utils.TimeUtils;
-import com.dachen.medicine.config.UserInfo;
 import com.dachen.medicine.entity.Result;
 import com.dachen.medicine.net.HttpManager;
 import com.google.gson.Gson;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.zip.GZIPInputStream;
+
 /**
  * 通过字符串参数集，请求json参数，并序列号为JsonModel对象
- * 
+ *
  * @author dty
- * 
+ *
  * @param <T>
  */
 public class StringJsonObjectRequest<T> extends Request<String> {
 
 	public static interface Listener<Result> {
 		void onResponse(Result t);
-		void onFailure(Exception e, String errorMsg,int s); 
+		void onFailure(Exception e, String errorMsg,int s);
 	}
 
 	private Listener<Result> mListener;
@@ -59,9 +51,9 @@ public class StringJsonObjectRequest<T> extends Request<String> {
 	private boolean isJson = true;
 	Context context;
 	/**
-	 * 
+	 *
 	 * 请求方式post
-	 * 
+	 *
 	 * @param url
 	 *            url地址
 	 * @param listener
@@ -73,7 +65,7 @@ public class StringJsonObjectRequest<T> extends Request<String> {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param method
 	 *            请求方式，post或者get
 	 * @param url
@@ -118,22 +110,22 @@ public class StringJsonObjectRequest<T> extends Request<String> {
 	}
 	@Override
 	public void deliverError(VolleyError error) {
-		// TODO Auto-generated method stub  
+		// TODO Auto-generated method stub
 			if (null!=error&&null!=error.getMessage()&&error.getMessage().contains("ConnectException")) {
-				mListener.onFailure(error, "", 3); 
+				mListener.onFailure(error, "", 3);
 			}else {
-				mListener.onFailure(error, "", 2); 
-			}  
+				mListener.onFailure(error, "", 2);
+			}
 		super.deliverError(error);
 	}
 	@Override
 	protected VolleyError parseNetworkError(VolleyError volleyError) {
-		//System.err.println("volleyError"+volleyError.getMessage()); 
+		//System.err.println("volleyError"+volleyError.getMessage());
 		LogUtils.burtLog(LogUtils.W,"ERROR"+volleyError.getMessage());
-		// TODO Auto-generated method stub 
+		// TODO Auto-generated method stub
 		return super.parseNetworkError(volleyError);
 	}
-	
+
 	@Override
 	public Map<String, String> getHeaders() throws AuthFailureError {
 		//System.err.println("header");
@@ -154,7 +146,7 @@ public class StringJsonObjectRequest<T> extends Request<String> {
 		} else {
 		/*	Map<String, String> headers = new HashMap<String, String>();
 			headers.put("Charset", "UTF-8");
-			//headers.put("content-length", "100000000"); 
+			//headers.put("content-length", "100000000");
 			headers.put("Content-Type", "application/x-www-form-urlencoded");*/
 
 			if (!TextUtils.isEmpty(useragent)){
@@ -179,38 +171,38 @@ public class StringJsonObjectRequest<T> extends Request<String> {
 				param += (key + "=" + mParams.get(key) + "&");
 			}
 			param = param.substring(0, param.length() - 1);// 去掉最后一个&
-			setUrl(url + param); 
+			setUrl(url + param);
 		}
 	}
 
 	@Override
 	protected void deliverResponse(String arg0) {
 		if (isJson) {
-		
+
 		if (mListener == null) {
 			return;
 		}
-		if (TextUtils.isEmpty(arg0)) { 
-			deliverError(new VolleyError(new NetworkError())); 
+		if (TextUtils.isEmpty(arg0)) {
+			deliverError(new VolleyError(new NetworkError()));
 			return;
 		}
 		Result result = null;
 		try {
 			result = (com.dachen.medicine.entity.Result) gson.fromJson(arg0,
-					mClazz); 
+					mClazz);
 		} catch (Exception e) {
-			mListener.onFailure(new VolleyError(new NetworkError()), "", 4); 
+			mListener.onFailure(new VolleyError(new NetworkError()), "", 4);
 			// TODO: handle exception
 			return;
 		}
-	 
-		if (null== result) { 
+
+		if (null== result) {
 			deliverError(new VolleyError(new NetworkError()));
 			return;
 		}
 
 		mListener.onResponse(result);
-		
+
 		}else {
 			Result result = new Result();
 			result.resultMsg = arg0;

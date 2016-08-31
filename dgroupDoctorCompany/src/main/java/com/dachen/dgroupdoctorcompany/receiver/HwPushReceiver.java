@@ -56,6 +56,8 @@ public class HwPushReceiver extends PushEventReceiver {
     public boolean onPushMsg(Context context, byte[] msg, Bundle bundle) {
 //        if(!CommonUtils.getProcessName(context).equals(context.getPackageName())) //如果不是主进程  不现实。去除重复显示的问题
 //            return false;
+        if (DeviceInfoUtil.isRunningForeground(context) && DeviceInfoUtil.isInteractive(context))
+            return false;
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         final PowerManager.WakeLock wakeLock =pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "HwPushReceiver");
         wakeLock.acquire();

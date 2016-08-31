@@ -102,8 +102,9 @@ public class InfomationFragment extends BaseFragment implements OnChildClickList
                 showAddPop();
                 break;
             case R.id.btn_scannerLogin: //扫一扫登入工作台
-                Intent QRintent = new Intent(mActivity,QRCodeScannerUI.class);
-                startActivity(QRintent);
+                Intent intent = new Intent(mActivity,QRCodeScannerUI.class);
+                /*Intent intent = new Intent(mActivity,LitterAppActivity.class);*/
+                startActivity(intent);
                 break;
             default:
                 break;
