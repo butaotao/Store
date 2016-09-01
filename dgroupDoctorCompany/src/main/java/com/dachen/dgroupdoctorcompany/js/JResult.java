@@ -7,6 +7,8 @@ package com.dachen.dgroupdoctorcompany.js;
  * @date 2016/8/5
  */
 public class JResult {
+    public int resultCode;
+    public String resultMsg;
     public int errorCode;
     public String errormsg;
 }

@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 
-import com.dachen.common.utils.ToastUtil;
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
@@ -19,7 +18,6 @@ import com.dachen.dgroupdoctorcompany.db.dbdao.DoctorDao;
 import com.dachen.dgroupdoctorcompany.db.dbdao.RoleDao;
 import com.dachen.dgroupdoctorcompany.entity.LoginRegisterResult;
 import com.dachen.dgroupdoctorcompany.utils.Umeng;
-import com.dachen.dgroupdoctorcompany.utils.UserUtils;
 import com.dachen.imsdk.ImSdk;
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
 import com.dachen.medicine.common.utils.ToastUtils;
@@ -38,6 +36,7 @@ public class SplashActivity extends BaseActivity implements HttpManager.OnHttpLi
     DoctorDao dao;
     CompanyContactDao companyContactDao;
     RoleDao roleDao;
+    public static boolean toNoticeWeb = false; //是否浏览器启动app
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,9 +75,29 @@ public class SplashActivity extends BaseActivity implements HttpManager.OnHttpLi
         super.onPause();
     }
     public void startActivitys(){
-        Uri uridata = this.getIntent().getData();
-        ToastUtil.showToast(this,uridata+"");
+        Uri data = getIntent().getData();
+        if (data != null) {
+/*            Log.d("zxy :", "85 : SplashActivity : startActivitys :  "+data.getEncodedSchemeSpecificPart());
+            Log.d("zxy :", "85 : SplashActivity : startActivitys :  "+data.getEncodedPath());
+            Log.d("zxy :", "85 : SplashActivity : startActivitys :  "+data.getQuery());
+            Log.d("zxy :", "85 : SplashActivity : startActivitys :  "+data.getQueryParameter("id"));
+            Log.d("zxy :", "85 : SplashActivity : startActivitys :  "+data.getQueryParameter("title"));
+            Log.d("zxy :", "85 : SplashActivity : startActivitys :  data.getPath()"+data.getPath());
+            String url = "http:"+data.getPath();
+            Log.d("zxy :", "SplashActivity : "+"startActivitys: uri = "+data);*/
+            SharedPreferenceUtil.putString(getApplicationContext(),"noticeUri",data.toString());
+            toNoticeWeb = true;
+        }
+
+       /* Uri uridata = this.getIntent().getData();
+        ToastUtil.showToast(this,uridata+"");*/
     }
+//启动notice页面
+    private void startNoticeWeb() {
+        startActivity(new Intent(getApplicationContext(),NoticeWebActivity.class));
+        toNoticeWeb = false;
+    }
+
     public void autoLogin() {
         SharedPreferences preferences = getSharedPreferences(
                 SHAREDPREFERENCES_NAME, MODE_PRIVATE);
@@ -93,8 +112,8 @@ public class SplashActivity extends BaseActivity implements HttpManager.OnHttpLi
             long currentTime = System.currentTimeMillis();
             if (expiresInTime != 0) {
                 if (expiresInTime - currentTime > 0) {
-                    addDoctor();
-                    loginRequest();
+                        addDoctor();
+                        loginRequest();
                 } else {
                     startLoginActivity();
                 }
@@ -121,6 +140,7 @@ public class SplashActivity extends BaseActivity implements HttpManager.OnHttpLi
             new HttpManager().post(this, Constants.USER_LORGIN_AUTO + "", LoginRegisterResult.class,
                     params, this,
                     false, 1);
+
         }else {
             startLoginActivity();
         }
@@ -150,9 +170,13 @@ public class SplashActivity extends BaseActivity implements HttpManager.OnHttpLi
 
             LoginRegisterResult logins = (LoginRegisterResult) entity;
             UserLoginc.setUserInfo(logins, SplashActivity.this);
-            Intent intent = new Intent(mThis, MainActivity.class);
-            intent.putExtra("login", "login");
-            mThis.startActivity(intent);
+            if (toNoticeWeb) {
+                startNoticeWeb();
+            }else {
+                Intent intent = new Intent(mThis, MainActivity.class);
+                intent.putExtra("login", "login");
+                mThis.startActivity(intent);
+            }
             finish();
         }
     }
@@ -165,9 +189,13 @@ public class SplashActivity extends BaseActivity implements HttpManager.OnHttpLi
     @Override
     public void onFailure(Exception e, String errorMsg, int s) {
         initUser();
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("login", "login");
-        startActivity(intent);
+        if (toNoticeWeb) {
+            startNoticeWeb();
+        }else {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("login", "login");
+            startActivity(intent);
+        }
     }
 
 

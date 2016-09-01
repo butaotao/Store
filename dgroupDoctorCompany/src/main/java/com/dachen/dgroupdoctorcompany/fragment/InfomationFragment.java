@@ -190,10 +190,8 @@ public class InfomationFragment extends BaseFragment implements OnChildClickList
         if (enable) {
             Log.d("zxy", "showNetWorkErr: GONE");
             lv.getNetworkErrorView().setVisibility(View.GONE);
-            //lv.removeHeaderView(mNetworkErrorView);
         } else  {
             Log.d("zxy", "showNetWorkErr: VISIBLE ");
-            //lv.addHeaderView(mNetworkErrorView);
             lv.getNetworkErrorView().setVisibility(View.VISIBLE);
         }
     }

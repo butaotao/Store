@@ -396,7 +396,7 @@ public class JointVisitActivity extends BaseActivity implements View.OnClickList
                         tv_title_save.setVisibility(View.GONE);
                         selectedPicture.remove(ADDPIC);
                         mAdapter.notifyDataSetChanged();
-                        etRemark.setEnabled(false);
+                        setRemarkEnable(timeMillis,time);
                         desp2.setVisibility(View.GONE);
                         variety_arrow.setVisibility(View.INVISIBLE);
                         name_arrow.setVisibility(View.INVISIBLE);
@@ -421,7 +421,7 @@ public class JointVisitActivity extends BaseActivity implements View.OnClickList
                         }
                     }else{
                         tv_title_save.setVisibility(View.VISIBLE);
-                        etRemark.setEnabled(true);
+                        setRemarkEnable(timeMillis,time);
                         tvSelected.setText(mStrDoctorName);
                         etRemark.setText(remark);
                         del_desp.setVisibility(View.VISIBLE);
@@ -616,5 +616,17 @@ public class JointVisitActivity extends BaseActivity implements View.OnClickList
             startActivity(intent);
         }
         finish();
+    }
+    /**
+     * 判断是否可编辑
+     * @param timeMillis 当前时间
+     * @param time 签到时间
+     */
+    private void setRemarkEnable(long timeMillis, long time) {
+        if (timeMillis - time < 24*60*60*1000) {
+            etRemark.setEnabled(true);
+        }else {
+            etRemark.setEnabled(false);
+        }
     }
 }

@@ -459,33 +459,25 @@
         <activity
             android:name=".activity.SplashActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-
-
             </intent-filter>
 
             <intent-filter>
+                <data android:scheme="dgroupbusiness"  />
                 <action android:name="android.intent.action.VIEW" />
-
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
              <!--   <data
                     android:pathPrefix="/v/vvvv"
                     android:host="www.123"
                     android:scheme="dgroupbusiness" />-->
-                <data android:pathPrefix="/a" android:host="www.qq.com" android:scheme="http"/>
+
             </intent-filter>
-
-
-
-
-
-
         </activity>
         <!--
              ATTENTION: This was auto-generated to add Google Play services to your project for
@@ -782,6 +774,8 @@
         <activity android:name=".activity.WebQRLoginActivity"/>
         <!--轻应用界面-->
         <activity android:name=".activity.LitterAppActivity"/>
+        <!--公告web界面-->
+        <activity android:name=".activity.NoticeWebActivity"/>
 
     </application>
 

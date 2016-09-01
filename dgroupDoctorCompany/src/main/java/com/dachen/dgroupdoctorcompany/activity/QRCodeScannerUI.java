@@ -15,11 +15,9 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.dachen.common.utils.GsonUtil;
 import com.dachen.common.utils.ToastUtil;
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.app.Constants;
-import com.dachen.dgroupdoctorcompany.entity.QRBean;
 import com.dachen.dgroupdoctorcompany.entity.QRLogin;
 import com.dachen.medicine.common.utils.CameraUtil;
 import com.dachen.medicine.net.HttpManager;
@@ -60,7 +58,6 @@ public class QRCodeScannerUI extends Activity implements
     private Button mUiQrcodeScannerBack;
     private TextView mUiQrcodeScannerTitle;
     private ImageButton mUiQrcodeScannerChooseFromPhoto;
-    String key = "a1653c37e874425e98674c6803270e1c";
 
     private void assignViews() {
         mUiQrcodeScannerBack = (Button) findViewById(R.id.ui_qrcode_scanner_back);
@@ -123,11 +120,12 @@ public class QRCodeScannerUI extends Activity implements
      */
     @Override
     public void handleResult(Result rawResult) {
+        Log.d("zxy :", "QRCodeScannerUI : "+"handleResult: "+rawResult);
 
         if (rawResult != null) {
-            Log.w(TAG, "handleResult():toString:" + rawResult.toString());
+            Log.d("zxy :", "QRCodeScannerUI : "+"handleResult: "+rawResult.toString());
             handleResult(rawResult.getText());
-            //获取二维码
+            //获取联网获取二维码字符
             /*new HttpManager<QRBean>().post(this, "drugorg/auth/key", QRBean.class, Params.getQRWebKeyParams
                     ("key"),new HttpManager.OnHttpListener<com.dachen.medicine.entity.Result>() {
                 @Override
@@ -137,11 +135,9 @@ public class QRCodeScannerUI extends Activity implements
                     QRBean bean = gson.fromJson(response1.data, QRBean.class);
                     handleResult(bean.key);
                 }
-
                 @Override
                 public void onSuccess(ArrayList<com.dachen.medicine.entity.Result> response) {
                 }
-
                 @Override
                 public void onFailure(Exception e, String errorMsg, int s) {
                 }
@@ -176,16 +172,15 @@ public class QRCodeScannerUI extends Activity implements
             setResult(RESULT_OK, data);
             finish();
         } else {//web端登入
-            QRBean qrBean = GsonUtil.getGson().fromJson(scanResult, QRBean.class);
+            //QRBean qrBean = GsonUtil.getGson().fromJson(scanResult, QRBean.class);
             new HttpManager().post(this, Constants.QR_WEB_LONIN_VERIFY, QRLogin.class, Params.getQRWebKeyParams
-                    (qrBean.key), new HttpManager.OnHttpListener<com.dachen.medicine.entity.Result>() {
+                    (scanResult), new HttpManager.OnHttpListener<com.dachen.medicine.entity.Result>() {
 
                 @Override
                 public void onSuccess(com.dachen.medicine.entity.Result response) {
                     if (response instanceof QRLogin){
 
                         QRLogin result = (QRLogin)response;
-                        //Log.d("zxy", "onSuccess: LoginRegisterResult"+result.data.access_token);
                         if (result.resultCode == 0) {
                                 Intent intent = new Intent(QRCodeScannerUI.this, WebQRLoginActivity.class);
                                 intent.putExtra("scanResult", scanResult);
@@ -206,8 +201,6 @@ public class QRCodeScannerUI extends Activity implements
 
                 }
             }, false, 1);
-
-
         }
 
 		/*

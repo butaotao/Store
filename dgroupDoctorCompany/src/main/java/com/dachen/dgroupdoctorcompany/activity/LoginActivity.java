@@ -24,7 +24,6 @@ import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.dgroupdoctorcompany.base.UserLoginc;
 import com.dachen.dgroupdoctorcompany.entity.LoginRegisterResult;
 import com.dachen.dgroupdoctorcompany.utils.Umeng;
-import com.dachen.dgroupdoctorcompany.utils.UserUtils;
 import com.dachen.imsdk.ImSdk;
 import com.dachen.medicine.common.utils.MActivityManager;
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
@@ -330,11 +329,17 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
                 CompanyApplication.setInitContactList(2);
                 LoginRegisterResult logins = (LoginRegisterResult) entity;
                 UserLoginc.setUserInfo(logins, LoginActivity.this);
-                Intent intent = new Intent(mThis, MainActivity.class);
-                intent.putExtra("login", "login");
-                mThis.startActivity(intent);
+
+                if (SplashActivity.toNoticeWeb) {
+                    startNoticeWeb();
+                }else {
+                    Intent intent = new Intent(mThis, MainActivity.class);
+                    intent.putExtra("login", "login");
+                    mThis.startActivity(intent);
+                }
             }
         }
+
         @Override
         public void onSuccess(ArrayList response) {
 
@@ -370,5 +375,12 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
     public void onBackPressed() {
         super.onBackPressed();
         MActivityManager.getInstance().finishAllActivity();
+    }
+
+    //启动notice页面
+    private void startNoticeWeb() {
+        startActivity(new Intent(getApplicationContext(),NoticeWebActivity.class));
+        SplashActivity.toNoticeWeb = false;
+        finish();
     }
 }

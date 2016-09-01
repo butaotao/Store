@@ -80,7 +80,6 @@ public class WebQRLoginActivity extends BaseActivity {
         new HttpManager<Result>().post(this, Constants.QR_WEB_LONIN_CONFIRM, Result.class, Params
                 .getQRWebLoginParams(getApplicationContext(), mScanResult), new HttpManager.OnHttpListener<Result>() {
 
-
             @Override
             public void onSuccess(Result response) {
                 if (response.resultCode == 1) {
