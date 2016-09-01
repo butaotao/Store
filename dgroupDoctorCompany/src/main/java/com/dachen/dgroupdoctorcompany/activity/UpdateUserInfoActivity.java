@@ -79,6 +79,7 @@ public class UpdateUserInfoActivity extends BaseActivity implements HttpManager.
             mEtUserName.setText(name);
         }else if(MODE_UPDATE_JOB_TITLE == mMode){
             setTitle("我的职位");
+            id = SharedPreferenceUtil.getString(this, "id", "");
             mStrJobTitle = this.getIntent().getStringExtra("job_title");
             mStrOrgId = this.getIntent().getStringExtra("part");
             mEtUserName.setHint("输入职位名称");

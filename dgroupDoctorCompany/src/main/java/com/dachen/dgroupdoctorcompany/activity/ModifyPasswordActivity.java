@@ -97,7 +97,7 @@ public class ModifyPasswordActivity extends BaseActivity {
         params.put("oldPassword", oldPwd);
         params.put("newPassword", newPwd);
         params.put("access_token", session);
-        new HttpManager().post(this, Constants.DRUG+"drugCompanyEmployee/updatePassword",
+        new HttpManager().post(this, Constants.DRUG+"auth/updatePassword",
                 Void.class, params, new HttpManager.OnHttpListener<Result>() {
                     @Override
                     public void onSuccess(Result result) {

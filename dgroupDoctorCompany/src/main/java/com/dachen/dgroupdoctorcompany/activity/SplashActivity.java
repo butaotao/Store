@@ -136,6 +136,7 @@ public class SplashActivity extends BaseActivity implements HttpManager.OnHttpLi
             params.put("userId", SharedPreferenceUtil.getString(this, "id", ""));
             params.put("serial", SharedPreferenceUtil.getString(this, "mRegId", ""));
             params.put("access_token", SharedPreferenceUtil.getString(this, "session", ""));
+            params.put("access_context",SharedPreferenceUtil.getString(this,"context_token",""));
             final String userType = Constants.USER_TYPE;
             new HttpManager().post(this, Constants.USER_LORGIN_AUTO + "", LoginRegisterResult.class,
                     params, this,

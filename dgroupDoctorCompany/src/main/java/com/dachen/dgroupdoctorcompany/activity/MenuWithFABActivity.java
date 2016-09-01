@@ -77,7 +77,7 @@ public class MenuWithFABActivity extends SignInActivity implements View.OnClickL
         tv_week = (TextView) findViewById(R.id.tv_week);
         tv_time = (TextView) findViewById(R.id.tv_time);
         tv_week.setText(TimeUtils.getWeek(System.currentTimeMillis()));
-        tv_time.setText(TimeUtils.getTimeDay( )+" "+TimeUtils.getTimesHourMinute(System.currentTimeMillis()));
+        tv_time.setText(TimeUtils.getTimeDay( ));
         iv_alert = (ImageView) findViewById(R.id.iv_alert);
         refreshScrollView = (PullToRefreshListView) findViewById(R.id.refresh_scroll_view);
         refreshScrollView.setMode(PullToRefreshBase.Mode.BOTH);

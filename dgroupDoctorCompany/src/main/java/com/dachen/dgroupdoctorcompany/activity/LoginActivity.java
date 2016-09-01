@@ -188,12 +188,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
                     .setCancelableOnTouchOutside(true).setListener(this).show();
 
 
-
-
-          /*  ActionSheet.createBuilder(this,  getSupportFragmentManager())
-                    .setCancelButtonTitle("取消")
-                    .setOtherButtonTitles("测试环境", "生产环境", "开发环境", "生产测试环境", "后台调试环境（后台用）")
-                    .setCancelableOnTouchOutside(true).setListener(this).show();*/
         }
         else {
             clickTitle++;

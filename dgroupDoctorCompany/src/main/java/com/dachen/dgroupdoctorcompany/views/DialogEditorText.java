@@ -9,12 +9,16 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.activity.AddSignInActivity;
+import com.dachen.dgroupdoctorcompany.activity.MenuWithFABActivity;
 import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.entity.SignTodayInList;
+import com.dachen.dgroupdoctorcompany.utils.UserInfo;
+import com.dachen.medicine.common.utils.SharedPreferenceUtil;
 import com.dachen.medicine.entity.Result;
 import com.dachen.medicine.net.HttpManager;
 import com.dachen.medicine.net.Params;
@@ -23,15 +27,17 @@ import com.dachen.medicine.view.ScrollTabView;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
  * Created by Burt on 2016/6/23.
  */
 public class DialogEditorText extends Dialog implements View.OnClickListener,ScrollTabView.OnInitView {
-    Activity mActivity;
+    MenuWithFABActivity mActivity;
     SignTodayInList.Data.DataList data;
-    public DialogEditorText(Activity activity,SignTodayInList.Data.DataList data) {
+    EditText et_edit;
+    public DialogEditorText(MenuWithFABActivity activity,SignTodayInList.Data.DataList data) {
         super(activity, R.style.dialog_with_alpha);
         mActivity = activity;
         this.data = data;
@@ -46,6 +52,7 @@ public class DialogEditorText extends Dialog implements View.OnClickListener,Scr
         mActivity.getWindowManager().getDefaultDisplay().getMetrics(metric);
         findViewById(R.id.cancel).setOnClickListener(this);
         findViewById(R.id.sure).setOnClickListener(this);
+        et_edit = (EditText) findViewById(R.id.et_edit);
         Window window = getWindow();
         WindowManager.LayoutParams lp = window.getAttributes();
         window.setGravity(Gravity.BOTTOM);
@@ -67,14 +74,34 @@ public class DialogEditorText extends Dialog implements View.OnClickListener,Scr
                 break;
             case R.id.sure:
                 closeDialog();
-
+                upDate(data.signedId,et_edit.getText().toString());
                 break;
         }
     }
-    public void upDate(){
-       /* new HttpManager().post(this, Constants.CREATE_OR_UPDATA_SIGIN_IN, Result.class,
-                Params.getWorkingParams(mActivity, deviceId, remark, mId, coordinate, address, signLable, orgId),
-                this,false,4);*/
+    public void upDate(String id,String des){
+        mActivity.showLoadingDialog();
+        HashMap<String,String> maps = new HashMap<>();
+        maps.put("access_token", UserInfo.getInstance(mActivity).getSesstion());
+        maps.put("id",id);
+        maps.put("remark",des);
+         new HttpManager().post(mActivity, "sign/signed/updateSigned", Result.class,
+                 maps,
+                 new HttpManager.OnHttpListener<Result>() {
+                     @Override
+                     public void onSuccess(Result response) {
+                         mActivity.closeLoadingDialog();
+                     }
+
+                     @Override
+                     public void onSuccess(ArrayList<Result> response) {
+
+                     }
+
+                     @Override
+                     public void onFailure(Exception e, String errorMsg, int s) {
+                         mActivity.closeLoadingDialog();
+                     }
+                 }, false, 1);
     }
     public void showDialog(){
             if(!isShowing() ){

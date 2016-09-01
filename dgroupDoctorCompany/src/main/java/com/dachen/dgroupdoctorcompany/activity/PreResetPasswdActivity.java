@@ -45,7 +45,7 @@ public class PreResetPasswdActivity extends BaseActivity implements
 	private static final String TAG = PreResetPasswdActivity.class
 			.getSimpleName();
 	public static final String SMSID = "smsid";
-	public static final String PHONE = "phone";
+	public static final String PHONE = "telephone";
 	public static final String RANCODE = "ranCode";
 	String phoneNumber;
 
@@ -178,7 +178,7 @@ public class PreResetPasswdActivity extends BaseActivity implements
 		params.put("userType", userType);
 		HashMap<String, String> interfaces = (HashMap<String, String>) Params
 				.getInterface(Constants.PRE_RESET_PASSWD);
-		//
+		//auth/sendRanCode
 		new HttpManager().post(this, interfaces,
 				ResetPassword.class, params, this, 1);
 	}
@@ -244,7 +244,7 @@ public class PreResetPasswdActivity extends BaseActivity implements
 		final String templateId = "25118";
 		final String userType = Constants.USER_TYPE;
 		HashMap<String, String> params = new HashMap<String, String>();
-		params.put("phone", phoneNumber);
+		params.put("telephone", phoneNumber);
 		params.put("userType", userType);
 		params.put("ranCode", randcode);
 		params.put("smsid", smsid);

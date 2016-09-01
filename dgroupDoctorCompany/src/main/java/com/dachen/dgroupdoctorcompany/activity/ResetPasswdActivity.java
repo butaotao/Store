@@ -14,6 +14,7 @@ import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.dgroupdoctorcompany.base.UserLoginc;
 import com.dachen.dgroupdoctorcompany.entity.LoginRegisterResult;
+import com.dachen.dgroupdoctorcompany.utils.Umeng;
 import com.dachen.dgroupdoctorcompany.utils.UserUtils;
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
 import com.dachen.medicine.common.utils.SystemUtils;
@@ -152,18 +153,17 @@ public class ResetPasswdActivity extends BaseActivity implements
 			startActivity(intent);*/
 			if (response instanceof  LoginRegisterResult){
 				ToastUtils.showToast(ResetPasswdActivity.this,"密码重置成功");
-				LoginRegisterResult logins = (LoginRegisterResult) response;
-				UserLoginc.setUserInfo(logins, ResetPasswdActivity.this);
+
 
 				boolean success = false;
 				if (response.getResultCode() == Result.CODE_SUCCESS) {
-					if (null != logins.data.getUser().getUserId() && null != logins.data.getUser().getTelephone()
-							&& null != logins.data.getUser().getName())
+
 						success = true;// 设置登陆用户信息
 				}
 
 				if (success) {// 登陆成功
-					UserUtils.logingetUserType(ResetPasswdActivity.this);
+
+					UserUtils.loginRequest(ResetPasswdActivity.this, phone,mPasswordEdit.getText().toString().trim());
 					//							UserLoginc.setUserInfo(logins, ResetPasswdActivity.this);
 				} else {// 登录失败
 					String message = TextUtils.isEmpty(response.getResultMsg()) ? getString(R.string.login_failed) : response.getResultMsg();
@@ -178,68 +178,10 @@ public class ResetPasswdActivity extends BaseActivity implements
 
 		} else {
 			ToastUtils.showToast(ResetPasswdActivity.this,response.getResultMsg());
-		}
+
+			}
 	}
-	/**
-	 * 注册后自动登录
-	 */
-	private void autoLogin() {
-		Intent intent = new Intent();
-		final String userId = SharedPreferenceUtil.getString(ResetPasswdActivity.this, "id", "");
-		final String access_token = SharedPreferenceUtil.getString(ResetPasswdActivity.this,"session", "");
-		if (TextUtils.isEmpty(userId)) {
-			return;
-		}
 
-
-
-		HashMap<String, String> params = new HashMap<String, String>();
-		params.put("userId", userId);
-		params.put("serial", SystemUtils.getDeviceId(this));
-		params.put("access_token", access_token);
-		HashMap<String, String> interfaces = new HashMap<String, String>();
-
-		interfaces.put("interface1", Constants.USER_LORGIN_AUTO);
-		new HttpManager().post(this, interfaces,
-				LoginRegisterResult.class, params, new OnHttpListener<Result>() {
-					@Override
-					public void onSuccess(Result result) {
-						if (result == null) {
-							closeLoadingDialog();
-							return;
-						}
-						LoginRegisterResult logins = (LoginRegisterResult) result;
-						UserLoginc.setUserInfo(logins, ResetPasswdActivity.this);
-						boolean success = false;
-						if (result.getResultCode() == Result.CODE_SUCCESS) {
-							if (null != logins.data.getUser().getUserId() && null != logins.data.getUser().getTelephone()
-									&& null != logins.data.getUser().getName())
-								success = true;// 设置登陆用户信息
-						}
-
-
-						if (success) {// 登陆成功
-							UserUtils.logingetUserType(ResetPasswdActivity.this);
-//							UserLoginc.setUserInfo(logins, ResetPasswdActivity.this);
-						} else {// 登录失败
-							String message = TextUtils.isEmpty(result.getResultMsg()) ? getString(R.string.login_failed) : result.getResultMsg();
-							ToastUtils.showToast(ResetPasswdActivity.this, message);
-						}
-						closeLoadingDialog();
-					}
-
-					@Override
-					public void onSuccess(ArrayList<Result> response) {
-
-					}
-
-					@Override
-					public void onFailure(Exception e, String errorMsg, int s) {
-						closeLoadingDialog();
-					}
-				}, 3);
-
-	}
 	@Override
 	public void onSuccess(ArrayList response) {
 		// TODO Auto-generated method stub

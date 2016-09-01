@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -47,6 +48,7 @@ import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.dgroupdoctorcompany.entity.JoinVisitGroup;
 import com.dachen.dgroupdoctorcompany.utils.DataUtils.GetUserDepId;
 import com.dachen.dgroupdoctorcompany.utils.DataUtils.SinUtils;
+import com.dachen.medicine.common.utils.MActivityManager;
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
 import com.dachen.medicine.entity.Result;
 import com.dachen.medicine.net.HttpManager;
@@ -255,14 +257,28 @@ public class SelectAddressActivity extends BaseActivity implements LocationSourc
                            }
 
                        } else {
-                           Intent intent = new Intent(SelectAddressActivity.this, AddSignInActivity.class);
-                           intent.putExtra("name", name);
-                           intent.putExtra("longitude", longitude);
-                           intent.putExtra("latitude", latitude);
-                           intent.putExtra("mode", mMode);
-                           intent.putExtra("singmode",singmode);
-                           intent.putExtra("tabid",tabid);
-                           startActivity(intent);
+                           if (singmode!=-1){
+                               String orgId = GetUserDepId.getUserDepId(SelectAddressActivity.this);
+                               TelephonyManager TelephonyMgr = (TelephonyManager)getSystemService(TELEPHONY_SERVICE);
+                               String deviceId = TelephonyMgr.getDeviceId();
+                               new HttpManager().post(SelectAddressActivity.this, Constants.CREATE_OR_UPDATA_SIGIN_IN, Result.class,
+                                       Params.getWorkingParams(SelectAddressActivity.this, deviceId, "", "",
+                                               coordinate, address, tabid, orgId),
+                                       SelectAddressActivity.this, false, 4);
+                           }else {
+                               Intent intent = new Intent(SelectAddressActivity.this, AddSignInActivity.class);
+                               intent.putExtra("name", name);
+                               intent.putExtra("longitude", longitude);
+                               intent.putExtra("latitude", latitude);
+                               intent.putExtra("mode", mMode);
+                               intent.putExtra("city",city);
+                               intent.putExtra("snippet",snippet);
+                               intent.putExtra("singmode",singmode);
+                               intent.putExtra("tabid",tabid);
+                               startActivity(intent);
+                           }
+
+
                        }
 
                    } else if (mSelectedMode == MODE_SELECT_ADDRESS) {
@@ -460,6 +476,19 @@ public class SelectAddressActivity extends BaseActivity implements LocationSourc
                 if(null != data){
                     openVisitGroup(data);
                 }
+            }else{
+                if(response.getResultCode() == 1){
+                        ToastUtil.showToast(SelectAddressActivity.this,"签到成功");
+                        Intent intent = new Intent(SelectAddressActivity.this,MenuWithFABActivity.class);
+                        startActivity(intent);
+                        finish();
+                        MActivityManager.getInstance().finishActivity(SelectAddressActivity.class);
+
+
+                }else{
+                    ToastUtil.showErrorData(SelectAddressActivity.this);
+
+                }
             }
         }else{
             if(null != response){
@@ -467,7 +496,7 @@ public class SelectAddressActivity extends BaseActivity implements LocationSourc
                 if(TextUtils.isEmpty(msg)){
                     msg = "数据异常";
                 }
-                ToastUtil.showToast(this,msg);
+                ToastUtil.showToast(this, msg);
             }
         }
     }

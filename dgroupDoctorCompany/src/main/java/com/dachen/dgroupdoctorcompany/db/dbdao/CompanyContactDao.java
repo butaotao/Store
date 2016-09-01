@@ -295,6 +295,7 @@ public class CompanyContactDao {
             boolean containsChinese = StringUtils.containsChinese(name);
             boolean isEnglish = StringUtils.isEnglish(name);
             if (isNunicodeDigits){
+                where.reset();
                 builder.orderBy("name", true);
                 if (!name.equals("1")){
                     where.and(where.eq("userloginid", loginid), where.like("telephone", "%" + name + "%")) ;
@@ -314,6 +315,7 @@ public class CompanyContactDao {
                 }
             }else {
                 if (containsChinese){
+                    where.reset();
                     builder.orderBy("name", true);
                     where.and(where.eq("userloginid", loginid), where.like("name", "%" + name + "%"));
                     if (null != where.query()) {
@@ -322,19 +324,35 @@ public class CompanyContactDao {
                     for (int i=0;i<entities.size();i++){
                         phones.add(entities.get(i).userId);
                     }
-                    where.reset();
+
 
                 }else if(isEnglish){
+                    where.reset();
+                    String s = "";
+                    if (!TextUtils.isEmpty(name)){
+                        if (name.length()>1){
+                            s = "%";
+                           for(int i=0;i<name.length();i++){
+
+                                   s+=name.charAt(i) +"%";
+                           }
+
+                        }else if(name.length()==1){
+                            s = "%" + name + "%";
+                        };
+                    }
+
                     builder.orderBy("simpinyin", true);
-                    where.or(where.eq("userloginid", loginid), where.like("simpinyin", "%" + name + "%"),
-                             where.eq("userloginid", loginid), where.like("allpinyin", "%" + name + "%"),
-                             where.eq("userloginid", loginid), where.like("name", "%" + name + "%"));
+                    where.or(/*where.and(where.eq("userloginid", loginid), where.like("simpinyin", "%" + name + "%"))
+                              ,*/ where.and(where.eq("userloginid", loginid), where.like("allpinyin", s)),
+                            where.and(where.eq("userloginid", loginid), where.like("name", "%" + name + "%")));
                     if (null != where.query()) {
                         entities.addAll(builder.distinct().query());
                     }
 
 
                 }else {
+                    where.reset();
                     builder.orderBy("name", true);
                     where.and(where.eq("userloginid", loginid), where.like("name", "%" + name + "%"));
                     if (null != where.query()) {

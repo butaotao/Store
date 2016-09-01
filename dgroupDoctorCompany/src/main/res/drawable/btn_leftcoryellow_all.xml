@@ -9,6 +9,6 @@
               android:topRightRadius="0dp"/>
   <stroke android:width="0.5dp" android:color="@color/content_color"></stroke>
  <!-- 填充的颜色 -->
-    <solid android:color="@color/color_3cbaff" />
+    <solid android:color="#ffbe0a" />
     
         </shape>

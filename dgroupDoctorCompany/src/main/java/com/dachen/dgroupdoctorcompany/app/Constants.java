@@ -29,8 +29,8 @@ public class Constants {
     /**
      * 自动登录
      */
-    public static String USER_LORGIN_AUTO = DRUG+ "drugCompanyEmployee/login/auto";
-    public static String ADDCONTACT = Constants.DRUG+"contacts/getEnterpriseListByTs";
+    public static String USER_LORGIN_AUTO = DRUG+ "auth/loginAuto";
+    public static String ADDCONTACT = Constants.DRUG+"companyUser/addMajorUser";
     public static final int HTTP_REQUEST_NOT_LOGIN = 302;
     public static String USER_REGISTER = "user/register";
     /**
@@ -43,7 +43,7 @@ public class Constants {
 
     public static String LOGOUT = DRUG+"user/logout";
     // 登录接口
-    public static final String LOGIN = DRUG + "drugCompanyEmployee/login";
+    public static final String LOGIN = DRUG + "auth/login";
     public static final String LOGINVERIFY = "login";
     public static final String XIAOMI = "user/registerDeviceToken";
     public static final String XIAOMIREMOVE = "user/removeDeviceToken";
@@ -91,15 +91,15 @@ public class Constants {
     /**
      * 请求重置密码
      */
-    public static String PRE_RESET_PASSWD = DRUG+"/user/preResetPassword";
+    public static String PRE_RESET_PASSWD = DRUG+"auth/sendRanCode";
     /**
      * 重置密码
      */
-    public static String RESET_PASSWD = DRUG+"drugCompanyEmployee/resetPassword";
+    public static String RESET_PASSWD = DRUG+"auth/resetPassword";
     /**
      * 用户 - 验证重设密码的验证码
      */
-    public static String VERIFYRESETPASSWORD = DRUG+"user/verifyResetPassword";
+    public static String VERIFYRESETPASSWORD = DRUG+"auth/verifyResetPassword";
 
     public static String MEDIE_MANAGEMENT = DRUG+"assignGoodsGroup/getMySellerDrug";
 

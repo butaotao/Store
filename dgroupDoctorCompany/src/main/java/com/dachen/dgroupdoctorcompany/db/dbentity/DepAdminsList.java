@@ -1,6 +1,8 @@
 package com.dachen.dgroupdoctorcompany.db.dbentity;
 
 import com.dachen.dgroupdoctorcompany.entity.BaseSearch;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -11,7 +13,8 @@ import com.j256.ormlite.table.DatabaseTable;
 public class DepAdminsList  extends BaseSearch {
     @DatabaseField(generatedId=true)
     public int _id;
-
+    @Expose
+    @SerializedName("orgTreePathName")
     @DatabaseField(columnName = "orgName")
     public String orgName;
     @DatabaseField(columnName = "orgId")

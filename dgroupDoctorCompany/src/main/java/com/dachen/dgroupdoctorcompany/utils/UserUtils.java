@@ -1,19 +1,15 @@
 package com.dachen.dgroupdoctorcompany.utils;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 
 import com.dachen.dgroupdoctorcompany.activity.LoginActivity;
 import com.dachen.dgroupdoctorcompany.activity.MainActivity;
-import com.dachen.dgroupdoctorcompany.activity.RegisterStep2Activity;
+import com.dachen.dgroupdoctorcompany.app.CompanyApplication;
 import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.dgroupdoctorcompany.base.UserLoginc;
-import com.dachen.dgroupdoctorcompany.entity.Company;
-import com.dachen.dgroupdoctorcompany.entity.LoginGetUserInfo;
 import com.dachen.dgroupdoctorcompany.entity.LoginRegisterResult;
-import com.dachen.medicine.common.utils.MActivityManager;
 import com.dachen.medicine.common.utils.ToastUtils;
 import com.dachen.medicine.entity.Result;
 import com.dachen.medicine.net.HttpManager;
@@ -26,7 +22,7 @@ import java.util.ArrayList;
  */
 public class UserUtils {
     public static void logingetUserType(final Activity context) {
-        String s = Constants.DRUG+"/drugCompanyEmployee/getLoginInfo";
+        String s = Constants.DRUG+"/companyUser/getMajorUserByUserId";
         new HttpManager().post(context, s, LoginRegisterResult.class,
                 Params.getUserInfo(context), new HttpManager.OnHttpListener<Result>() {
                     @Override
@@ -40,9 +36,7 @@ public class UserUtils {
                                     Intent intent = new Intent(context, MainActivity.class);
                                     intent.putExtra("login", "login");
                                     context.startActivity(intent);
-                                if (!(context instanceof RegisterStep2Activity)){
-                                    context.finish();
-                                }
+
 
                                 }
                         }else {
@@ -73,5 +67,38 @@ public class UserUtils {
                     }
                 },
                 false, 1);
+    }
+    public static void loginRequest(final Activity context, final String phoneNum, String password) {
+        final String userType = Constants.USER_TYPEC+"";
+        Umeng.getLoginRequestData(phoneNum, password);
+        new HttpManager().post(context, Constants.LOGIN + "", LoginRegisterResult.class,
+                Params.getLoginParams(phoneNum, password, userType, context), new HttpManager.OnHttpListener<Result>() {
+                    @Override
+                    public void onSuccess(Result entity) {
+                        if (entity instanceof  LoginRegisterResult){
+                            LoginRegisterResult result = (LoginRegisterResult)entity;
+                            Umeng.getLoginServerData(result,phoneNum);
+
+                            CompanyApplication.setInitContactList(2);
+                            LoginRegisterResult logins = (LoginRegisterResult) entity;
+                            UserLoginc.setUserInfo(logins, context);
+                            Intent intent = new Intent(context, MainActivity.class);
+                            intent.putExtra("login", "login");
+                            context.startActivity(intent);
+                        }
+                    }
+
+                    @Override
+                    public void onSuccess(ArrayList<Result> response) {
+
+                    }
+
+                    @Override
+                    public void onFailure(Exception e, String errorMsg, int s) {
+
+                    }
+                },
+                false, 1);
+
     }
 }

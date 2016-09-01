@@ -87,6 +87,8 @@ public class AddSignInActivity extends BaseActivity implements HttpManager.OnHtt
     private List<String>               mListLable = new ArrayList<>();
     boolean allow;
     private String tabid;
+    private String snippet;
+    private String city;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -146,6 +148,8 @@ public class AddSignInActivity extends BaseActivity implements HttpManager.OnHtt
         mMode = this.getIntent().getIntExtra("mode", MODE_WORKING);
         mSignMode = this.getIntent().getIntExtra("singmode",-1);
         tabid = this.getIntent().getStringExtra("tabid");
+        snippet = getIntent().getStringExtra("snippet");
+        city = getIntent().getStringExtra("city");
         if (mSignMode ==  AddSignInActivity.SIGN_OFFWORKING){
             mListLable.add("下班");
         }else if(mSignMode ==  AddSignInActivity.SIGN_WORKING){
@@ -202,7 +206,7 @@ public class AddSignInActivity extends BaseActivity implements HttpManager.OnHtt
         textView.setTextSize(14);
         textView.setText(lable);
         textView.setGravity(Gravity.CENTER);
-        textView.setPadding(0,(int)CommonUitls.dpToPixel(4f,this),0,0);
+        textView.setPadding(0, (int) CommonUitls.dpToPixel(4f, this), 0, 0);
 
         if(isEdite){
             textView.setBackgroundResource(R.drawable.biaoqian_dis);
@@ -337,7 +341,7 @@ public class AddSignInActivity extends BaseActivity implements HttpManager.OnHtt
         TelephonyManager TelephonyMgr = (TelephonyManager)getSystemService(TELEPHONY_SERVICE);
         String deviceId = TelephonyMgr.getDeviceId();
 
-        String signLable = tabid+"";
+        String signLable = tabid;
         if(null != mListLable){
             for(int i=0;i<mListLable.size();i++){
                 String singedTag = mListLable.get(i);
@@ -355,7 +359,7 @@ public class AddSignInActivity extends BaseActivity implements HttpManager.OnHtt
         showLoadingDialog();
         new HttpManager().post(this, Constants.CREATE_OR_UPDATA_SIGIN_IN, Result.class,
                 Params.getWorkingParams(AddSignInActivity.this, deviceId, remark, mId, coordinate, address, signLable, orgId),
-                this,false,4);
+                this, false, 4);
     }
 
     @Override
@@ -396,11 +400,23 @@ public class AddSignInActivity extends BaseActivity implements HttpManager.OnHtt
                 if(response.getResultCode() == 1){
                     playAddSign();
                     if(TextUtils.isEmpty(mId)){
-                        ToastUtil.showToast(AddSignInActivity.this,"签到成功");
+                        ToastUtil.showToast(AddSignInActivity.this, "签到成功");
                         Intent intent = new Intent(AddSignInActivity.this,MenuWithFABActivity.class);
                         startActivity(intent);
                         finish();
                         MActivityManager.getInstance().finishActivity(SelectAddressActivity.class);
+                        if(null != mListLable){
+                                if (!TextUtils.isEmpty(mListLable.get(0))&&mListLable.get(0).equals("拜访")){
+                                    intent = new Intent(AddSignInActivity.this, SelfVisitActivity.class);
+                                    intent.putExtra("address", mAddressName);
+                                    intent.putExtra("longitude", longitude);
+                                    intent.putExtra("latitude", latitude);
+                                    intent.putExtra("addressname", city + mAddressName + snippet);
+                                    intent.putExtra("mode", CustomerVisitActivity.MODE_FROM_SIGN);
+                                    intent.putExtra("city", city);
+                                    startActivity(intent);
+                                }
+                        }
                     }else{
                         ToastUtil.showToast(AddSignInActivity.this,"保存成功");
                         Intent intent = new Intent();
@@ -448,6 +464,7 @@ public class AddSignInActivity extends BaseActivity implements HttpManager.OnHtt
                 return;
             }else{
                 LatLng startLatlng = new LatLng(latitude,longitude);
+
 //                final double latitude1 = 40.37;
 //                final double longitude1 = 116.85;
 //                final String city1 = "北京";

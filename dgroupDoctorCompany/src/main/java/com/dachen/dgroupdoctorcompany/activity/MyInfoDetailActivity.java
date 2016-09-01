@@ -75,7 +75,7 @@ public class MyInfoDetailActivity extends BaseActivity implements HttpManager.On
     private File mCurrentFile;
     private MyHandler mMyHandler ;
     com.dachen.dgroupdoctorcompany.views.DialogGetPhote dialog;
-
+    CompanyContactListEntity entity = new CompanyContactListEntity();
     TextView tv_name;
     TextView tv_contactmethod;
     TextView tv_company;
@@ -100,6 +100,10 @@ public class MyInfoDetailActivity extends BaseActivity implements HttpManager.On
                     mStrOrgId = userInfo.data.id;
                     tv_name.setText(userInfo.data.name);
                     tv_contactmethod.setText(userInfo.data.telephone);
+                    if (TextUtils.isEmpty(userInfo.data.companyName)){
+                        userInfo.data.companyName = SharedPreferenceUtil.getString
+                                (CompanyApplication.getInstance(),"enterpriseName","");
+                    }
                     tv_company.setText(userInfo.data.companyName);
                     tv_part.setText(userInfo.data.department);
                     SharedPreferenceUtil.putString(MyInfoDetailActivity.this,"department",userInfo.data.department);
@@ -184,8 +188,6 @@ public class MyInfoDetailActivity extends BaseActivity implements HttpManager.On
                 break;
             case R.id.rl_part:
                 intent.setClass(MyInfoDetailActivity.this, OrgActivity.class);
-                CompanyContactListEntity entity = new CompanyContactListEntity();
-                entity.id = mStrOrgId;
                 intent.putExtra("user",entity);
                 startActivity(intent);
                 break;
@@ -481,7 +483,9 @@ public class MyInfoDetailActivity extends BaseActivity implements HttpManager.On
                         Message msg = Message.obtain();
                         msg.what = MSG_UPDATE_INFO;
                         msg.obj = userInfo;
-                        CompanyContactListEntity entity = new CompanyContactListEntity();
+
+
+                        entity = companyContactDao.queryByUserid(userInfo.data.userId+"");
                         entity.userId = userInfo.data.userId+"";
                         entity.id = userInfo.data.id;
                         entity.department = userInfo.data.department;
@@ -492,14 +496,8 @@ public class MyInfoDetailActivity extends BaseActivity implements HttpManager.On
                         entity.userStatus = userInfo.data.status;
                         entity.userloginid = userID;
                         entity.name = userInfo.data.name;
+                        entity.deptManager = userInfo.data.deptManager;
 
-                        if (null != userInfo.data.role && userInfo.data.role.size() > 0) {
-                            for (int j = 0; j < userInfo.data.role.size(); j++) {
-                                Role role = new Role();
-                                role.companycontact = entity;
-                                roleDao.addRole(role);
-                            }
-                        }
                         companyContactDao.addCompanyContact(entity);
                         mMyHandler.sendMessage(msg);
                     }

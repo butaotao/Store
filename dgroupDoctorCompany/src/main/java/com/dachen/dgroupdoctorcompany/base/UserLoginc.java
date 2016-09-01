@@ -34,62 +34,58 @@ import java.util.HashMap;
 public class UserLoginc {
     public static boolean isFirstLogin = true;
     public static DoctorDao dao;
-    public static String companyId = "";
     public static CompanyContactDao companyContactDao;
     public static RoleDao roleDao;
     public static  void setUserInfo(LoginRegisterResult logins,Activity mThis){
-        if (null == logins.data || null == logins.data.user){
+        if (null == logins.data || null == logins.data.majorUser){
             return;
         }
-       if(!TextUtils.isEmpty(logins.data.getAccess_token())){
+        LoginRegisterResult.LoginData.MajorUser user = logins.data.majorUser;
+        if (user==null){
+            return;
+        }
+        String access_token = logins.data.access_token;
+        String userId = logins.data.userId;
+       if(!TextUtils.isEmpty(access_token)){
            SharedPreferenceUtil.putString(mThis, "session",
-                   logins.data.getAccess_token());
-           UserInfo.getInstance(mThis).setSession(logins.data.getAccess_token());
+                   access_token);
+           UserInfo.getInstance(mThis).setSession(access_token);
        }
         UserInfo.getInstance(mThis).setContextSession(logins.data.access_context);
         SharedPreferenceUtil.putString(mThis, "context_token",
                 logins.data.access_context);
         UserInfo.getInstance(mThis).setPackageName(mThis, "com.dachen.dgroupdoctorcompany");
         UserInfo.getInstance(mThis).setUserType(Constants.USER_TYPE);
-        UserInfo.getInstance(mThis).setId(logins.data.getUser().getUserId());
-        if (!logins.data.getUser().getUserId().equals(SharedPreferenceUtil.getString(mThis,"id",""))){
+        UserInfo.getInstance(mThis).setId(userId);
+        if (!userId.equals(SharedPreferenceUtil.getString(mThis, "id", ""))){
             companyContactDao = new CompanyContactDao(mThis);
             companyContactDao.clearAllUser();
             SharedPreferenceUtil.putString(CompanyApplication.context,
                     SharedPreferenceUtil.getString(mThis,"id","") + "_time", "0");
 
         }
-        SharedPreferenceUtil.putString(mThis, "id", logins.data.getUser().getUserId());
+        SharedPreferenceUtil.putString(mThis, "id", userId);
 
         boolean isrole = false;
-        if (null!=logins.data.getUser()&&null!=logins.data.getUser().enterpriseUser
-                &&null!=logins.data.getUser().enterpriseUser.role){
-            for (int i=0;i<logins.data.getUser().enterpriseUser.role.size();i++){
-                if (!TextUtils.isEmpty(logins.data.getUser().enterpriseUser.role.get(i).name)){
-                    if (logins.data.getUser().enterpriseUser.role.get(i).name.equals("医药代表")){
+                    if (user.bizRoleConfig.drugSales==1){
                         SharedPreferenceUtil.putString(mThis,"role","医药代表");
                         isrole = true;
-                        break;
                     }
-                }
-            }
-        }
+
         if (!isrole){
             SharedPreferenceUtil.putString(mThis,"role","");
         }
 
-        long expires_in = logins.data.getExpires_in() * 1000L + System.currentTimeMillis();
+        long expires_in = logins.data.expires_in * 1000L + System.currentTimeMillis();
         SharedPreferenceUtil.putLong(mThis, "expires_in", expires_in);
 
-        String url = logins.data.getUser().headPicFileName;
-        SharedPreferenceUtil.getString(mThis, logins.data.getUser().getUserId() + "firstlogin", "");
-        if (!TextUtils.isEmpty(SharedPreferenceUtil.getString(mThis, logins.data.getUser().getUserId() + "firstlogin", ""))){
+        SharedPreferenceUtil.getString(mThis, userId + "firstlogin", "");
+        if (!TextUtils.isEmpty(SharedPreferenceUtil.getString(mThis, userId + "firstlogin", ""))){
             isFirstLogin = false;
         }
-        LoginRegisterResult.LoginData d = logins.data;
-        User u = d.getUser();
-        if(!TextUtils.isEmpty(d.getAccess_token())){
-            ImSdk.getInstance().initUser(d.getAccess_token(), u.userId, u.name, u.nickname, u.headPicFileName);
+
+        if(!TextUtils.isEmpty(access_token)){
+            ImSdk.getInstance().initUser(access_token, userId, user.name, user.name, user.headPic);
         }
         setUserInfos(logins,mThis);
 
@@ -103,57 +99,64 @@ public class UserLoginc {
         if (logins.data==null){
             return;
         }
-
+        LoginRegisterResult.LoginData.MajorUser user = logins.data.majorUser;
+        if (user==null){
+            return;
+        }
         UserInfo.getInstance(CompanyApplication.getInstance()).setPackageName(mThis, "com.dachen.dgroupdoctorcompany");
         UserInfo.getInstance(CompanyApplication.getInstance()).setUserType(Constants.USER_TYPE);
         UserInfo.getInstance(CompanyApplication.getInstance()).setId(logins.data.userId);
         SharedPreferenceUtil.putString(CompanyApplication.getInstance(), "id", logins.data.userId);
-        SharedPreferenceUtil.putString(CompanyApplication.getInstance(),"telephone", logins.data.telephone);
-        SharedPreferenceUtil.putString(CompanyApplication.getInstance(), "username", logins.data.userName);
-        SharedPreferenceUtil.putString(CompanyApplication.getInstance(),"employeeId",logins.data.employeeId);
-        ArrayList<Company> companys = logins.data.companys;
-        getCompanyInfo(companys,mThis);
-        String url = logins.data.logo;
+        SharedPreferenceUtil.putString(CompanyApplication.getInstance(),"telephone", user.telephone);
+        SharedPreferenceUtil.putString(CompanyApplication.getInstance(), "username", user.name);
+        SharedPreferenceUtil.putString(CompanyApplication.getInstance(),"employeeId",user.employeeId);
+        ArrayList<DepAdminsList> companys = logins.data.depAdminsList;
+        getCompanyInfo(logins.data,mThis);
+        String url = logins.data.majorUser.headPic;
         SharedPreferenceUtil.putString(CompanyApplication.getInstance(),   "head_url", url);
-        SharedPreferenceUtil.putString(CompanyApplication.getInstance(), logins.data.headPic + "head_url", url);
+        SharedPreferenceUtil.putString(CompanyApplication.getInstance(), user.headPic + "head_url", url);
         if (!TextUtils.isEmpty(SharedPreferenceUtil.getString(mThis,"session",""))){
             addDoctor(mThis,true,false);
         }
     }
-    public static void getCompanyInfo(ArrayList<Company> companys,Activity mThis){
-        if (null!=companys&&companys.size()>0){
+    public static void getCompanyInfo(LoginRegisterResult.LoginData data,Activity mThis){
+        if (null == data || null == data.majorUser){
+            return;
+        }
+        LoginRegisterResult.LoginData.MajorUser user = data.majorUser;
+        if (user==null){
+            return;
+        }
             DepAdminsListDao dao = new DepAdminsListDao(mThis);
-            Company c = companys.get(0);
-            SharedPreferenceUtil.putString(CompanyApplication.getInstance(),"enterpriseId",c.companyId);
-            SharedPreferenceUtil.putString(CompanyApplication.getInstance(),"enterpriseIds",c.companyId);
-            SharedPreferenceUtil.putString(CompanyApplication.getInstance(),"enterpriseName",c.companyName);
-            SharedPreferenceUtil.putString(CompanyApplication.getInstance(), "adminType", c.adminType + "");
-            companyId = c.companyId;
-            if(c.isRepresent==1){
+            SharedPreferenceUtil.putString(CompanyApplication.getInstance(),"enterpriseId",user.drugCompanyId);
+            SharedPreferenceUtil.putString(CompanyApplication.getInstance(),"enterpriseIds",user.drugCompanyId);
+        if (null!=data.drugCompany){
+            SharedPreferenceUtil.putString(CompanyApplication.getInstance(),"enterpriseName",data.drugCompany.name);
+        }
+
+
+            if(null!=user.bizRoleConfig&&user.bizRoleConfig.drugSales==1){
                 SharedPreferenceUtil.putString(CompanyApplication.getInstance(), com.dachen.dgroupdoctorcompany.utils.UserInfo.ROLE,"医药代表");
             }else {
                 SharedPreferenceUtil.putString(CompanyApplication.getInstance(), com.dachen.dgroupdoctorcompany.utils.UserInfo.ROLE,"");
             }
             String enterpriseId = SharedPreferenceUtil.getString(CompanyApplication.getInstance(),"enterpriseId","");
             String enterpriseName = SharedPreferenceUtil.getString(CompanyApplication.getInstance(),"enterpriseName","");
-            String adminType = SharedPreferenceUtil.getString(CompanyApplication.getInstance(),"adminType","");
-            ArrayList<DepAdminsList> depAdminsList = c.depAdminsList;
+            ArrayList<DepAdminsList> depAdminsList = data.depAdminsList;
             dao.clearAll();
             if (null!=depAdminsList&&depAdminsList.size()>0){
 
                 for (int i=0;i<depAdminsList.size();i++){
                     DepAdminsList admin = depAdminsList.get(i);
-                    if (!TextUtils.isEmpty(admin.orgDuty)&&admin.orgDuty.equals("1")){
                         admin.loginUserId = SharedPreferenceUtil.getString(CompanyApplication.getInstance(),"id","");
                         dao.addCompanyContact(admin);
-                    } if(!TextUtils.isEmpty(admin.orgId)){
+                     if(!TextUtils.isEmpty(admin.orgId)){
                         SharedPreferenceUtil.putString(CompanyApplication.getInstance(),
                                 "departId", admin.orgId + "");
                     }
                 }
 
             }
-        }
     }
     public static  void addDoctor(final Activity context, final boolean add,boolean showLoading){
         //enterprise/doctor/search
