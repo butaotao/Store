@@ -2,6 +2,7 @@ package com.dachen.medicine.net;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
 import com.dachen.medicine.common.utils.SystemUtils;
@@ -458,6 +459,7 @@ public class Params {
 		if(!TextUtils.isEmpty(id)){
 			params.put("id", id);
 		}
+		Log.d("zxy", "461 : Params : getVisitDetail : id = "+id+", access_token = " +SharedPreferenceUtil.getString(context, "session", ""));
 		return params;
 	}
 

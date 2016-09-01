@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewStub;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.adapter.CompanyContactListAdapter;
-import com.dachen.dgroupdoctorcompany.adapter.CompanyListGuide;
 import com.dachen.dgroupdoctorcompany.app.CompanyApplication;
 import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
@@ -24,7 +23,6 @@ import com.dachen.dgroupdoctorcompany.db.dbentity.DepAdminsList;
 import com.dachen.dgroupdoctorcompany.entity.BaseSearch;
 import com.dachen.dgroupdoctorcompany.entity.CompanyContactListEntity;
 import com.dachen.dgroupdoctorcompany.entity.CompanyDepment;
-import com.dachen.dgroupdoctorcompany.entity.CompanysTitle;
 import com.dachen.dgroupdoctorcompany.fragment.AddressList;
 import com.dachen.dgroupdoctorcompany.utils.CommonUitls;
 import com.dachen.dgroupdoctorcompany.utils.DataUtils.CompanyContactDataUtils;
@@ -42,9 +40,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Stack;
 
 import butterknife.ButterKnife;
@@ -85,12 +81,6 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
     public String companyid;
     /*-----------------------------------------zxy start-----------------------------------------*/
     private GuiderHListView mCp_listguilde;
-    private ArrayList<String> mListGuide = new ArrayList<>();               //导航Listview数据
-    private Map<Integer,ArrayList<String>> departList = new LinkedHashMap<>();   //导航Listview数据任务栈
-    private CompanyListGuide mListGuideAdapter;
-    private Map<Integer, String > listGuideMap = new LinkedHashMap<>(); //公司部门id任务栈;
-    private int currentPosition = 0;                                    //任务栈任务数
-    private int oldPosition = 0;
     boolean isEmpty = false;
     public String departName="";
     String parentId;
@@ -124,12 +114,7 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
         ViewStub stub = (ViewStub) findViewById(R.id.vstub_title);*/
         tv_des = (TextView) findViewById(R.id.tv_des);
         //View view = stub.inflate(this, R.layout.stub_viewtext, rl);
-        /*-----------------------------------------zxy start-----------------------------------------*/
         mCp_listguilde = (GuiderHListView) findViewById(R.id.cp_listguilde);
-        /*mListGuide.add("联系人");
-        departList.put(currentPosition, copyToNewList(mListGuide));
-        listGuideMap.put(currentPosition++, "联系人");*/
-        mCp_listguilde.addTask("联系人","联系人");
         Bundle extras = getIntent().getExtras();
         String depName;
         if (extras != null) {//如果部门存在,显示部门,不存在直接显示公司名
@@ -146,7 +131,7 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
         //tv.setOnClickListener(this);
         //tv.setText("管理");
         //tv.setVisibility(View.GONE);
-//        tv_des.setOnClickListener(this);
+       tv_des.setOnClickListener(this);
         idDep = AddressList.deptId;
         companyid= AddressList.deptId;;
         if (!idDep.equals("-1")) {
@@ -165,12 +150,14 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
 
             @Override
             public void onClick(View v) {
+                Log.d("zxy :", "153 : CompanyContactListActivity : onClick :  ");
                 backtofront();
             }
         });
         findViewById(R.id.iv_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("zxy :", "160 : CompanyContactListActivity : onClick :  ");
                 backtofront();
             }
         });
@@ -253,12 +240,9 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
     public void getDepment(BaseSearch contact ,boolean clickRadio){
         CompanyDepment.Data.Depaments  c1 = (CompanyDepment.Data.Depaments) (contact);
         setTitles(c1.name);
-        /*mListGuide.add(c1.name);
-        departList.put(currentPosition, copyToNewList(mListGuide));
-        listGuideMap.put(currentPosition++, c1.id);*/
         mCp_listguilde.addTask(c1.name,c1.id);
         mCp_listguilde.notifyDataSetChanged();
-        mCp_listguilde.setOldPosition(mCp_listguilde.getAdapter().getCount()-1);
+        mCp_listguilde.setOldPosition();
         parentId = c1.parentId;
         setDepartmen(c1.name, c1.id);
         if (c1 != null) {
@@ -354,7 +338,8 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
 
     public void backtofront() {
 
-        int position = mCp_listguilde.getCurrentPosition()-2;//当前任务栈id数
+        int position = mCp_listguilde.getCurrentPosition()-1;//当前任务栈id数
+        Log.d("zxy :", "342 : CompanyContactListActivity : backtofront : position = "+position);
         if (position == 0) {   //只剩联系人了,直接返回,  清空数据释放缓存
             mCp_listguilde.clearData();
             finish();
@@ -365,6 +350,7 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
         }else{//返回
             idDep =  mCp_listguilde.reMoveTask();
         }
+        mCp_listguilde.setOldPosition();
         mCp_listguilde.notifyDataSetChanged();
         getOrganization(idDep);
     }
@@ -376,7 +362,6 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
         maps.put("drugCompanyId", SharedPreferenceUtil.getString(this, "enterpriseId", ""));
         maps.put("orgId", idDep);
         maps.put("hideUnassign","1");
-
 
         new HttpManager().post(this, Constants.DEPSTRUCT, CompanyDepment.class,
                 maps, this,
@@ -541,6 +526,7 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
+        Log.d("zxy :", "532 : CompanyContactListActivity : onBackPressed :  ");
         backtofront();
         //		this.mApplication.getActivityManager().finishActivity(this.getClass());
     }

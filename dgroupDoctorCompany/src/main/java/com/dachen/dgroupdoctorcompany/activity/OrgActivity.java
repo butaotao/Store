@@ -92,7 +92,6 @@ public class OrgActivity extends BaseActivity implements HttpManager.OnHttpListe
         entity = (CompanyContactListEntity) getIntent().getSerializableExtra("user");
         mOrgSelectAdapter = new MyAdapter(OrgActivity.this,mDepamentsList,entity);
         listview.setAdapter(mOrgSelectAdapter);
-        mOrgListGuilde.addTask("选择部门","选择部门");
         String companyName = SharedPreferenceUtil.getString(CompanyApplication.getInstance(), "enterpriseName", "");
         mOrgListGuilde.addTask(companyName,companyName);
         mOrgListGuilde.setAdapter();
@@ -123,7 +122,7 @@ public class OrgActivity extends BaseActivity implements HttpManager.OnHttpListe
                         mOrgSelectAdapter.update(mDepamentsList);
                         setDepartmen(depaments.name,orgId);
                     }else{
-                        mOrgListGuilde.setOldPosition(mOrgListGuilde.getListGuideAdapter().getCount());
+                        mOrgListGuilde.setOldPosition();
                         mOrgListGuilde.addTask(depaments.name,depaments.name);
                         setTitle(depaments.name);
                         mOrgListGuilde.notifyDataSetChanged();
@@ -288,7 +287,7 @@ public class OrgActivity extends BaseActivity implements HttpManager.OnHttpListe
             mDepamentsStack.remove(mStackCount-1);
           //  Log.d("zxy", "backtofront: 3 mStackCount = "+mStackCount+", mDepamentsList = " +mDepamentsList);
         }
-
+        mOrgListGuilde.setOldPosition();
         String title = mOrgListGuilde.getListGuide().get(mOrgListGuilde.getListGuide().size()-1);
         setTitle(title);
         mStackCount--;
@@ -319,6 +318,7 @@ public class OrgActivity extends BaseActivity implements HttpManager.OnHttpListe
 
         mDepamentsStack.add(copyToNewList(mDepamentsList));
         mStackCount++;
+        mOrgListGuilde.setOldPosition();
         mOrgListGuilde.addBackTask(position);
         mOrgListGuilde.notifyDataSetChanged();
         String title = mOrgListGuilde.getListGuide().get(mOrgListGuilde.getListGuide().size()-1);

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,7 @@ import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.dgroupdoctorcompany.entity.GoodsGroupsModel;
+import com.dachen.dgroupdoctorcompany.entity.VisitEditEnableBean;
 import com.dachen.dgroupdoctorcompany.entity.VisitMember;
 import com.dachen.dgroupdoctorcompany.entity.VisitMemberResponse;
 import com.dachen.dgroupdoctorcompany.utils.DataUtils.GetUserDepId;
@@ -215,6 +217,9 @@ public class SelfVisitActivity extends BaseActivity implements View.OnClickListe
             address_arrow.setVisibility(View.INVISIBLE);
             showLoadingDialog();
             new HttpManager().post(this, Constants.VISIT_DETAIL, VisitMemberResponse.class,
+                    Params.getVisitDetail(SelfVisitActivity.this, mId),
+                    this, false, 4);
+            new HttpManager().post(this, Constants.VISIT_DETAIL_EDITEABLE, VisitEditEnableBean.class,
                     Params.getVisitDetail(SelfVisitActivity.this, mId),
                     this, false, 4);
 
@@ -471,8 +476,6 @@ public class SelfVisitActivity extends BaseActivity implements View.OnClickListe
                         tv_title_save.setVisibility(View.GONE);
                         selectedPicture.remove(ADDPIC);
                         mAdapter.notifyDataSetChanged();
-                        setRemarkEnable(timeMillis,time);
-
                         desp2.setVisibility(View.GONE);
                         variety_arrow.setVisibility(View.INVISIBLE);
                         name_arrow.setVisibility(View.INVISIBLE);
@@ -498,13 +501,18 @@ public class SelfVisitActivity extends BaseActivity implements View.OnClickListe
                     } else {
                         del_desp.setVisibility(View.VISIBLE);
                         tv_title_save.setVisibility(View.VISIBLE);
-                        setRemarkEnable(timeMillis,time);
                         etRemark.setText(remark);
                         if (!TextUtils.isEmpty(mStrDoctorName)) {
                             tvSelected.setText(mStrDoctorName);
                         }
                     }
                 }
+            }else if (response instanceof VisitEditEnableBean) {
+                VisitEditEnableBean editEnable = (VisitEditEnableBean) response;
+               boolean etRemarkEnable = editEnable.data.editStatus;
+                Log.d("zxy :", "455 : JointVisitActivity : onSuccess : VisitEditEnableBean "+((VisitEditEnableBean) response).data.editStatus);
+
+                setRemarkEnable(etRemarkEnable);
             } else if (response instanceof Result) {
                 if (response.getResultCode() == 1) {
                     if ("1".equals(state)) {
@@ -523,6 +531,7 @@ public class SelfVisitActivity extends BaseActivity implements View.OnClickListe
                     ToastUtil.showToast(SelfVisitActivity.this, "提交失败");
                 }
             }
+
         }
         tv_title_save.setEnabled(true);
         tv_title_save.setClickable(true);
@@ -530,11 +539,10 @@ public class SelfVisitActivity extends BaseActivity implements View.OnClickListe
 
     /**
      * 判断是否可编辑
-     * @param timeMillis 当前时间
-     * @param time 签到时间
+     * @param etRemarkEnable
      */
-    private void setRemarkEnable(long timeMillis, long time) {
-        if (timeMillis - time < 24*60*60*1000) {
+    private void setRemarkEnable(boolean etRemarkEnable) {
+        if (etRemarkEnable) {
             etRemark.setEnabled(true);
         }else {
             etRemark.setEnabled(false);

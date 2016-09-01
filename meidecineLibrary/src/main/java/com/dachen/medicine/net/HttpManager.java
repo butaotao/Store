@@ -52,7 +52,7 @@ public class HttpManager<T> {
 
 	/**
 	 * post请求
-	 * 
+	 *
 	 * @param context
 	 * @param tClass
 	 * @param onHttpListener
@@ -116,7 +116,7 @@ public class HttpManager<T> {
 	}
 	/**
 	 * get请求
-	 * 
+	 *
 	 * @param context
 	 * @param tClass
 	 * @param onHttpListener
@@ -139,7 +139,7 @@ public class HttpManager<T> {
 
 	/**
 	 * 防问接口用Gson解析
-	 * 
+	 *
 	 * @param method
 	 * @param context
 	 * @param url
@@ -192,7 +192,7 @@ public class HttpManager<T> {
 			final Class<T> tClass, Map<String, String> params,
 			final OnHttpListener<Result> onHttpListener, boolean isArray,
 			int net,boolean isjson)  {
-		if (!NetUtil.checkNetworkEnable(context)) { 
+		if (!NetUtil.checkNetworkEnable(context)) {
 			onHttpListener.onFailure(null, "",-1);
 			showErrToast(context,-1);
 			return;
@@ -201,8 +201,8 @@ public class HttpManager<T> {
 			  mRequestQueue = Volley.newRequestQueue(context);
 				mRequestQueue.cancelAll(this);
 		}
-	
-	//LogUtils.burtLog("fullurl===" + fullurl); 
+
+	//LogUtils.burtLog("fullurl===" + fullurl);
 	mGson = new Gson();
 	JSONObject jsonObject = null;
 	if (null != params) {
@@ -228,7 +228,7 @@ public class HttpManager<T> {
 
 					onHttpListener.onSuccess((Result) response);
 
-					 
+
 				}
 
 				@Override
@@ -277,12 +277,12 @@ public class HttpManager<T> {
 
 	if (isArray) {
 		requestArray.setRetryPolicy(new DefaultRetryPolicy(30*1000, 1, 1f));
-		requestArray.setTag(this); 
+		requestArray.setTag(this);
 		mRequestQueue.add(requestArray);
 	} else {
 		request.setRetryPolicy(new DefaultRetryPolicy(30*1000, 1, 1f));
 		request.setTag(this);
-		
+
 		mRequestQueue.add(request);
 	}
 	}
@@ -313,7 +313,7 @@ public class HttpManager<T> {
 			final Class<T> tClass, final Map<String, String> params,
 			final OnHttpListener<Result> onHttpListener, boolean isArray,
 			int net) {
-			if (!NetUtil.checkNetworkEnable(context)) { 
+			if (!NetUtil.checkNetworkEnable(context)) {
 				onHttpListener.onFailure(null, "",-1);
 				showErrToast(context,-1);
 				return;
@@ -322,8 +322,8 @@ public class HttpManager<T> {
 				  mRequestQueue = Volley.newRequestQueue(context);
 					mRequestQueue.cancelAll(this);
 			}
-		
-		//LogUtils.burtLog("fullurl===" + fullurl); 
+
+		//LogUtils.burtLog("fullurl===" + fullurl);
 		mGson = new Gson();
 		JSONObject jsonObject = null;
 		if (null != params) {
@@ -358,7 +358,7 @@ public class HttpManager<T> {
 						showErrToast(context,s);
 					}
 
- 
+
 				}, tClass, params,context){
 			@Override
 			protected void deliverResponse(String arg0) {
@@ -410,19 +410,19 @@ public class HttpManager<T> {
 
 		if (isArray) {
 			requestArray.setRetryPolicy(new DefaultRetryPolicy(30*1000, 1, 1f));
-			requestArray.setTag(this); 
+			requestArray.setTag(this);
 			mRequestQueue.add(requestArray);
 		} else {
 			request.setRetryPolicy(new DefaultRetryPolicy(30*1000, 1, 1f));
 			request.setTag(this);
-			
+
 			mRequestQueue.add(request);
 		}
 	}
 
 	/**
 	 * 网络回调接口
-	 * 
+	 *
 	 * @param <T>
 	 */
 	public interface OnHttpListener<T> {
@@ -481,14 +481,14 @@ public class HttpManager<T> {
 		        }
 		    }, new Response.ErrorListener() {
 		        @Override
-		        public void onErrorResponse(VolleyError error) {  
+		        public void onErrorResponse(VolleyError error) {
 		        	onHttpListener.onFailure(null,"",1);
 		        	showErrToast(context,1);
 		    }
 		    }
 		    )
-		    { 
-		             
+		    {
+
 		    @Override
 		    public Map<String, String> getHeaders() {
 				Map<String, String> headers = null;
@@ -511,20 +511,20 @@ public class HttpManager<T> {
 		    }
 		    @Override
 			public void deliverError(VolleyError error) {
-				// TODO Auto-generated method stub 
+				// TODO Auto-generated method stub
 				if (null!=error&&error.getMessage().contains("ConnectException")) {
 					onHttpListener.onFailure(error, "", 3);
 					showErrToast(context,3);
 				}else {
 					onHttpListener.onFailure(error, "", 2);
 					showErrToast(context,2);
-				} 
+				}
 				super.deliverError(error);
 			}
 			@Override
 			protected VolleyError parseNetworkError(VolleyError volleyError) {
-				System.err.println("volleyError"+volleyError.getMessage()); 
-				// TODO Auto-generated method stub 
+				System.err.println("volleyError"+volleyError.getMessage());
+				// TODO Auto-generated method stub
 				return super.parseNetworkError(volleyError);
 			}
 		};
@@ -533,14 +533,14 @@ public class HttpManager<T> {
 		requestQueue.add(jsonRequest);
 
 	}
-	
-	
-	public void showErrToast(Context context,int s){ 
+
+
+	public void showErrToast(Context context,int s){
 		if (s==2) {
 			ToastUtils.showToast(context,context.getString(R.string.http_timeout));
 		}else  if(s==-1){
 			ToastUtils.showToast(context,context.getString(R.string.network_not_connected));
-			
+
 		}else if(s ==3){
 			ToastUtils.showToast(context,context.getString(R.string.connect_error));
 		}else if(s ==4){

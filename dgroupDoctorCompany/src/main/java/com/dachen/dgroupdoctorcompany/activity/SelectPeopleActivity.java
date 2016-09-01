@@ -108,6 +108,7 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
     ArchiveItem mItem;
     private String groupIds;
     private GuiderHListView mListGuider;
+    private TextView mTvDes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,6 +123,9 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
         layout_search = getViewById(R.id.layout_search);
         mSearch = getViewById(R.id.et_search);
         btn_add = (Button) findViewById(R.id.btn_add);
+        mTvDes = (TextView) findViewById(R.id.tv_des);
+        mTvDes.setVisibility(View.VISIBLE);
+        mTvDes.setOnClickListener(this);
         btn_add.setOnClickListener(this);
         mSearch.setOnClickListener(this);
         layout_search.setOnClickListener(this);
@@ -245,7 +249,7 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
                     listsTitle.put(c1.id, c1);
                     if (c1 != null) {
                         mListGuider.addTask(c1.name,c1.id);
-                        mListGuider.setOldPosition(mListGuider.getListGuideAdapter().getCount()-1);
+                        mListGuider.setOldPosition();
                         mListGuider.notifyDataSetChanged();
                         idDep = c1.id;
                         getOrganization();
@@ -280,7 +284,6 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
         /*-----------------------------------------zxy start-----------------------------------------*/
         mListGuider = (GuiderHListView) findViewById(R.id.org_listguilde);
         mListGuider.setOnItemClickListener(this);
-        mListGuider.addTask("联系人","联系人");
         String companyName = SharedPreferenceUtil.getString(CompanyApplication.getInstance(), "enterpriseName", "");
         mListGuider.addTask(companyName,idDep);
         mListGuider.setAdapter();
@@ -288,6 +291,14 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
         /*-----------------------------------------zxy end -----------------------------------------*/
 
         getOrganization();
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if(hasFocus){
+            mListGuider.setSelection(mListGuider.getCurrentPosition());
+        }
     }
     //水平导航条目点击事件
     @Override
@@ -345,7 +356,7 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
             finish();
             return;
         }*/
-        int position = mListGuider.getCurrentPosition()-2;//当前任务栈id数
+        int position = mListGuider.getCurrentPosition()-1;//当前任务栈id数
         if (position == 0) {   //只剩联系人了,直接返回,  清空数据释放缓存
             mListGuider.clearData();
             finish();
@@ -356,7 +367,7 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
         }else{//返回
             idDep = mListGuider.reMoveTask();
         }
-        mListGuider.getCurrentPosition();//栈任务数减1
+        mListGuider.setOldPosition();
         mListGuider.notifyDataSetChanged();
         getOrganization();
     }
@@ -471,6 +482,10 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
                 } else {
                     ToastUtils.showToast(this, "通讯录初始化中...");
                 }
+                break;
+
+            case R.id.tv_des:
+                finish();
                 break;
         }
     }

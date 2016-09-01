@@ -134,6 +134,8 @@ public class Constants {
     public static String SIGIN_IN_DETAIL = "signed/getSignedDetail";
     //拜访客户详情
     public static String VISIT_DETAIL = "visit/getVisitDetail";
+    //拜访客户详情
+    public static String VISIT_DETAIL_EDITEABLE = "visit/getVisitEditStatus";
     //获取签到历史记录
     public static String GET_VISIT_LIST = "visit/getList";
     public static String GET_VISIT_LIST_TODAY = "signed/getTodaySignedList";

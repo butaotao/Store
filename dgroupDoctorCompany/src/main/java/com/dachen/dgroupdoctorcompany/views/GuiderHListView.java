@@ -114,8 +114,8 @@ public class GuiderHListView extends HorizontalListView {
         return idDep;
     }
 
-    public void setOldPosition(int oldPosition){
-        this.oldPosition = oldPosition;
+    public void setOldPosition(){
+        this.oldPosition = mAdapter.getCount()-1;
     }
 
     public void notifyDataSetChanged(){

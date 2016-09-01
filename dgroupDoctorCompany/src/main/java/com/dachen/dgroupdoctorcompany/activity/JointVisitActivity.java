@@ -24,6 +24,7 @@ import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.dgroupdoctorcompany.entity.GoodsGroupsModel;
 import com.dachen.dgroupdoctorcompany.entity.PersonModel;
+import com.dachen.dgroupdoctorcompany.entity.VisitEditEnableBean;
 import com.dachen.dgroupdoctorcompany.entity.VisitMember;
 import com.dachen.dgroupdoctorcompany.entity.VisitMemberResponse;
 import com.dachen.dgroupdoctorcompany.utils.DataUtils.GetUserDepId;
@@ -116,6 +117,7 @@ public class JointVisitActivity extends BaseActivity implements View.OnClickList
     private boolean isOrigin = false;
     private TextView  del_desp;
     private LinearLayout ll_showmapdes;
+    boolean etRemarkEnable = false;//拜访记录是否可编辑
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -180,6 +182,9 @@ public class JointVisitActivity extends BaseActivity implements View.OnClickList
         mId = this.getIntent().getStringExtra("id");
         showLoadingDialog();
         new HttpManager().post(this, Constants.VISIT_DETAIL, VisitMemberResponse.class,
+                Params.getVisitDetail(JointVisitActivity.this, mId),
+                this, false, 4);
+        new HttpManager().post(this, Constants.VISIT_DETAIL_EDITEABLE, VisitEditEnableBean.class,
                 Params.getVisitDetail(JointVisitActivity.this, mId),
                 this, false, 4);
     }
@@ -396,7 +401,6 @@ public class JointVisitActivity extends BaseActivity implements View.OnClickList
                         tv_title_save.setVisibility(View.GONE);
                         selectedPicture.remove(ADDPIC);
                         mAdapter.notifyDataSetChanged();
-                        setRemarkEnable(timeMillis,time);
                         desp2.setVisibility(View.GONE);
                         variety_arrow.setVisibility(View.INVISIBLE);
                         name_arrow.setVisibility(View.INVISIBLE);
@@ -421,12 +425,17 @@ public class JointVisitActivity extends BaseActivity implements View.OnClickList
                         }
                     }else{
                         tv_title_save.setVisibility(View.VISIBLE);
-                        setRemarkEnable(timeMillis,time);
                         tvSelected.setText(mStrDoctorName);
                         etRemark.setText(remark);
                         del_desp.setVisibility(View.VISIBLE);
                     }
                 }
+            } else if (response instanceof VisitEditEnableBean) {
+                VisitEditEnableBean editEnable = (VisitEditEnableBean) response;
+                etRemarkEnable = editEnable.data.editStatus;
+                setRemarkEnable();
+
+            }
             }else if(response instanceof Result){
                 if(response.getResultCode() == 1){
                     if ("1".equals(state)) {
@@ -447,7 +456,6 @@ public class JointVisitActivity extends BaseActivity implements View.OnClickList
                     finish();
                 }
             }
-        }
         tv_title_save.setEnabled(true);
         tv_title_save.setClickable(true);
     }
@@ -619,11 +627,9 @@ public class JointVisitActivity extends BaseActivity implements View.OnClickList
     }
     /**
      * 判断是否可编辑
-     * @param timeMillis 当前时间
-     * @param time 签到时间
      */
-    private void setRemarkEnable(long timeMillis, long time) {
-        if (timeMillis - time < 24*60*60*1000) {
+    private void setRemarkEnable() {
+        if (etRemarkEnable) {
             etRemark.setEnabled(true);
         }else {
             etRemark.setEnabled(false);

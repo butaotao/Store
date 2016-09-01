@@ -1,15 +1,10 @@
 package com.dachen.medicine.config;
 
-import java.io.File;
-import java.util.Map;
-
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-import android.text.TextUtils;
-
 import com.dachen.medicine.common.utils.MedicineApplication;
 import com.dachen.medicine.net.NetConfig;
+
+import java.io.File;
+import java.util.Map;
 
 public class AppConfig {
 	public static final String PACKAGENAME_PACIENT_XUANGUAN = "com.dachen.dgrouppatient";
@@ -80,11 +75,10 @@ public class AppConfig {
 		// SharedPreferenceUtil.getString("session", "");
 		String url = "";
 		if (net == NetConfig.HIPPOSERVER) {
-			
 			url = MedicineApplication.getUrl() + File.separator
 					+ interfaces.get("interface1") + File.separator
 					+ MedicineApplication.getSession()
-					+ File.separator + interfaces.get("interface2");  
+					+ File.separator + interfaces.get("interface2");
 		} else if (net == NetConfig.MEDIESERVER) {
 			url = MedicineApplication.getIP()+":"+ NetConfig.port+ File.separator
 					+ interfaces.get("interface1");
