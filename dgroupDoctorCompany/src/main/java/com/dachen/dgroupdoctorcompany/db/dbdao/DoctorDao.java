@@ -190,6 +190,9 @@ public class DoctorDao {
     }
     class PinyinComparator implements Comparator<Doctor> {
         public int compare(Doctor o1, Doctor o2) {
+            if (TextUtils.isEmpty(o1.name)||TextUtils.isEmpty(o2.name)){
+                return 1;
+            }
             if (o1.name.equals("@") || o2.name.equals("#")) {
                 return -1;
             } else if (o1.name.equals("#") || o2.name.equals("@")) {

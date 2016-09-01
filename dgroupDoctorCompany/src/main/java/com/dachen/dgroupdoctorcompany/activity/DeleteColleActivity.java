@@ -119,7 +119,7 @@ public class DeleteColleActivity extends BaseActivity implements View.OnClickLis
 
     public void showBtn(){
         String userid = SharedPreferenceUtil.getString(this,"id","");
-        if (userid.equals(entity.userId)){
+        if (userid.equals(entity.userId)||showControlManager()){
             btn_delete.setBackgroundColor(getResources().getColor(R.color.red_88f95442));
             btn_delete.setFocusable(false);
             btn_delete.setClickable(false);
@@ -158,6 +158,18 @@ public class DeleteColleActivity extends BaseActivity implements View.OnClickLis
             }
         }
 
+    }
+    private boolean showControlManager(){
+        if (entity!=null){
+            if (entity.deptManager==1){
+                String deptid = entity.id;
+                String loginUserId = companyContactDao.queryByUserid(SharedPreferenceUtil.getString(this,"id","")).id;
+                if(loginUserId.equals(deptid)){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
     @Override
     public void onClick(View v) {

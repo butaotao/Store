@@ -54,6 +54,9 @@ public class MenuWithFABActivity extends SignInActivity implements View.OnClickL
     RelativeLayout rl_titlebar;
     ImageView iv_back;
     TextView tv_back;
+    public long ytdayOffTime;
+    public long ytdayWorkTime;
+    public long timeStamp;
     //adapter_menusign
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,7 +71,7 @@ public class MenuWithFABActivity extends SignInActivity implements View.OnClickL
         iv_back = (ImageView) findViewById(R.id.iv_back);
         iv_back.setBackgroundResource(R.drawable.icon_back_n);
         findViewById(R.id.line_titlebar).setVisibility(View.GONE);
-        TitleManager.showImage(this, view, this, "", R.drawable.notice);
+        TitleManager.showImage(this, view, this, "", R.drawable.notice_nomorl);
         changerTitleBar();
         findViewById(R.id.btn_sinrecord).setOnClickListener(this);
         tv_week = (TextView) findViewById(R.id.tv_week);
@@ -139,7 +142,11 @@ public class MenuWithFABActivity extends SignInActivity implements View.OnClickL
             if (response instanceof SignTodayInList){
                 SignTodayInList signInList = (SignTodayInList) response;
                 SignTodayInList.Data data = signInList.data;
+
                 if(null != data ){
+                    ytdayOffTime = data.ytdayOffTime;
+                    ytdayWorkTime = data.ytdayWorkTime;
+                    timeStamp = data.timeStamp;
                     int beforeSize = mDataLists.size();
                     if(null != data.signedList && data.signedList.size()>0){
                         if (pageIndex==0){

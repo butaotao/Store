@@ -14,6 +14,8 @@ public class SignTodayInList extends Result {
     public class Data{
         public long timeStamp;
         public String   msg;
+        public long ytdayOffTime;
+        public long ytdayWorkTime;
         public ArrayList<DataList> signedList;
         public class DataList{
             public String time;
@@ -23,8 +25,9 @@ public class SignTodayInList extends Result {
             public String department;
             public String userName;
             public long longTime;
-            public String[] tag;
+            public ArrayList<String> tag;
             public String headPic;
+            public String signedId;
             }
     }
 

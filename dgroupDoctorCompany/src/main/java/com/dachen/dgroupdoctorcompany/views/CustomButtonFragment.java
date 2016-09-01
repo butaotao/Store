@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.dachen.common.utils.TimeUtils;
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.activity.AddSignInActivity;
 import com.dachen.dgroupdoctorcompany.activity.CustomerVisitActivity;
@@ -24,9 +25,12 @@ import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.utils.DataUtils.GetUserDepId;
 import com.dachen.dgroupdoctorcompany.utils.DataUtils.SinUtils;
 import com.dachen.dgroupdoctorcompany.utils.HtmlTextViewEdit;
+import com.dachen.medicine.common.utils.SharedPreferenceUtil;
 import com.dachen.medicine.entity.Result;
 import com.dachen.medicine.net.HttpManager;
 import com.dachen.medicine.net.Params;
+import com.dachen.medicine.view.*;
+import com.dachen.medicine.view.CustomDialog;
 
 /**
  * Created by Burt on 2016/8/27.
@@ -36,11 +40,13 @@ public class CustomButtonFragment  extends Fragment {
     TextView b;
     TextView c;
     TextView d;
+    long sixTime;
     MenuWithFABActivity activity;
     public FloatingActionMenu circleMenu;
     TextView tv_alertnotsign;
     public void setActivity(MenuWithFABActivity activity) {
             this.activity = activity;
+        sixTime = com.dachen.medicine.common.utils.TimeUtils.getTime(6, 0);
     }
     public CustomButtonFragment() {
         this.activity = activity;
@@ -51,6 +57,12 @@ public class CustomButtonFragment  extends Fragment {
             View rootView = inflater.inflate(R.layout.fragment_menu_with_custom_action_button, container, false);
             tv_alertnotsign = (TextView) rootView.findViewById(R.id.tv_alertnotsign);
             tv_alertnotsign.setText(HtmlTextViewEdit.getNotSignAlert());
+            tv_alertnotsign.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showAlertDialog();
+                }
+            });
             // Our action button is this time just a regular view!
             final Button centerActionButton = (Button) rootView.findViewById(R.id.centerActionButton);
 
@@ -87,13 +99,41 @@ public class CustomButtonFragment  extends Fragment {
                 @Override
                 public void onMenuOpened(FloatingActionMenu menu) {
                     centerActionButton.setBackgroundResource(R.drawable.sing_close);
-                    if (activity.mDataLists.size()>0){
-                        d.setBackgroundResource(R.drawable.class_icon);
-                    }else {
-                        d.setBackgroundResource(R.drawable.work_icon);
+                    tv_alertnotsign.setVisibility(View.GONE);
+                    //activity.timeStamp; 1472594400000  1472594400000
+                    long nowTime = activity.timeStamp;
+
+                    long twentyTime = com.dachen.medicine.common.utils.TimeUtils.getTime(0, 0);
+                    long yesdayworktime = activity.ytdayWorkTime+2;
+                    long yesdayworkofftime = activity.ytdayOffTime+3;
+                    boolean haveworksign = haveSignWork();
+                    if (sixTime <= nowTime)
+                              {
+                        if (haveworksign) {
+                            d.setBackgroundResource(R.drawable.class_icon);
+                        } else {
+                            d.setBackgroundResource(R.drawable.work_icon);
+                        }
+                    } else if (sixTime > nowTime&&
+                            nowTime>=twentyTime) {
+                        if (yesdayworktime==0){
+                            d.setBackgroundResource(R.drawable.work_icon);
+                        }else if(yesdayworktime!=0&&(yesdayworktime<yesdayworkofftime)){
+                            d.setBackgroundResource(R.drawable.work_icon);
+                        }else if(yesdayworktime!=0&&(yesdayworktime>yesdayworkofftime)){
+                           if (haveworksign) {
+                                //说明打过下班卡了
+                                d.setBackgroundResource(R.drawable.work_icon);
+                            } else {
+                                if (SharedPreferenceUtil.getLong(activity,sixTime+"",0)==0){
+                                    tv_alertnotsign.setVisibility(View.VISIBLE);
+                                }
+                                //说明没有打过下班卡
+                                d.setBackgroundResource(R.drawable.class_icon);
+                            }
+                        }
                     }
                 }
-
                 @Override
                 public void onMenuClosed(FloatingActionMenu menu) {
 
@@ -124,7 +164,6 @@ public class CustomButtonFragment  extends Fragment {
                     Intent intent = new Intent(activity,SelectAddressActivity.class);
                     intent.putExtra("mode",AddSignInActivity.MODE_WORKING);
                     intent.putExtra("poi",activity.POI);
-                    intent.putExtra("singmode",AddSignInActivity.SIGN_WORKING);
                     intent.putExtra("distance",activity.distance);
                     intent.putExtra("latitude",activity.latitude);
                     intent.putExtra("longitude",activity.longitude);
@@ -143,10 +182,10 @@ public class CustomButtonFragment  extends Fragment {
                 }
             }else  if(v  == d){
                 if (activity.mDataLists.size()>0){
-                    tv_alertnotsign.setVisibility(View.VISIBLE);
+
                     workSing("下班", AddSignInActivity.SIGN_OFFWORKING);
                 }else {
-                    workSing("上班",AddSignInActivity.MODE_WORKING);
+                    workSing("上班",AddSignInActivity.SIGN_WORKING);
                 }
                 }
             circleMenu.close(true);
@@ -173,5 +212,34 @@ public class CustomButtonFragment  extends Fragment {
         intent2.putExtra("longitude",activity.longitude);
         intent2.putExtra("city",activity.city);
         startActivity(intent2);
+    }
+    public boolean haveSignWork(){
+        if (null!=activity.mDataLists&&activity.mDataLists.size()>0){
+            for (int i=0;i<activity.mDataLists.size();i++){
+                if (activity.mDataLists.get(i).tag!=null&&activity.mDataLists.get(i).tag.size()>0){
+                    if (activity.mDataLists.get(i).tag.get(0).equals("上班")||activity.mDataLists.get(i).tag.get(0).equals("下班")){
+                        return true;
+                    }
+                    ;
+                }
+            }
+        }
+        return false;
+    }
+    public void showAlertDialog(){
+        final com.dachen.medicine.view.CustomDialog dialog = new CustomDialog(activity);
+        dialog.showDialog("", "确认昨天忘记了下班签到", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dimissDialog();
+                tv_alertnotsign.setVisibility(View.GONE);
+                SharedPreferenceUtil.putLong(activity, sixTime + "", sixTime);
+            }
+        }, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dimissDialog();
+            }
+        });
     }
 }

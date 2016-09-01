@@ -2,6 +2,7 @@ package com.dachen.dgroupdoctorcompany.views;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -11,6 +12,12 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.dachen.dgroupdoctorcompany.R;
+import com.dachen.dgroupdoctorcompany.activity.AddSignInActivity;
+import com.dachen.dgroupdoctorcompany.app.Constants;
+import com.dachen.dgroupdoctorcompany.entity.SignTodayInList;
+import com.dachen.medicine.entity.Result;
+import com.dachen.medicine.net.HttpManager;
+import com.dachen.medicine.net.Params;
 import com.dachen.medicine.view.ScrollTabView;
 
 import java.util.ArrayList;
@@ -23,11 +30,11 @@ import java.util.List;
  */
 public class DialogEditorText extends Dialog implements View.OnClickListener,ScrollTabView.OnInitView {
     Activity mActivity;
-
-    public DialogEditorText(Activity activity) {
+    SignTodayInList.Data.DataList data;
+    public DialogEditorText(Activity activity,SignTodayInList.Data.DataList data) {
         super(activity, R.style.dialog_with_alpha);
         mActivity = activity;
-
+        this.data = data;
     }
 
     @Override
@@ -60,18 +67,24 @@ public class DialogEditorText extends Dialog implements View.OnClickListener,Scr
                 break;
             case R.id.sure:
                 closeDialog();
+
                 break;
         }
     }
-
+    public void upDate(){
+       /* new HttpManager().post(this, Constants.CREATE_OR_UPDATA_SIGIN_IN, Result.class,
+                Params.getWorkingParams(mActivity, deviceId, remark, mId, coordinate, address, signLable, orgId),
+                this,false,4);*/
+    }
     public void showDialog(){
-        if(!isShowing() ){
+            if(!isShowing() ){
 
-            show();
+                show();
 
-        }
+            }
 
     }
+
     public void closeDialog(){
         if(isShowing())
             dismiss();

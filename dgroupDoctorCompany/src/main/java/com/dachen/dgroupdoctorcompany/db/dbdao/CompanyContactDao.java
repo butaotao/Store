@@ -101,7 +101,22 @@ public class CompanyContactDao {
         return new ArrayList<>();
 
     }
+    public  CompanyContactListEntity  queryByUserid(String userId) {
+        QueryBuilder<CompanyContactListEntity, Integer> builder = articleDao.queryBuilder();
+        try {
+            Where<CompanyContactListEntity, Integer> where = builder.where();
+            where.eq("userId", userId).and().eq("userloginid", SharedPreferenceUtil.getString(context, "id", ""));
+            ;
+             CompanyContactListEntity  entitys = builder.queryForFirst();
 
+            return entitys;
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return new CompanyContactListEntity();
+
+    }
 
     public List<CompanyContactListEntity> queryAndSortByUserIds(List<Integer> userIds) {
         QueryBuilder<CompanyContactListEntity, Integer> builder = articleDao.queryBuilder();
@@ -276,26 +291,29 @@ public class CompanyContactDao {
             List<CompanyContactListEntity> entities = new ArrayList<>();
             List<String> phones = new ArrayList<>();
             Where<CompanyContactListEntity, Integer> where = builder.where();
-
-                boolean isNunicodeDigits= StringUtils.isNumeric(name);
-                if (isNunicodeDigits){
-                    builder.orderBy("name", true);
+            boolean isNunicodeDigits= StringUtils.isNumeric(name);
+            boolean containsChinese = StringUtils.containsChinese(name);
+            boolean isEnglish = StringUtils.isEnglish(name);
+            if (isNunicodeDigits){
+                builder.orderBy("name", true);
+                if (!name.equals("1")){
                     where.and(where.eq("userloginid", loginid), where.like("telephone", "%" + name + "%")) ;
                     if (null != where.query()) {
                         entities.addAll(builder.distinct().query());
                     }
-                    for (int i=0;i<entities.size();i++){
+                    for (int i = 0; i < entities.size(); i++) {
                         phones.add(entities.get(i).userId);
                     }
                     where.reset();
-                    builder.orderBy("name", true);
-                   // where.and(where.eq("userloginid", loginid), where.like("name", "%" + name + "%"));
-                    where.and(where.and(where.eq("userloginid", loginid), where.like("name", "%" + name + "%")),
-                             where.notIn("userId", phones));
-                    if (null != where.query()) {
-                        entities.addAll(builder.distinct().query());
-                    }
-                }else {
+                }
+                builder.orderBy("name", true);
+                where.and(where.and(where.eq("userloginid", loginid), where.like("name", "%" + name + "%")),
+                        where.notIn("userId", phones));
+                if (null != where.query()) {
+                    entities.addAll(builder.distinct().query());
+                }
+            }else {
+                if (containsChinese){
                     builder.orderBy("name", true);
                     where.and(where.eq("userloginid", loginid), where.like("name", "%" + name + "%"));
                     if (null != where.query()) {
@@ -305,15 +323,27 @@ public class CompanyContactDao {
                         phones.add(entities.get(i).userId);
                     }
                     where.reset();
-                    builder.orderBy("name", true);
-                    where.and(where.and(where.eq("userloginid", loginid), where.like("telephone", "%" + name + "%")),
-                            where.and(where.eq("userloginid", loginid), where.notIn("userId", phones)));
 
+                }else if(isEnglish){
+                    builder.orderBy("simpinyin", true);
+                    where.or(where.eq("userloginid", loginid), where.like("simpinyin", "%" + name + "%"),
+                             where.eq("userloginid", loginid), where.like("allpinyin", "%" + name + "%"),
+                             where.eq("userloginid", loginid), where.like("name", "%" + name + "%"));
+                    if (null != where.query()) {
+                        entities.addAll(builder.distinct().query());
+                    }
+
+
+                }else {
+                    builder.orderBy("name", true);
+                    where.and(where.eq("userloginid", loginid), where.like("name", "%" + name + "%"));
                     if (null != where.query()) {
                         entities.addAll(builder.distinct().query());
                     }
                 }
-            if (null != where.query()) {
+
+            }
+            if (entities.size()>0) {
                 CompanyContactListEntity contact = new CompanyContactListEntity();
                 contact.userId = loginid;
                 entities.remove(contact);

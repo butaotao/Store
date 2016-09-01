@@ -3,7 +3,7 @@
           xmlns:tools="http://schemas.android.com/tools"
           package="com.dachen.medicine"
           android:versionCode="67"
-          android:versionName="1.082601.67">
+          android:versionName="1.083101.67">
 <!--       android:versionCode="59"
     android:versionName="1.070401.59-->
     <uses-sdk

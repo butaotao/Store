@@ -248,4 +248,23 @@ public class StringUtils {
 		}
 		return true;
 	}
+	public static boolean containsChinese(String s){
+		String reg = "[\\u4e00-\\u9fa5]+";//
+		if (!android.text.TextUtils.isEmpty(s)){
+			for(int i =0 ;i < s.length() ; i ++)
+			 {	if (s.substring(i, i+1).matches(reg)){
+				return true;
+			 }
+			}
+
+			return false;
+		}
+		return false;
+	}
+	public static boolean isEnglish(String s){
+		if (s.matches("^[a-zA-Z]*")){
+			return true;
+		}
+		return false;
+	}
 }

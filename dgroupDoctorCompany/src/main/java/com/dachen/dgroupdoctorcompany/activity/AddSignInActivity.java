@@ -397,7 +397,7 @@ public class AddSignInActivity extends BaseActivity implements HttpManager.OnHtt
                     playAddSign();
                     if(TextUtils.isEmpty(mId)){
                         ToastUtil.showToast(AddSignInActivity.this,"签到成功");
-                        Intent intent = new Intent(AddSignInActivity.this,SignListActivity.class);
+                        Intent intent = new Intent(AddSignInActivity.this,MenuWithFABActivity.class);
                         startActivity(intent);
                         finish();
                         MActivityManager.getInstance().finishActivity(SelectAddressActivity.class);

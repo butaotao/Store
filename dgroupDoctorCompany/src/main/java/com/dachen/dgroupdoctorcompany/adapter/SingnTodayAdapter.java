@@ -56,7 +56,7 @@ public class SingnTodayAdapter extends android.widget.BaseAdapter{
     public View getView(int position, View convertView, ViewGroup parent) {
         ChildHolder childHolder;
         //   if(null == convertView){
-        SignTodayInList.Data.DataList listVisitVo = mDataLists.get(position);
+        final SignTodayInList.Data.DataList listVisitVo = mDataLists.get(position);
         childHolder  = new ChildHolder();
         convertView = LayoutInflater.from(context).inflate(R.layout.item_sign_in_child_today,null);
         childHolder.iv_editor = (ImageView) convertView.findViewById(R.id.iv_editor);
@@ -69,9 +69,9 @@ public class SingnTodayAdapter extends android.widget.BaseAdapter{
         if(TextUtils.isEmpty(address)){
             address = listVisitVo.address;
         }
-        if (null!=listVisitVo.tag&&listVisitVo.tag.length>0){
+        if (null!=listVisitVo.tag&&listVisitVo.tag.size()>0){
             String des = "";
-            String text = listVisitVo.tag[0];
+            String text = listVisitVo.tag.get(0);
             if (!TextUtils.isEmpty(text)&&text.length()>0){
                 for (int i = 0;i<text.length();i++){
                     if (i!=text.length()-1){
@@ -95,16 +95,10 @@ public class SingnTodayAdapter extends android.widget.BaseAdapter{
         childHolder.iv_editor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogEditorText dialog = new DialogEditorText((Activity) context);
+                DialogEditorText dialog = new DialogEditorText((Activity) context,listVisitVo);
                 dialog.showDialog();
             }
         });
-      //  childHolder.ivPicture.setBackgroundResource(R.drawable.icon_signle_visit);
-//                         CustomImagerLoader.getInstance().loadImage(childHolder.ivPicture, headPic,
-//                                R.drawable.baifang, R.drawable.baifang);
-
-
-
 
         return convertView;
     }
