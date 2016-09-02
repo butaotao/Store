@@ -110,11 +110,11 @@ public class UserLoginc {
         SharedPreferenceUtil.putString(CompanyApplication.getInstance(),"telephone", user.telephone);
         SharedPreferenceUtil.putString(CompanyApplication.getInstance(), "username", user.name);
         SharedPreferenceUtil.putString(CompanyApplication.getInstance(),"employeeId",user.employeeId);
-        ArrayList<DepAdminsList> companys = logins.data.depAdminsList;
+
         getCompanyInfo(logins.data,mThis);
-        String url = logins.data.majorUser.headPic;
+        String url = user.headPic;
         SharedPreferenceUtil.putString(CompanyApplication.getInstance(),   "head_url", url);
-        SharedPreferenceUtil.putString(CompanyApplication.getInstance(), user.headPic + "head_url", url);
+        SharedPreferenceUtil.putString(CompanyApplication.getInstance(), logins.data.userId + "head_url", url);
         if (!TextUtils.isEmpty(SharedPreferenceUtil.getString(mThis,"session",""))){
             addDoctor(mThis,true,false);
         }

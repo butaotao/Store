@@ -193,8 +193,6 @@ public class CallSmsSafeService extends Service {
 								                        values);
 
 	}
-
-		//resolver.delete(url, "number=?", new String[]{entity.telephone});
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME,entity.name);
 		contentValues.put(Phone.TYPE, Phone.TYPE_MOBILE);
@@ -271,10 +269,6 @@ public class CallSmsSafeService extends Service {
 		TextView tv_position = (TextView) view.findViewById(R.id.tv_position);
 		TextView tv_phone = (TextView) view.findViewById(R.id.tv_phone);
 		ImageView imageView = (ImageView) view.findViewById(R.id.iv_icon);
-		//CustomImagerLoader.getInstance().loadImage(,entity.url,true);
-
-
-
 		if(!TextUtils.isEmpty(entity.headPicFileName)){
 			ImageLoader.getInstance().displayImage(entity.headPicFileName, imageView, CompanyApplication.mAvatarCircleImageOptions);
 		}else{
@@ -331,8 +325,11 @@ public class CallSmsSafeService extends Service {
 				| WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
 		params.format = PixelFormat.TRANSLUCENT;
 		// 窗体的类型。
-		//params.type = WindowManager.LayoutParams.TYPE_PRIORITY_PHONE;
-		params.type = WindowManager.LayoutParams.TYPE_TOAST;
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+			params.type = WindowManager.LayoutParams.TYPE_TOAST;
+		}else {
+			params.type = WindowManager.LayoutParams.TYPE_PRIORITY_PHONE;
+		}
 		wm.addView(view, params);
 	}
 	@Override

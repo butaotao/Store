@@ -89,7 +89,7 @@ public class CustomButtonFragment  extends Fragment {
             circleMenu = new FloatingActionMenu.Builder(getActivity())
                     .setStartAngle(-160) // A whole circle!
                     .setEndAngle(-20)
-                    .setRadius(getResources().getDimensionPixelSize(R.dimen.radius_large))
+
                     .addSubActionView(a)
                     .addSubActionView(d)
                     .addSubActionView(b)

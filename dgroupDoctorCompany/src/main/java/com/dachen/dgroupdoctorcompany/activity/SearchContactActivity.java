@@ -130,7 +130,7 @@ public class SearchContactActivity extends BaseActivity implements OnClickListen
         addlistview.setAdapter(addAdapter);
       //  findViewById(R.id.rl_sure).setVisibility(View.GONE);
         if (TextUtils.isEmpty(seachdoctor)){
-            et_search.setHint("搜索姓名/手机号");
+            et_search.setHint("搜索姓名/简拼/手机号");
         }else {
             et_search.setHint("输入医生姓名关键词搜索");
             showDoctor = true;

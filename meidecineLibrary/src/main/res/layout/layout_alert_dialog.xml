@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content" 
     android:gravity="center_horizontal"
-        android:background="@drawable/ic_dialog_bg2"
+        android:background="@drawable/ic_dialog_bg"
     android:orientation="vertical" >
     <TextView
         android:id="@+id/tv_alert_title"
@@ -17,6 +17,7 @@
 	    android:id="@+id/title_divide"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
+        android:layout_below="@+id/tv_alert_title"
         android:background="@color/divide_line_color" />
     <TextView
         android:id="@+id/tv_alert_message"
@@ -24,6 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="22dip"
         android:paddingLeft="10dp"
+        android:layout_below="@+id/title_divide"
         android:paddingRight="10dp"
         android:textColor="@color/lable_color_blue"
         android:gravity="center_horizontal|center_vertical"
@@ -33,22 +35,29 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
+        android:layout_below="@+id/tv_alert_message"
         android:layout_marginTop="50px"
+        android:id="@+id/view_line1"
         android:background="@color/divide_line_color" />
-
+    <View
+        android:layout_width="1dp"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/view_line1"
+        android:background="@color/divide_line_color" />
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:layout_below="@+id/view_line1"
         android:orientation="horizontal" >
         <Button
             android:id="@+id/btn_confirm"
             android:layout_width="0dp"
             android:layout_weight="1"
+            android:layout_marginTop="3dp"
             android:layout_height="wrap_content"
             android:background="@color/translate"
-            android:gravity="center_horizontal"
-            android:paddingBottom="16dip"
-            android:paddingTop="16dip"
+            android:gravity="center"
             android:text="@string/dialog_confirm"
             android:textColor="@color/blue"
             android:textSize="18sp" />
@@ -56,14 +65,13 @@
             android:id="@+id/btn_cancel"
             android:layout_width="0dp"
             android:layout_weight="1"
+            android:layout_marginTop="3dp"
             android:layout_height="wrap_content"
             android:background="@color/translate"
-            android:gravity="center_horizontal"
-            android:paddingBottom="16dip"
-            android:paddingTop="16dip"
+            android:gravity="center"
             android:text="@string/dialog_cancel"
             android:textColor="@color/blue"
             android:textSize="18sp" />
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

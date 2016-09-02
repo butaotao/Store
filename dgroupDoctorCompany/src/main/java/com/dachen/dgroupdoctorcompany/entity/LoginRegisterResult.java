@@ -53,6 +53,9 @@ public class LoginRegisterResult extends Result {
 			public String telephone;
 			public String title;
 			public String treePath;
+
+			@Expose
+			@SerializedName("headPicUrl")
 			public String headPic;
 		}
 	}

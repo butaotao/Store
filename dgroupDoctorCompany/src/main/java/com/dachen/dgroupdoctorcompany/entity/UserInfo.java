@@ -32,6 +32,8 @@ public class UserInfo extends Result {
         @SerializedName("orgName")
         public String department;
         public String status;
+        @Expose
+        @SerializedName("headPicUrl")
         public String headPicFileName;
         public String userStatus;
         public int deptManager;

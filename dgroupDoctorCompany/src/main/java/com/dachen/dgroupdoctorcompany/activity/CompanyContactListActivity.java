@@ -339,7 +339,7 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
     public void backtofront() {
 
         int position = mCp_listguilde.getCurrentPosition()-1;//当前任务栈id数
-        Log.d("zxy :", "342 : CompanyContactListActivity : backtofront : position = "+position);
+        Log.d("zxy :", "342 : CompanyContactListActivity : backtofront : position = " + position);
         if (position == 0) {   //只剩联系人了,直接返回,  清空数据释放缓存
             mCp_listguilde.clearData();
             finish();
@@ -361,7 +361,7 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
         maps.put("access_token", UserInfo.getInstance(this).getSesstion());
         maps.put("drugCompanyId", SharedPreferenceUtil.getString(this, "enterpriseId", ""));
         maps.put("orgId", idDep);
-        maps.put("hideUnassign","1");
+        maps.put("hideUnassign", "1");
 
         new HttpManager().post(this, Constants.DEPSTRUCT, CompanyDepment.class,
                 maps, this,
@@ -387,11 +387,10 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
 
                     list.addAll(companyDepment.data.departments);
                     pareid = companyDepment.data.departments.get(0).parentId;
-
+                    checkUndefine(companyDepment.data.departments);
                     adapter.setSize(companyDepment.data.departments.size());
                     adapter.notifyDataSetChanged();
                     if (p == 1) {
-                        checkUndefine(companyDepment.data.departments);
                         firstLevelId = companyDepment.data.departments.get(0).id;
                         if (list.size() == 0) {
                             haveDep = false;
@@ -478,17 +477,40 @@ public  class CompanyContactListActivity extends BaseActivity implements HttpMan
     }
 
 
-    public void checkUndefine(ArrayList<CompanyDepment.Data.Depaments> departments) {
+    public ArrayList<CompanyDepment.Data.Depaments> checkUndefine(ArrayList<CompanyDepment.Data.Depaments> departments) {
         for (CompanyDepment.Data.Depaments depament : departments) {
             if (!TextUtils.isEmpty(depament.name) && depament.name.equals("未分配")) {
                 List<CompanyContactListEntity> entities = companyContactDao.queryByDepID(depament.id);
                 if (entities == null || entities.size() == 0) {
                     list.remove(depament);
+                }else {
+                    int p = -1;
+                    for (int i =0;i<departments.size();i++){
+                        if (!TextUtils.isEmpty( departments.get(i).type)&&
+                                departments.get(i).type.equals("3")){
+                            p = i;
+                            break;
+                        }
+                    }
+                    if (p!=-1){
+                        CompanyDepment.Data.Depaments depamen1 = departments.get(p);
+                        CompanyDepment.Data.Depaments depamen2 = departments.get(departments.size()-1);
+                        CompanyDepment d= new CompanyDepment();
+                        CompanyDepment.Data data = d.new Data();
+
+                        CompanyDepment.Data.Depaments depaments3 = data.new Depaments();
+                        depaments3 = depamen1;
+                        departments.set(p,depamen2);
+                        departments.set(departments.size()-1, depaments3);
+                        list.clear();
+                        list.addAll(departments);
+                    }
                 }
                 break;
             }
 
         }
+        return departments;
     }
 
     public void setTitles(String name) {

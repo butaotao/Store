@@ -65,7 +65,7 @@ public class MenuWithFABActivity extends SignInActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         View view = View.inflate(this, R.layout.activity_menu_sing, null);
         setContentView(view);
-        setTitle("");
+        setTitle("签到");
         rl_titlebar = (RelativeLayout) findViewById(R.id.rl_titlebar);
         rl_titlebar.setBackgroundColor(getResources().getColor(R.color.color_3cbaff));
         tv_back = (TextView) findViewById(R.id.tv_back);
@@ -144,7 +144,7 @@ public class MenuWithFABActivity extends SignInActivity implements View.OnClickL
     private void getListData() {
         showLoadingDialog();//signed/getTodaySignedList
         String type = "";
-        new HttpManager().get(this, Constants.GET_VISIT_LIST_TODAY, SignTodayInList.class,
+        new HttpManager().post(this, Constants.GET_VISIT_LIST_TODAY, SignTodayInList.class,
                 Params.getList(MenuWithFABActivity.this, type, "", pageIndex, pageSize),
                 this, false, 4);
     }
@@ -165,57 +165,63 @@ public class MenuWithFABActivity extends SignInActivity implements View.OnClickL
         refreshScrollView.onRefreshComplete();
         if(null!=response){
             if (response instanceof SignTodayInList){
-                SignTodayInList signInList = (SignTodayInList) response;
-                SignTodayInList.Data data = signInList.data;
+                if (response.resultCode==1){
+                    SignTodayInList signInList = (SignTodayInList) response;
+                    SignTodayInList.Data data = signInList.data;
 
-                if(null != data ){
-                    ytdayOffTime = data.ytdayOffTime;
-                    ytdayWorkTime = data.ytdayWorkTime;
-                    timeStamp = data.timeStamp;
-                    int beforeSize = mDataLists.size();
-                    if(null != data.signedList && data.signedList.size()>0){
-                        if (pageIndex==0){
-                            mDataLists.clear();
-                        }
-                        Collections.reverse(data.signedList);
-                        mDataLists.addAll(data.signedList);
+                    if(null != data ){
+                        ytdayOffTime = data.ytdayOffTime;
+                        ytdayWorkTime = data.ytdayWorkTime;
+                        timeStamp = data.timeStamp;
+                        int beforeSize = mDataLists.size();
+                        if(null != data.signedList && data.signedList.size()>0){
+                            if (pageIndex==0){
+                                mDataLists.clear();
+                            }
+                            Collections.reverse(data.signedList);
+                            mDataLists.addAll(data.signedList);
 //                    findViewById(R.id.empty_view).setVisibility(View.GONE);
-                    }else{
+                        }else{
 //                    if(pageIndex == 0){
 //                        findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
 //                    }
-                    }
-
-                    if(pageIndex==0){
-
-                        mAdapter.addData(mDataLists,true);
-                    }else{
-                        mAdapter.addData(mDataLists,false);
-                    }
-                    mAdapter.notifyDataSetChanged();
-                    if(beforeSize>0){
-                        int afterSize = mDataLists.size();
-                        if(beforeSize == afterSize){
                         }
-                    }
-                    mAdapter.notifyDataSetChanged();
-                            if (SinUtils.sigStep == 1){
-                                SinUtils.sigStep = -1;
 
-                                Intent intent = new Intent(MenuWithFABActivity.this, SelfVisitActivity.class);
-                                intent.putExtra("address", address);
-                                intent.putExtra("longitude", longitude);
-                                intent.putExtra("latitude", latitude);
-                                intent.putExtra("addressname", city + address + SinUtils.snippets);
-                                intent.putExtra("mode", CustomerVisitActivity.MODE_FROM_SIGN);
-                                intent.putExtra("city", city);
-                                startActivity(intent);
+                        if(pageIndex==0){
+
+                            mAdapter.addData(mDataLists,true);
+                        }else{
+                            mAdapter.addData(mDataLists,false);
+                        }
+                        mAdapter.notifyDataSetChanged();
+                        if(beforeSize>0){
+                            int afterSize = mDataLists.size();
+                            if(beforeSize == afterSize){
                             }
-                }else{
-                }
+                        }
+                        mAdapter.notifyDataSetChanged();
+                        if (SinUtils.sigStep == 1){
+                            SinUtils.sigStep = -1;
 
+                            Intent intent = new Intent(MenuWithFABActivity.this, SelfVisitActivity.class);
+                            intent.putExtra("address", address);
+                            intent.putExtra("longitude", longitude);
+                            intent.putExtra("latitude", latitude);
+                            intent.putExtra("addressname", city + address + SinUtils.snippets);
+                            intent.putExtra("mode", CustomerVisitActivity.MODE_FROM_SIGN);
+                            intent.putExtra("city", city);
+                            startActivity(intent);
+                        }
+                    }else{
+                    }
+                }
+                else {
+                    ToastUtil.showToast(MenuWithFABActivity.this,response.getResultMsg());
+                }
             }
-            }
+            }else {
+            ToastUtil.showToast(MenuWithFABActivity.this,response.getResultMsg());
+        }
 
     }
 

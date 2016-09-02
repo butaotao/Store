@@ -5,6 +5,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 
 import com.dachen.dgroupdoctorcompany.R;
+import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
 import com.dachen.medicine.net.NetConfig;
@@ -22,7 +23,8 @@ public class HowRegisterActivity extends BaseActivity{
         enableBack();
         String des = SharedPreferenceUtil.getString(this, "netdes", NetConfig.KANG_ZHE);
         enableBack();
-        mURL = "http://"+des+"/org/web/dev/DGroupBusiness/documentation/regInfo.html";
+        mURL = "http://"+des+ Constants.DRUG+"web/dev/DGroupBusiness/documentation/regInfo.html";
+
         setTitle("如何注册账号");
         mWebView = (WebView) findViewById(R.id.mWeb);
         //启用支持javascript

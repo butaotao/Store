@@ -435,7 +435,7 @@ public class JointVisitActivity extends BaseActivity implements View.OnClickList
                 etRemarkEnable = editEnable.data.editStatus;
                 setRemarkEnable();
 
-            }
+
             }else if(response instanceof Result){
                 if(response.getResultCode() == 1){
                     if ("1".equals(state)) {
@@ -445,7 +445,6 @@ public class JointVisitActivity extends BaseActivity implements View.OnClickList
                     }else if(MODE_FROM_SIGN == mMode || MODE_FROM_SIGN_LIST == mMode){
                         Intent intent = new Intent(this,MenuWithFABActivity.class);
                         startActivity(intent);
-
                         Intent broad_intent=new Intent();
                         broad_intent.setAction("action.to.signlisttoday");
                         sendBroadcast(broad_intent);
@@ -454,10 +453,13 @@ public class JointVisitActivity extends BaseActivity implements View.OnClickList
                         startActivity(intent);
                     }
                     finish();
+                }else {
+                    ToastUtil.showToast(JointVisitActivity.this, response.getResultMsg());
                 }
             }
         tv_title_save.setEnabled(true);
         tv_title_save.setClickable(true);
+    }
     }
 
     @Override

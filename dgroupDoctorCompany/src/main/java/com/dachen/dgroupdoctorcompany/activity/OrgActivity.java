@@ -28,6 +28,7 @@ import com.dachen.medicine.common.utils.SharedPreferenceUtil;
 import com.dachen.medicine.entity.Result;
 import com.dachen.medicine.net.HttpManager;
 import com.dachen.medicine.net.Params;
+import com.dachen.medicine.view.CustomDialog;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -335,8 +336,24 @@ public class OrgActivity extends BaseActivity implements HttpManager.OnHttpListe
                 backtofront();
                 break;
             case R.id.tvSave:
-                updateOrg(userId);
+                showDialog();
                 break;
         }
+    }
+    public void showDialog(){
+        //确定移动到所选部门吗？“，
+        final CustomDialog dialog = new CustomDialog(this);
+        dialog.showDialog("", "确定移动到所选部门吗?",R.string.cancel,R.string.sure, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dimissDialog();
+            }
+        }, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dimissDialog();
+                updateOrg(userId);
+            }
+        });
     }
 }
