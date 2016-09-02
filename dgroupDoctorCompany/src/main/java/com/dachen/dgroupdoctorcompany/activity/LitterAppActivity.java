@@ -45,9 +45,9 @@ public class LitterAppActivity extends CordovaActivity {
         super.onCreate(savedInstanceState);
         setTheme(R.style.ActionSheetStyleiOS7);
         EventBus.getDefault().register(this);
-        //String url ="http://192.168.3.46:8081/community/test/";
+        String url ="http://192.168.3.46:8081/community/test/";
         Log.d("zxy", "onCreate: ");
-        String url = "file:///android_asset/www/index.html";
+        //String url = "file:///android_asset/www/index.html";
         loadUrl(url);
     }
 

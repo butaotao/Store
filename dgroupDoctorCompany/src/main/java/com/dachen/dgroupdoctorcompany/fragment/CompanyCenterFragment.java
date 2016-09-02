@@ -10,23 +10,19 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dachen.dgroupdoctorcompany.R;
+import com.dachen.dgroupdoctorcompany.activity.LitterAppActivity;
 import com.dachen.dgroupdoctorcompany.activity.MeetingListActivity;
 import com.dachen.dgroupdoctorcompany.activity.MenuWithFABActivity;
 import com.dachen.dgroupdoctorcompany.activity.RecordActivity;
-import com.dachen.dgroupdoctorcompany.activity.SignInActivity;
 import com.dachen.dgroupdoctorcompany.activity.VisitListActivity;
 import com.dachen.dgroupdoctorcompany.activity.WebActivityForCompany;
 import com.dachen.dgroupdoctorcompany.db.dbdao.DepAdminsListDao;
 import com.dachen.dgroupdoctorcompany.entity.H5Url;
-import com.dachen.dgroupdoctorcompany.utils.GaoDeMapUtils;
 import com.dachen.dgroupdoctorcompany.utils.UserInfo;
-import com.dachen.dgroupdoctorcompany.views.GuiderDialog;
-import com.dachen.medicine.common.utils.SharedPreferenceUtil;
 import com.dachen.medicine.entity.Result;
 import com.dachen.medicine.net.HttpManager.OnHttpListener;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 import butterknife.ButterKnife;
 
@@ -39,6 +35,7 @@ public class CompanyCenterFragment extends BaseFragment implements ExpandableLis
 
     TextView tv_login_title;
     RelativeLayout rl_companycontact;
+    RelativeLayout rl_litterApp;
     RelativeLayout rl_sign_in;
     RelativeLayout rl_singrecord;
     DepAdminsListDao dao;
@@ -56,6 +53,8 @@ public class CompanyCenterFragment extends BaseFragment implements ExpandableLis
         rl_singrecord = (RelativeLayout) mRootView.findViewById(R.id.rl_singrecord);
         rl_singrecord.setOnClickListener(this);
         rl_companycontact = (RelativeLayout) mRootView.findViewById(R.id.rl_companycontact);
+        rl_litterApp = (RelativeLayout) mRootView.findViewById(R.id.rl_litterapp);
+        rl_litterApp.setOnClickListener(this);
         tv_login_title = (TextView) mRootView.findViewById(R.id.tv_title);
         tv_login_title.setText("企业中心");
         mRootView.findViewById(R.id.rl_back).setVisibility(View.INVISIBLE);
@@ -116,6 +115,10 @@ public class CompanyCenterFragment extends BaseFragment implements ExpandableLis
 
                 Intent singRecordIntent = new Intent(mActivity,RecordActivity.class);
                 startActivity(singRecordIntent);
+                break;
+            case R.id.rl_litterapp:
+                Intent litterAppIntent = new Intent(mActivity,LitterAppActivity.class);
+                startActivity(litterAppIntent);
                 break;
         }
     }

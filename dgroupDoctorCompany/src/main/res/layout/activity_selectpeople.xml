@@ -7,7 +7,7 @@
 
     <include
         android:id="@+id/layout_titlebar"
-        layout="@layout/layout_parent_titlebar_groupcompany"
+        layout="@layout/layout_parent_titlebar_groupcompany2"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"/>
 

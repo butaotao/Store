@@ -272,8 +272,6 @@ public class OrgActivity extends BaseActivity implements HttpManager.OnHttpListe
     public void backtofront() {
         //Log.d("zxy", "backtofront: ");
         if (mDepamentsStack.size() == 1) {   //只剩联系人了,直接返回,  清空数据释放缓存
-          //  Log.d("zxy", "backtofront: 1");
-            mOrgListGuilde.clearData();
             finish();
             return;
         }if (mDepamentsStack.size() == 2) {  //公司页面
@@ -305,16 +303,11 @@ public class OrgActivity extends BaseActivity implements HttpManager.OnHttpListe
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (position == 0) {
-            mOrgListGuilde.clearData();
-            finish();
-            return;
-        }
         if (position == mOrgListGuilde.getListGuide().size() - 1) {
             return;
         }
 
-        mDepamentsList = mDepamentsStack.get(position-1);
+        mDepamentsList = mDepamentsStack.get(position);
         mOrgSelectAdapter.update(mDepamentsList);
 
         mDepamentsStack.add(copyToNewList(mDepamentsList));
@@ -355,5 +348,11 @@ public class OrgActivity extends BaseActivity implements HttpManager.OnHttpListe
                 updateOrg(userId);
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        mOrgListGuilde.clearData();
+        super.onDestroy();
     }
 }

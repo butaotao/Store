@@ -138,6 +138,8 @@ public class Constants {
     public static String VISIT_DETAIL_EDITEABLE = "visit/getVisitEditStatus";
     //获取签到历史记录
     public static String GET_VISIT_LIST = "visit/getList";
+    //查询我的签到 分页列表信息
+    public static String GET_MYSIGNEDPAGE = "signed/getMySignedPage";
     public static String GET_VISIT_LIST_TODAY = "signed/getTodaySignedList";
     //修改用户名称
     public static String UPDATE_USER_NAME = DRUG+"companyUser/updateUserName";

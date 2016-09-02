@@ -61,6 +61,7 @@
         android:id="@+id/tv_namedes"
         android:layout_marginLeft="30dp"
         android:gravity="left"/>
+    <ImageView style="@style/Right_Arrow"/>
 </RelativeLayout>
         <View
             android:layout_width="match_parent"
@@ -143,6 +144,7 @@
                 android:id="@+id/tv_departdes"
                 android:layout_marginLeft="30dp"
                 android:gravity="left"/>
+            <ImageView style="@style/Right_Arrow"/>
         </RelativeLayout>
         <View
             android:layout_width="match_parent"
@@ -179,6 +181,7 @@
                 android:textSize="16sp"
                 android:layout_marginLeft="30dp"
                 android:gravity="left"/>
+            <ImageView style="@style/Right_Arrow"/>
         </RelativeLayout>
         <View
             android:layout_width="match_parent"

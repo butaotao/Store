@@ -3,6 +3,7 @@ package com.dachen.dgroupdoctorcompany.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
@@ -12,10 +13,11 @@ import android.widget.TextView;
 
 import com.dachen.common.utils.ToastUtil;
 import com.dachen.dgroupdoctorcompany.R;
-import com.dachen.dgroupdoctorcompany.adapter.SignInListAdapter;
+import com.dachen.dgroupdoctorcompany.adapter.SingnInListsAdapter;
 import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.dgroupdoctorcompany.entity.SignInList;
+import com.dachen.dgroupdoctorcompany.entity.SignInLists;
 import com.dachen.dgroupdoctorcompany.utils.UserInfo;
 import com.dachen.medicine.entity.Result;
 import com.dachen.medicine.net.HttpManager;
@@ -44,8 +46,8 @@ public class SignListActivity extends BaseActivity implements HttpManager.OnHttp
     private ImageView                           ivRight;
     private TextView                            tvMore;
 
-    private List<SignInList.Data.DataList>      mDataLists = new ArrayList<>();
-    private SignInListAdapter                   mAdapter;
+    private List<SignInLists.DataBean.PageDataBean>      mDataLists = new ArrayList<>();
+    private SingnInListsAdapter                 mAdapter;
     private int                                 pageIndex = 0;
     private int                                 pageSize = 20;
     private String coordinate;
@@ -88,7 +90,7 @@ public class SignListActivity extends BaseActivity implements HttpManager.OnHttp
 
     private void initData(){
         setTitle("签到记录");
-        mAdapter = new SignInListAdapter(SignListActivity.this);
+        mAdapter = new SingnInListsAdapter(SignListActivity.this);
         mLvSign = mVSignin.getRefreshableView();
         mLvSign.setAdapter(mAdapter);
         mLvSign.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -118,8 +120,8 @@ public class SignListActivity extends BaseActivity implements HttpManager.OnHttp
     }
 
     private void getListData(){
-        new HttpManager().get(this, Constants.GET_VISIT_LIST, SignInList.class,
-                Params .getList(SignListActivity.this,type,"",pageIndex,pageSize),
+        new HttpManager().post(this, Constants.GET_MYSIGNEDPAGE, SignInLists.class,
+                Params .getList(SignListActivity.this,type,pageIndex,pageSize),
                 this,false,4);
 //        String url = "http://192.168.3.7:8082/visit/getList";
 //        new HttpManager().requestBase(Request.Method.GET,url,this,SignInList.class, Params
@@ -150,7 +152,7 @@ public class SignListActivity extends BaseActivity implements HttpManager.OnHttp
                 ivMid.setVisibility(View.VISIBLE);
                 ivRight.setVisibility(View.GONE);
                 mDataLists.clear();
-                type = "1";
+                type = "2";
                 pageIndex = 0;
                 getListData();
                 break;
@@ -162,7 +164,7 @@ public class SignListActivity extends BaseActivity implements HttpManager.OnHttp
                 ivMid.setVisibility(View.GONE);
                 ivRight.setVisibility(View.VISIBLE);
                 mDataLists.clear();
-                type = "0";
+                type = "1";
                 pageIndex = 0;
                 getListData();
                 break;
@@ -175,14 +177,19 @@ public class SignListActivity extends BaseActivity implements HttpManager.OnHttp
 
     @Override
     public void onSuccess(Result response) {
+        Log.d("zxy :", "178 : SignListActivity : onSuccess : response");
         mVSignin.onRefreshComplete();
         if(null!=response){
-            SignInList signInList = (SignInList) response;
-            SignInList.Data data = signInList.data;
+            SignInLists signInList = (SignInLists) response;
+            SignInLists.DataBean data = signInList.data;
+            Log.d("zxy :", "184 : SignListActivity : onSuccess : data"+data);
             if(null != data ){
                 int beforeSize = mDataLists.size();
-                if(null != data.dataList && data.dataList.size()>0){
-                    mDataLists.addAll(data.dataList);
+                Log.d("zxy :", "186 : SignListActivity : onSuccess : data"+mDataLists.size());
+                if(null != data.pageData && data.pageData.size()>0){
+                    Log.d("zxy :", "189 : SignListActivity : onSuccess : data.dataList"+data.pageData);
+                    Log.d("zxy :", "190 : SignListActivity : onSuccess : data.dataList"+data.pageData.get(0));
+                    mDataLists.addAll(data.pageData);
 //                    findViewById(R.id.empty_view).setVisibility(View.GONE);
                 }else{
 //                    if(pageIndex == 0){
@@ -202,7 +209,7 @@ public class SignListActivity extends BaseActivity implements HttpManager.OnHttp
                         ToastUtil.showToast(this,"已经全部加载");
                     }
                 }
-                setExpandableListView();
+            //    setExpandableListView();
             }else{
 //                if(pageIndex == 0){
 //                    findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
@@ -312,12 +319,12 @@ public class SignListActivity extends BaseActivity implements HttpManager.OnHttp
     public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
         return true;
     }
-
+/*
     private void setExpandableListView(){
         for (int i = 0; i < mAdapter.getGroupCount(); i++) {
             mLvSign.expandGroup(i);
         }
-    }
+    }*/
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
