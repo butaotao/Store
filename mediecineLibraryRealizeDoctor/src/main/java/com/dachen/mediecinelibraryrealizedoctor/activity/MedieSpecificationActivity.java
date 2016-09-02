@@ -84,8 +84,8 @@ public class MedieSpecificationActivity extends BaseActivity implements OnClickL
         wv.getSettings().setJavaScriptEnabled(true);
         wv.getSettings().setSupportZoom(true);
         wv.getSettings().setBuiltInZoomControls(false);
-        wv.getSettings().setUseWideViewPort(true);
-
+        wv.getSettings().setUseWideViewPort(false);
+        wv.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         //wv.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
        /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             wv.setLayerType(View.LAYER_TYPE_SOFTWARE, null);

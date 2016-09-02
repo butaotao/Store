@@ -308,6 +308,7 @@ public class CompanyContactDao {
                     where.reset();
                 }
                 builder.orderBy("name", true);
+                builder.having("pinYinOrderType");
                 where.and(where.and(where.eq("userloginid", loginid), where.like("name", "%" + name + "%")),
                         where.notIn("userId", phones));
                 if (null != where.query()) {

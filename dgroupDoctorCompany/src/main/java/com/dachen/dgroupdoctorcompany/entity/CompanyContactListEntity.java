@@ -50,6 +50,10 @@ public class CompanyContactListEntity extends BaseSearch implements Serializable
     public int jobType;
     @DatabaseField(columnName="rootManager")
     public int rootManager;
+
+    //
+    @DatabaseField(columnName="pinYinOrderType")
+    public int pinYinOrderType;
     @DatabaseField(columnName="treePath")
     public String treePath;
     @Expose

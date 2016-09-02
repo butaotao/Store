@@ -486,6 +486,9 @@ public class MyInfoDetailActivity extends BaseActivity implements HttpManager.On
 
 
                         entity = companyContactDao.queryByUserid(userInfo.data.userId+"");
+                        if (null ==entity){
+                            entity = new CompanyContactListEntity();
+                        }
                         entity.userId = userInfo.data.userId+"";
                         entity.id = userInfo.data.id;
                         entity.department = userInfo.data.department;
