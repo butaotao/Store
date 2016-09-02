@@ -132,7 +132,7 @@ public class ResetPasswdActivity extends BaseActivity implements
 		new HttpManager().post(this, Constants.RESET_PASSWD,
 				LoginRegisterResult.class, Params.getResetPasswordParams(phone,
 						userType, smsid, ranCode, mPasswordEdit.getText()
-								.toString().trim()), this, false, 1);
+								.toString().trim(),this), this, false, 1);
 
 	}
 
@@ -144,25 +144,17 @@ public class ResetPasswdActivity extends BaseActivity implements
 
 	@Override
 	public void onSuccess(Result response) {
-		closeLoadingDialog();
+
 		// TODO Auto-generated method stub
 		if (null != response && 1 == response.getResultCode()) {
-			/*Intent intent = new Intent(ResetPasswdActivity.this,
-					LoginActivity.class);
 
-			startActivity(intent);*/
 			if (response instanceof  LoginRegisterResult){
-				ToastUtils.showToast(ResetPasswdActivity.this,"密码重置成功");
-
 
 				boolean success = false;
 				if (response.getResultCode() == Result.CODE_SUCCESS) {
-
 						success = true;// 设置登陆用户信息
 				}
-
 				if (success) {// 登陆成功
-
 					UserUtils.loginRequest(ResetPasswdActivity.this, phone,mPasswordEdit.getText().toString().trim());
 					//							UserLoginc.setUserInfo(logins, ResetPasswdActivity.this);
 				} else {// 登录失败

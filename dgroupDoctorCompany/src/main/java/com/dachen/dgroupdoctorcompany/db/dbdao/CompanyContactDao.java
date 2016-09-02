@@ -344,7 +344,7 @@ public class CompanyContactDao {
 
                     builder.orderBy("simpinyin", true);
                     where.or(/*where.and(where.eq("userloginid", loginid), where.like("simpinyin", "%" + name + "%"))
-                              ,*/ where.and(where.eq("userloginid", loginid), where.like("allpinyin", s)),
+                              ,*/ where.and(where.eq("userloginid", loginid), where.like("simpinyin", s)),
                             where.and(where.eq("userloginid", loginid), where.like("name", "%" + name + "%")));
                     if (null != where.query()) {
                         entities.addAll(builder.distinct().query());
@@ -361,11 +361,11 @@ public class CompanyContactDao {
                 }
 
             }
-            if (entities.size()>0) {
+           /* if (entities.size()>0) {
                 CompanyContactListEntity contact = new CompanyContactListEntity();
                 contact.userId = loginid;
                 entities.remove(contact);
-            }
+            }*/
 
             return entities;
         } catch (SQLException e) {

@@ -300,14 +300,17 @@ public class Params {
 
 	// (phone,userType,smsid,ranCode)
 	public static Map<String, String> getResetPasswordParams(String phone,
-															 String userType, String smsid, String ranCode, String password) {
+															 String userType, String smsid,
+															 String ranCode, String password,Context context) {
 		Map<String, String> params = getMapInstance();
-		params.put("phone", phone);
+		params.put("telephone", phone);
 		params.put("userType", userType);
 		params.put("smsid", smsid);
 		params.put("ranCode", ranCode);
 		params.put("password", password);
-
+		params.put("model","android");
+		params.put("serial",
+				SystemUtils.getDeviceId(context));
 		return params;
 
 	}

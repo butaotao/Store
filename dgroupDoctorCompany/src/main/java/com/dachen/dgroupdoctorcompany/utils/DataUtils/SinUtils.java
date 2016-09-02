@@ -26,6 +26,8 @@ import java.util.Map;
  * Created by Burt on 2016/8/27.
  */
 public class SinUtils {
+    public static int sigStep = -1;
+    public static String snippets = "";
     public static Map<String,String> mapLable2Id = new HashMap<>();
     public static void signDefault(final Activity activity, final String address,
                                    final String coordinate, final String defaltsignLable,
@@ -198,14 +200,8 @@ public class SinUtils {
                             if (finish){
                                 activity.finish();
                                 if (activity instanceof SelectAddressActivity){
-                                    Intent intent = new Intent(activity, SelfVisitActivity.class);
-                                    intent.putExtra("address", address);
-                                    intent.putExtra("longitude", longitude);
-                                    intent.putExtra("latitude", latitude);
-                                    intent.putExtra("addressname", city + address + snippet);
-                                    intent.putExtra("mode", CustomerVisitActivity.MODE_FROM_SIGN);
-                                    intent.putExtra("city", city);
-                                    activity.startActivity(intent);
+                                    sigStep = 1;
+                                    snippets = snippet;
                                 }
                             }
 

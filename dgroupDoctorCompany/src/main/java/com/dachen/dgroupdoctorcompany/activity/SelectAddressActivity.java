@@ -229,29 +229,10 @@ public class SelectAddressActivity extends BaseActivity implements LocationSourc
                        String snippet = poiItem.getSnippet();
                        if (mMode == AddSignInActivity.MODE_VISIT) {
                            if ("signle".equals(type)) {
-                             /*  (final Activity activity, final String address,
-                               final String longitude, final String latitude, final String city, final String snippet, final String defaltsignLable,
-                               final boolean finish)*/
                                SinUtils.signDefaultvisit(SelectAddressActivity.this,name,
                                        longitude ,latitude, city,snippet, "拜访", true);
-                             /*  Intent intent = new Intent(SelectAddressActivity.this, SelfVisitActivity.class);
-                               intent.putExtra("address", name);
-                               intent.putExtra("longitude", longitude);
-                               intent.putExtra("latitude", latitude);
-                               intent.putExtra("addressname", city + address + snippet);
-                               intent.putExtra("mode", CustomerVisitActivity.MODE_FROM_SIGN);
-                               intent.putExtra("city", city);
-                               startActivity(intent);*/
                            } else if ("together".equals(type)) {
                                startVisitGroup(latitude, longitude, (city + address + snippet), name);
-//                           Intent intent = new Intent(SelectAddressActivity.this,TogetherVisitActivity.class);
-//                           intent.putExtra("address",name);
-//                           intent.putExtra("longitude",longitude);
-//                           intent.putExtra("latitude",latitude);
-//                           intent.putExtra("addressname",city+address+snippet);
-//                           intent.putExtra("mode",TogetherVisitActivity.MODE_FROM_SIGN);
-//                           intent.putExtra("city",city);
-//                           startActivity(intent);
                            }else if ("selectVisitPeopleposition".equals(type)){
                                startVisitGroup(latitude, longitude, (city + address + snippet), name);
                            }

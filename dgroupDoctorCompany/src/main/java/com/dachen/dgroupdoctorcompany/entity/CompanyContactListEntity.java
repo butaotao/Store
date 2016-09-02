@@ -78,6 +78,8 @@ public class CompanyContactListEntity extends BaseSearch implements Serializable
     @SerializedName("pinYin")
     @DatabaseField(columnName="simpinyin")
     public String simpinyin;
+    @DatabaseField(columnName="simpinyinnotnum")
+    public String simpinyinnotnum;
     @Expose
     @SerializedName("fullPinYin")
     @DatabaseField(columnName="allpinyin")

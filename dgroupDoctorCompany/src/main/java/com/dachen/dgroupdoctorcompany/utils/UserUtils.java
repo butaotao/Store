@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import com.dachen.dgroupdoctorcompany.activity.LoginActivity;
 import com.dachen.dgroupdoctorcompany.activity.MainActivity;
+import com.dachen.dgroupdoctorcompany.activity.ResetPasswdActivity;
 import com.dachen.dgroupdoctorcompany.app.CompanyApplication;
 import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
@@ -85,6 +86,11 @@ public class UserUtils {
                             Intent intent = new Intent(context, MainActivity.class);
                             intent.putExtra("login", "login");
                             context.startActivity(intent);
+                            if (context instanceof ResetPasswdActivity){
+                                ResetPasswdActivity activity = (ResetPasswdActivity)context;
+                                activity.closeLoadingDialog();
+                                ToastUtils.showToast(context,"密码重置成功");
+                            }
                         }
                     }
 

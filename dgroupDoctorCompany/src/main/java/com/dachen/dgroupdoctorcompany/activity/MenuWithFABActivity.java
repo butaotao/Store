@@ -25,6 +25,7 @@ import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
 import com.dachen.dgroupdoctorcompany.entity.SignInList;
 import com.dachen.dgroupdoctorcompany.entity.SignTodayInList;
+import com.dachen.dgroupdoctorcompany.utils.DataUtils.SinUtils;
 import com.dachen.dgroupdoctorcompany.utils.TitleManager;
 import com.dachen.dgroupdoctorcompany.views.CustomButtonFragment;
 import com.dachen.dgroupdoctorcompany.views.FloatingActionButton;
@@ -39,6 +40,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -114,6 +116,29 @@ public class MenuWithFABActivity extends SignInActivity implements View.OnClickL
     protected void onResume() {
         super.onResume();
         getListData();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (SinUtils.sigStep == 1){
+                    SinUtils.sigStep = -1;
+                    try {
+                        Thread.sleep(600);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    Intent intent = new Intent(MenuWithFABActivity.this, SelfVisitActivity.class);
+                    intent.putExtra("address", address);
+                    intent.putExtra("longitude", longitude);
+                    intent.putExtra("latitude", latitude);
+                    intent.putExtra("addressname", city + address + SinUtils.snippets);
+                    intent.putExtra("mode", CustomerVisitActivity.MODE_FROM_SIGN);
+                    intent.putExtra("city", city);
+                    startActivity(intent);
+                }
+
+
+            }
+        }).start();
     }
 
     private void getListData() {
@@ -152,6 +177,7 @@ public class MenuWithFABActivity extends SignInActivity implements View.OnClickL
                         if (pageIndex==0){
                             mDataLists.clear();
                         }
+                        Collections.reverse(data.signedList);
                         mDataLists.addAll(data.signedList);
 //                    findViewById(R.id.empty_view).setVisibility(View.GONE);
                     }else{
@@ -173,6 +199,18 @@ public class MenuWithFABActivity extends SignInActivity implements View.OnClickL
                         }
                     }
                     mAdapter.notifyDataSetChanged();
+                            if (SinUtils.sigStep == 1){
+                                SinUtils.sigStep = -1;
+
+                                Intent intent = new Intent(MenuWithFABActivity.this, SelfVisitActivity.class);
+                                intent.putExtra("address", address);
+                                intent.putExtra("longitude", longitude);
+                                intent.putExtra("latitude", latitude);
+                                intent.putExtra("addressname", city + address + SinUtils.snippets);
+                                intent.putExtra("mode", CustomerVisitActivity.MODE_FROM_SIGN);
+                                intent.putExtra("city", city);
+                                startActivity(intent);
+                            }
                 }else{
                 }
 

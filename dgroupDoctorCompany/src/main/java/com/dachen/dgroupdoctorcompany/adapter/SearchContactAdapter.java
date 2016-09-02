@@ -16,6 +16,7 @@ import com.dachen.dgroupdoctorcompany.entity.BaseSearch;
 import com.dachen.dgroupdoctorcompany.entity.CompanyContactListEntity;
 import com.dachen.dgroupdoctorcompany.utils.HtmlTextViewEdit;
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
+import com.dachen.medicine.common.utils.StringUtils;
 import com.dachen.medicine.net.CustomImagerLoader;
 
 import java.util.List;
@@ -85,7 +86,7 @@ public class SearchContactAdapter extends BaseCustomAdapter<BaseSearch>{
             if (!TextUtils.isEmpty(people.name)){
                 Spanned spanned = HtmlTextViewEdit.showkeywordContent(people.name,activity.searchText,context);
                 if (activity!=null/*&&activity.showColleague*/){
-                    if (people.name.contains(activity.searchText)){
+                    if (people.name.toLowerCase().contains(activity.searchText.toLowerCase())){
                         holder.tv_name_leader.setText(spanned);
                     }else {
                         holder.tv_name_leader.setText(people.name);
@@ -94,6 +95,16 @@ public class SearchContactAdapter extends BaseCustomAdapter<BaseSearch>{
                         Spanned spannedphone = HtmlTextViewEdit.showkeywordContent("("+people.telephone+")",activity.searchText,context);
                         holder.tv_name_phone.setText(spannedphone);
                         holder.tv_name_phone.setVisibility(View.VISIBLE);
+                    }
+                    boolean isEnglish = StringUtils.isEnglish(activity.searchText);
+                    if (isEnglish){
+                        Spanned spannedphone = HtmlTextViewEdit.showkeywordContent("("+activity.searchText+")",activity.searchText,context,people);
+                        holder.tv_name_phone.setText(spannedphone);
+                        holder.tv_name_phone.setVisibility(View.VISIBLE);
+                    }
+                    boolean isEnglishName = StringUtils.isEnglish(people.name);
+                    if (isEnglishName){
+                        holder.tv_name_phone.setVisibility(View.GONE);
                     }
                     holder.iv_irr.setVisibility(View.GONE);
                 }else {
@@ -142,7 +153,7 @@ public class SearchContactAdapter extends BaseCustomAdapter<BaseSearch>{
             }
                 holder.tv_leader_position_right.setVisibility(View.GONE);
 //            ImageLoader.getInstance().displayImage(people.headPicFileName, holder.head_icon);
-            CustomImagerLoader.getInstance().loadImage(holder.head_icon,people.headPicFileName);
+            CustomImagerLoader.getInstance().loadImage(holder.head_icon, people.headPicFileName);
             holder.btn_radio.setBackgroundResource(R.drawable.icon_pay_unselect);
             if (people.select){
                 //   holder.btn_radio.setSelected(true);

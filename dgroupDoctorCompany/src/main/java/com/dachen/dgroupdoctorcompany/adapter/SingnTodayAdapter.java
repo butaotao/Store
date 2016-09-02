@@ -103,11 +103,11 @@ public class SingnTodayAdapter extends android.widget.BaseAdapter{
             childHolder.tvName.setText(des);
         }else {
             childHolder.tvName.setBackgroundResource(R.drawable.btn_leftcorgreen_all);
-            childHolder.tvName.setText("其他");
+            childHolder.tvName.setText("其\n他");
         }
-       /* if (listVisitVo.remark){
-            childHolder.tvdes.setText();
-        }*/
+       if (!TextUtils.isEmpty(listVisitVo.remark)){
+            childHolder.tvdes.setText(listVisitVo.remark);
+        }
         if (0!=listVisitVo.longTime){
             childHolder.tvTime.setText(TimeUtils.getTimesHourMinute(listVisitVo.longTime));
         }else {
