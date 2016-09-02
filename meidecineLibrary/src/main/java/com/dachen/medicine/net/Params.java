@@ -168,6 +168,18 @@ public class Params {
 		params.put("pageSize",String.valueOf(pageSize));
 		return params;
 	}
+	public static Map<String,String>getList(Context context,String type,int pageIndex,int pageSize){
+		Map<String, String> params = getMapInstance();
+		params.put("access_token", SharedPreferenceUtil.getString(context, "session", ""));
+		if(!TextUtils.isEmpty(type)){
+			params.put("type",type);
+		}
+		params.put("pageIndex",String.valueOf(pageIndex));
+		params.put("pageSize",String.valueOf(pageSize));
+		Log.d("zxy :", "179 : Params : getList : access_token = "+SharedPreferenceUtil.getString(context, "session", ""));
+		Log.d("zxy :", "180 : Params : getList : type = "+type+", "+pageIndex+", "+pageSize);
+		return params;
+	}
 
 	public static Map<String,String>updateJobTitle(Context context,String orgId,String newTitle,String userid,String employeeId){
 		Map<String, String> params = getMapInstance();

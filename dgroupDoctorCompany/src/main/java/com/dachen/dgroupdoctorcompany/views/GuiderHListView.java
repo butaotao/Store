@@ -2,6 +2,7 @@ package com.dachen.dgroupdoctorcompany.views;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import com.dachen.dgroupdoctorcompany.adapter.CompanyListGuide;
 
@@ -72,8 +73,9 @@ public class GuiderHListView extends HorizontalListView {
      */
     public void addTask(String departName,String departId){
         mListGuide.add(departName);
+        listGuideMap.put(currentPosition, departId);
         departList.put(currentPosition, copyToNewList(mListGuide));
-        listGuideMap.put(currentPosition++, departId);
+        currentPosition++;
     }
 
     /**
@@ -98,7 +100,7 @@ public class GuiderHListView extends HorizontalListView {
      * @param position
      */
     public String addBackTask(int position){
-
+Log.d("zxy :", "103 : GuiderHListView : addBackTask : oldPosition = "+oldPosition+", position = "+position);
         int forCount = oldPosition - position;
        // Log.d("zxy", "onItemClick: oldPosition = "+oldPosition+", position = "+position);
         for (int i = 0; i < forCount; i++) {
@@ -107,10 +109,11 @@ public class GuiderHListView extends HorizontalListView {
         }
         departList.put(currentPosition,copyToNewList(mListGuide));
 
-        listGuideMap.put(currentPosition++, listGuideMap.get(position));
+        listGuideMap.put(currentPosition, listGuideMap.get(position));
         String idDep = listGuideMap.get(position);
-        //Log.d("zxy", "onItemClick: currentPosition = "+currentPosition+", idDep = "+listGuideMap.get(position)+", mListGuide"+mListGuide);
+        Log.d("zxy", "onItemClick: currentPosition = "+currentPosition+", idDep = "+listGuideMap.get(position)+", mListGuide"+mListGuide);
         oldPosition = position;
+        currentPosition++;
         return idDep;
     }
 
@@ -144,7 +147,19 @@ public class GuiderHListView extends HorizontalListView {
         departList.clear();
         departList = null;
     }
+    public String  getLastDerpartName(int position){
+        ArrayList<String> arrayList = departList.get(currentPosition-1);
+        Log.d("zxy :", "151 : GuiderHListView : getLastDerpartName : departListsize = "+departList.size()+"  "+currentPosition+" "+arrayList.get(arrayList.size()-1));
+        return arrayList.get(arrayList.size()-1);
+    };
 
+    public Map<Integer, ArrayList<String>> getDepartList() {
+        return departList;
+    }
+
+    public void setDepartList(Map<Integer, ArrayList<String>> departList) {
+        this.departList = departList;
+    }
 
     public ArrayList<String> getListGuide() {
         return mListGuide;

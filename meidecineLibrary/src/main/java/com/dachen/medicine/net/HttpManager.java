@@ -294,6 +294,7 @@ public class HttpManager<T> {
 
 		String fullurl = "";
 		fullurl = AppConfig.getUrl(interfaces, net);
+		Log.d("zxy :", "297 : HttpManager : request : fullurl = "+fullurl );
 		requestBase(method, fullurl, context, tClass, params, onHttpListener,
 				isArray, net);
 	}

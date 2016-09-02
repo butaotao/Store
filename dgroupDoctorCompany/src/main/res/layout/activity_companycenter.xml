@@ -246,5 +246,60 @@
             android:background="@color/color_grayline1dp" />
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/rl_litterapp"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_litterapp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:background="@drawable/baifang" />
+
+        <TextView
+            android:id="@+id/tv_litterapp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView_litterapp"
+            android:layout_alignStart="@+id/textView_litterapp"
+            android:layout_alignTop="@+id/iv_litterapp"
+            android:text="轻应用"
+            android:textColor="@color/color_333333"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textView_litterapp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_litterapp"
+            android:layout_marginLeft="11dp"
+            android:layout_marginStart="11dp"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@+id/iv_litterapp"
+            android:layout_toRightOf="@+id/iv_litterapp"
+            android:text="轻应用框架"
+            android:textColor="@color/color_aaaaaa"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/ic_right_arrow" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_alignParentBottom="true"
+            android:background="@color/color_grayline1dp" />
+    </RelativeLayout>
 
 </LinearLayout>

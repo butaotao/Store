@@ -251,6 +251,8 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
                         mListGuider.addTask(c1.name,c1.id);
                         mListGuider.setOldPosition();
                         mListGuider.notifyDataSetChanged();
+                        //String title = mListGuider.getListGuide().get(mListGuider.getListGuide().size()-1);
+                        //setTitle(title);
                         idDep = c1.id;
                         getOrganization();
                     }
@@ -303,18 +305,13 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
     //水平导航条目点击事件
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (position == 0) {
-            mListGuider.clearData();
-            finish();
-            return;
-        }
         if (position == mListGuider.getListGuide().size() - 1) {
             return;
         }
         idDep = mListGuider.addBackTask(position);
         mListGuider.notifyDataSetChanged();
-        String title = mListGuider.getListGuide().get(mListGuider.getListGuide().size()-1);
-        setTitle(title);
+        //String title = mListGuider.getListGuide().get(mListGuider.getListGuide().size()-1);
+       // setTitle(title);
         getOrganization();
     }
 
@@ -358,15 +355,16 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
         }*/
         int position = mListGuider.getCurrentPosition()-1;//当前任务栈id数
         if (position == 0) {   //只剩联系人了,直接返回,  清空数据释放缓存
-            mListGuider.clearData();
             finish();
             return;
         }if (position == 1) {  //公司页面
-            setTitle("企业通讯录");
+            //setTitle("企业通讯录");
             idDep = mListGuider.reMoveTask();
         }else{//返回
             idDep = mListGuider.reMoveTask();
         }
+        //String derpartName = mListGuider.getLastDerpartName(position);
+        //setTitle(derpartName);
         mListGuider.setOldPosition();
         mListGuider.notifyDataSetChanged();
         getOrganization();
@@ -788,4 +786,15 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        backtofront();
+        super.onBackPressed();
+    }
+
+    @Override
+    protected void onDestroy() {
+        mListGuider.clearData();
+        super.onDestroy();
+    }
 }

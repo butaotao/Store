@@ -120,8 +120,6 @@ public class QRCodeScannerUI extends Activity implements
      */
     @Override
     public void handleResult(Result rawResult) {
-        Log.d("zxy :", "QRCodeScannerUI : "+"handleResult: "+rawResult);
-
         if (rawResult != null) {
             Log.d("zxy :", "QRCodeScannerUI : "+"handleResult: "+rawResult.toString());
             handleResult(rawResult.getText());
@@ -171,27 +169,37 @@ public class QRCodeScannerUI extends Activity implements
             Intent data = new Intent().putExtra("qrString", scanResult);
             setResult(RESULT_OK, data);
             finish();
-        } else {//web端登入
-            //QRBean qrBean = GsonUtil.getGson().fromJson(scanResult, QRBean.class);
+        } else if(scanResult.startsWith("login://")){//web端登入
+            String[] strings = scanResult.split("\\?");
+            for (int i = 0; i < strings.length; i++) {
+                Log.d("zxy :", "175 : QRCodeScannerUI : executeTask : strings"+i+" = "+strings[i]);
+            }
+            String[] strings1 = strings[0].split("//");
+
             new HttpManager().post(this, Constants.QR_WEB_LONIN_VERIFY, QRLogin.class, Params.getQRWebKeyParams
-                    (scanResult), new HttpManager.OnHttpListener<com.dachen.medicine.entity.Result>() {
+                    (strings1[1]), new HttpManager.OnHttpListener<com.dachen.medicine.entity.Result>() {
 
                 @Override
                 public void onSuccess(com.dachen.medicine.entity.Result response) {
+                    Log.d("zxy :", "186 : QRCodeScannerUI : onSuccess : result");
                     if (response instanceof QRLogin){
 
                         QRLogin result = (QRLogin)response;
-                        if (result.resultCode == 0) {
+                        Log.d("zxy :", "189 : QRCodeScannerUI : onSuccess : result = "+result.resultCode);
+                        if (result.resultCode == 1050002) {
                                 Intent intent = new Intent(QRCodeScannerUI.this, WebQRLoginActivity.class);
                                 intent.putExtra("scanResult", scanResult);
                                 startActivity(intent);
+                            finish();
                         }else if(result.resultCode  == 1050001){
                             ToastUtil.showToast(getApplicationContext(),"已经登入,无需重新登入");
+                            finish();
+                        }else{
+                            ToastUtil.showToast(getApplicationContext(),"UnknowCode : "+result.resultCode);
+                            Log.d("zxy :", "198 : QRCodeScannerUI : onSuccess : result.resultCode = "+result.resultCode);
                         }
-                        finish();
                     }
                 }
-
                 @Override
                 public void onSuccess(ArrayList<com.dachen.medicine.entity.Result> response) {
                 }
@@ -201,6 +209,9 @@ public class QRCodeScannerUI extends Activity implements
 
                 }
             }, false, 1);
+        }else {
+            ToastUtil.showToast(getApplicationContext(),scanResult);
+            finish();
         }
 
 		/*

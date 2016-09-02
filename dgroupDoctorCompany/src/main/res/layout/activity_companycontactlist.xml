@@ -7,7 +7,7 @@
 
     <include
         android:id="@+id/layout_titlebar"
-        layout="@layout/layout_parent_titlebar_groupcompany"
+        layout="@layout/layout_parent_titlebar_groupcompany2"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"/>
     <com.dachen.dgroupdoctorcompany.views.GuiderHListView
@@ -26,7 +26,7 @@
         android:visibility="visible">
 <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="1dp" 
+    android:layout_height="1dp"
     android:background="@color/divide_line_color"></RelativeLayout>
         <TextView
             android:id="@+id/btn_addpeople"

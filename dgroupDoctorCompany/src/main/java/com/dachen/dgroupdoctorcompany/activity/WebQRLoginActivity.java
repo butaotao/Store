@@ -1,6 +1,7 @@
 package com.dachen.dgroupdoctorcompany.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -79,13 +80,17 @@ public class WebQRLoginActivity extends BaseActivity {
    //     QRWebLogin qrWebLogin = gson.fromJson(mScanResult, QRWebLogin.class);
         new HttpManager<Result>().post(this, Constants.QR_WEB_LONIN_CONFIRM, Result.class, Params
                 .getQRWebLoginParams(getApplicationContext(), mScanResult), new HttpManager.OnHttpListener<Result>() {
-
             @Override
             public void onSuccess(Result response) {
+                Log.d("zxy :", "85 : WebQRLoginActivity : onSuccess : response = "+response.resultCode);
                 if (response.resultCode == 1) {
                     ToastUtil.showToast(getApplicationContext(),"登入成功");
-                    finish();
+                }else if(response.resultCode == 0){
+                    ToastUtil.showToast(getApplicationContext(),"Key不存在于Redis中！");
+                }else {
+                    ToastUtil.showToast(getApplicationContext(),"UnknowCode : "+response.resultCode);
                 }
+                finish();
             }
 
             @Override
