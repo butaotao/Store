@@ -40,10 +40,13 @@ public class GaoDeService extends Service{
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-       long nowtime = intent.getLongExtra("nowtime",0);
-        mGaoDeMapUtils = new GaoDeMapUtils( this);
-        mGaoDeMapUtils.setNowtime(nowtime);
-        mGaoDeMapUtils.startLocation();
+        if (null!=intent){
+            long nowtime = intent.getLongExtra("nowtime",0);
+            mGaoDeMapUtils = new GaoDeMapUtils( this);
+            mGaoDeMapUtils.setNowtime(nowtime);
+            mGaoDeMapUtils.startLocation();
+        }
+
         return super.onStartCommand(intent, flags, startId);
     }
 

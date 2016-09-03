@@ -72,7 +72,7 @@ public class SearchContactAdapter extends BaseCustomAdapter<BaseSearch>{
     protected void fillValues(BaseViewHolder baseViewHolder, int position) {
         BaseSearch base;
         base = (BaseSearch)getItem(position);
-        ViewHolder holder = (ViewHolder)baseViewHolder;
+        final ViewHolder holder = (ViewHolder)baseViewHolder;
         holder.iv_irr.setVisibility(View.VISIBLE);
         if(base instanceof CompanyContactListEntity){
             CompanyContactListEntity  people = (CompanyContactListEntity)base;
@@ -84,28 +84,28 @@ public class SearchContactAdapter extends BaseCustomAdapter<BaseSearch>{
                 holder.tv_nameright.setVisibility(View.GONE);
             }
             if (!TextUtils.isEmpty(people.name)){
+                boolean show = true;
                 Spanned spanned = HtmlTextViewEdit.showkeywordContent(people.name,activity.searchText,context);
                 if (activity!=null/*&&activity.showColleague*/){
                     if (people.name.toLowerCase().contains(activity.searchText.toLowerCase())){
                         holder.tv_name_leader.setText(spanned);
+                        show = false;
                     }else {
                         holder.tv_name_leader.setText(people.name);
                     }
-                    if (!"1".equals(activity.searchText)&&people.telephone.contains(activity.searchText)){
+                    holder.tv_name_phone.setVisibility(View.GONE);
+                    if (show&&!"1".equals(activity.searchText)&&people.telephone.contains(activity.searchText)){
                         Spanned spannedphone = HtmlTextViewEdit.showkeywordContent("("+people.telephone+")",activity.searchText,context);
                         holder.tv_name_phone.setText(spannedphone);
                         holder.tv_name_phone.setVisibility(View.VISIBLE);
                     }
                     boolean isEnglish = StringUtils.isEnglish(activity.searchText);
-                    if (isEnglish){
+                    if (isEnglish&&show){
                         Spanned spannedphone = HtmlTextViewEdit.showkeywordContent("("+activity.searchText+")",activity.searchText,context,people);
                         holder.tv_name_phone.setText(spannedphone);
                         holder.tv_name_phone.setVisibility(View.VISIBLE);
                     }
-                    boolean isEnglishName = StringUtils.isEnglish(people.name);
-                    if (isEnglishName){
-                        holder.tv_name_phone.setVisibility(View.GONE);
-                    }
+
                     holder.iv_irr.setVisibility(View.GONE);
                 }else {
                     holder.tv_name_leader.setText(people.name);
@@ -137,10 +137,12 @@ public class SearchContactAdapter extends BaseCustomAdapter<BaseSearch>{
                 holder.rl_search.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        holder.rl_below.setVisibility(View.GONE);
                         objects.clear();
                         objects.addAll(contact);
-                        isShowMore = false;
+                         isShowMore = false;
                         refreshDataInterface.refreshData();
+                        activity.showColleague = true;
                         notifyDataSetChanged();
 
                     }

@@ -75,19 +75,19 @@ public class UpdateUserInfoActivity extends BaseActivity implements HttpManager.
             setTitle("修改姓名");
              name = SharedPreferenceUtil.getString(UpdateUserInfoActivity.this,"username", "");
             id = SharedPreferenceUtil.getString(this, "id", "");
-            mEtUserName.setHint("输入姓名");
+            mEtUserName.setHint("输入姓名(必填)");
             mEtUserName.setText(name);
         }else if(MODE_UPDATE_JOB_TITLE == mMode){
             setTitle("我的职位");
             id = SharedPreferenceUtil.getString(this, "id", "");
             mStrJobTitle = this.getIntent().getStringExtra("job_title");
             mStrOrgId = this.getIntent().getStringExtra("part");
-            mEtUserName.setHint("输入职位名称");
+            mEtUserName.setHint("输入职位名称(选填)");
             mEtUserName.setText(mStrJobTitle);
         }else if (MODE_UPDATE_NAME_MANAGER == mMode){
             setTitle("修改姓名");
 
-            mEtUserName.setHint("输入姓名");
+            mEtUserName.setHint("输入姓名(必填)");
             mEtUserName.setText(name);
             id = getIntent().getStringExtra("id");
         }else if (MODE_UPDATE_JOB_TITLE_MANAGER == mMode){
@@ -95,7 +95,7 @@ public class UpdateUserInfoActivity extends BaseActivity implements HttpManager.
             id = getIntent().getStringExtra("id");
             mStrJobTitle = this.getIntent().getStringExtra("job_title");
             mStrOrgId = this.getIntent().getStringExtra("part");
-            mEtUserName.setHint("输入职位名称");
+            mEtUserName.setHint("输入职位名称(选填)");
             mEtUserName.setText(mStrJobTitle);
         }
     }
@@ -126,6 +126,15 @@ public class UpdateUserInfoActivity extends BaseActivity implements HttpManager.
             ToastUtil.showToast(UpdateUserInfoActivity.this,"请输入姓名");
             return;
         }
+        if (mStrUserName.contains(" ")){
+            ToastUtil.showToast(UpdateUserInfoActivity.this,"姓名只允许包含汉字、英文字母、数字、下划线和点号");
+            return;
+
+        }
+        if (mStrUserName.length()>20){
+            ToastUtil.showToast(UpdateUserInfoActivity.this,"姓名不能超过20个字");
+            return;
+        }
         String employeeId = "";
         if (null!=entity){
             employeeId = entity.employeeId;
@@ -140,8 +149,8 @@ public class UpdateUserInfoActivity extends BaseActivity implements HttpManager.
     private void updateJobTitle(String id){
         mStrJobTitle = mEtUserName.getText().toString().trim();
         if(TextUtils.isEmpty(mStrJobTitle)){
-            ToastUtil.showToast(UpdateUserInfoActivity.this,"请输入职位名称");
-            return;
+            //ToastUtil.showToast(UpdateUserInfoActivity.this,"请输入职位名称");
+            mStrJobTitle = "";
         }
         String employeeId = "";
         if (null!=entity){
@@ -151,7 +160,7 @@ public class UpdateUserInfoActivity extends BaseActivity implements HttpManager.
         }
 
         showLoadingDialog();
-        new HttpManager().post(this, Constants.UPDATE_JOB_TITLE,Result.class, Params
+        new HttpManager().post(this, Constants.UPDATE_USER_NAME,Result.class, Params
                 .updateJobTitle(UpdateUserInfoActivity.this,mStrOrgId,mStrJobTitle,id,employeeId),this,false,1);
     }
 

@@ -6,6 +6,8 @@ import android.media.SoundPool;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.text.Editable;
+import android.text.Selection;
+import android.text.Spannable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Gravity;
@@ -89,6 +91,7 @@ public class AddSignInActivity extends BaseActivity implements HttpManager.OnHtt
     private String tabid;
     private String snippet;
     private String city;
+    private LinearLayout ll_singtag;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,6 +103,8 @@ public class AddSignInActivity extends BaseActivity implements HttpManager.OnHtt
     @Override
     public void initView() {
         super.initView();
+        ll_singtag = (LinearLayout) findViewById(R.id.ll_singtag);
+
         vSelect = (RelativeLayout) findViewById(R.id.vSelect);
         mEtRemark = (EditText) findViewById(R.id.etRemark);
         mTvTime = (TextView) findViewById(R.id.tvTime);
@@ -195,11 +200,15 @@ public class AddSignInActivity extends BaseActivity implements HttpManager.OnHtt
 
             initSigninData();
         }
-
+        CharSequence text = mEtRemark.getText();
         initSignLable();
+        if (!TextUtils.isEmpty(text)) {
+            mEtRemark.requestFocus();
+            mEtRemark.setSelection(mEtRemark.getText().length());
+        }
     }
 
-    private void addLableItem(String lable,boolean isEdite){
+    private void addLableItem(final String lable,boolean isEdite){
         TextView textView = new TextView(getApplicationContext());
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,0);
         textView.setLayoutParams(params);
@@ -214,10 +223,16 @@ public class AddSignInActivity extends BaseActivity implements HttpManager.OnHtt
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (lable.equals("拜访")){
+                        ll_singtag.setVisibility(View.GONE);
+                    }else {
+                        ll_singtag.setVisibility(View.VISIBLE);
+                    }
                     TextView textViewItem = (TextView) v;
                     String lableItem = textViewItem.getText().toString();
                     if(mListLable.contains(lableItem)){
                         mListLable.remove(lableItem);
+                        ll_singtag.setVisibility(View.VISIBLE);
                         textViewItem.setBackgroundResource(R.drawable.biaoqian_dis);
                         textViewItem.setTextColor(getResources().getColor(R.color.blue_3cbaff));
                     }else{
@@ -357,6 +372,9 @@ public class AddSignInActivity extends BaseActivity implements HttpManager.OnHtt
         }
         String orgId = GetUserDepId.getUserDepId(this);
         showLoadingDialog();
+        if (TextUtils.isEmpty(signLable)){
+            signLable = "";
+        }
         new HttpManager().post(this, Constants.CREATE_OR_UPDATA_SIGIN_IN, Result.class,
                 Params.getWorkingParams(AddSignInActivity.this, deviceId, remark, mId, coordinate, address, signLable, orgId),
                 this, false, 4);
@@ -406,7 +424,7 @@ public class AddSignInActivity extends BaseActivity implements HttpManager.OnHtt
                         finish();
                         MActivityManager.getInstance().finishActivity(SelectAddressActivity.class);
                         if(null != mListLable){
-                                if (!TextUtils.isEmpty(mListLable.get(0))&&mListLable.get(0).equals("拜访")){
+                                if (mListLable.size()>0&&!TextUtils.isEmpty(mListLable.get(0))&&mListLable.get(0).equals("拜访")){
                                     intent = new Intent(AddSignInActivity.this, SelfVisitActivity.class);
                                     intent.putExtra("address", mAddressName);
                                     intent.putExtra("longitude", longitude);

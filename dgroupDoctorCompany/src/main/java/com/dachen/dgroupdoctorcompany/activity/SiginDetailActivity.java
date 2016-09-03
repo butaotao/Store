@@ -1,8 +1,10 @@
 package com.dachen.dgroupdoctorcompany.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,6 +22,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by Burt on 2016/6/29.
@@ -96,6 +100,25 @@ public class SiginDetailActivity extends BaseActivity implements HttpManager.OnH
        if (!TextUtils.isEmpty(tag)){
             ll_state.setVisibility(View.VISIBLE);
         }
+        CharSequence text = etRemark.getText();
+        if (!TextUtils.isEmpty(text)) {
+            etRemark.requestFocus();
+            etRemark.setSelection(etRemark.getText().length());
+        }
+        Timer timer = new Timer();
+         timer.schedule(new TimerTask()
+           {
+
+                   public void run()
+                    {
+                            InputMethodManager inputManager =
+                                         (InputMethodManager)etRemark.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                            inputManager.showSoftInput(etRemark, 0);
+                         }
+
+                 },
+                998);
+
     }
     public void upDate(String id,String des){
         showLoadingDialog();
@@ -108,7 +131,9 @@ public class SiginDetailActivity extends BaseActivity implements HttpManager.OnH
                 new HttpManager.OnHttpListener<Result>() {
                     @Override
                     public void onSuccess(Result response) {
+
                         closeLoadingDialog();
+                        finish();
                     }
 
                     @Override

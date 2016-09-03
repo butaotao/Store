@@ -88,7 +88,16 @@ public class TimeUtils {
 
 		return calendar.getTimeInMillis();
 	}
-
+	public static boolean isnoon(long time ) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeInMillis(time);
+		calendar.set(Calendar.HOUR_OF_DAY, 12);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+		long signTime = calendar.getTimeInMillis();;
+		return time>=signTime;
+	}
 	/**
 	 * 判断给定字符串时间是否为今日
 	 * 
@@ -209,6 +218,19 @@ public class TimeUtils {
 		Calendar cale = Calendar.getInstance();
 		// 将Calendar类型转换成Date类型
 		Date tasktime = cale.getTime();
+		// 设置日期输出的格式
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		// 格式化输出
+		return df.format(tasktime);
+	}
+	public static String getTimeDay(long time) {
+		// 使用默认时区和语言环境获得一个日历
+
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeInMillis(time);
+
+		// 将Calendar类型转换成Date类型
+		Date tasktime = calendar.getTime();
 		// 设置日期输出的格式
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		// 格式化输出

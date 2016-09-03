@@ -30,7 +30,7 @@ public class CompanyContactDao {
     private Dao<CompanyContactListEntity, Integer> articleDao;
     private SQLiteHelper helper;
     Context context;
-
+    QueryBuilder<CompanyContactListEntity, Integer> builder;
     public CompanyContactDao(Context context) {
         this.context = context;
         try {
@@ -279,13 +279,22 @@ public class CompanyContactDao {
         }
         return new ArrayList<>();
     }
+    public QueryBuilder<CompanyContactListEntity, Integer> getbuider(int pageNo){
+        if (null==builder){
+            builder = articleDao.queryBuilder();
+            builder.orderBy("pinYinOrderType", true);
+            builder.orderBy("name", true);
+        }
 
+
+        return builder;
+    }
     public List<CompanyContactListEntity> querySearchPage(String name, int pageNo,boolean limit) {
-        QueryBuilder<CompanyContactListEntity, Integer> builder = articleDao.queryBuilder();
+        QueryBuilder<CompanyContactListEntity, Integer> builder = getbuider(pageNo);
         String loginid = SharedPreferenceUtil.getString(context, "id", "");
         boolean ispinyin = false;
         try {
-            if (limit){
+           if (limit){
                 builder.limit(50l).offset((pageNo - 1) * 50l);
             }
             List<CompanyContactListEntity> entities = new ArrayList<>();
@@ -295,10 +304,11 @@ public class CompanyContactDao {
             boolean containsChinese = StringUtils.containsChinese(name);
             boolean isEnglish = StringUtils.isEnglish(name);
             if (isNunicodeDigits){
-                where.reset();
-                builder.orderBy("name", true);
-                if (!name.equals("1")){
-                    where.and(where.eq("userloginid", loginid), where.like("telephone", "%" + name + "%")) ;
+                name = "%" + name + "%";
+                if (!name.equals("%" +"1"+ "%")){
+                /*    builder.orderBy("pinYinOrderType", true);
+                    builder.orderBy("name", true);*/
+                    where.and(where.eq("userloginid", loginid), where.like("telephone", name)) ;
                     if (null != where.query()) {
                         entities.addAll(builder.distinct().query());
                     }
@@ -306,27 +316,39 @@ public class CompanyContactDao {
                         phones.add(entities.get(i).userId);
                     }
                     where.reset();
-                }
-                builder.orderBy("name", true);
-                builder.having("pinYinOrderType");
-                where.and(where.and(where.eq("userloginid", loginid), where.like("name", "%" + name + "%")),
-                        where.notIn("userId", phones));
-                if (null != where.query()) {
-                    entities.addAll(builder.distinct().query());
+                   /* builder.orderBy("pinYinOrderType", true);
+                    builder.orderBy("name", true);*/
+
+                    where.and(where.and(where.eq("userloginid", loginid), where.like("name", name)),
+                            where.notIn("userId", phones));
+                    if (null != where.query()) {
+                        entities.addAll(builder.distinct().query());
+                    }
+                    int size = entities.size();
+                }else {
+                   // builder.reset();
+                    builder.orderBy("pinYinOrderType", true);
+                    builder.orderBy("name", true);
+
+                    where.and(where.eq("userloginid", loginid), where.like("name", name));
+                    if (null != where.query()) {
+                        entities.addAll(builder.distinct().query());
+                    }
+                    int size = entities.size();
                 }
             }else {
                 if (containsChinese){
+                    name = "%" + name + "%";
                     where.reset();
+                    builder.orderBy("pinYinOrderType", true);
                     builder.orderBy("name", true);
-                    where.and(where.eq("userloginid", loginid), where.like("name", "%" + name + "%"));
+                    where.and(where.eq("userloginid", loginid), where.like("name", name));
                     if (null != where.query()) {
                         entities.addAll(builder.distinct().query());
                     }
                     for (int i=0;i<entities.size();i++){
                         phones.add(entities.get(i).userId);
                     }
-
-
                 }else if(isEnglish){
                     where.reset();
                     String s = "";
@@ -342,15 +364,15 @@ public class CompanyContactDao {
                             s = "%" + name + "%";
                         };
                     }
-
+                    builder.orderBy("pinYinOrderType",true);
                     builder.orderBy("simpinyin", true);
-                    where.or(/*where.and(where.eq("userloginid", loginid), where.like("simpinyin", "%" + name + "%"))
-                              ,*/ where.and(where.eq("userloginid", loginid), where.like("simpinyin", s)),
-                            where.and(where.eq("userloginid", loginid), where.like("name", "%" + name + "%")));
+                    where.or(
+                            where.and(where.eq("userloginid", loginid), where.like("name", "%" + name + "%")),
+                            where.and(where.eq("userloginid", loginid), where.like("simpinyin", s)));
                     if (null != where.query()) {
                         entities.addAll(builder.distinct().query());
                     }
-
+                   int size = entities.size();
 
                 }else {
                     where.reset();

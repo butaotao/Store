@@ -176,8 +176,8 @@ public class Params {
 		}
 		params.put("pageIndex",String.valueOf(pageIndex));
 		params.put("pageSize",String.valueOf(pageSize));
-		Log.d("zxy :", "179 : Params : getList : access_token = "+SharedPreferenceUtil.getString(context, "session", ""));
-		Log.d("zxy :", "180 : Params : getList : type = "+type+", "+pageIndex+", "+pageSize);
+		Log.d("zxy :", "179 : Params : getList : access_token = " + SharedPreferenceUtil.getString(context, "session", ""));
+		Log.d("zxy :", "180 : Params : getList : type = " + type + ", " + pageIndex + ", " + pageSize);
 		return params;
 	}
 
@@ -186,7 +186,9 @@ public class Params {
 		params.put("access_token", SharedPreferenceUtil.getString(context, "session", ""));
 		params.put("userId", userid);
 		params.put("orgId", orgId);
-		params.put("newTitle", newTitle);
+		params.put("title", newTitle);
+		params.put("drugCompanyId",
+				SharedPreferenceUtil.getString(context, "enterpriseId", ""));
 		return params;
 	}
 
@@ -211,7 +213,16 @@ public class Params {
 				 SharedPreferenceUtil.getString(context, "enterpriseId", "") );
 		return params;
 	}
-
+	public static Map<String,String>updateUserIcon(Context context,String headPicUrl){
+		Map<String, String> params = getMapInstance();
+		params.put("access_token", SharedPreferenceUtil.getString(context, "session", ""));
+		params.put("userId", SharedPreferenceUtil.getString(context, "id", ""));
+		params.put("headPicUrl", headPicUrl);
+		params.put("employeeId",SharedPreferenceUtil.getString(context, "employeeId", ""));
+		params.put("drugCompanyId",
+				SharedPreferenceUtil.getString(context, "enterpriseId", "") );
+		return params;
+	}
 	public static Map<String,String>getSignDetail(Context context,String id){
 		Map<String, String> params = getMapInstance();
 		params.put("access_token", SharedPreferenceUtil.getString(context, "session", ""));

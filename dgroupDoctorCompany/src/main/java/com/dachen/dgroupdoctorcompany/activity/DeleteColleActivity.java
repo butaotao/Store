@@ -123,10 +123,14 @@ public class DeleteColleActivity extends BaseActivity implements View.OnClickLis
             btn_delete.setBackgroundColor(getResources().getColor(R.color.red_88f95442));
             btn_delete.setFocusable(false);
             btn_delete.setClickable(false);
-            btn_setrepresent.setBackgroundColor(getResources().getColor(R.color.color_8839cf78));
+
             btn_setmanager.setBackgroundColor(getResources().getColor(R.color.color_9ddcff));
-            btn_setrepresent.setFocusable(false);
-            btn_setrepresent.setClickable(false);
+            if (!showControlManager()){
+                btn_setrepresent.setBackgroundColor(getResources().getColor(R.color.color_8839cf78));
+                btn_setrepresent.setFocusable(false);
+                btn_setrepresent.setClickable(false);
+            }
+
             btn_setmanager.setFocusable(false);
             btn_setmanager.setClickable(false);
         }else {

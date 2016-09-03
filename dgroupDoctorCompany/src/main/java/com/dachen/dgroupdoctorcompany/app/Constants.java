@@ -142,7 +142,7 @@ public class Constants {
     public static String GET_MYSIGNEDPAGE = "signed/getMySignedPage";
     public static String GET_VISIT_LIST_TODAY = "signed/getTodaySignedList";
     //修改用户名称
-    public static String UPDATE_USER_NAME = DRUG+"companyUser/updateUserName";
+    public static String UPDATE_USER_NAME = DRUG+"auth/updateOneselfInfo";
     //修改用户职位
     public static String UPDATE_JOB_TITLE = DRUG+"drugCompany/dept/updateUserTitle";
     //删除拜访

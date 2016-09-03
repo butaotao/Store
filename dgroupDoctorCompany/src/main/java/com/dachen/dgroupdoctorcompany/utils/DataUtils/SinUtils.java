@@ -28,10 +28,17 @@ import java.util.Map;
 public class SinUtils {
     public static int sigStep = -1;
     public static String snippets = "";
+    public static String addresss;
+    public static double longituds;
+    public static double latitudes;
+    public static String citys;
+    public static String snippetss;
+    public static String defaltsignLables;
+    public static String tags;
     public static Map<String,String> mapLable2Id = new HashMap<>();
     public static void signDefault(final Activity activity, final String address,
                                    final String coordinate, final String defaltsignLable,
-    final boolean finish, final int type){
+    final int finish, final int type){
 
         if (activity instanceof BaseActivity){
             BaseActivity activity1 = (BaseActivity)activity;
@@ -84,7 +91,7 @@ public class SinUtils {
                 }, false, 4);
     }
     public static void sign(final Activity activity, final String address,
-                            String coordinate, String signLable,String signLabletab, final boolean finish){
+                            String coordinate, String signLable,String signLabletab, final int finish){
         String orgId = GetUserDepId.getUserDepId(activity);
         TelephonyManager TelephonyMgr = (TelephonyManager)activity.getSystemService(activity.TELEPHONY_SERVICE);
         String deviceId = TelephonyMgr.getDeviceId();
@@ -99,12 +106,13 @@ public class SinUtils {
                                 BaseActivity activity1 = (BaseActivity)activity;
                                 activity1.closeLoadingDialog();
                             }
-                            if (finish){
-                                activity.finish();
-                            }else {
+                            if (finish==1){
+
+                            }else if(finish==2){
                                 if (activity instanceof MenuWithFABActivity){
-                                    MenuWithFABActivity activity2 = (MenuWithFABActivity)activity;
-                                    activity2.start();
+                                    /*MenuWithFABActivity activity2 = (MenuWithFABActivity)activity;
+                                    activity2.start();*/
+
                                 }
                             }
 
@@ -136,7 +144,7 @@ public class SinUtils {
     public static void signDefaultvisit(final Activity activity, final String address,
                                    final double longitude, final double latitude,
                                         final String city, final String snippet, final String defaltsignLable,
-                                   final boolean finish){
+                                   final boolean finish,int type){
 
         if (activity instanceof BaseActivity){
             BaseActivity activity1 = (BaseActivity)activity;
@@ -158,8 +166,14 @@ public class SinUtils {
                                         String strLableId = signLableItem.id;
                                         mapLable2Id.put(strLable, strLableId);
                                     }
-                                    signvisit(activity, address, longitude,latitude,city,snippet,
-                                            mapLable2Id.get(defaltsignLable),defaltsignLable, finish);
+                                    longituds = longitude;
+                                    latitudes = latitude;
+                                    citys = city;
+                                    addresss = address;
+                                    defaltsignLables = mapLable2Id.get(defaltsignLable);
+                                    defaltsignLables = defaltsignLable;
+                                    signvisit(activity, address, longitude,latitude,snippet,
+                                            mapLable2Id.get(defaltsignLable), finish,4);
                                 }
                             } else {
                                 ToastUtil.showToast(activity, response.getResultMsg());
@@ -181,8 +195,8 @@ public class SinUtils {
                 }, false, 4);
     }
     public static void signvisit(final Activity activity, final String address, final double longitude,
-                                 final double latitude, final String city, final String snippet,
-                                 String signLable, String signLabletab,final boolean finish){
+                                 final double latitude,   final String snippet,
+                                 String signLable,   final boolean finish , final int type){
         String orgId = GetUserDepId.getUserDepId(activity);
         TelephonyManager TelephonyMgr = (TelephonyManager)activity.getSystemService(activity.TELEPHONY_SERVICE);
         String deviceId = TelephonyMgr.getDeviceId();
@@ -197,14 +211,24 @@ public class SinUtils {
                                 BaseActivity activity1 = (BaseActivity)activity;
                                 activity1.closeLoadingDialog();
                             }
-                            if (finish){
-                                activity.finish();
+                            snippets = snippet;
+
                                 if (activity instanceof SelectAddressActivity){
                                     sigStep = 1;
                                     snippets = snippet;
+                                    activity.finish();
+                                    return;
                                 }
+                            if (type == 4){
+                                    Intent intent = new Intent(activity, SelfVisitActivity.class);
+                                    intent.putExtra("address", SinUtils.addresss);
+                                    intent.putExtra("longitude", SinUtils.longituds);
+                                    intent.putExtra("latitude", SinUtils.latitudes);
+                                    intent.putExtra("addressname", SinUtils.snippets);
+                                    intent.putExtra("mode", CustomerVisitActivity.MODE_FROM_SIGN);
+                                    intent.putExtra("city", citys);
+                                    activity.startActivity(intent);
                             }
-
                         }else {
                             ToastUtil.showToast(activity,response.getResultMsg());
                         }

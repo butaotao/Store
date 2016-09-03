@@ -67,6 +67,7 @@ public class SignInActivity extends BaseActivity implements HttpManager.OnHttpLi
     LocationReceiver receiver;
     public static OftenSignPlaceDao oftenSignPlaceDao;
     GaoDeMapUtils mGaoDeMapUtils;
+    public static String allAddress = "";
     public static final String ACTION = "com.dachen.dgroupdoctorcompany.location";
     static Map<String ,Double> distanceMap = new HashMap<>();
     @Override
@@ -364,6 +365,7 @@ public class SignInActivity extends BaseActivity implements HttpManager.OnHttpLi
                 latitude = aMapLocation.getLatitude();
                 longitude = aMapLocation.getLongitude();
                 address = aMapLocation.getPoiName();
+                allAddress = aMapLocation.getAddress();
                 compareDistance(aMapLocation);
                 city = aMapLocation.getCity();
             }

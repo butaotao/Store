@@ -59,6 +59,7 @@ public class MenuWithFABActivity extends SignInActivity implements View.OnClickL
     public long ytdayOffTime;
     public long ytdayWorkTime;
     public long timeStamp;
+    CustomButtonFragment fragment;
     //adapter_menusign
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,6 +67,7 @@ public class MenuWithFABActivity extends SignInActivity implements View.OnClickL
         View view = View.inflate(this, R.layout.activity_menu_sing, null);
         setContentView(view);
         setTitle("签到");
+        setTitlecolor(getResources().getColor(R.color.white));
         rl_titlebar = (RelativeLayout) findViewById(R.id.rl_titlebar);
         rl_titlebar.setBackgroundColor(getResources().getColor(R.color.color_3cbaff));
         tv_back = (TextView) findViewById(R.id.tv_back);
@@ -79,12 +81,12 @@ public class MenuWithFABActivity extends SignInActivity implements View.OnClickL
         tv_week = (TextView) findViewById(R.id.tv_week);
         tv_time = (TextView) findViewById(R.id.tv_time);
         tv_week.setText(TimeUtils.getWeek(System.currentTimeMillis()));
-        tv_time.setText(TimeUtils.getTimeDay( ));
+        tv_time.setText(TimeUtils.getTimeDay());
         iv_alert = (ImageView) findViewById(R.id.iv_alert);
         refreshScrollView = (PullToRefreshListView) findViewById(R.id.refresh_scroll_view);
         refreshScrollView.setMode(PullToRefreshBase.Mode.BOTH);
         refreshScrollView.setFocusable(false);
-        CustomButtonFragment fragment = new CustomButtonFragment();
+        fragment = new CustomButtonFragment();
         fragment.setActivity(this);
         IntentFilter filter = new IntentFilter();
         filter.addAction("action.to.signlisttoday");
@@ -116,29 +118,7 @@ public class MenuWithFABActivity extends SignInActivity implements View.OnClickL
     protected void onResume() {
         super.onResume();
         getListData();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                if (SinUtils.sigStep == 1){
-                    SinUtils.sigStep = -1;
-                    try {
-                        Thread.sleep(600);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    Intent intent = new Intent(MenuWithFABActivity.this, SelfVisitActivity.class);
-                    intent.putExtra("address", address);
-                    intent.putExtra("longitude", longitude);
-                    intent.putExtra("latitude", latitude);
-                    intent.putExtra("addressname", city + address + SinUtils.snippets);
-                    intent.putExtra("mode", CustomerVisitActivity.MODE_FROM_SIGN);
-                    intent.putExtra("city", city);
-                    startActivity(intent);
-                }
 
-
-            }
-        }).start();
     }
 
     private void getListData() {
@@ -161,6 +141,7 @@ public class MenuWithFABActivity extends SignInActivity implements View.OnClickL
     }
     @Override
     public void onSuccess(Result response) {
+        super.onSuccess(response);
         closeLoadingDialog();
         refreshScrollView.onRefreshComplete();
         if(null!=response){
@@ -173,6 +154,8 @@ public class MenuWithFABActivity extends SignInActivity implements View.OnClickL
                         ytdayOffTime = data.ytdayOffTime;
                         ytdayWorkTime = data.ytdayWorkTime;
                         timeStamp = data.timeStamp;
+                        tv_week.setText(TimeUtils.getWeek(timeStamp));
+                        tv_time.setText(TimeUtils.getTimeDay( timeStamp));
                         int beforeSize = mDataLists.size();
                         if(null != data.signedList && data.signedList.size()>0){
                             if (pageIndex==0){
@@ -204,10 +187,10 @@ public class MenuWithFABActivity extends SignInActivity implements View.OnClickL
                             SinUtils.sigStep = -1;
 
                             Intent intent = new Intent(MenuWithFABActivity.this, SelfVisitActivity.class);
-                            intent.putExtra("address", address);
-                            intent.putExtra("longitude", longitude);
-                            intent.putExtra("latitude", latitude);
-                            intent.putExtra("addressname", city + address + SinUtils.snippets);
+                            intent.putExtra("address", SinUtils.addresss);
+                            intent.putExtra("longitude", SinUtils.longituds);
+                            intent.putExtra("latitude", SinUtils.latitudes);
+                            intent.putExtra("addressname", SinUtils.snippets);
                             intent.putExtra("mode", CustomerVisitActivity.MODE_FROM_SIGN);
                             intent.putExtra("city", city);
                             startActivity(intent);
@@ -242,10 +225,17 @@ public class MenuWithFABActivity extends SignInActivity implements View.OnClickL
             case R.id.btn_sinrecord:
                 Intent signIntent = new Intent(this,SignListActivity.class);
                 startActivity(signIntent);
+                if (null!=fragment&&null!=fragment.circleMenu){
+                    fragment.circleMenu.close(true);
+                }
+
                 break;
             case R.id.iv_stub:
                 Intent intent4 = new Intent(this,SigninRemindActivity.class);
                 startActivity(intent4);
+                if (null!=fragment&&null!=fragment.circleMenu){
+                    fragment.circleMenu.close(true);
+                }
                 break;
         }
     }

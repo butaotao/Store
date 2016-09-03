@@ -19,9 +19,9 @@ import android.view.animation.OvershootInterpolator;
 public class DefaultAnimationHandler extends MenuAnimationHandler {
 
     /** duration of animations, in milliseconds */
-    protected static final int DURATION = 500;
+    protected static final int DURATION = 140;
     /** duration to wait between each of  */
-    protected static final int LAG_BETWEEN_ITEMS = 20;
+    protected static final int LAG_BETWEEN_ITEMS = 100;
     /** holds the current state of animation */
     private boolean animating;
 
@@ -44,7 +44,7 @@ public class DefaultAnimationHandler extends MenuAnimationHandler {
 
             PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat(View.TRANSLATION_X, menu.getSubActionItems().get(i).x - center.x + menu.getSubActionItems().get(i).width / 2);
             PropertyValuesHolder pvhY = PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, menu.getSubActionItems().get(i).y - center.y + menu.getSubActionItems().get(i).height / 2);
-            PropertyValuesHolder pvhR = PropertyValuesHolder.ofFloat(View.ROTATION, 720);
+            PropertyValuesHolder pvhR = PropertyValuesHolder.ofFloat(View.ROTATION, 0);
             PropertyValuesHolder pvhsX = PropertyValuesHolder.ofFloat(View.SCALE_X, 1);
             PropertyValuesHolder pvhsY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 1);
             PropertyValuesHolder pvhA = PropertyValuesHolder.ofFloat(View.ALPHA, 1);
@@ -78,12 +78,13 @@ public class DefaultAnimationHandler extends MenuAnimationHandler {
         for (int i = 0; i < menu.getSubActionItems().size(); i++) {
             PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat(View.TRANSLATION_X, -(menu.getSubActionItems().get(i).x - center.x + menu.getSubActionItems().get(i).width / 2));
             PropertyValuesHolder pvhY = PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, -(menu.getSubActionItems().get(i).y - center.y + menu.getSubActionItems().get(i).height / 2));
-            PropertyValuesHolder pvhR = PropertyValuesHolder.ofFloat(View.ROTATION, -720);
+            PropertyValuesHolder pvhR = PropertyValuesHolder.ofFloat(View.ROTATION,0);
             PropertyValuesHolder pvhsX = PropertyValuesHolder.ofFloat(View.SCALE_X, 0);
             PropertyValuesHolder pvhsY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 0);
             PropertyValuesHolder pvhA = PropertyValuesHolder.ofFloat(View.ALPHA, 0);
 
-            final ObjectAnimator animation = ObjectAnimator.ofPropertyValuesHolder(menu.getSubActionItems().get(i).view, pvhX, pvhY, pvhR, pvhsX, pvhsY, pvhA);
+            final ObjectAnimator animation = ObjectAnimator.ofPropertyValuesHolder(menu.getSubActionItems().get(i).view,
+                    pvhX, pvhY, pvhR, pvhsX, pvhsY, pvhA);
             animation.setDuration(DURATION);
             animation.setInterpolator(new AccelerateDecelerateInterpolator());
             animation.addListener(new SubActionItemAnimationListener(menu.getSubActionItems().get(i), ActionType.CLOSING));

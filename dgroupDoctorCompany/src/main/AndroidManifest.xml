@@ -228,6 +228,9 @@
             android:name=".activity.HowRegisterActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".activity.RegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".activity.AddFriendDesActivity"
             android:screenOrientation="portrait" />
         <activity

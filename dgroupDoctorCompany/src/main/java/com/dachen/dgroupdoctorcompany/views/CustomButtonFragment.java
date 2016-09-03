@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dachen.common.utils.TimeUtils;
@@ -41,6 +43,7 @@ public class CustomButtonFragment  extends Fragment {
     TextView c;
     TextView d;
     long sixTime;
+    FloatingActionButton leftCenterButton;
     MenuWithFABActivity activity;
     public FloatingActionMenu circleMenu;
     TextView tv_alertnotsign;
@@ -64,7 +67,6 @@ public class CustomButtonFragment  extends Fragment {
                 }
             });
             // Our action button is this time just a regular view!
-            final Button centerActionButton = (Button) rootView.findViewById(R.id.centerActionButton);
 
             // Add some items to the menu. They are regular views as well!
             a = new TextView(getActivity());a.setGravity(Gravity.CENTER);
@@ -75,30 +77,59 @@ public class CustomButtonFragment  extends Fragment {
           //  c.setBackgroundResource(R.drawable.class_icon);
              d = new TextView(getActivity()); d.setGravity(Gravity.CENTER);
             d.setBackgroundResource(R.drawable.work_icon);
-            int blueSubActionButtonSize = getResources().getDimensionPixelSize(R.dimen.blue_sub_action_button_size);
-              FrameLayout.LayoutParams tvParams = new FrameLayout.LayoutParams(blueSubActionButtonSize, blueSubActionButtonSize);
+            final int subsize = getResources().getDimensionPixelSize(R.dimen.subs_action_button_size);
+              final FrameLayout.LayoutParams tvParams = new FrameLayout.LayoutParams(subsize, subsize);
             a.setLayoutParams(tvParams);
             b.setLayoutParams(tvParams);
          // c.setLayoutParams(tvParams);
             d.setLayoutParams(tvParams);
+            int blueSubActionButtonSize = getResources().getDimensionPixelSize(R.dimen.blue_sub_action_button_size);
 
-            int blueSubActionButtonContentMargin = getResources().getDimensionPixelSize(R.dimen.blue_sub_action_button_content_margin);
-            FrameLayout.LayoutParams blueParams = new FrameLayout.LayoutParams(blueSubActionButtonSize, blueSubActionButtonSize);
-            SubActionButton.Builder subBuilder = new SubActionButton.Builder(getActivity());
+            int redActionButtonMargin = getResources().getDimensionPixelOffset(R.dimen.action_button_margin);
+            ImageView fabIconStar = new ImageView(activity);
+            final FloatingActionButton.LayoutParams starParams = new FloatingActionButton.LayoutParams(blueSubActionButtonSize, blueSubActionButtonSize);
+            final FloatingActionButton.LayoutParams smallParams = new FloatingActionButton.LayoutParams(subsize, subsize);
+            smallParams.setMargins(redActionButtonMargin,
+                    redActionButtonMargin,
+                    redActionButtonMargin,
+                    redActionButtonMargin);
+            starParams.setMargins(redActionButtonMargin,
+                    redActionButtonMargin,
+                    redActionButtonMargin,
+                    redActionButtonMargin);
+            fabIconStar.setLayoutParams(starParams);
+            int redActionButtonContentMargin = getResources().getDimensionPixelSize(R.dimen.red_action_button_content_margin);
+            int redActionButtonContentSize = getResources().getDimensionPixelSize(R.dimen.red_action_button_content_size);
+            FloatingActionButton.LayoutParams fabIconStarParams =
+                    new FloatingActionButton.LayoutParams(redActionButtonContentSize, redActionButtonContentSize);
+            fabIconStarParams.setMargins(redActionButtonContentMargin,
+                    redActionButtonContentMargin,
+                    redActionButtonContentMargin,
+                    redActionButtonContentMargin);
 
-            circleMenu = new FloatingActionMenu.Builder(getActivity())
-                    .setStartAngle(-160) // A whole circle!
-                    .setEndAngle(-20)
+            leftCenterButton = new FloatingActionButton.Builder(activity)
+                    .setContentView(fabIconStar, fabIconStarParams)
+                    .setBackgroundDrawable(R.drawable.sign_flow_icon)
+                    .setPosition(FloatingActionButton.POSITION_BOTTOM_CENTER)
+                    .setLayoutParams(starParams)
+                    .build();
 
-                    .addSubActionView(a)
-                    .addSubActionView(d)
-                    .addSubActionView(b)
-                    .attachTo(centerActionButton)
+
+
+         circleMenu = new FloatingActionMenu.Builder(getActivity())
+        .setStartAngle(-158) // A whole circle!
+        .setEndAngle(-22)
+        .setRadius(getResources().getDimensionPixelSize(R.dimen.radius_large))
+         .addSubActionView(a)
+         .addSubActionView(d)
+        .addSubActionView(b)
+        .attachTo(leftCenterButton)
                     .build();
             circleMenu.setStateChangeListener(new FloatingActionMenu.MenuStateChangeListener() {
                 @Override
                 public void onMenuOpened(FloatingActionMenu menu) {
-                    centerActionButton.setBackgroundResource(R.drawable.sing_close);
+                    leftCenterButton.setBackgroundResource(R.drawable.sing_close);
+                    leftCenterButton.setPosition(FloatingActionButton.POSITION_BOTTOM_CENTER, smallParams) ;
                     tv_alertnotsign.setVisibility(View.GONE);
                     //activity.timeStamp; 1472594400000  1472594400000
                     long nowTime = activity.timeStamp;
@@ -136,8 +167,8 @@ public class CustomButtonFragment  extends Fragment {
                 }
                 @Override
                 public void onMenuClosed(FloatingActionMenu menu) {
-
-                    centerActionButton.setBackgroundResource(R.drawable.sign_flow_icon);
+                     leftCenterButton.setLayoutParams(starParams);
+                    leftCenterButton.setBackgroundResource(R.drawable.sign_flow_icon);
                 }
             });
             a.setOnClickListener(new myOnclickListener());
@@ -150,6 +181,7 @@ public class CustomButtonFragment  extends Fragment {
 
         @Override
         public void onClick(View v) {
+            activity.compareDistance(activity.longitude,activity.latitude,activity);
             if(v  == a){
                 if (activity.lengh<=activity.allowDistance&&activity.lengh>=0&&!TextUtils.isEmpty(activity.address)){
 
@@ -174,8 +206,8 @@ public class CustomButtonFragment  extends Fragment {
                 }
             }else if(v  == b){
                 if (activity.lengh<=activity.allowDistance&&activity.lengh>=0&&!TextUtils.isEmpty(activity.address)){
-                    SinUtils.signDefault(activity, activity.address,
-                            activity.latitude + "," + activity.longitude, "拜访", true,-1);
+                    SinUtils.signDefaultvisit(activity, activity.address,
+                            activity.longitude, activity.latitude , activity.address,activity.allAddress,  "拜访", false,4);
                 }else {
                    // SinUtils.signDefault(activity, activity.address, activity.latitude + "," + activity.longitude, "拜访", false);
                     choicePlace();
@@ -193,12 +225,13 @@ public class CustomButtonFragment  extends Fragment {
 
         }
     public void workSing(String work,int type){
+
         if (activity.lengh<=activity.allowDistance&&activity.lengh>=0&&!TextUtils.isEmpty(activity.address)){
 
-            SinUtils.signDefault(activity,activity.address,activity.latitude+","+activity.longitude,work,true,-1);
+            SinUtils.signDefault(activity,activity.address,activity.latitude+","+activity.longitude,work,1,-1);
         }else {
             SinUtils.signDefault(activity, activity.address, activity.latitude + "," + activity.longitude,
-                    work, true, type);
+                    work, 1, type);
         }
     }
 

@@ -16,6 +16,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="6dp"
     android:padding="2dp"
+    android:gravity="top"
     android:background="@drawable/btn_bulk_gray3"
     android:lines="4"
     android:id="@+id/et_edit"/>

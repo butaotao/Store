@@ -230,7 +230,7 @@ public class SelectAddressActivity extends BaseActivity implements LocationSourc
                        if (mMode == AddSignInActivity.MODE_VISIT) {
                            if ("signle".equals(type)) {
                                SinUtils.signDefaultvisit(SelectAddressActivity.this,name,
-                                       longitude ,latitude, city,snippet, "拜访", true);
+                                       longitude ,latitude, city,city + address + snippet, "拜访", true,3);
                            } else if ("together".equals(type)) {
                                startVisitGroup(latitude, longitude, (city + address + snippet), name);
                            }else if ("selectVisitPeopleposition".equals(type)){

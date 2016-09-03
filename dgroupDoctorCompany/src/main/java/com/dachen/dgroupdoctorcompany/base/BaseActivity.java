@@ -109,6 +109,12 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
         }
 
     }
+    public void setTitlecolor(int titleColor){
+        if (null!=title){
+            title.setTextColor(titleColor);
+        }
+
+    }
     public void enableBack(){
         if (null!=rl_back){
             rl_back.setOnClickListener(new View.OnClickListener() {

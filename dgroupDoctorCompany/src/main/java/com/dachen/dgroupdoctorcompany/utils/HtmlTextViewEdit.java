@@ -78,8 +78,15 @@ public class HtmlTextViewEdit {
         return ss;
     }
     public static Spanned showkeywordContent(String content,String searchkeyword,Context context,CompanyContactListEntity people) {
-        content = people.allpinyin.trim();
+      if (!TextUtils.isEmpty(people.allpinyin)){
+          content = people.allpinyin.trim();
+      }
+        String simplePin = "";
+        if (!TextUtils.isEmpty(people.simpinyin)){
+            simplePin = people.simpinyin.trim();
+        }
         SpannableString ss = new SpannableString(content);
+
         searchkeyword = searchkeyword.toLowerCase();
         ForegroundColorSpan coloSpan = new ForegroundColorSpan(context.getResources().getColor(R.color.blue));
         ForegroundColorSpan coloSpannormal = new ForegroundColorSpan(context.getResources().getColor(R.color.color_333333));
@@ -87,8 +94,18 @@ public class HtmlTextViewEdit {
         if (simplepinyin.length==0){
             simplepinyin = new String[]{content};
         }
+        boolean finds = false;
+        for (int i=0;i<searchkeyword.length();i++){
+            finds = false;
+            for (int j=i;j<simplepinyin.length;j++){
+                if ((simplepinyin[j]).startsWith(searchkeyword.charAt(i)+"")){
+                    finds = true;
+                }
+            }
+        }
         ArrayList<Data> s =new ArrayList<>();
-        if (content.contains(searchkeyword)){
+
+        if (finds){
             for(int i=0;i<searchkeyword.length();i++){
                 String s3 = searchkeyword.charAt(i)+"";
                 HtmlTextViewEdit edit = new HtmlTextViewEdit();
@@ -137,8 +154,9 @@ public class HtmlTextViewEdit {
 
             content = "("+content+")";
             ss = new SpannableString(content);
-            ss.setSpan(coloSpannormal,  0,  content.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+         //   ss.setSpan(coloSpannormal,  0,  content.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             for (int m = 0;m<s.size();m++){
+                coloSpan = new ForegroundColorSpan(context.getResources().getColor(R.color.blue));
                 ss.setSpan(coloSpan, s.get(m).begindata+1, s.get(m).enddata+1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
         }else {

@@ -109,6 +109,7 @@ public class SearchContactActivity extends BaseActivity implements OnClickListen
     public boolean showColleague;
     public boolean showAll;
     public int  SHOWCONTENT;
+    RefreshDataInterface refreshDataInterface;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -200,14 +201,17 @@ public class SearchContactActivity extends BaseActivity implements OnClickListen
 
         company = new ArrayList<>();
         doctors = new ArrayList<>();
-        adapter = new SearchContactAdapter(this,R.layout.adapter_searchcontact,hospitals,company,doctors, new RefreshDataInterface() {
+        refreshDataInterface = new RefreshDataInterface() {
             @Override
             public void refreshData() {
-                rl_search.setVisibility(View.VISIBLE);
-                iv_search.setBackgroundResource(R.drawable.arrow_left);
-                finish = false;
+                if(null!=search&&search.size()>0){
+                    rl_search.setVisibility(View.VISIBLE);
+                    iv_search.setBackgroundResource(R.drawable.arrow_left);
+                    finish = false;
+                }
             }
-        },seachdoctor);
+        };
+        adapter = new SearchContactAdapter(this,R.layout.adapter_searchcontact,hospitals,company,doctors, refreshDataInterface,seachdoctor);
         adapter.setisShowMore(true);
         bottom_bar = (LinearLayout) findViewById(R.id.bottom_bar);
         bottom_bar.setVisibility(View.GONE);
@@ -262,44 +266,26 @@ public class SearchContactActivity extends BaseActivity implements OnClickListen
 
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                arg2 = arg2 -1;
+                arg2 = arg2 - 1;
                 if (adapter.getItem(arg2) instanceof CompanyContactListEntity) {
                     CompanyContactListEntity info = (CompanyContactListEntity) adapter.getItem(arg2);
                     // 在这里编写自己想要实现的功能
                     if (selectMode == 1) {          //新建同事对话搜索
                         Intent intent = new Intent();
                         intent.putExtra("data", adapter.getItem(arg2));
-                        setResult(RESULT_OK,intent);
+                        setResult(RESULT_OK, intent);
                         finish();
-                        /*BaseSearch contact = adapter.getItem(arg2);
-                        CompanyContactListEntity c2 = null;
-                        CompanyDepment.Data.Depaments c1 = null;
-                        if (contact instanceof CompanyContactListEntity) {
-                            c2 = (CompanyContactListEntity) (contact);
-                            if (c2.select) {
-                                c2.select = false;
-                                horizonList.remove(c2);
-                            } else {
-                                c2.select = true;
-                                if ( !groupUsers.contains(c2) &&!c2.userId.equals(SharedPreferenceUtil.getString(SearchContactActivity.this, "id", ""))) {
-                                    CommonUitls.addCompanyContactListEntity(c2);
-                                }
-                            }
-                            company.set(arg2, c2);
-                            adapter.notifyDataSetChanged();
-                            addAdapter.notifyDataSetChanged();
-                            btn_add.setText("开始(" + horizonList.size() + ")");
-                        }*/
 
-                    } else  if (selectMode != 1){
-                        Intent intent = new Intent(SearchContactActivity.this,ColleagueDetailActivity.class);
+
+                    } else if (selectMode != 1) {
+                        Intent intent = new Intent(SearchContactActivity.this, ColleagueDetailActivity.class);
                         Bundle bundle = new Bundle();
-                        bundle.putSerializable("peopledes",info);
-                        intent.putExtra("peopledes",bundle);
+                        bundle.putSerializable("peopledes", info);
+                        intent.putExtra("peopledes", bundle);
                         startActivity(intent);
                     }
 
-                }else if(adapter.getItem(arg2) instanceof Doctor){
+                } else if (adapter.getItem(arg2) instanceof Doctor) {
                     Doctor info = (Doctor) adapter.getItem(arg2);
                     // 在这里编写自己想要实现的功能
                     mDoctorId = info.userId;
@@ -317,6 +303,7 @@ public class SearchContactActivity extends BaseActivity implements OnClickListen
             }
         });
         page = 1;
+
     }
     @Override
     protected void onResume() {
@@ -593,34 +580,23 @@ public class SearchContactActivity extends BaseActivity implements OnClickListen
                 }
             }
 
-            adapter = new SearchContactAdapter(this,R.layout.adapter_searchcontact,hospitals,company,doctors, new RefreshDataInterface() {
-                @Override
-                public void refreshData() {
-                    rl_search.setVisibility(View.VISIBLE);
-                    iv_search.setBackgroundResource(R.drawable.arrow_left);
-                    finish = false;
-                }
-            },seachdoctor);
+
             adapter.setContact(company);
             adapter.setDoctors(doctors);
             adapter.setPartSize(company.size());
             adapter.sethospitalSize(doctors.size());
             adapter.setisShowMore(true);
-            listview.setAdapter(adapter);
+
+            adapter.notifyDataSetChanged();
             btn_add.setText("开始(" + searches.size() + ")");
         }else {
             hospitals.clear();
-            adapter = new SearchContactAdapter(this,R.layout.adapter_searchcontact,hospitals,company,doctors, new RefreshDataInterface() {
-                @Override
-                public void refreshData() {
-
-                }
-            },seachdoctor);
+        ;
             adapter.setContact(company);
             adapter.setDoctors(doctors);
             adapter.setPartSize(company.size());
             adapter.sethospitalSize(doctors.size());
-            listview.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
             rl_noresult.setVisibility(View.VISIBLE);
             tv_noresult.setText("没有”" + keyword + "“的相关搜索结果");
             btn_add.setText("开始(" + "0)");

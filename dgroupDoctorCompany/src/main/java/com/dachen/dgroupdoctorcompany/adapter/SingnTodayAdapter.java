@@ -109,7 +109,11 @@ public class SingnTodayAdapter extends android.widget.BaseAdapter{
             childHolder.tvdes.setText(listVisitVo.remark);
         }
         if (0!=listVisitVo.longTime){
-            childHolder.tvTime.setText(TimeUtils.getTimesHourMinute(listVisitVo.longTime));
+            String destime = "上午";
+            if (TimeUtils.isnoon(listVisitVo.longTime)){
+                destime = "下午";
+            }
+            childHolder.tvTime.setText(destime +" "+TimeUtils.getTimesHourMinute(listVisitVo.longTime));
         }else {
             childHolder.tvTime.setText("");
         }
