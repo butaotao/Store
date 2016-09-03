@@ -2,6 +2,7 @@ package com.dachen.dgroupdoctorcompany.adapter;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,13 +62,13 @@ public class SingnInListsAdapter extends BaseAdapter<SignInLists> {
             childHolder  = (ChildHolder) convertView.getTag();
         }*/
         SignInLists.DataBean.PageDataBean pageDataBean = mDataLists.get(position);
-
+        Log.d("zxy :", "64 : SingnInListsAdapter : getView : pageDataBean"+pageDataBean.address);
         if(null!=pageDataBean){
             String type = pageDataBean.tag.get(0);
             String headPic = pageDataBean.headPic;
             String doctorname = pageDataBean.userName;
             String remark = pageDataBean.remark;
-            long time = pageDataBean.time;
+            long time = pageDataBean.longTime;
 
             if("1".equals(type)){//如果是上班签到
                 childHolder.ivPicture.setBackgroundResource(R.drawable.icon_sign);

@@ -76,6 +76,7 @@ public class OrgActivity extends BaseActivity implements HttpManager.OnHttpListe
         setContentView(layoutView);
         initView();
         initData();
+        setTitle("选择部门");
     }
 
     @Override
@@ -125,7 +126,7 @@ public class OrgActivity extends BaseActivity implements HttpManager.OnHttpListe
                     }else{
                         mOrgListGuilde.setOldPosition();
                         mOrgListGuilde.addTask(depaments.name,depaments.name);
-                        setTitle(depaments.name);
+                      //  setTitle(depaments.name);
                         mOrgListGuilde.notifyDataSetChanged();
                         mDepamentsList = depaments.subList;
                         mOrgSelectAdapter.update(mDepamentsList);
@@ -145,10 +146,10 @@ public class OrgActivity extends BaseActivity implements HttpManager.OnHttpListe
         });
         String title = this.getIntent().getStringExtra("title");
         if(TextUtils.isEmpty(title)){
-            setTitle("选择部门");
+           // setTitle("选择部门");
             getOrganization();
         }else{
-            setTitle(title);
+           // setTitle(title);
             mDepamentsList.clear();
             mDepamentsList = this.getIntent().getParcelableArrayListExtra("list");
             count = this.getIntent().getIntExtra("count",1);
@@ -275,7 +276,7 @@ public class OrgActivity extends BaseActivity implements HttpManager.OnHttpListe
             finish();
             return;
         }if (mDepamentsStack.size() == 2) {  //公司页面
-            setTitle("选择部门");
+           // setTitle("选择部门");
             mOrgListGuilde.reMoveTask();
             mDepamentsList = mDepamentsStack.get(mStackCount - 2);
             mDepamentsStack.remove(mStackCount-1);
@@ -288,7 +289,7 @@ public class OrgActivity extends BaseActivity implements HttpManager.OnHttpListe
         }
         mOrgListGuilde.setOldPosition();
         String title = mOrgListGuilde.getListGuide().get(mOrgListGuilde.getListGuide().size()-1);
-        setTitle(title);
+       // setTitle(title);
         mStackCount--;
        // Log.d("zxy", "backtofront: 4  mStackCount = "+mStackCount);
         mOrgSelectAdapter.update(mDepamentsList);
@@ -316,7 +317,7 @@ public class OrgActivity extends BaseActivity implements HttpManager.OnHttpListe
         mOrgListGuilde.addBackTask(position);
         mOrgListGuilde.notifyDataSetChanged();
         String title = mOrgListGuilde.getListGuide().get(mOrgListGuilde.getListGuide().size()-1);
-        setTitle(title);
+       // setTitle(title);
     }
 
     @Override

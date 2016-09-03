@@ -80,7 +80,8 @@ public class NetworkErrorView extends RelativeLayout implements View.OnClickList
             //intent = new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS);
         } else {
             intent = new Intent();
-            intent.setClassName("com.android.settings", "com.android.settings.WIFI_SETTINGS");
+            intent.setClassName("com.android.settings", "com.android.settings.WIRELESS_SETTINGS");
+           // intent.setClassName("com.android.settings", "com.android.settings.WIFI_SETTINGS");
         }
         mContext.startActivity(intent);
 
