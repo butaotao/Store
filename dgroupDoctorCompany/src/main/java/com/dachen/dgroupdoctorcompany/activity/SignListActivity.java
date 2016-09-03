@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.dachen.common.utils.ToastUtil;
@@ -16,15 +17,13 @@ import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.adapter.SingnInListsAdapter;
 import com.dachen.dgroupdoctorcompany.app.Constants;
 import com.dachen.dgroupdoctorcompany.base.BaseActivity;
-import com.dachen.dgroupdoctorcompany.entity.SignInList;
 import com.dachen.dgroupdoctorcompany.entity.SignInLists;
 import com.dachen.dgroupdoctorcompany.utils.UserInfo;
 import com.dachen.medicine.entity.Result;
 import com.dachen.medicine.net.HttpManager;
 import com.dachen.medicine.net.Params;
-import com.handmark.pulltorefresh.library.PinnedHeaderExpandableListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshPinHeaderExpandableListView;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,10 +31,10 @@ import java.util.List;
 /**
  * Created by weiwei on 2016/4/5.
  */
-public class SignListActivity extends BaseActivity implements HttpManager.OnHttpListener<Result>,PullToRefreshBase.OnRefreshListener2<PinnedHeaderExpandableListView>, ExpandableListView.OnChildClickListener, ExpandableListView.OnGroupClickListener {
+public class SignListActivity extends BaseActivity implements HttpManager.OnHttpListener<Result>,AdapterView.OnItemClickListener {
     private static final int                    REQUEST_UPDATE_SIGN_IN = 101;
-    private ExpandableListView                  mLvSign;
-    private PullToRefreshPinHeaderExpandableListView mVSignin;
+    private ListView mLvSign;
+    private PullToRefreshListView mVSignin;
     private TextView                            mTvAll;
     private TextView                            mTvWorking;
     private TextView                            mTvVisit;
@@ -63,7 +62,7 @@ public class SignListActivity extends BaseActivity implements HttpManager.OnHttp
     @Override
     public void initView() {
         super.initView();
-        mVSignin = (PullToRefreshPinHeaderExpandableListView) findViewById(R.id.vSignin);
+        mVSignin = (PullToRefreshListView) findViewById(R.id.vSignin);
         mTvAll = (TextView) findViewById(R.id.tvAll);
         mTvWorking = (TextView) findViewById(R.id.tvWorking);
         mTvVisit = (TextView) findViewById(R.id.tvVisit);
@@ -80,9 +79,7 @@ public class SignListActivity extends BaseActivity implements HttpManager.OnHttp
         mTvVisit.setOnClickListener(this);
         mVSignin.setMode(PullToRefreshBase.Mode.BOTH);
         mVSignin.setFocusable(false);
-        mVSignin.getRefreshableView().setOnChildClickListener(this);
-        mVSignin.getRefreshableView().setOnGroupClickListener(this);
-        mVSignin.getRefreshableView().setOnGroupClickListener(this, false);
+        mVSignin.getRefreshableView().setOnItemClickListener(this);
         mVSignin.setDescendantFocusability(ExpandableListView.FOCUS_AFTER_DESCENDANTS);
         tvMore.setOnClickListener(this);
         tvMore.setVisibility(View.GONE);
@@ -109,12 +106,28 @@ public class SignListActivity extends BaseActivity implements HttpManager.OnHttp
                 startActivity(intent);
             }
         });
-        mVSignin.setOnRefreshListener(this);
+        mVSignin.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                pageIndex = 0;
+                mDataLists.clear();
+                getListData();
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                pageIndex++;
+                mDataLists.clear();
+                getListData();
+            }
+        });
         mVSignin.setEmptyView(findViewById(R.id.empty_container));
         if(UserInfo.getInstance(SignListActivity.this).isMediePresent()){
+            Log.d("zxy :", "126 : SignListActivity : initData : VISIBLE");
             mVType.setVisibility(View.VISIBLE);
         }else{
-            mVType.setVisibility(View.GONE);
+            Log.d("zxy :", "129 : SignListActivity : initData : GONE");
+            //mVType.setVisibility(View.GONE);
         }
         getListData();
     }
@@ -182,10 +195,11 @@ public class SignListActivity extends BaseActivity implements HttpManager.OnHttp
         if(null!=response){
             SignInLists signInList = (SignInLists) response;
             SignInLists.DataBean data = signInList.data;
+
             Log.d("zxy :", "184 : SignListActivity : onSuccess : data"+data);
             if(null != data ){
                 int beforeSize = mDataLists.size();
-                Log.d("zxy :", "186 : SignListActivity : onSuccess : data"+mDataLists.size());
+                Log.d("zxy :", "186 : SignListActivity : onSuccess : data"+mDataLists.size()+", data.pageData.size() = "+data.pageData.size());
                 if(null != data.pageData && data.pageData.size()>0){
                     Log.d("zxy :", "189 : SignListActivity : onSuccess : data.dataList"+data.pageData);
                     Log.d("zxy :", "190 : SignListActivity : onSuccess : data.dataList"+data.pageData.get(0));
@@ -230,7 +244,7 @@ public class SignListActivity extends BaseActivity implements HttpManager.OnHttp
     public void onFailure(Exception e, String errorMsg, int s) {
         ToastUtil.showErrorNet(SignListActivity.this);
     }
-
+/*
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<PinnedHeaderExpandableListView> refreshView) {
         pageIndex = 0;
@@ -243,9 +257,9 @@ public class SignListActivity extends BaseActivity implements HttpManager.OnHttp
         pageIndex++;
         mDataLists.clear();
         getListData();
-    }
+    }*/
 
-    @Override
+ /*   @Override
     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int
             childPosition, long id) {
         SignInList.Data.DataList.ListVisitVo  listVisitVo = (SignInList.Data.DataList
@@ -319,7 +333,7 @@ public class SignListActivity extends BaseActivity implements HttpManager.OnHttp
     public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
         return true;
     }
-/*
+*//*
     private void setExpandableListView(){
         for (int i = 0; i < mAdapter.getGroupCount(); i++) {
             mLvSign.expandGroup(i);
@@ -335,5 +349,73 @@ public class SignListActivity extends BaseActivity implements HttpManager.OnHttp
             mAdapter.notifyDataSetChanged();
             getListData();
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        SignInLists.DataBean.PageDataBean dataBean = (SignInLists.DataBean.PageDataBean) parent.getAdapter().getItem
+                (position);
+
+        String type = dataBean.tag.get(0);
+        if("1".equals(type)){
+
+            String strId = dataBean.signedId;
+            String address = dataBean.address;
+            address = dataBean.address;
+            long time = dataBean.longTime;
+            coordinate = dataBean.coordinate;
+            String remark = dataBean.remark;
+            List<String> lable = dataBean.tag;
+            Intent intent = new Intent(SignListActivity.this,AddSignInActivity.class);
+            intent.putExtra("id",strId);
+            intent.putExtra("address",address);
+            intent.putExtra("time",time);
+            intent.putExtra("coordinate",coordinate);
+            intent.putExtra("remark",remark);
+            if(null != lable && lable.size()>0){
+                intent.putStringArrayListExtra("lable", (ArrayList<String>) lable);
+            }
+            intent.putExtra("mode",AddSignInActivity.MODE_WORKING);
+            startActivityForResult(intent,REQUEST_UPDATE_SIGN_IN);
+        }else {
+            Intent intent = null;
+            if("0".equals(dataBean.tag.get(0))){
+                intent = new Intent(SignListActivity.this, SelfVisitActivity.class);
+                intent.putExtra("mode",SelfVisitActivity.MODE_FROM_SIGN_LIST);
+            }else if("2".equals(dataBean.tag.get(0))){
+                intent = new Intent(SignListActivity.this, JointVisitActivity.class);
+                intent.putExtra("mode",JointVisitActivity.MODE_FROM_SIGN_LIST);
+            }
+            String mid = dataBean.signedId;
+            long time = dataBean.longTime;
+            String name = dataBean.userName;
+            String address = dataBean.address;
+            address = dataBean.address;
+            String addressName = dataBean.address;
+            String doctorname = dataBean.userName;
+            String remark = dataBean.remark;
+            coordinate = dataBean.coordinate;
+            String doctorid = dataBean.signedId;
+            //String state = dataBean.state;
+            intent.putExtra("id", mid);
+            intent.putExtra("name", name);
+            intent.putExtra("address", address);
+            intent.putExtra("addressname", addressName);
+            intent.putExtra("doctorName", doctorname);
+            intent.putExtra("doctorId", doctorid);
+            intent.putExtra("remark", remark);
+            intent.putExtra("coordinate", coordinate);
+            if(coordinate.contains(",")){
+                String[] array = coordinate.split(",");
+                String latitude = array[0];
+                String longitude = array[1];
+                intent.putExtra("latitude", Double.valueOf(latitude));
+                intent.putExtra("longitude", Double.valueOf(longitude));
+            }
+            intent.putExtra("time", time);
+            intent.putExtra("doctorid", doctorid);
+            startActivity(intent);
+        }
+
     }
 }

@@ -545,7 +545,7 @@ public class SelectPeopleActivity extends BaseActivity implements HttpManager.On
                         CompanyDepment.Data.Depaments entity = (CompanyDepment.Data.Depaments) list.get(0);
                         if (null != listsTitle && listsTitle.size() > 0 && null != entity && entity.parentId != null && null != listsTitle.get(entity.parentId)
                                 && null != listsTitle.get(entity.parentId).name) {
-                            setTitle(listsTitle.get(entity.parentId).name + "");
+                           // setTitle(listsTitle.get(entity.parentId).name + "");
                         } else {
                             setTitle("选择联系人");
                         }

@@ -101,7 +101,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <com.handmark.pulltorefresh.library.PullToRefreshPinHeaderExpandableListView
+        <com.handmark.pulltorefresh.library.PullToRefreshListView
             xmlns:pull="http://schemas.android.com/apk/res-auto"
             android:id="@+id/vSignin"
             android:layout_width="match_parent"
@@ -116,7 +116,7 @@
             android:scrollbars="none"
             pull:ptrAnimationStyle="flip" >
 
-        </com.handmark.pulltorefresh.library.PullToRefreshPinHeaderExpandableListView>
+        </com.handmark.pulltorefresh.library.PullToRefreshListView>
         <LinearLayout
             android:id="@+id/empty_container"
             android:layout_width="match_parent"
