@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.dachen.common.async.SimpleResultListenerV2;
+import com.dachen.common.utils.CommonUtils;
 import com.dachen.common.utils.Logger;
 import com.dachen.common.utils.ToastUtil;
 import com.dachen.dgroupdoctorcompany.R;
@@ -199,7 +200,7 @@ public class SessionListViewV2 extends ListView {
         dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM,WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
         View v= LayoutInflater.from(context).inflate(R.layout.msg_menu,null);
         List<String> items=new ArrayList<>();
-        if (!SessionGroupId.auth_request_doctor.equals(po.bizType)) {
+        if (hasTop(po)) {
             items.add(po.top==0?ITEM_TOP:ITEM_NO_TOP);
         }
         items.add(ITEM_DEL);
@@ -210,6 +211,13 @@ public class SessionListViewV2 extends ListView {
         dialog.setCanceledOnTouchOutside(true);
         menuDialog=dialog;
         dialog.show();
+    }
+    private boolean hasTop(ChatGroupPo po){
+        if(SessionGroupId.auth_request_doctor.equals(po.groupId) )
+            return false;
+        if("pub_customer".equals(po.bizType)||"pub_org".equals(po.bizType))
+            return false;
+        return true;
     }
 
     private class MenuClickListener implements OnItemClickListener{
@@ -246,7 +254,10 @@ public class SessionListViewV2 extends ListView {
 
             @Override
             public void onError(String msg) {
-                ToastUtil.showToast(context,"请求失败 "+msg);
+                if(!CommonUtils.checkNetworkEnable(context)){
+                    ToastUtil.showToast(context,"网络好像不给力");
+                }else
+                    ToastUtil.showToast(context,"请求失败 "+msg);
             }
         });
     }

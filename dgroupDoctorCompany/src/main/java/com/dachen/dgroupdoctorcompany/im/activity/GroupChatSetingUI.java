@@ -52,6 +52,7 @@ import com.dachen.dgroupdoctorcompany.im.adapter.GroupChatSetingAdapter;
 import com.dachen.dgroupdoctorcompany.im.bean.UpdateGroup2Bean;
 import com.dachen.dgroupdoctorcompany.im.events.AddGroupUserEvent;
 import com.dachen.dgroupdoctorcompany.utils.CallIntent;
+import com.dachen.dgroupdoctorcompany.views.DialogGetPhote;
 import com.dachen.gallery.CustomGalleryActivity;
 import com.dachen.gallery.GalleryAction;
 import com.dachen.imsdk.HttpErrorCode;
@@ -72,6 +73,7 @@ import com.dachen.imsdk.net.UploadEngine7Niu;
 import com.dachen.imsdk.service.ImRequestManager;
 import com.dachen.imsdk.utils.CameraUtil;
 import com.dachen.imsdk.utils.ImUtils;
+import com.dachen.medicine.common.utils.ToastUtils;
 import com.dachen.medicine.entity.Result;
 import com.dachen.medicine.entity.User;
 import com.dachen.medicine.volley.custom.ObjectResult;
@@ -106,6 +108,8 @@ public class GroupChatSetingUI extends ImBaseActivity {
     public static final int REQUEST_CODE_EDIT_TEXT = 10002;
     public static final int REQUEST_CODE_AVATAR = 10003;
     public static final int REQUEST_CODE_CROP_PIC = 10004;
+    private static final int REQUEST_CODE_CAMERA = 10005;
+    private static final int REQUEST_CODE_PICK_GALLERY = 10006;
 
     public static final String Key_groupId = "key_groupId";
     public static final String Key_NO_ADD = "key_no_add";
@@ -189,6 +193,7 @@ public class GroupChatSetingUI extends ImBaseActivity {
     private boolean mIsSetPatientInfo;
 
     private ChatGroupDao dao;
+    private DialogGetPhote mPicDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -342,7 +347,16 @@ public class GroupChatSetingUI extends ImBaseActivity {
         }
         // 执行获取任务
         executeObtainTask();
-
+        mPicDialog=new DialogGetPhote(this,new DialogGetPhote.OnClickListener(){
+            @Override
+            public void btnPhotoClick(View v) {
+                selectPhoto();
+            }
+            @Override
+            public void btnCameraClick(View v) {
+                takePhoto();
+            }
+        });
     }
 
     /**
@@ -709,7 +723,7 @@ public class GroupChatSetingUI extends ImBaseActivity {
         } else if (requestCode == REQUEST_CODE_EDIT_TEXT) {
             groupName = data.getStringExtra(SmallEditViewUI.key_text);
             executeUpdateTask(whatChangeGroupNameTask);
-        }else if(requestCode==REQUEST_CODE_AVATAR){
+        }else if(requestCode==REQUEST_CODE_PICK_GALLERY){
             String[] all_path = data.getStringArrayExtra(GalleryAction.INTENT_ALL_PATH);
             if (all_path == null||all_path.length==0) return;
             Uri o = Uri.fromFile(new File(all_path[0]));
@@ -721,6 +735,14 @@ public class GroupChatSetingUI extends ImBaseActivity {
                 uploadAvatar(mNewPhotoUri.getPath());
             } else {
                 ToastUtil.showToast(mThis, R.string.c_crop_failed);
+            }
+        }else if(requestCode==REQUEST_CODE_CAMERA){
+            if (mNewPhotoUri != null) {
+                Uri o = mNewPhotoUri;
+                mNewPhotoUri = CameraUtil.getOutputMediaFileUri(this, CameraUtil.MEDIA_TYPE_IMAGE);
+                CameraUtil.cropImage(this, o, mNewPhotoUri, REQUEST_CODE_CROP_PIC, 1, 1, 300, 300);
+            } else {
+                ToastUtils.showToast( mThis,R.string.c_photo_album_failed);
             }
         }
     }
@@ -1164,7 +1186,17 @@ public class GroupChatSetingUI extends ImBaseActivity {
 
     @OnClick(R.id.layout_avatar)
     void onClickLayoutAvatar() {
-        CustomGalleryActivity.openUi(mThis,false, REQUEST_CODE_AVATAR);
+//        CustomGalleryActivity.openUi(mThis,false, REQUEST_CODE_AVATAR);
+        mPicDialog.show();
+    }
+
+    private void selectPhoto() {
+        CustomGalleryActivity.openUi(this, false, REQUEST_CODE_PICK_GALLERY);
+    }
+
+    private void takePhoto() {
+        mNewPhotoUri = CameraUtil.getOutputMediaFileUri(this, CameraUtil.MEDIA_TYPE_IMAGE);
+        CameraUtil.captureImage(this, mNewPhotoUri, REQUEST_CODE_CAMERA);
     }
 
     private void uploadAvatar(String path){
