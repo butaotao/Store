@@ -10,6 +10,7 @@ import android.text.Selection;
 import android.text.Spannable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,6 +93,8 @@ public class AddSignInActivity extends BaseActivity implements HttpManager.OnHtt
     private String snippet;
     private String city;
     private LinearLayout ll_singtag;
+    private long serverTime;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -153,6 +156,7 @@ public class AddSignInActivity extends BaseActivity implements HttpManager.OnHtt
         mMode = this.getIntent().getIntExtra("mode", MODE_WORKING);
         mSignMode = this.getIntent().getIntExtra("singmode",-1);
         tabid = this.getIntent().getStringExtra("tabid");
+        serverTime = this.getIntent().getLongExtra("time",0);
         snippet = getIntent().getStringExtra("snippet");
         city = getIntent().getStringExtra("city");
         if (mSignMode ==  AddSignInActivity.SIGN_OFFWORKING){
@@ -169,7 +173,7 @@ public class AddSignInActivity extends BaseActivity implements HttpManager.OnHtt
         }
         mId = this.getIntent().getStringExtra("id");
         allow = getIntent().getBooleanExtra("allow",false);
-        if(TextUtils.isEmpty(mId)){//说明当前是添加签到
+        if(TextUtils.isEmpty(mId)){   //说明当前是添加签到
             latitude = this.getIntent().getDoubleExtra("latitude",0);
             longitude = this.getIntent().getDoubleExtra("longitude", 0);
             String latitu = this.getIntent().getStringExtra("latitude");
@@ -185,7 +189,9 @@ public class AddSignInActivity extends BaseActivity implements HttpManager.OnHtt
             coordinate = mStrLatitude+","+mStrLongitude;
             mAddressName = this.getIntent().getStringExtra("name");
             mTvAddress.setText(mAddressName);
-            initCurrentDate(0);
+            long timeStamp = this.getIntent().getLongExtra("time",0);
+            Log.d("zxy :", "188 : AddSignInActivity : initData : timeStamp = "+timeStamp);
+            initCurrentDate(serverTime);
             mBtSubmit.setText("签到完成");
             setClickable(true);
 

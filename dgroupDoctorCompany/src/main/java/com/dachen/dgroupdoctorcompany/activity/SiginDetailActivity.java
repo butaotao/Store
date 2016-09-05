@@ -47,7 +47,7 @@ public class SiginDetailActivity extends BaseActivity implements HttpManager.OnH
         ll_state = (LinearLayout) findViewById(R.id.ll_state);
         ll_sign_tag = (LinearLayout) findViewById(R.id.ll_sign_tag);
         enableBack();
-        setTitle("考勤打卡");
+        setTitle("签到详情");
         tvDate = (TextView) findViewById(R.id.tvDate);
         tvTime = (TextView) findViewById(R.id.tvTime);
         etRemark = (EditText) findViewById(R.id.etRemark);

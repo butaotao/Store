@@ -22,6 +22,19 @@
         android:layout_height="1px"
         android:background="@color/color_grayline1dp" />
 
+<!--    <ListView
+        android:id="@+id/lv_appcenter"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+    </ListView>-->
+<!--    <android.support.v7.widget.RecyclerView
+        android:id="@+id/lv_appcenter"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>-->
+
     <RelativeLayout
         android:id="@+id/rl_sign_in"
         android:layout_width="match_parent"

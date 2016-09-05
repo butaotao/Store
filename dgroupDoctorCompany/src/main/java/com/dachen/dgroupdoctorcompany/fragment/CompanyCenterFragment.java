@@ -2,10 +2,11 @@ package com.dachen.dgroupdoctorcompany.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ExpandableListView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -16,9 +17,12 @@ import com.dachen.dgroupdoctorcompany.activity.MenuWithFABActivity;
 import com.dachen.dgroupdoctorcompany.activity.RecordActivity;
 import com.dachen.dgroupdoctorcompany.activity.VisitListActivity;
 import com.dachen.dgroupdoctorcompany.activity.WebActivityForCompany;
+import com.dachen.dgroupdoctorcompany.adapter.AppcenterAdapter;
 import com.dachen.dgroupdoctorcompany.db.dbdao.DepAdminsListDao;
 import com.dachen.dgroupdoctorcompany.entity.H5Url;
 import com.dachen.dgroupdoctorcompany.utils.UserInfo;
+import com.dachen.dgroupdoctorcompany.views.GuiderDialog;
+import com.dachen.medicine.common.utils.SharedPreferenceUtil;
 import com.dachen.medicine.entity.Result;
 import com.dachen.medicine.net.HttpManager.OnHttpListener;
 
@@ -29,8 +33,7 @@ import butterknife.ButterKnife;
 /**
  * Created by Burt on 2016/2/18.
  */
-public class CompanyCenterFragment extends BaseFragment implements ExpandableListView.OnChildClickListener,
-        View.OnClickListener ,OnHttpListener{
+public class CompanyCenterFragment extends BaseFragment implements OnHttpListener, View.OnClickListener {
     private View mRootView;
 
     TextView tv_login_title;
@@ -39,6 +42,8 @@ public class CompanyCenterFragment extends BaseFragment implements ExpandableLis
     RelativeLayout rl_sign_in;
     RelativeLayout rl_singrecord;
     DepAdminsListDao dao;
+    private ListView mLvAppCenter;
+    private AppcenterAdapter mAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,16 +53,16 @@ public class CompanyCenterFragment extends BaseFragment implements ExpandableLis
                 R.layout.activity_companycenter, null);
         ButterKnife.bind(mActivity);
         dao = new DepAdminsListDao(mActivity);
+        tv_login_title = (TextView) mRootView.findViewById(R.id.tv_title);
+        tv_login_title.setText("企业中心");
+        mRootView.findViewById(R.id.rl_back).setVisibility(View.INVISIBLE);
         mRootView.findViewById(R.id.rl_companycontact).setOnClickListener(this);
         mRootView.findViewById(R.id.rl_conferencemangerment).setOnClickListener(this);
         rl_singrecord = (RelativeLayout) mRootView.findViewById(R.id.rl_singrecord);
         rl_singrecord.setOnClickListener(this);
-        rl_companycontact = (RelativeLayout) mRootView.findViewById(R.id.rl_companycontact);
-        rl_litterApp = (RelativeLayout) mRootView.findViewById(R.id.rl_litterapp);
+         rl_companycontact = (RelativeLayout) mRootView.findViewById(R.id.rl_companycontact);
+         rl_litterApp = (RelativeLayout) mRootView.findViewById(R.id.rl_litterapp);
         rl_litterApp.setOnClickListener(this);
-        tv_login_title = (TextView) mRootView.findViewById(R.id.tv_title);
-        tv_login_title.setText("企业中心");
-        mRootView.findViewById(R.id.rl_back).setVisibility(View.INVISIBLE);
         if (UserInfo.getInstance(mActivity).isMediePresent()){
             rl_companycontact.setVisibility(View.VISIBLE);
         }else {
@@ -67,9 +72,17 @@ public class CompanyCenterFragment extends BaseFragment implements ExpandableLis
         if (dao.queryByUserId()==null||dao.queryByUserId().size()==0){
             rl_singrecord.setVisibility(View.GONE);
         }
-//        rl_companycontact.setVisibility(View.GONE);
+        rl_companycontact.setVisibility(View.GONE);
         rl_sign_in = (RelativeLayout) mRootView.findViewById(R.id.rl_sign_in);
         rl_sign_in.setOnClickListener(this);
+        String context_token = SharedPreferenceUtil.getString(getActivity(), "context_token", "");
+        String userId = SharedPreferenceUtil.getString(getActivity(), "id", "");
+        String drugCompanyId = SharedPreferenceUtil.getString(getActivity(), "enterpriseId", "");
+        Log.d("zxy :", "69 : CompanyCenterFragment : onCreateView : context = " + context_token + ", userId" + userId
+                + ", drugCompanyId" +drugCompanyId );
+       // mLvAppCenter = (ListView) mRootView.findViewById(R.id.lv_appcenter);
+       // mAdapter = new AppcenterAdapter(mActivity);
+       // mLvAppCenter.setAdapter(mAdapter);
         return mRootView;
     }
 
@@ -81,10 +94,6 @@ public class CompanyCenterFragment extends BaseFragment implements ExpandableLis
 
     }
 
-    @Override
-    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-        return false;
-    }
 
     @Override
     public void onClick(View v) {
@@ -104,8 +113,8 @@ public class CompanyCenterFragment extends BaseFragment implements ExpandableLis
                 break;
             case R.id.rl_sign_in:
                 showLoadingDialog();
-               /* GuiderDialog dialog = new GuiderDialog(mActivity);
-                dialog.show();*/
+                GuiderDialog dialog = new GuiderDialog(mActivity);
+                dialog.show();
                 /*Intent signIntent = new Intent(mActivity,SignInActivity.class);
                 startActivity(signIntent);*/
                 Intent signIntent = new Intent(mActivity,MenuWithFABActivity.class);
@@ -131,12 +140,12 @@ public class CompanyCenterFragment extends BaseFragment implements ExpandableLis
 
     @Override
     public void onSuccess(Result response) {
-        if(null != response){
-            if(response instanceof H5Url){
+        if (null != response) {
+            if (response instanceof H5Url) {
                 H5Url h5Url = (H5Url) response;
                 String url = h5Url.resultMsg;
                 Intent intentContact = new Intent(mActivity, WebActivityForCompany.class);
-                intentContact.putExtra("url",url);
+                intentContact.putExtra("url", url);
                 startActivity(intentContact);
             }
         }

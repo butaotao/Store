@@ -118,6 +118,8 @@ public class JointVisitActivity extends BaseActivity implements View.OnClickList
     private TextView  del_desp;
     private LinearLayout ll_showmapdes;
     boolean etRemarkEnable = false;//拜访记录是否可编辑
+    private long mTime;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -310,7 +312,7 @@ public class JointVisitActivity extends BaseActivity implements View.OnClickList
             if(response instanceof VisitMemberResponse){
                 if(response.getResultCode() == 1){
                     VisitMember member = ((VisitMemberResponse) response).getData().getVisit();
-                    long time = member.getTime();
+                    mTime = member.getTime();
                     mStrAddress = member.getAddress();
                     address = member.getAddressName();
                     mStrFloor = member.getAddressName();
@@ -327,7 +329,7 @@ public class JointVisitActivity extends BaseActivity implements View.OnClickList
                     tv_address.setText(mStrAddress);
                     tvSelected.setText(mStrDoctorName);
                     etRemark.setText(remark);
-                    Date date = new Date(time);
+                    Date date = new Date(mTime);
                     String strDate = TimeFormatUtils.china_format_date(date);
                     String strWeek = TimeFormatUtils.week_format_date(date);
                     strTime = TimeFormatUtils.time_format_date(date);
@@ -394,14 +396,14 @@ public class JointVisitActivity extends BaseActivity implements View.OnClickList
                     }
                     long timeMillis = System.currentTimeMillis();
                     SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
-                    String sp_time = sf.format(time);
+                    String sp_time = sf.format(mTime);
                     String current_time = sf.format(timeMillis);
                     if(!sp_time.equals(current_time)){//不是同一天，不可编辑
                         del_desp.setVisibility(View.INVISIBLE);
                         tv_title_save.setVisibility(View.GONE);
-                        selectedPicture.remove(ADDPIC);
+                        //selectedPicture.remove(ADDPIC);
                         mAdapter.notifyDataSetChanged();
-                        desp2.setVisibility(View.GONE);
+                        //desp2.setVisibility(View.GONE);
                         variety_arrow.setVisibility(View.INVISIBLE);
                         name_arrow.setVisibility(View.INVISIBLE);
                         variety_ray.setEnabled(false);
@@ -633,7 +635,10 @@ public class JointVisitActivity extends BaseActivity implements View.OnClickList
     private void setRemarkEnable() {
         if (etRemarkEnable) {
             etRemark.setEnabled(true);
+            desp2.setVisibility(View.VISIBLE);
         }else {
+            desp2.setVisibility(View.GONE);
+            selectedPicture.remove(ADDPIC);
             etRemark.setEnabled(false);
         }
     }

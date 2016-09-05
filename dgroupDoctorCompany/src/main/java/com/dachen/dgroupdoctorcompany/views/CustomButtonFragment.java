@@ -3,7 +3,6 @@ package com.dachen.dgroupdoctorcompany.views;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -15,23 +14,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.dachen.common.utils.TimeUtils;
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.activity.AddSignInActivity;
-import com.dachen.dgroupdoctorcompany.activity.CustomerVisitActivity;
 import com.dachen.dgroupdoctorcompany.activity.MenuWithFABActivity;
 import com.dachen.dgroupdoctorcompany.activity.SelectAddressActivity;
-import com.dachen.dgroupdoctorcompany.activity.SelfVisitActivity;
-import com.dachen.dgroupdoctorcompany.activity.SignInActivity;
-import com.dachen.dgroupdoctorcompany.app.Constants;
-import com.dachen.dgroupdoctorcompany.utils.DataUtils.GetUserDepId;
 import com.dachen.dgroupdoctorcompany.utils.DataUtils.SinUtils;
 import com.dachen.dgroupdoctorcompany.utils.HtmlTextViewEdit;
 import com.dachen.medicine.common.utils.SharedPreferenceUtil;
-import com.dachen.medicine.entity.Result;
-import com.dachen.medicine.net.HttpManager;
-import com.dachen.medicine.net.Params;
-import com.dachen.medicine.view.*;
 import com.dachen.medicine.view.CustomDialog;
 
 /**
@@ -196,6 +185,7 @@ public class CustomButtonFragment  extends Fragment {
                     Intent intent = new Intent(activity,SelectAddressActivity.class);
                     intent.putExtra("mode",AddSignInActivity.MODE_WORKING);
                     intent.putExtra("poi",activity.POI);
+                    intent.putExtra("time",activity.timeStamp);//传入服务器时间
                     intent.putExtra("distance",activity.distance);
                     intent.putExtra("latitude",activity.latitude);
                     intent.putExtra("longitude",activity.longitude);
@@ -240,6 +230,7 @@ public class CustomButtonFragment  extends Fragment {
         intent2.putExtra("mode",AddSignInActivity.MODE_VISIT);
         intent2.putExtra("type","signle");
         intent2.putExtra("poi",activity.POI);
+        intent2.putExtra("time",activity.timeStamp);//传入服务器时间
         intent2.putExtra("distance",activity.distance);
         intent2.putExtra("latitude",activity.latitude);
         intent2.putExtra("longitude",activity.longitude);

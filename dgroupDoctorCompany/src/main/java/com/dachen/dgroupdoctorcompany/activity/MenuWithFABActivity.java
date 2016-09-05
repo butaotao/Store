@@ -1,7 +1,5 @@
 package com.dachen.dgroupdoctorcompany.activity;
 
-import android.app.Activity;
-import android.app.Fragment;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -9,10 +7,8 @@ import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.util.Log;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -22,22 +18,16 @@ import com.dachen.common.utils.ToastUtil;
 import com.dachen.dgroupdoctorcompany.R;
 import com.dachen.dgroupdoctorcompany.adapter.SingnTodayAdapter;
 import com.dachen.dgroupdoctorcompany.app.Constants;
-import com.dachen.dgroupdoctorcompany.base.BaseActivity;
-import com.dachen.dgroupdoctorcompany.entity.SignInList;
 import com.dachen.dgroupdoctorcompany.entity.SignTodayInList;
 import com.dachen.dgroupdoctorcompany.utils.DataUtils.SinUtils;
 import com.dachen.dgroupdoctorcompany.utils.TitleManager;
 import com.dachen.dgroupdoctorcompany.views.CustomButtonFragment;
-import com.dachen.dgroupdoctorcompany.views.FloatingActionButton;
-import com.dachen.dgroupdoctorcompany.views.FloatingActionMenu;
-import com.dachen.dgroupdoctorcompany.views.SubActionButton;
 import com.dachen.medicine.common.utils.TimeUtils;
 import com.dachen.medicine.entity.Result;
 import com.dachen.medicine.net.HttpManager;
 import com.dachen.medicine.net.Params;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -129,10 +119,13 @@ public class MenuWithFABActivity extends SignInActivity implements View.OnClickL
                 this, false, 4);
     }
     public void start(){
+        Log.d("zxy :", "142 : MenuWithFABActivity : start : start");
         Intent intent2 = new Intent(this,SelectAddressActivity.class);
         intent2.putExtra("mode",AddSignInActivity.MODE_VISIT);
         intent2.putExtra("type","signle");
         intent2.putExtra("poi",this.POI);
+        intent2.putExtra("time",timeStamp);
+        Log.d("zxy :", "149 : MenuWithFABActivity : start : timeStamp"+timeStamp);
         intent2.putExtra("distance",this.distance);
         intent2.putExtra("latitude",this.latitude);
         intent2.putExtra("longitude",this.longitude);
@@ -191,6 +184,7 @@ public class MenuWithFABActivity extends SignInActivity implements View.OnClickL
                             intent.putExtra("longitude", SinUtils.longituds);
                             intent.putExtra("latitude", SinUtils.latitudes);
                             intent.putExtra("addressname", SinUtils.snippets);
+                            intent.putExtra("time",timeStamp);
                             intent.putExtra("mode", CustomerVisitActivity.MODE_FROM_SIGN);
                             intent.putExtra("city", city);
                             startActivity(intent);
@@ -266,6 +260,7 @@ public class MenuWithFABActivity extends SignInActivity implements View.OnClickL
         intent.putExtra("poi",POI);
         intent.putExtra("singmode",type);
         intent.putExtra("tabid",tabid);
+        intent.putExtra("time",timeStamp);
         intent.putExtra("distance",distance);
         intent.putExtra("latitude",latitude);
         intent.putExtra("longitude",longitude);

@@ -23,15 +23,19 @@ import java.util.List;
  * @Author: zxy on 16/9/2下午5:48.
  * @描述 TODO
  */
-public class SingnInListsAdapter extends BaseAdapter<SignInLists> {
+public class SingnInListsAdapter extends android.widget.BaseAdapter {
     private List<SignInLists.DataBean.PageDataBean> mDataLists = new ArrayList<>();
+    private Context mContext;
 
     public SingnInListsAdapter(Context context) {
-        super(context);
+       // super(context);
+        mContext = context;
     }
 
-    public SingnInListsAdapter(Context context, List<SignInLists> data) {
-        super(context, data);
+    public SingnInListsAdapter(Context context, List<SignInLists.DataBean.PageDataBean> data) {
+       // super(context, data);
+        mContext = context;
+        mDataLists = data;
     }
 
 
@@ -45,7 +49,24 @@ public class SingnInListsAdapter extends BaseAdapter<SignInLists> {
     }
 
     @Override
+    public int getCount() {
+        Log.d("zxy :", "52 : SingnInListsAdapter : getCount : getCount"+mDataLists.size());
+        return mDataLists.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return mDataLists.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        Log.d("zxy :", "69 : SingnInListsAdapter : getView : SingnInListsAdapter");
         ChildHolder childHolder;
         //   if(null == convertView){
         childHolder  = new ChildHolder();
@@ -62,7 +83,6 @@ public class SingnInListsAdapter extends BaseAdapter<SignInLists> {
             childHolder  = (ChildHolder) convertView.getTag();
         }*/
         SignInLists.DataBean.PageDataBean pageDataBean = mDataLists.get(position);
-        Log.d("zxy :", "64 : SingnInListsAdapter : getView : pageDataBean"+pageDataBean.address);
         if(null!=pageDataBean){
             String type = pageDataBean.tag.get(0);
             String headPic = pageDataBean.headPic;
@@ -70,20 +90,7 @@ public class SingnInListsAdapter extends BaseAdapter<SignInLists> {
             String remark = pageDataBean.remark;
             long time = pageDataBean.longTime;
 
-            if("1".equals(type)){//如果是上班签到
-                childHolder.ivPicture.setBackgroundResource(R.drawable.icon_sign);
-                childHolder.tvName.setText("考勤打卡");
-                String address = pageDataBean.address;
-                childHolder.tvAddress.setText(address);
-
-                List<String> listLable = pageDataBean.tag;
-                if(null!=listLable && listLable.size()>0){
-                    childHolder.tvLable.setVisibility(View.VISIBLE);
-                    childHolder.tvLable.setText(listLable.get(0));
-                }else{
-                    childHolder.tvLable.setVisibility(View.GONE);
-                }
-            }else if("0".equals(type)){//独立拜访
+            if("拜访".equals(type)){//如果是上班签到
                 String address = pageDataBean.address;
                 if(TextUtils.isEmpty(address)){
                     address = pageDataBean.address;
@@ -92,8 +99,8 @@ public class SingnInListsAdapter extends BaseAdapter<SignInLists> {
                 childHolder.ivPicture.setBackgroundResource(R.drawable.icon_signle_visit);
 //                         CustomImagerLoader.getInstance().loadImage(childHolder.ivPicture, headPic,
 //                                R.drawable.baifang, R.drawable.baifang);
-
-                if(TextUtils.isEmpty(pageDataBean.address)){
+                //TODO ????
+                if(TextUtils.isEmpty(pageDataBean.userName)){
                     childHolder.tvName.setText("不记名拜访");
                 }else{
                     childHolder.tvName.setText("拜访 "+doctorname);
@@ -101,7 +108,7 @@ public class SingnInListsAdapter extends BaseAdapter<SignInLists> {
 
                 childHolder.tvLable.setVisibility(View.GONE);
 
-            }else if("2".equals(type)){//协同拜访
+            }else if("协同拜访".equals(type)){//协同拜访
                 String address = pageDataBean.address;
                 if(TextUtils.isEmpty(address)){
                     address = pageDataBean.address;
@@ -119,6 +126,19 @@ public class SingnInListsAdapter extends BaseAdapter<SignInLists> {
 
                 childHolder.tvLable.setVisibility(View.VISIBLE);
                 childHolder.tvLable.setText("协同");
+            }else /*if("上班".equals(type))*/{//独立拜访
+                childHolder.ivPicture.setBackgroundResource(R.drawable.icon_sign);
+                childHolder.tvName.setText("考勤打卡");
+                String address = pageDataBean.address;
+                childHolder.tvAddress.setText(address);
+
+                List<String> listLable = pageDataBean.tag;
+                if(null!=listLable && listLable.size()>0){
+                    childHolder.tvLable.setVisibility(View.VISIBLE);
+                    childHolder.tvLable.setText(listLable.get(0));
+                }else{
+                    childHolder.tvLable.setVisibility(View.GONE);
+                }
             }
 //                if(TextViewUtils.isEmpty(remark)){
 //                    childHolder.vRemark.setVisibility(View.GONE);

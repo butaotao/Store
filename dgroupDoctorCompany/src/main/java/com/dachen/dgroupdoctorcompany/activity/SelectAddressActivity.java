@@ -1,6 +1,5 @@
 package com.dachen.dgroupdoctorcompany.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -111,6 +110,8 @@ public class SelectAddressActivity extends BaseActivity implements LocationSourc
     private String fromActivity;
     private String tabid;
     long nowtime;
+    private long mTime;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -136,6 +137,7 @@ public class SelectAddressActivity extends BaseActivity implements LocationSourc
                 intent.putExtra("name", SignInActivity.address);
                 intent.putExtra("longitude", longitude);
                 intent.putExtra("latitude", latitude);
+                intent.putExtra("time", mTime);
                 intent.putExtra("mode", AddSignInActivity.MODE_WORKING);
                 intent.putExtra("allow",true);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -144,6 +146,7 @@ public class SelectAddressActivity extends BaseActivity implements LocationSourc
             }
         }
     }
+
     public void initViews() {
         super.initView();
         setTitle("选择地点");
@@ -164,6 +167,7 @@ public class SelectAddressActivity extends BaseActivity implements LocationSourc
     }
 
    private void  initData(){
+       mTime = getIntent().getLongExtra("time", 0);
        mMode = this.getIntent().getIntExtra("mode",AddSignInActivity.MODE_WORKING);
        mSelectedMode = this.getIntent().getIntExtra("select_mode",MODE_SELECT);
        type = this.getIntent().getStringExtra("type");
@@ -215,6 +219,7 @@ public class SelectAddressActivity extends BaseActivity implements LocationSourc
                    String snippet = poiItem.getSnippet();
                    Intent intent = new Intent();
                    intent.putExtra("name", name);
+                   intent.putExtra("time", mTime);
                    intent.putExtra("longitude", longitude);
                    intent.putExtra("latitude", latitude);
                    setResult(RESULT_OK,intent);
@@ -253,6 +258,7 @@ public class SelectAddressActivity extends BaseActivity implements LocationSourc
                                intent.putExtra("latitude", latitude);
                                intent.putExtra("mode", mMode);
                                intent.putExtra("city",city);
+                               intent.putExtra("time", mTime);
                                intent.putExtra("snippet",snippet);
                                intent.putExtra("singmode",singmode);
                                intent.putExtra("tabid",tabid);
@@ -272,6 +278,7 @@ public class SelectAddressActivity extends BaseActivity implements LocationSourc
                         latitude = poiItem.getLatLonPoint().getLatitude();
                        intent.putExtra("longitude", longitude);
                        intent.putExtra("latitude", latitude);
+                       intent.putExtra("time", mTime);
                        intent.putExtra("floor", name);
                        intent.putExtra("address", city + address + snippet);
                        setResult(RESULT_OK, intent);

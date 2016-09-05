@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.telephony.TelephonyManager;
 
 import com.dachen.common.utils.ToastUtil;
-import com.dachen.dgroupdoctorcompany.activity.AddSignInActivity;
 import com.dachen.dgroupdoctorcompany.activity.CustomerVisitActivity;
 import com.dachen.dgroupdoctorcompany.activity.MenuWithFABActivity;
 import com.dachen.dgroupdoctorcompany.activity.SelectAddressActivity;

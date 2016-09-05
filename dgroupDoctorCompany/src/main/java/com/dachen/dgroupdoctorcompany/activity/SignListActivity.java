@@ -2,11 +2,9 @@ package com.dachen.dgroupdoctorcompany.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -33,7 +31,7 @@ import java.util.List;
  */
 public class SignListActivity extends BaseActivity implements HttpManager.OnHttpListener<Result>,AdapterView.OnItemClickListener {
     private static final int                    REQUEST_UPDATE_SIGN_IN = 101;
-    private ListView mLvSign;
+    //private ListView mLvSign;
     private PullToRefreshListView mVSignin;
     private TextView                            mTvAll;
     private TextView                            mTvWorking;
@@ -79,8 +77,8 @@ public class SignListActivity extends BaseActivity implements HttpManager.OnHttp
         mTvVisit.setOnClickListener(this);
         mVSignin.setMode(PullToRefreshBase.Mode.BOTH);
         mVSignin.setFocusable(false);
-        mVSignin.getRefreshableView().setOnItemClickListener(this);
-        mVSignin.setDescendantFocusability(ExpandableListView.FOCUS_AFTER_DESCENDANTS);
+        mVSignin.setOnItemClickListener(this);
+        mVSignin.setDescendantFocusability(ListView.FOCUS_AFTER_DESCENDANTS);
         tvMore.setOnClickListener(this);
         tvMore.setVisibility(View.GONE);
     }
@@ -88,9 +86,10 @@ public class SignListActivity extends BaseActivity implements HttpManager.OnHttp
     private void initData(){
         setTitle("签到记录");
         mAdapter = new SingnInListsAdapter(SignListActivity.this);
-        mLvSign = mVSignin.getRefreshableView();
-        mLvSign.setAdapter(mAdapter);
-        mLvSign.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+       // mLvSign = mVSignin.getRefreshableView();
+       // mLvSign.setAdapter(mAdapter);
+        mVSignin.setAdapter(mAdapter);
+        /*mVSignin.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(SignListActivity.this,MapDetailActivity.class);
@@ -105,7 +104,7 @@ public class SignListActivity extends BaseActivity implements HttpManager.OnHttp
                 }
                 startActivity(intent);
             }
-        });
+        });*/
         mVSignin.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
@@ -136,9 +135,6 @@ public class SignListActivity extends BaseActivity implements HttpManager.OnHttp
         new HttpManager().post(this, Constants.GET_MYSIGNEDPAGE, SignInLists.class,
                 Params .getList(SignListActivity.this,type,pageIndex,pageSize),
                 this,false,4);
-//        String url = "http://192.168.3.7:8082/visit/getList";
-//        new HttpManager().requestBase(Request.Method.GET,url,this,SignInList.class, Params
-//                .getList(SignListActivity.this,type,pageIndex,pageSize),this,false,1);
     }
 
     @Override
@@ -190,19 +186,13 @@ public class SignListActivity extends BaseActivity implements HttpManager.OnHttp
 
     @Override
     public void onSuccess(Result response) {
-        Log.d("zxy :", "178 : SignListActivity : onSuccess : response");
         mVSignin.onRefreshComplete();
         if(null!=response){
             SignInLists signInList = (SignInLists) response;
             SignInLists.DataBean data = signInList.data;
-
-            Log.d("zxy :", "184 : SignListActivity : onSuccess : data"+data);
             if(null != data ){
                 int beforeSize = mDataLists.size();
-                Log.d("zxy :", "186 : SignListActivity : onSuccess : data"+mDataLists.size()+", data.pageData.size() = "+data.pageData.size());
                 if(null != data.pageData && data.pageData.size()>0){
-                    Log.d("zxy :", "189 : SignListActivity : onSuccess : data.dataList"+data.pageData);
-                    Log.d("zxy :", "190 : SignListActivity : onSuccess : data.dataList"+data.pageData.get(0));
                     mDataLists.addAll(data.pageData);
 //                    findViewById(R.id.empty_view).setVisibility(View.GONE);
                 }else{
@@ -210,7 +200,6 @@ public class SignListActivity extends BaseActivity implements HttpManager.OnHttp
 //                        findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
 //                    }
                 }
-
                 if(pageIndex==0){
                     mAdapter.addData(mDataLists,true);
                 }else{
@@ -353,36 +342,14 @@ public class SignListActivity extends BaseActivity implements HttpManager.OnHttp
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        SignInLists.DataBean.PageDataBean dataBean = (SignInLists.DataBean.PageDataBean) parent.getAdapter().getItem
-                (position);
-
+        SignInLists.DataBean.PageDataBean dataBean = mDataLists.get(position-1);// position 从1开始???醉了!!!
         String type = dataBean.tag.get(0);
-        if("1".equals(type)){
-
-            String strId = dataBean.signedId;
-            String address = dataBean.address;
-            address = dataBean.address;
-            long time = dataBean.longTime;
-            coordinate = dataBean.coordinate;
-            String remark = dataBean.remark;
-            List<String> lable = dataBean.tag;
-            Intent intent = new Intent(SignListActivity.this,AddSignInActivity.class);
-            intent.putExtra("id",strId);
-            intent.putExtra("address",address);
-            intent.putExtra("time",time);
-            intent.putExtra("coordinate",coordinate);
-            intent.putExtra("remark",remark);
-            if(null != lable && lable.size()>0){
-                intent.putStringArrayListExtra("lable", (ArrayList<String>) lable);
-            }
-            intent.putExtra("mode",AddSignInActivity.MODE_WORKING);
-            startActivityForResult(intent,REQUEST_UPDATE_SIGN_IN);
-        }else {
+        if("拜访".equals(type)||"协同拜访".equals(type)){
             Intent intent = null;
-            if("0".equals(dataBean.tag.get(0))){
+            if("拜访".equals(type)){
                 intent = new Intent(SignListActivity.this, SelfVisitActivity.class);
                 intent.putExtra("mode",SelfVisitActivity.MODE_FROM_SIGN_LIST);
-            }else if("2".equals(dataBean.tag.get(0))){
+            }else if("协同拜访".equals(type)){
                 intent = new Intent(SignListActivity.this, JointVisitActivity.class);
                 intent.putExtra("mode",JointVisitActivity.MODE_FROM_SIGN_LIST);
             }
@@ -415,6 +382,27 @@ public class SignListActivity extends BaseActivity implements HttpManager.OnHttp
             intent.putExtra("time", time);
             intent.putExtra("doctorid", doctorid);
             startActivity(intent);
+        }else {
+            String strId = dataBean.signedId;
+            String address = dataBean.address;
+            address = dataBean.address;
+            long time = dataBean.longTime;
+            coordinate = dataBean.coordinate;
+            String remark = dataBean.remark;
+            List<String> lable = dataBean.tag;
+            Intent intent = new Intent(SignListActivity.this,AddSignInActivity.class);
+            intent.putExtra("id",strId);
+            intent.putExtra("address",address);
+            intent.putExtra("time",time);
+            intent.putExtra("coordinate",coordinate);
+            intent.putExtra("remark",remark);
+            Log.d("zxy :", "376 : SignListActivity : onItemClick : id = "+strId+", "+address+", "+time+", "+coordinate+", "+remark);
+            if(null != lable && lable.size()>0){
+                intent.putStringArrayListExtra("lable", (ArrayList<String>) lable);
+            }
+            intent.putExtra("mode",AddSignInActivity.MODE_WORKING);
+            startActivityForResult(intent,REQUEST_UPDATE_SIGN_IN);
+
         }
 
     }
