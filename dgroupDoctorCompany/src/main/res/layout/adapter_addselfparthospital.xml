@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+    <RelativeLayout android:layout_width="fill_parent"
+        android:layout_height="56dp"
+        android:id="@+id/rl_item">
+        <ImageView android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="18dp"
+            android:id="@+id/iv_delete"
+            android:background="@drawable/delete_hospital"
+            android:button="@null"
+            android:layout_alignParentRight="true"
+            />
+        <TextView android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/color_666666"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:id="@+id/tv_name"
+            android:ellipsize="end"
+            android:text="@string/null_info"
+            android:layout_toLeftOf="@+id/iv_delete"
+            android:layout_marginRight="10dp"
+
+            android:singleLine="true"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1.0dp"
+            android:id="@+id/line1"
+            android:background="@color/divide_line_color"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="15dp"></View>
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/container"
+    android:fitsSystemWindows="true"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <include android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        layout="@layout/layout_parent_titlebar_groupcompany"
+        android:id="@+id/layout_titlebar"></include>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_titlebar"
+            android:id="@+id/rl_des"
+            android:paddingBottom="20dp"
+            android:background="@color/color_3cbaff">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/null_info"
+                android:textColor="@color/white"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/tv_week"
+                android:textSize="36dp"/>
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/iv_alert"
+                android:visibility="gone"
+                android:background="@drawable/notsetalarm"
+                android:layout_alignBottom="@+id/tv_week"
+                android:layout_toRightOf="@+id/tv_week"
+                android:layout_toEndOf="@+id/tv_week"
+                android:layout_marginLeft="5dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#e1f2fb"
+                android:textSize="14sp"
+                android:text="@string/null_info"
+                android:id="@+id/tv_time"
+
+                android:layout_below="@+id/tv_week"
+                android:layout_alignLeft="@+id/tv_week"
+                android:layout_alignStart="@+id/tv_week" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_alignParentRight="true"
+                android:text="签到记录"
+                android:textColor="@color/color_3cbaff"
+                android:id="@+id/btn_sinrecord"
+                android:background="@drawable/btn_whtie_all"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_toLeftOf="@+id/btn_sinrecord"
+                android:text="团队统计"
+                android:textColor="@color/color_3cbaff"
+                android:id="@+id/btn_teamrecord"
+                android:background="@drawable/btn_whtie_all"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"/>
+        </RelativeLayout>
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/refresh_scroll_view"
+        android:layout_below="@+id/rl_des"
+        android:layout_width="match_parent"
+        android:scrollbars="none"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:divider="@color/background"
+        android:layout_height="match_parent">
+    </com.handmark.pulltorefresh.library.PullToRefreshListView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="4">
+
+
+        </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@drawable/signtoday_background"
+                android:layout_weight="1">
+
+
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</FrameLayout>

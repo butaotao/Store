@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/layout_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:id="@+id/ll_firstitem"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@color/color_background"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_below="@+id/ll_firstitem"
+            android:background="@color/white">
+
+            <ImageView
+                android:id="@+id/iv_icon"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/head_icons_company" />
+
+            <ImageView
+                android:id="@+id/iv_edit"
+                android:layout_width="20dp"
+                android:layout_height="25dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/editcustomer" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/iv_icon"
+                android:layout_marginTop="2dp"
+                android:layout_toLeftOf="@+id/iv_edit"
+                android:layout_toRightOf="@+id/iv_icon"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="@string/null_info"
+                android:textColor="@color/color_333333"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_depart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_name"
+                android:layout_toLeftOf="@+id/iv_edit"
+                android:layout_toRightOf="@+id/iv_icon"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textColor="@color/color_aaaaaa"
+                android:textSize="13sp" />
+
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_dividerline1"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="10dip"
+        android:background="@color/divide_line_color"/>
+
+</LinearLayout>

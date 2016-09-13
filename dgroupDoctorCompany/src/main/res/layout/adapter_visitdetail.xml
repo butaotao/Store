@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:text=""
+            android:textColor="@color/gray_999999"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/iv_people"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/head_icons_company" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="18dp"
+            android:layout_toRightOf="@+id/iv_people"
+            android:singleLine="true"
+            android:text=""
+            android:layout_marginRight="130dp"
+            android:ellipsize="end"
+            android:textSize="16sp"
+            android:textColor="@color/black_333333"
+            />
+
+        <TextView
+            android:id="@+id/tv_des"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_people"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:paddingBottom="3dp"
+            android:textColor="@color/black_333333"
+            android:textSize="14sp"
+            android:text=""/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_des"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp">
+
+            <GridView
+                android:id="@+id/horizonlistview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:horizontalSpacing="15dp"
+                android:numColumns="4"
+                android:scrollbars="none"
+                android:smoothScrollbar="true"
+                android:stretchMode="columnWidth"
+                android:paddingBottom="3dp"
+                />
+        </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>

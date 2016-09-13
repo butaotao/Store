@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/function_box_bg"
+        android:orientation="vertical"
+        android:layout_marginRight="10dip"
+        android:paddingTop="6dp"
+        >
+
+        <RelativeLayout
+            android:id="@+id/rl_scan"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:layout_weight="1" >
+
+            <ImageView
+                android:id="@+id/iv_scan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@drawable/chat_whit_workmate" />
+
+            <TextView
+                android:id="@+id/scan_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dip"
+                android:layout_toRightOf="@id/iv_scan"
+                android:text="新建同事会话"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:id="@+id/iv_line1"
+            android:background="#BBBBBB" />
+
+        <RelativeLayout
+            android:id="@+id/rl_find"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            >
+
+
+            <ImageView
+                android:id="@+id/iv_find"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@drawable/chat_whit_doctor" />
+
+            <TextView
+                android:id="@+id/search_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dip"
+                android:layout_toRightOf="@id/iv_find"
+                android:text="新建医生会话"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

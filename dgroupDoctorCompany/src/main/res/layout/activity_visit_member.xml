@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/layout_parent_titlebar_groupcompany"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/color_grayline1dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <com.dachen.dgroupdoctorcompany.views.NoScrollGridView
+                    android:id="@+id/gridview"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:cacheColorHint="@android:color/transparent"
+                    android:clipToPadding="true"
+                    android:horizontalSpacing="5dp"
+                    android:listSelector="@android:color/transparent"
+                    android:numColumns="5"
+                    android:scrollbars="none"
+                    android:stretchMode="columnWidth"
+                    android:verticalSpacing="5dp"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:background="@color/color_grayline1dp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/create_groupchat"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/btn_submit_bg"
+                android:gravity="center"
+                android:text="创建多人聊天"
+                android:textColor="@color/white"
+                android:textSize="16sp"></TextView>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

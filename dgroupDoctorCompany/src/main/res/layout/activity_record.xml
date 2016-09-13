@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_background"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/layout_titlebar"
+        layout="@layout/layout_parent_titlebar_groupcompany"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></include>
+
+    <RelativeLayout
+        android:id="@+id/rl_singrecord"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_below="@id/layout_titlebar"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_visitrecord"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="17dp"
+            android:background="@drawable/goworkrecord" />
+
+        <TextView
+            android:id="@+id/tv_visitrecord"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView10"
+            android:layout_alignStart="@+id/textView10"
+            android:layout_alignTop="@+id/iv_visitrecord"
+            android:text="考勤统计"
+            android:textColor="@color/color_333333"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_visitrecord"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@id/iv_visitrecord"
+            android:text="职员的签到记录"
+            android:textColor="@color/color_aaaaaa"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/ic_right_arrow" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/color_grayline1dp"></View>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_visitrecord"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_below="@id/rl_singrecord"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_singrecord"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="17dp"
+            android:background="@drawable/baifangrecord" />
+
+        <TextView
+            android:id="@+id/tv_singrecord"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView11"
+            android:layout_alignStart="@+id/textView11"
+            android:layout_alignTop="@+id/iv_singrecord"
+            android:text="拜访统计"
+            android:textColor="@color/color_333333"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_singrecord"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@id/iv_singrecord"
+            android:text="职员的签到记录"
+            android:textColor="@color/color_aaaaaa"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/ic_right_arrow" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/color_grayline1dp"></View>
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/rl_companycontact"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+
+        android:background="@color/white"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="17dp"
+            android:background="@drawable/head_icon"
+            android:id="@+id/iv_headicon"
+
+            android:layout_centerVertical="true"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/null_info"
+            android:textColor="@color/color_333333"
+            android:textSize="16sp"
+            android:id="@+id/tv_name"
+            android:layout_alignTop="@+id/iv_headicon"
+            android:layout_alignLeft="@+id/tv_frenddes"
+            android:layout_alignStart="@+id/tv_frenddes" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:text="客户拜访"
+
+            android:textColor="@color/color_aaaaaa"
+            android:textSize="12sp"
+            android:id="@+id/tv_customervisit"
+            android:layout_above="@+id/tv_frenddes"
+            android:layout_toRightOf="@+id/tv_name"
+            android:layout_toEndOf="@+id/tv_name"
+            android:layout_marginStart="12dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@string/null_info"
+            android:id="@+id/tv_frenddes"
+            android:layout_below="@id/tv_name"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="3dp"
+            android:layout_toRightOf="@id/iv_headicon"
+            android:textColor="@color/color_aaaaaa"
+            android:textSize="13sp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="17dp"
+            android:visibility="gone"
+            android:background="@color/color_grayline1dp"
+            android:layout_alignParentBottom="true"></View>
+    </RelativeLayout>
+
+</LinearLayout>

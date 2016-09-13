@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--    android:background="@drawable/list_mediemanager"-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:background="@color/white"
+
+    >
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:id="@+id/line1"
+        android:visibility="gone"
+        android:background="@color/divide_line_color"
+         ></View>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+<ImageView
+    android:layout_width="10dp"
+    android:layout_height="10dp"
+    android:id="@+id/iv_down_close"
+android:layout_marginLeft="15dp"
+    android:layout_marginTop="5dp"
+    android:layout_centerVertical="true"
+    android:background="@drawable/down_close"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:textSize="13sp"
+        android:id="@+id/tv_edit"
+        android:gravity="center_vertical"
+        android:textColor="@color/color_3cbaff"
+        android:layout_alignParentRight="true"
+        android:text="编辑分管关系"
+        android:paddingLeft="5dp"
+        android:paddingRight="15dp"/>
+    <ImageView
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:background="@drawable/guanli_select"
+        android:layout_centerVertical="true"
+        android:id="@+id/guanli_select"
+        android:layout_toLeftOf="@+id/tv_edit"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="16sp"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:layout_marginLeft="10dp"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical"
+        android:textColor="@color/color_333333"
+        android:text="@string/null_info"
+        android:id="@+id/tv_mediename"
+        android:layout_toLeftOf="@+id/guanli_select"
+        android:layout_toRightOf="@+id/iv_down_close"  />
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/divide_line_color"
+        android:layout_marginTop="56dp"></View>
+</RelativeLayout>

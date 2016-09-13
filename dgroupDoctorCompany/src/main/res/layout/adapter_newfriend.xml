@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/rl_companycontact"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+
+        android:background="@color/white"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="17dp"
+            android:background="@drawable/head_icon"
+            android:id="@+id/iv_headicon"
+            android:layout_centerVertical="true"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/null_info"
+            android:textColor="@color/color_333333"
+            android:textSize="16sp"
+            android:id="@+id/tv_name"
+            android:layout_alignTop="@+id/iv_headicon"
+            android:layout_alignLeft="@+id/tv_frenddes"
+            android:layout_alignStart="@+id/tv_frenddes" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@string/null_info"
+android:singleLine="true"
+            android:maxEms="13"
+            android:ellipsize="end"
+            android:background="@drawable/btn_blue_all_3cbaff"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+    android:layout_marginBottom="2dp"
+            android:id="@+id/tv_customervisit"
+            android:layout_alignBottom="@+id/tv_name"
+            android:layout_toRightOf="@+id/tv_name"
+            android:layout_toEndOf="@+id/tv_name"
+            android:layout_marginStart="10dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@string/null_info"
+            android:id="@+id/tv_frenddes"
+            android:layout_below="@id/tv_name"
+            android:layout_marginTop="10dp"
+            android:singleLine="true"
+            android:maxEms="13"
+            android:ellipsize="end"
+            android:layout_marginBottom="3dp"
+            android:layout_toRightOf="@id/iv_headicon"
+            android:textColor="@color/color_aaaaaa"
+            android:textSize="11sp" />
+      <!--  <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="17dp"
+            android:background="@color/color_grayline1dp"
+            android:layout_alignParentBottom="true"></View>-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@string/null_info"
+            android:id="@+id/tv_frendstate"
+            android:gravity="right"
+            android:layout_centerVertical="true"
+            android:singleLine="true"
+            android:maxEms="10"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_toRightOf="@id/iv_headicon"
+            android:textColor="@color/color_aaaaaa"
+            android:textSize="11sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/null_info"
+            android:layout_marginTop="3dp"
+            android:id="@+id/tv_depart"
+            android:singleLine="true"
+            android:maxEms="10"
+            android:textColor="@color/color_aaaaaa"
+            android:textSize="11sp"
+            android:layout_alignBaseline="@+id/tv_frenddes"
+            android:layout_alignBottom="@+id/tv_frenddes"
+            android:layout_toRightOf="@+id/tv_frenddes"
+            android:layout_marginLeft="3dp"  />
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/background"
+              android:orientation="vertical">
+
+    <include
+        android:id="@+id/layout_titlebar"
+        layout="@layout/layout_parent_titlebar_groupcompany"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"></LinearLayout>
+        <com.dachen.medicine.view.ClearEditText
+            android:id="@+id/et_search"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/shape_edittext_search"
+            android:cursorVisible="true"
+            android:gravity="center|left"
+            android:hint="请输入想要搜索的地点"
+            android:textColor="@color/color_333333"
+            android:textColorHint="@color/gray"
+            android:textSize="12sp"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:textCursorDrawable="@null"
+            android:drawableLeft="@drawable/ic_search"
+            android:drawablePadding="4dp"
+            android:singleLine="true"/>
+    </RelativeLayout>
+
+    <com.amap.api.maps.MapView
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="240dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.handmark.pulltorefresh.library.PullToRefreshListView
+            android:id="@+id/lvAddress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:cacheColorHint="#00000000"
+            android:listSelector="#00000000"
+            android:smoothScrollbar="true"
+            android:background="@color/white"></com.handmark.pulltorefresh.library.PullToRefreshListView>
+        <RelativeLayout
+            android:id="@+id/vInfo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white">
+            <ImageView
+                android:id="@+id/ivFlag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_distance"
+                android:layout_centerInParent="true"/>
+            <TextView
+                android:id="@+id/tvInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="距离当前定位地点过远，无法签到"
+                android:layout_below="@+id/ivFlag"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"
+                android:textSize="16sp"
+                android:textColor="@color/color_666666"/>
+        </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>

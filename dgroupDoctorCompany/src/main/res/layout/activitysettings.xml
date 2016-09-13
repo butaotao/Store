@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_background"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/layout_titlebar"
+        layout="@layout/layout_parent_titlebar_groupcompany"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+    </include>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dip"
+        android:background="@color/color_background" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/color_dividerline" />
+    <RelativeLayout
+        android:id="@+id/ll_edittelphone"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height_45dp"
+        android:paddingLeft="@dimen/margin_left_15dp"
+        android:visibility="gone"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/img_erweima"
+            android:gravity="center_vertical"
+            android:text="修改手机号码"
+            android:textColor="@color/bindcard_gray"
+            android:textSize="@dimen/text_size_myinfo_16" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="@dimen/margin_left_15dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_right_arrow" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/color_dividerline" />
+
+        <RelativeLayout
+            android:id="@+id/ll_conrectpassword"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height_45dp"
+            android:paddingLeft="@dimen/margin_left_15dp"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@id/img_erweima"
+                android:gravity="center_vertical"
+                android:text="修改密码"
+                android:textColor="@color/bindcard_gray"
+                android:textSize="@dimen/text_size_myinfo_16" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="@dimen/margin_left_15dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_right_arrow" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/color_dividerline" />
+
+
+        <RelativeLayout
+            android:id="@+id/ll_erweima"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height_45dp"
+            android:paddingLeft="@dimen/margin_left_15dp"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@id/img_erweima"
+                android:gravity="center_vertical"
+                android:text="关于"
+                android:textColor="@color/bindcard_gray"
+                android:textSize="@dimen/text_size_myinfo_16" />
+
+            <ImageView
+                android:id="@+id/ic_right_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="@dimen/margin_left_15dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_right_arrow" />
+
+            <TextView
+                android:id="@+id/tv_version"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@id/ic_right_arrow"
+                android:gravity="center_vertical"
+                android:text="v"
+                android:textColor="@color/bindcard_gray"
+                android:textSize="@dimen/text_size_myinfo_16" />
+        </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/color_dividerline" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dip"
+        android:background="@color/color_background" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/color_dividerline" />
+
+    <RelativeLayout
+        android:id="@+id/ll_logout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height_45dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_vertical"
+            android:text="@string/logout"
+            android:textColor="@color/color_f74e5b"
+            android:textSize="@dimen/text_size_myinfo_16" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/color_dividerline" />
+
+</LinearLayout>

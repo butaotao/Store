@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F2F2F2"
+    android:orientation="vertical">
+
+    <RelativeLayout style="@style/ActionBar_Container">
+
+        <RelativeLayout
+            android:id="@+id/im_group_chat_ui_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="1dp"
+                android:background="@drawable/icon_back" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/iv_back"
+                android:text="返回"
+                android:textColor="@color/color_3cbaff"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <!--<RelativeLayout-->
+        <!--android:id="@+id/im_group_chat_ui_back"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="match_parent">-->
+
+        <!--<ImageView-->
+        <!--android:id="@+id/iv_back"-->
+        <!--android:layout_width="20dp"-->
+        <!--android:layout_height="30dp"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:layout_marginLeft="20dp"-->
+        <!--android:background="@drawable/icon_back"/>-->
+        <!--</RelativeLayout>-->
+
+        <TextView
+            android:id="@+id/im_group_chat_ui_title"
+            style="@style/ActionBar_Title"
+            android:layout_centerInParent="true"
+            android:ellipsize="end"
+            android:maxEms="10"
+            android:singleLine="true"
+            android:text="聊天信息"
+            android:textColor="@color/black" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/divide_line_color" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/patient_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="8dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="22dp"
+                    android:text="患者"
+                    android:textColor="@color/gray_333333"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="22dp"
+                    android:paddingRight="22dp">
+
+                    <ImageView
+                        android:id="@+id/avatar"
+                        android:layout_width="58dp"
+                        android:layout_height="58dp"
+                        android:src="@drawable/avatar_normal" />
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="9dp">
+
+                        <TextView
+                            android:id="@+id/name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/gray_666666"
+                            android:textSize="17sp" />
+
+                        <TextView
+                            android:id="@+id/sex"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/name"
+                            android:layout_marginTop="9dp"
+                            android:textColor="@color/gray_aaaaaa"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/age"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignTop="@id/sex"
+                            android:layout_marginLeft="10dp"
+                            android:layout_toRightOf="@id/sex"
+                            android:textColor="@color/gray_aaaaaa"
+                            android:textSize="14sp" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginTop="20dp"
+                    android:background="#D6D6D6" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="22dp"
+                    android:layout_marginTop="20dp"
+                    android:text="医生组员"
+                    android:textColor="@color/gray_333333"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <com.dachen.common.widget.NoScrollerGridView
+                android:id="@+id/im_group_chat_ui_gridView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:fadingEdge="none"
+                android:fastScrollEnabled="false"
+                android:focusable="false"
+                android:gravity="center"
+                android:horizontalSpacing="15dp"
+                android:listSelector="#00000000"
+                android:numColumns="4"
+                android:paddingBottom="19dp"
+                android:paddingLeft="19dp"
+                android:paddingRight="19dp"
+                android:paddingTop="20dp"
+                android:scrollbars="none"
+                android:smoothScrollbar="true"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="12dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#D6D6D6" />
+
+            <LinearLayout
+                android:id="@+id/group_settting_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:background="@color/bg_color" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#D6D6D6" />
+
+                <RelativeLayout
+                    android:visibility="gone"
+                    android:id="@+id/layout_avatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/selector_btn_press">
+
+                    <TextView
+                        android:id="@+id/tv_avatar_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:text="更换头像"
+                        android:textColor="@color/gray_chat_text"
+                        android:textSize="17sp" />
+
+                    <ImageView
+                        android:id="@+id/iv_avatar"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toLeftOf="@+id/iv_avatar_arrow" />
+
+                    <ImageView
+                        android:id="@+id/iv_avatar_arrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="20dp"
+                        android:src="@drawable/icon_right_arrow" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_alignParentBottom="true"
+                        android:background="#D6D6D6" />
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/im_group_chat_ui_setting_name_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/selector_btn_press">
+
+                    <TextView
+                        android:id="@+id/im_group_chat_ui_name_key"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:text="群聊名称"
+                        android:textColor="@color/gray_chat_text"
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:id="@+id/im_group_chat_ui_name_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toLeftOf="@+id/im_group_chat_ui_name_imageView"
+                        android:layout_toRightOf="@+id/im_group_chat_ui_name_key"
+                        android:ellipsize="end"
+                        android:gravity="right"
+                        android:singleLine="true"
+                        android:text=""
+                        android:textColor="@color/gray_time_text"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:id="@+id/im_group_chat_ui_name_imageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="20dp"
+                        android:src="@drawable/icon_right_arrow" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#D6D6D6" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/selector_btn_press">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:text="置顶聊天"
+                        android:textColor="@color/gray_chat_text"
+                        android:textSize="17sp" />
+
+                    <com.dachen.common.widget.UISwitchButton
+                        android:id="@+id/switch_top_chat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="50dp"
+                        android:layout_marginRight="12dp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="#D6D6D6" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/selector_btn_press">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:text="消息提醒"
+                        android:textColor="@color/gray_chat_text"
+                        android:textSize="17sp" />
+
+                    <com.dachen.common.widget.UISwitchButton
+                        android:id="@+id/im_group_chat_ui_setting_messge_remind"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="50dp"
+                        android:layout_marginRight="12dp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="#D6D6D6" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/selector_btn_press"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:text="保存到我的群组"
+                        android:textColor="@color/gray_chat_text"
+                        android:textSize="17sp" />
+
+                    <com.dachen.common.widget.UISwitchButton
+                        android:id="@+id/im_group_chat_ui_setting_fav"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="50dp"
+                        android:layout_marginRight="12dp" />
+                    <View
+                        android:layout_alignParentBottom="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#D6D6D6" />
+                </RelativeLayout>
+
+
+
+
+                <RelativeLayout
+                    android:id="@+id/im_group_chat_ui_clear_chat_record"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/selector_btn_press">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="#D6D6D6" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:text="清空聊天记录"
+                        android:textColor="@color/gray_chat_text"
+                        android:textSize="17sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="#D6D6D6" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/im_group_chat_ui_exit_multiple_chat"
+                style="@style/IMButton.Red"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="40dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
+                android:layout_marginTop="30dp"
+                android:gravity="center"
+                android:text="退出多人聊天" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

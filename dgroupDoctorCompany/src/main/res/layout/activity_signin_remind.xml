@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/background"
+     >
+    <include android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        layout="@layout/layout_parent_titlebar_groupcompany"
+        android:id="@+id/rl_title"></include>
+   <!-- <RelativeLayout style="@style/ActionBar_Container"
+        android:id="@+id/rl_title"
+        android:layout_marginTop="20dp">
+        <RelativeLayout
+            android:id="@+id/rl_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+&lt;!&ndash;
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+
+                android:background="@drawable/icon_back" />&ndash;&gt;
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="12dp"
+                android:layout_height="24dp"
+                android:layout_marginLeft="10dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/icon_back_base" />
+            <TextView
+                android:id="@+id/tv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/iv_back"
+                android:text="返回"
+                android:textColor="@color/color_3cbaff"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_des"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="6dp"
+                android:layout_toRightOf="@id/tv_back"
+                android:gravity="center_vertical"
+                android:text="关闭"
+                android:textColor="@color/color_3cbaff"
+                android:textSize="15sp"
+                android:visibility="gone" />
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/ActionBar_Title"
+            android:layout_centerInParent="true"
+            android:ellipsize="end"
+            android:maxEms="10"
+            android:singleLine="true"
+            android:text="签到提醒"
+            android:textColor="@color/black"/>
+
+        <ImageButton
+            android:id="@+id/btn_add"
+            android:layout_width="54dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@null"
+            android:src="@drawable/add_white"/>
+    </RelativeLayout>
+-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        android:layout_below="@+id/rl_title"
+        android:id="@+id/ll_list"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_titlebar"
+            android:id="@+id/rl_des"
+            android:paddingBottom="20dp"
+            android:background="@color/color_3cbaff">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/null_info"
+                android:textColor="@color/white"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/tv_week"
+                android:textSize="36dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#e1f2fb"
+                android:textSize="14sp"
+                android:text="@string/null_info"
+                android:id="@+id/tv_time"
+
+                android:layout_below="@+id/tv_week"
+                android:layout_alignLeft="@+id/tv_week"
+                android:layout_alignStart="@+id/tv_week" />
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+
+            android:layout_weight="1.5" >
+
+        <ListView
+        android:id="@+id/remind_list"
+        android:layout_width="match_parent"
+        android:scrollbars="none"
+        android:layout_height="match_parent"
+ >
+    </ListView>
+
+        </RelativeLayout>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/rl_empty"
+        android:gravity="center"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:textColor="@color/color_aaaaaa"
+            android:textSize="16sp"
+            android:id="@+id/tv_desemp"
+
+            android:layout_height="wrap_content"
+            android:text="未设置签到提醒"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/tv_desemp"
+            android:layout_centerHorizontal="true"
+
+            android:background="@drawable/icon_no_sign"/>
+    </RelativeLayout>
+</RelativeLayout>

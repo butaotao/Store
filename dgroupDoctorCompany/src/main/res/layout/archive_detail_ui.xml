@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical">
+
+    <RelativeLayout style="@style/ActionBar_Container">
+
+       <!-- <RelativeLayout
+            android:id="@+id/back_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="35dp"
+                android:layout_height="fill_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="6dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/icon_back"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="1dp"
+                android:layout_toRightOf="@id/iv_back"
+                android:text="返回"
+                android:textColor="@color/color_3cbaff"
+                android:textSize="17sp"/>
+        </RelativeLayout>-->
+<include layout="@layout/layout_parent_titlebar_groupcompany"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/back_btn"
+    ></include>
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:layout_toLeftOf="@+id/share"
+            android:layout_toRightOf="@+id/back_btn"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="@dimen/common_title"/>
+
+        <TextView
+            android:id="@+id/share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:text="转发"
+            android:textColor="@color/color_3cbaff"
+            android:textSize="18sp" />
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/divide_line_color"/>
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+    </FrameLayout>
+
+    <View
+        android:id="@+id/vLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#C4C4C4" />
+
+    <RelativeLayout
+        android:id="@+id/vBottom"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:id="@+id/ll_action"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:gravity="center_vertical">
+
+            <Button
+                android:id="@+id/btn_action"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_blue_bg"
+                android:text="下载"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/btn_save"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_frame_bg"
+                android:text="保存到我的文件"
+                android:textColor="@color/gray"
+                android:enabled="false"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_downloading"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:visibility="gone"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="下载中..."
+                    android:textColor="#333"
+                    android:textSize="14sp" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp"
+                    android:progress="50"
+                    android:progressDrawable="@drawable/progress_download" />
+
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/ibtn_cancel_download"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginRight="2dp"
+                android:background="@color/transparent"
+                android:scaleType="center"
+                android:src="@drawable/round_cancel" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+ <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
+     android:paddingLeft="17dp"
+     android:paddingRight="17dp"
+    android:background="@color/white">
+     <ImageView
+         android:id="@+id/ivPicture"
+         android:layout_width="25dp"
+         android:layout_height="25dp"
+         android:src="@drawable/wenjianjia"
+         android:layout_alignParentLeft="true"
+         android:layout_centerVertical="true"
+         android:scaleType="fitXY"/>
+     <TextView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:textColor="@color/color_333333"
+         android:layout_marginLeft="15dp"
+         android:textSize="16sp"
+         android:id="@+id/name"
+         android:layout_toRightOf="@+id/ivPicture"
+         android:text="@string/null_info"
+         android:layout_centerVertical="true"/>
+
+     <TextView
+         android:id="@+id/tvSelected"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:textColor="@color/color_333333"
+         android:textSize="16sp"
+         android:text="1"
+         android:layout_toLeftOf="@+id/ivGo"
+         android:layout_centerVertical="true"
+         android:layout_marginRight="10dp"/>
+
+     <ImageView
+         android:id="@+id/ivGo"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:background="@drawable/ic_right_arrow"
+         android:layout_centerVertical="true"
+         android:layout_alignParentRight="true"
+         />
+
+ </RelativeLayout>
+</LinearLayout>

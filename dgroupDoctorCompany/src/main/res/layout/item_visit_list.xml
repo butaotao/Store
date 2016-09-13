@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/color_grayline1dp"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="78dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@+id/ivDelete"
+            android:orientation="horizontal"
+            android:paddingBottom="3dp"
+            >
+
+            <ImageView
+                android:id="@+id/ivPicture"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="14dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/baifang" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tvName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginTop="14dp"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:text="驱程"
+                            android:textColor="@color/text_black"
+                            android:textSize="16sp"
+                            android:layout_marginRight="140dp"
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="14dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tvDate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textColor="@color/gray_999999"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tvWeek"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="4dp"
+                            android:text=""
+                            android:textColor="@color/gray_999999"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tvFlag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="16dp"
+                        android:text="【草稿】"
+                        android:textColor="@color/blue_3cbaff"
+                        android:textSize="14sp"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+                <RelativeLayout android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="深圳人民医院"
+                    android:textColor="@color/gray_999999"
+                    android:textSize="14sp"
+                    android:layout_marginRight="80dp"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    />
+
+                    <TextView
+                        android:id="@+id/joint_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/corner_blue_bg"
+                        android:gravity="center"
+                        android:paddingBottom="2dp"
+                        android:paddingTop="2dp"
+                        android:text="协同"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:minWidth="40dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="10dp"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:layout_marginTop="5dp"
+                        />
+            </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/ivDelete"
+            android:layout_width="20dp"
+            android:layout_height="24dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="4dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/delete_icon"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="15dp"
+        android:background="@color/color_grayline1dp" />
+
+    <TextView
+        android:id="@+id/tvRemark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:paddingBottom="20dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="20dp"
+        android:text="@string/null_info"
+        android:textColor="@color/black_666666"
+        android:textSize="14sp"
+        android:visibility="gone" />
+
+</LinearLayout>

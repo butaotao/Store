@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_background"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/layout_parent_titlebar_groupcompany"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"></include>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:gravity="center_vertical"
+        android:text="添加方式"
+        android:textColor="@color/color_aaaaaa"
+        android:visibility="invisible" />
+
+    <RelativeLayout
+        android:id="@+id/btn_addbyphonenum"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:background="@color/normal_bg">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/color_dividerline"></View>
+
+        <ImageView
+            android:id="@+id/iv_phone"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/icon_iphone" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/iv_phone"
+            android:text="手机号码添加"
+            android:textColor="@color/color_666666" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/color_dividerline"></View>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#D6D6D6"
+        android:padding="10dip"
+        android:visibility="gone">
+
+        <com.dachen.common.widget.ClearEditText
+            android:id="@+id/edit_search"
+            android:layout_width="match_parent"
+            android:layout_height="45dip"
+            android:background="@drawable/im_input_bg"
+            android:drawableLeft="@drawable/ic_search"
+            android:drawablePadding="5dip"
+            android:gravity="center"
+            android:hint="输入医生名字搜索"
+            android:padding="10dip"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:gravity="center_vertical"
+        android:paddingBottom="8dip"
+        android:paddingTop="15dip"
+        android:text="从通讯录添加"
+        android:textColor="@color/color_aaaaaa" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/divide_line_color" />
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <!--        <com.handmark.pulltorefresh.library.PullToRefreshListView
+                    xmlns:pull="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/refreshlistview"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="@color/white"
+                    android:cacheColorHint="#00000000"
+                    android:divider="@android:color/transparent"
+                    android:dividerHeight="1dip"
+                    android:fadingEdge="none"
+                    android:fastScrollEnabled="false"
+                    android:focusable="false"
+                    android:footerDividersEnabled="false"
+                    android:headerDividersEnabled="false"
+                    android:listSelector="#00000000"
+                    android:scrollbars="none"
+                    android:smoothScrollbar="true"
+                    pull:ptrAnimationStyle="flip" />-->
+        <ListView
+            android:id="@+id/refreshlistview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:cacheColorHint="#00000000"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="1px"
+            android:listSelector="#00000000"
+            android:scrollbars="none">
+
+
+        </ListView>
+
+        <com.dachen.dgroupdoctorcompany.views.SideBar
+            android:id="@+id/sideBar"
+            android:layout_width="25dp"
+            android:layout_height="fill_parent"
+            android:layout_gravity="right|center_vertical"
+            android:background="@color/normal_bg"
+            android:visibility="gone" />
+
+        <include
+            android:id="@+id/layout_contactnotpeople"
+            layout="@layout/layout_contactnotpeople"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></include>
+    </FrameLayout>
+
+</LinearLayout>

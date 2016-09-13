@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background"
+        android:orientation="vertical"
+        android:id="@+id/ll_choicetime">
+    <include
+        android:id="@+id/layout_titlebar"
+        layout="@layout/layout_parent_titlebar_groupcompany"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_d6d6d6"/>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+
+
+        <com.dachen.dgroupdoctorcompany.views.TimePickerCustomer
+            android:id="@+id/minute_pv"
+            android:layout_width="match_parent"
+            android:gravity="center_horizontal"
+            android:layout_height="280dp" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="10dp"
+        android:background="@color/gray_d6d6d6"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:text="重复"
+        android:textSize="16sp"
+        android:textColor="@color/gray_333333"/>
+    <com.dachen.dgroupdoctorcompany.views.ItemContainer
+        android:id="@+id/vLableContainer"
+        android:layout_width="match_parent"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_height="wrap_content"/>
+    </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:gravity="center_horizontal"
+        android:id="@+id/rl_deletealert"
+        android:visibility="gone"
+        android:layout_alignParentBottom="true">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="删除提醒"
+            android:textSize="16sp"
+            android:textColor="@color/order_time_out"/>
+    </LinearLayout>
+</RelativeLayout>

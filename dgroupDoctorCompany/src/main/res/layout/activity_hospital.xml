@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_background"
+    android:orientation="vertical">
+    <include layout="@layout/layout_parent_titlebar_groupcompany"
+        android:id="@+id/layout_titlebar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
+
+    <RelativeLayout android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:id="@+id/rl_et"
+        android:visibility="gone"
+        android:layout_below="@+id/layout_titlebar"
+        >
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dip"
+            android:background="@drawable/button_frame"
+            android:gravity="center">
+
+
+            <TextView
+                android:id="@+id/et_search"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:cursorVisible="false"
+                android:drawableLeft="@drawable/ic_search"
+                android:drawablePadding="2dip"
+                android:gravity="center"
+                android:text="搜索医生姓名"
+                android:textColor="#969794"
+                android:textColorHint="@color/gray"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+<ListView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/listview"
+    android:layout_below="@id/rl_et"
+    android:background="@color/white"
+    android:divider="@color/color_dividerline"
+    android:dividerHeight="0.5dp"
+    android:scrollbars="none"
+    ></ListView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:visibility="gone"
+        android:layout_below="@+id/listview"
+        android:background="@color/divide_line_color"></View>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+             android:visibility="gone"
+            android:layout_below="@id/layout_titlebar">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/address_book"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/image_contact"
+                    android:layout_marginTop="60dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="你的通讯录里还没有医生"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/gray_aaaaaa"
+                    />
+            </LinearLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rl_notcontenttext"
+        android:visibility="gone"
+        android:layout_below="@id/layout_titlebar">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:textSize="16sp"
+                android:id="@+id/tv_notcontent"
+                android:textColor="@color/color_aaaaaa"
+                android:layout_marginLeft="60dp"
+                android:layout_marginRight="60dp"
+                android:text="您当前未能找到任何分管医院，请先“添加分管医院”，再添加医生"
+                android:layout_centerHorizontal="true"
+                android:drawableTop="@drawable/hospital"
+                />
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

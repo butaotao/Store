@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/layout_parent_titlebar_groupcompany"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/background"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:background="@color/color_grayline1dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="12dp"
+                        android:src="@drawable/visit_info_time" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="15dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvWeek"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="星期五"
+                            android:textColor="@color/text_black"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/tvDate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="10dp"
+                            android:text="2016年01月08日"
+                            android:textColor="@color/gray_999999"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:background="@color/color_grayline1dp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="@color/color_grayline1dp" />
+
+            <RelativeLayout
+                android:id="@+id/location_ray"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/ll_visit"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="12dp"
+                        android:src="@drawable/adress" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="15dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_time_location"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text=""
+                            android:textColor="@color/text_black"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/tv_address"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="10dp"
+                            android:text=""
+                            android:textColor="@color/gray_999999"
+                            android:textSize="16sp"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:layout_marginRight="10dp"
+                            />
+                    </LinearLayout>
+                </LinearLayout>
+                <ImageView
+                    android:id="@+id/address_arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/arrow" />
+
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="@color/color_grayline1dp" />
+
+            <RelativeLayout
+                android:id="@+id/vSelect"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/white">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_alignParentTop="true"
+                    android:background="@color/color_grayline1dp" />
+
+                <TextView
+                    android:id="@+id/tvVisit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:text="客户姓名"
+                    android:textColor="@color/color_666666"
+                    android:textSize="16sp" />
+
+
+                <TextView
+                    android:id="@+id/tvSelected"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:ellipsize="end"
+                    android:gravity="right"
+                    android:singleLine="true"
+                    android:hint="请选择"
+                    android:layout_toRightOf="@+id/tvVisit"
+                    android:textColor="@color/color_3cbaff"
+                    android:textColorHint="@color/color_3cbaff"
+                    android:textSize="14sp"
+                    android:paddingRight="15dp"
+                    />
+
+                <ImageView
+                    android:id="@+id/name_arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/arrow" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/color_grayline1dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/variety_ray"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/white">
+
+
+                <TextView
+                    android:id="@+id/tv_variety_desp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:text="选择品种"
+                    android:textColor="@color/color_666666"
+                    android:textSize="16sp" />
+
+
+                <TextView
+                    android:id="@+id/tv_variety"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_toRightOf="@+id/tv_variety_desp"
+                    android:ellipsize="end"
+                    android:gravity="right"
+                    android:singleLine="true"
+                    android:hint="请选择"
+                    android:textColor="@color/color_3cbaff"
+                    android:textColorHint="@color/color_3cbaff"
+                    android:textSize="14sp"
+                    android:paddingRight="15dp"
+
+                    />
+
+                <ImageView
+                    android:id="@+id/variety_arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/arrow" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/color_grayline1dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/visitors_ray"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_item_bg"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:id="@+id/tv_visitor_desp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:text="拜访人员"
+                    android:textColor="@color/color_666666"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/visitor_avatar"
+                    android:layout_width="35dip"
+                    android:layout_height="35dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/head_icon" />
+
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/color_grayline1dp" />
+
+            <TextView
+                android:id="@+id/desp2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"
+                android:text="提交后24小时内允许编辑未完成的拜访总结"
+                android:textColor="@color/gray_999999"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/color_grayline1dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true" />
+
+                <EditText
+                    android:id="@+id/etRemark"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="3dp"
+                    android:background="@null"
+                    android:gravity="left|top"
+                    android:hint="请输入拜访总结"
+                    android:minLines="5"
+                    android:padding="4dp"
+                    android:textColor="@color/color_333333"
+                    android:textColorHint="@color/color_aaaaaa"
+                    android:textSize="16sp" />
+
+
+                <com.dachen.dgroupdoctorcompany.views.NoScrollGridView
+                    android:id="@+id/gridview"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:cacheColorHint="@android:color/transparent"
+                    android:clipToPadding="true"
+                    android:horizontalSpacing="5dp"
+                    android:listSelector="@null"
+                    android:numColumns="4"
+                    android:scrollbars="none"
+                    android:stretchMode="columnWidth"
+                    android:verticalSpacing="5dp" />
+
+
+                <TextView
+                    android:id="@+id/del_desp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:background="@color/white"
+                    android:padding="5dp"
+                    android:text="提示：长按图片可删除"
+                    android:textColor="@color/gray_999999"
+                    android:textSize="12sp"
+                    android:visibility="invisible"
+                    />
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="@color/color_grayline1dp" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

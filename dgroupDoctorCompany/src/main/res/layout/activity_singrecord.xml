@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_background">
+
+    <include
+        android:id="@+id/layout_titlebar"
+        layout="@layout/layout_parent_titlebar_groupcompany"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></include>
+
+    <LinearLayout
+        android:id="@+id/ll_select"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/layout_titlebar"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/rl_day"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true">
+
+                <TextView
+                    android:id="@+id/textdescandler"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="今天"
+                    android:textColor="@color/color_333333" />
+
+                <ImageView
+                    android:id="@+id/iv_day"
+                    android:layout_width="8dp"
+                    android:layout_height="6dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@id/textdescandler"
+                    android:background="@drawable/recordirro" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0.5dp"
+                android:layout_height="19dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@color/divide_line_color">
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_depart"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true">
+
+                <TextView
+                    android:id="@+id/departdes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="部门" />
+
+                <ImageView
+                    android:id="@+id/iv_dep"
+                    android:layout_width="8dp"
+                    android:layout_height="6dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@id/departdes"
+                    android:background="@drawable/recordirro" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0.5dp"
+                android:layout_height="19dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@color/divide_line_color">
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_state"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true">
+
+                <TextView
+                    android:id="@+id/textstate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="状态" />
+
+                <ImageView
+                    android:id="@+id/iv_state"
+                    android:layout_width="8dp"
+                    android:layout_height="6dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@id/textstate"
+                    android:background="@drawable/recordirro" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <com.handmark.pulltorefresh.library.PullToRefreshPinHeaderExpandableListView
+        xmlns:pull="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/ll_select"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/white"
+        android:background="@color/bg_color"
+        android:cacheColorHint="#00000000"
+        android:childDivider="@color/text_line_color"
+        android:divider="@color/text_line_color"
+        android:dividerHeight="0px"
+        android:groupIndicator="@null"
+        android:listSelector="#00000000"
+        android:scrollbars="none"
+        pull:ptrAnimationStyle="flip"></com.handmark.pulltorefresh.library.PullToRefreshPinHeaderExpandableListView>
+
+    <LinearLayout
+        android:id="@+id/ll_nocontent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_notcontent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerInParent="true"
+                android:textColor="@color/color_aaaaaa" />
+
+            <ImageView
+                android:id="@+id/iv_nocontent"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_above="@+id/tv_notcontent"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"></RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:id="@+id/rl_line1"
+        android:visibility="gone" >
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/rl_line1">
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="09:30"
+    android:id="@+id/tv_time"
+    android:textColor="@color/color_3cbaff"
+    android:textSize="16sp"
+    android:layout_marginLeft="15dp"/>
+
+        <RelativeLayout
+            android:layout_alignParentTop="true"
+            android:id="@+id/line_top"
+            android:layout_width="15dp"
+            android:layout_height="60dp"
+            android:layout_below="@+id/iv_cir"
+            android:layout_alignLeft="@+id/iv_cir"
+            android:layout_alignStart="@+id/iv_cir">
+            <RelativeLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:background="@color/color_dividerline"></RelativeLayout>
+
+        </RelativeLayout>
+    <ImageView
+        android:layout_marginTop="5dp"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:background="@drawable/cirrecord"
+        android:layout_marginLeft="11dp"
+        android:id="@+id/iv_cir"
+        android:layout_toRightOf="@+id/tv_time"
+        android:layout_toEndOf="@+id/tv_time"
+        android:layout_marginStart="11dp" />
+    <RelativeLayout
+        android:layout_width="15dp"
+        android:layout_height="60dp"
+        android:id="@+id/line"
+        android:layout_below="@+id/iv_cir"
+        android:layout_alignLeft="@+id/iv_cir"
+        android:layout_alignStart="@+id/iv_cir">
+        <RelativeLayout
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/line2"
+            android:background="@color/color_dividerline"></RelativeLayout>
+
+    </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@+id/line"
+            android:visibility="gone"
+            android:id="@+id/line3"
+            android:background="@color/color_dividerline"></RelativeLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:background="@drawable/btn_blue_all_3cbaff"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:text="@string/null_info"
+        android:id="@+id/tv_gowork"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:paddingRight="7dp"
+        android:paddingLeft="7dp"
+        android:layout_alignBottom="@+id/tv_time"
+        android:layout_toRightOf="@+id/iv_cir"
+        android:layout_toEndOf="@+id/iv_cir" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/null_info"
+        android:singleLine="true"
+        android:layout_toRightOf="@+id/line"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="15dp"
+        android:id="@+id/tv_place"
+
+        android:textColor="@color/gray_999999"
+        android:layout_below="@+id/tv_gowork"/>
+    </RelativeLayout>
+</RelativeLayout>

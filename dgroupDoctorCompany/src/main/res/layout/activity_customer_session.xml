@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_edeeee"
+    android:orientation="vertical" >
+
+    <include layout="@layout/common_header"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/divide_line_color"/>
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        xmlns:ptr="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/pull_refresh_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@null"
+        ptr:ptrAnimationStyle="flip"
+        ptr:ptrDrawableEnd="@drawable/default_ptr_rotate"
+        ptr:ptrDrawableStart="@drawable/default_ptr_flip"
+        ptr:ptrHeaderTextColor="@color/black"
+        ptr:ptrMode="both"
+        ptr:ptrOverScroll="false"
+        ptr:ptrScrollingWhileRefreshingEnabled="true"
+        ptr:ptrShowIndicator="false" />
+
+    <RelativeLayout
+        android:id="@+id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:visibility="gone" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="130dp"
+            android:drawablePadding="20dp"
+            android:drawableTop="@drawable/no_treatment_record"
+            android:gravity="center"
+            android:text="还没有意见反馈"
+            android:textColor="@color/gray_cccccc"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+</LinearLayout>

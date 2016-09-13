@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <include layout="@layout/layout_parent_titlebar_groupcompany"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></include>
+   <!-- <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rl_emptview"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:textSize="16sp"
+            android:gravity="center_horizontal"
+            android:textColor="@color/color_aaaaaa"
+            android:layout_marginTop="100dp"
+            android:id="@+id/tv_emptview"
+            android:text="您当前没有任何医生好友，请点击“添加医生”，添加医生好友"/>
+    </RelativeLayout>-->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rl_emptview"
+        android:layout_below="@id/layout_titlebar">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/address_book"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/image_contact"
+                android:layout_marginTop="60dp"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="你的通讯录里还没有医生"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:textSize="16sp"
+                android:textColor="@color/gray_aaaaaa"
+                />
+        </LinearLayout>
+    </RelativeLayout>
+   <!-- <RelativeLayout android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:id="@+id/rl_et"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
+        android:visibility="visible"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/btn_white"
+        android:layout_below="@+id/layout_titlebar"
+        >
+        <ImageView android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginLeft="40dp"
+            android:layout_centerVertical="true"
+            android:id="@+id/iv_search"
+            android:background="@drawable/search_black"/>
+        <EditText android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_toRightOf="@+id/iv_search"
+            android:background="@color/white"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:imeOptions="actionSearch"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:cursorVisible="true"
+            android:textCursorDrawable="@null"
+            android:textSize="16sp"
+            android:textColor="#969794"
+            android:gravity="center_vertical"
+            android:id="@+id/et_search"
+            android:textColorHint="@color/gray"
+            android:hint="输入医生姓名关键词搜索"/>
+
+    </RelativeLayout>
+-->
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:id="@+id/rl_et"
+        >
+
+        <EditText
+            android:id="@+id/et_search"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/btn_white"
+            android:cursorVisible="false"
+            android:gravity="center"
+            android:hint="输入医生姓名关键词搜索"
+            android:textColor="#969794"
+            android:textColorHint="@color/gray"
+            android:textSize="12sp"/>
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="40dp"
+            android:background="@drawable/search_black"/>
+    </RelativeLayout>
+
+    <ExpandableListView
+        android:id="@+id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#ffffff"
+        android:cacheColorHint="#00000000"
+        android:listSelector="#00000000"
+        android:scrollbars="none"
+        android:visibility="gone"
+        >
+    </ExpandableListView>
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/listviewdoctor"
+        android:layout_below="@id/rl_et"
+        android:background="@color/white"
+        android:divider="@color/white"
+        android:dividerHeight="0.5dp"
+        android:scrollbars="none"
+        ></ListView>
+</LinearLayout>

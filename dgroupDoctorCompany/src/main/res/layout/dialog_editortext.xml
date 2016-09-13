@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+
+    android:padding="6dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:background="@drawable/btn_bulk_gray3">
+<EditText
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="6dp"
+    android:padding="2dp"
+    android:gravity="top"
+    android:background="@drawable/btn_bulk_gray3"
+    android:lines="4"
+    android:id="@+id/et_edit"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/et_edit"
+        >
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:background="@color/translate"
+            android:id="@+id/cancel"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:text="取消"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:background="@color/translate"
+            android:id="@+id/sure"
+            android:paddingTop="10dp"
+            android:gravity="center"
+            android:text="确定"/>
+    </LinearLayout>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="45dp"
+    android:layout_marginTop="15dp"
+
+    android:layout_below="@+id/et_edit">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+
+    android:background="@color/divide_line_color">
+
+</LinearLayout>
+
+    <LinearLayout
+        android:layout_width="1dp"
+        android:layout_height="45dp"
+        android:layout_centerHorizontal="true"
+        android:background="@color/divide_line_color">
+
+    </LinearLayout>
+</RelativeLayout>
+</RelativeLayout>
+</RelativeLayout>

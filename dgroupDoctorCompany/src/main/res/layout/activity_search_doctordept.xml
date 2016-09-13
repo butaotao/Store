@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@color/color_background" >
+
+    <include
+        android:id="@+id/layout_titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/layout_parent_titlebar_groupcompany" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/layout_titlebar"
+        android:id="@+id/ll_1"
+        android:orientation="horizontal" >
+
+    </LinearLayout>
+
+    <RelativeLayout android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:layout_below="@+id/ll_1"
+        android:id="@+id/rl_et"
+        >
+        <EditText android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/btn_white"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:textSize="12sp"
+            android:textColor="#969794"
+            android:gravity="center"
+            android:id="@+id/et_search"
+            android:cursorVisible="false"
+            android:textColorHint="@color/gray"
+            android:hint="输入搜索医生关键词"/>
+        <ImageView android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginLeft="40dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/search_black"/>
+    </RelativeLayout>
+<ListView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/rl_et"
+
+    android:id="@+id/listview"
+    android:background="@color/white"
+    android:dividerHeight="0.5dp"
+    android:divider="@color/divide_line_color"></ListView>
+    <include android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/layout_titlebar"
+        layout="@layout/layout_nosearchresult"></include>
+</RelativeLayout>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/im_group_chat_gridview_linear"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@null"
+              android:gravity="center_horizontal"
+              android:orientation="vertical">
+
+    <com.dachen.dgroupdoctorcompany.views.SquareLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true">
+
+        <ImageView
+            android:id="@+id/im_group_chat_gridview_imageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="6dp"
+            android:src="@drawable/avatar_normal"/>
+
+        <Button
+            android:id="@+id/im_group_chat_gridview_delete_user"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_gravity="top|left"
+            android:background="@drawable/group_chat_delete_user"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:visibility="visible"/>
+    </com.dachen.dgroupdoctorcompany.views.SquareLayout>
+
+    <TextView
+        android:id="@+id/im_group_chat_gridview_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="7dp"
+        android:gravity="center"
+        android:singleLine="true"
+        android:text="-na"
+        android:textColor="@color/gray_666666"
+        android:textSize="12sp"/>
+
+</LinearLayout>
